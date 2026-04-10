@@ -1,0 +1,29 @@
+name: HereSdkExploreNativeBridge
+options:
+  bundleIdPrefix: com.here.explore
+  deploymentTarget:
+    iOS: "15.2"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+    SKIP_INSTALL: NO
+
+targets:
+  HereSdkExploreNativeBridge:
+    type: framework
+    platform: iOS
+    sources:
+      - HereSdk.Explore.iOS.NativeBridge
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.here.explore.NativeBridge
+        INFOPLIST_FILE: HereSdk.Explore.iOS.NativeBridge/Info.plist
+        DEFINES_MODULE: YES
+        SWIFT_INSTALL_OBJC_HEADER: YES
+        OTHER_LDFLAGS: $(inherited) -ObjC
+    dependencies:
+      - framework: ../../../tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks/heresdk.xcframework

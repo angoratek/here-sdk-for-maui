@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <PackageId>HereSdk.Explore.Maui</PackageId>
+    <Description>HERE SDK Explore Edition for .NET MAUI — cross-platform maps, routing, search, and traffic</Description>
+    <PackageTags>here;sdk;maui;maps;routing;search;traffic;navigation</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>$(PackageVersion)</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('android'))">
+    <ProjectReference Include="..\HereSdk.Explore.Android.Binding\HereSdk.Explore.Android.Binding.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('ios'))">
+    <ProjectReference Include="..\HereSdk.Explore.iOS.Binding\HereSdk.Explore.iOS.Binding.csproj" />
+  </ItemGroup>
+</Project>

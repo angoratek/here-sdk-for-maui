@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Here.Explore.Maui.RefApp.SearchPage"
+             Title="Search">
+
+    <Grid RowDefinitions="Auto,*">
+        <SearchBar Placeholder="Search for places..."
+                   Text="{Binding SearchQuery}"
+                   SearchCommand="{Binding SearchCommand}" />
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Results}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="0,0,0,5">
+                        <StackLayout>
+                            <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" />
+                            <Label Text="{Binding Coordinates.Latitude, StringFormat='{0:F6}, {1:F6}'}" FontSize="12" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

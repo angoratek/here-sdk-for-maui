@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Here.Explore.Maui.RefApp.TrafficPage"
+             Title="Traffic">
+
+    <StackLayout Padding="10" Spacing="10">
+        <Label Text="Traffic Information" FontSize="24" FontAttributes="Bold" />
+
+        <Button Text="Query Traffic Flow" Command="{Binding QueryFlowCommand}" />
+        <Button Text="Query Traffic Incidents" Command="{Binding QueryIncidentsCommand}" />
+
+        <Label Text="{Binding StatusMessage}" FontSize="14" />
+
+        <CollectionView ItemsSource="{Binding Incidents}" Margin="0,10,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="8" Margin="0,0,0,5">
+                        <StackLayout>
+                            <Label Text="{Binding Description}" FontSize="14" FontAttributes="Bold" />
+                            <Label Text="{Binding Type}" FontSize="12" />
+                            <Label Text="{Binding Impact}" FontSize="12" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

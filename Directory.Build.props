@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <NetVersion>net9.0</NetVersion>
+    <MauiPlatforms>$(NetVersion)-android;$(NetVersion)-ios</MauiPlatforms>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <HereSdkVersion>4.25.5.0</HereSdkVersion>
+    <PackageVersion>4.25.5.0-alpha1</PackageVersion>
+  </PropertyGroup>
+</Project>

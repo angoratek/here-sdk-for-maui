@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Here.Explore.Maui.RefApp</RootNamespace>
+    <ApplicationId>com.here.explore.maui.refapp</ApplicationId>
+    <ApplicationTitle>HERE SDK Explore Demo</ApplicationTitle>
+    <ApplicationVersion>1</ApplicationVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HereSdk.Explore.Maui\HereSdk.Explore.Maui.csproj" />
+  </ItemGroup>
+</Project>

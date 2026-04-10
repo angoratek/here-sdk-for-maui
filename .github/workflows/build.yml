@@ -1,0 +1,52 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Run unit tests
+        run: dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
+
+  build-android:
+    runs-on: windows-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - run: dotnet workload install maui-android
+      - name: Build Android binding
+        run: dotnet build src/HereSdk.Explore.Android.Binding -c Release
+      - name: Build MAUI library (Android)
+        run: dotnet build src/HereSdk.Explore.Maui -f net9.0-android -c Release
+
+  build-ios:
+    runs-on: macos-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - run: dotnet workload install maui-ios
+      - name: Build iOS NativeBridge
+        run: |
+          cd src/HereSdk.Explore.iOS.NativeBridge
+          ./build-xcframework.sh
+      - name: Run Sharpie + fix bindings
+        run: ./scripts/bind-ios.sh
+      - name: Build iOS binding
+        run: dotnet build src/HereSdk.Explore.iOS.Binding -c Release
+      - name: Build MAUI library (iOS)
+        run: dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release

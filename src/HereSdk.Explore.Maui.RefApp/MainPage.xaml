@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+             xmlns:models="clr-namespace:Here.Explore.Maui.Models;assembly=HereSdk.Explore.Maui"
+             x:Class="Here.Explore.Maui.RefApp.MainPage"
+             Title="HERE SDK Explore">
+
+    <Grid RowDefinitions="Auto,*">
+        <HorizontalStackLayout Padding="10" Spacing="10">
+            <Button Text="Normal Day" Command="{Binding NormalDayCommand}" />
+            <Button Text="Satellite" Command="{Binding SatelliteCommand}" />
+            <Button Text="Search" Command="{Binding SearchCommand}" />
+        </HorizontalStackLayout>
+
+        <controls:HereMapView
+            x:Name="MapView"
+            Grid.Row="1"
+            CameraTarget="{Binding MapCenter}"
+            MapScheme="NormalDay" />
+    </Grid>
+</ContentPage>

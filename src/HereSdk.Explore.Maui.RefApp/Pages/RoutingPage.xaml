@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Here.Explore.Maui.RefApp.RoutingPage"
+             Title="Routing">
+
+    <StackLayout Padding="10" Spacing="10">
+        <Label Text="Calculate Route" FontSize="24" FontAttributes="Bold" />
+
+        <Entry Placeholder="Start (lat, lng)" Text="{Binding StartText}" />
+        <Entry Placeholder="End (lat, lng)" Text="{Binding EndText}" />
+
+        <Button Text="Calculate Route" Command="{Binding CalculateRouteCommand}" />
+
+        <Label Text="{Binding StatusMessage}" FontSize="14" />
+
+        <Label Text="{Binding CalculatedRoute.LengthInMeters, StringFormat='Distance: {0:F0} m'}"
+               IsVisible="{Binding CalculatedRoute, Converter={StaticResource NotNullConverter}}" />
+    </StackLayout>
+</ContentPage>

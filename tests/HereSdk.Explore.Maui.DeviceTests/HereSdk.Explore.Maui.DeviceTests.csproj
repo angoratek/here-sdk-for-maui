@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="xunit" Version="2.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\HereSdk.Explore.Maui\HereSdk.Explore.Maui.csproj" />
+  </ItemGroup>
+  <!-- Android: reference mock JAR -->
+  <ItemGroup Condition="$(TargetFramework.Contains('android'))">
+    <AndroidLibrary Include="heresdk-explore-mock-4.25.5.0.274356.jar" />
+  </ItemGroup>
+</Project>

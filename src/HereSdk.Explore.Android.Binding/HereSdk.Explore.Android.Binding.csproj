@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0-android</TargetFramework>
+    <PackageId>HereSdk.Explore.Android.Binding</PackageId>
+    <Description>HERE SDK Explore Edition Android binding for .NET MAUI</Description>
+    <Version>$(PackageVersion)</Version>
+    <PackageTags>here;sdk;android;binding;maui;maps</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <AndroidLibrary Include="Jars\heresdk-explore-android-4.25.5.0.274356.aar" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidNamespaceReplacement Include="com.here.sdk.core" Replacement="Here.Explore.Core" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.mapview" Replacement="Here.Explore.Maps" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.routing" Replacement="Here.Explore.Routing" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.search" Replacement="Here.Explore.Search" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.traffic" Replacement="Here.Explore.Traffic" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.transport" Replacement="Here.Explore.Transport" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.animation" Replacement="Here.Explore.Animation" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.gestures" Replacement="Here.Explore.Gestures" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.core.engine" Replacement="Here.Explore.Engine" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.core.threading" Replacement="Here.Explore.Threading" />
+    <AndroidNamespaceReplacement Include="com.here.sdk.engine" Replacement="Here.Explore.Engine" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Transforms\" />
+  </ItemGroup>
+</Project>

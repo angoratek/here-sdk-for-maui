@@ -1,0 +1,52 @@
+# Build outputs
+bin/
+obj/
+artifacts/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET
+*.swp
+*.*~
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+**/packages/*
+*.nupkg
+**/[Pp]ackages/**
+
+# macOS
+.DS_Store
+._*
+
+# SDK archives (too large for git)
+tmp/
+
+# HERE SDK binaries (AAR ~61MB, JARs) — restore from tmp/ or download
+*.aar
+*.jar
+
+# iOS build outputs
+*.xcuserdata/
+*.xcscmblueprint
+build/
+DerivedData/
+
+# Android
+*.apk
+*.aab
+local.properties
+
+# Secrets
+*.env
+credentials.json
+appsettings.Local.json

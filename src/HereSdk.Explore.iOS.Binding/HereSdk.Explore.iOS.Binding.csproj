@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0-ios</TargetFramework>
+    <IsBindingProject>true</IsBindingProject>
+    <PackageId>HereSdk.Explore.iOS.Binding</PackageId>
+    <Description>HERE SDK Explore Edition iOS binding for .NET MAUI (Native Library Interop)</Description>
+    <Version>$(PackageVersion)</Version>
+    <PackageTags>here;sdk;ios;binding;maui;maps;native-interop</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="Libs\HereSdk.Explore.iOS.NativeBridge.xcframework">
+      <Kind>Framework</Kind>
+      <Frameworks>Foundation UIKit CoreLocation</Frameworks>
+      <LinkerFlags>-L "$(XcodeDeveloperDirectory)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator" -L "$(XcodeDeveloperDirectory)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos" -Wl,-rpath -Wl,@executable_path/Frameworks</LinkerFlags>
+    </NativeReference>
+  </ItemGroup>
+</Project>

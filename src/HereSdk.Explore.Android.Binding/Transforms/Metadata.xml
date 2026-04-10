@@ -1,0 +1,294 @@
+<metadata>
+  <!-- ================================================================== -->
+  <!-- HERE SDK Explore Android Binding — Metadata Transforms             -->
+  <!-- ================================================================== -->
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 1. Remove Android platform/internal/implementation classes         -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- com.here.sdk package — platform internals -->
+  <remove-node path="/api/package[@name='com.here.sdk']/class[starts-with(@name,'Android')]" />
+  <remove-node path="/api/package[@name='com.here.sdk']/class[substring(@name, string-length(@name)-3)='Impl']" />
+  <remove-node path="/api/package[@name='com.here.sdk']/class[substring(@name, string-length(@name)-8)='Internal']" />
+  <remove-node path="/api/package[@name='com.here.sdk']/class[substring(@name, string-length(@name)-6)='Bridge']" />
+
+  <!-- com.here.sdk.core.engine — remove all Android* and *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[starts-with(@name,'Android')]" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[substring(@name, string-length(@name)-3)='Impl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[substring(@name, string-length(@name)-4)='Init']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='CAresInitialiserBridge']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='CAresInitialiserBridgeImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ApplicationUtils']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ApplicationUtilsInitializer']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ApplicationVersionProvider']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='LockingProcess']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ProcessKiller']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ProcessKillerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangeNotifier']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangeNotifierImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangedListener']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangedListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusNotifier']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusNotifierImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusListener']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdStorage']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdStorageImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdCallback']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdCallbackImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='AssetsLoader']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='AssetsLoaderImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='LocaleFactory']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='LocaleFactoryImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='OptionalModulesInitializer']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='OptionalModulesInitializerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='PlatformUtils']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='PlatformUtilsInitializer']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='PlatformUtilsInitializerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatus']" />
+
+  <!-- com.here.sdk.core — remove internal/impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[substring(@name, string-length(@name)-3)='Impl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[substring(@name, string-length(@name)-8)='Internal']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='AuthenticationCallbackImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='ColorInternal']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='InetAddressConverter']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='InetAddressInternal']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='SDKLibraryList']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='SDKLibraryLoader']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='PolylineSimplificationCallbackImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='LocationListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='CustomMetadataValueImpl']" />
+
+  <!-- com.here.sdk.mapview — remove internal/impl/platform classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[substring(@name, string-length(@name)-3)='Impl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[substring(@name, string-length(@name)-8)='Internal']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapViewBaseImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapViewInternalHsdk']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapCameraListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapIdleListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapViewLifecycleListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='RenderTargetUpdatedListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapSceneConfigurationChangeListenerImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NetworkChangeBroadcastReceiver']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NetworkChangesObserver']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NativeSurface']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='DisplayMetricsUtils']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='AttributeUtils']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='GeoConverter']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='IconProviderInternal']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='ViewPinImpl']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='ViewPinsManager']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapSceneAccessor']" />
+  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NetworkChangeCallback']" />
+
+  <!-- com.here.sdk.routing — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.routing']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- com.here.sdk.search — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.search']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- com.here.sdk.traffic — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.traffic']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- com.here.sdk.engine — InitProvider is Android-only, keep it -->
+  <!-- com.here.sdk.gestures — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.gestures']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- com.here.sdk.animation — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.animation']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- com.here.sdk.mapview.datasource — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.mapview.datasource']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- com.here.sdk.transport — remove *Impl classes -->
+  <remove-node path="/api/package[@name='com.here.sdk.transport']/class[substring(@name, string-length(@name)-3)='Impl']" />
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 2. Event mappings — Listener interfaces → C# events                -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- MapCameraListener → CameraStateChanged event -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapCameraListener']"
+        name="managedName">MapCameraDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapCameraListener']/method[@name='onCameraStateChanged']"
+        name="eventName">CameraStateChanged</attr>
+
+  <!-- MapIdleListener → MapIdle event -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapIdleListener']"
+        name="managedName">MapIdleDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapIdleListener']/method[@name='onMapIdle']"
+        name="eventName">MapIdle</attr>
+
+  <!-- MapViewLifecycleListener -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapViewLifecycleListener']"
+        name="managedName">MapViewLifecycleDelegate</attr>
+
+  <!-- MapSceneConfigurationChangeListener -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapSceneConfigurationChangeListener']"
+        name="managedName">MapSceneConfigurationChangeDelegate</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 3. Gesture listener event mappings                                 -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- TapListener → MapTapped event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TapListener']"
+        name="managedName">MapTapDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TapListener']/method[@name='onTap']"
+        name="eventName">MapTapped</attr>
+
+  <!-- DoubleTapListener → MapDoubleTapped event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='DoubleTapListener']"
+        name="managedName">MapDoubleTapDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='DoubleTapListener']/method[@name='onDoubleTap']"
+        name="eventName">MapDoubleTapped</attr>
+
+  <!-- LongPressListener → MapLongPressed event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='LongPressListener']"
+        name="managedName">MapLongPressDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='LongPressListener']/method[@name='onLongPress']"
+        name="eventName">MapLongPressed</attr>
+
+  <!-- PanListener → MapPanned event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='PanListener']"
+        name="managedName">MapPanDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='PanListener']/method[@name='onPan']"
+        name="eventName">MapPanned</attr>
+
+  <!-- PinchRotateListener → MapPinchRotated event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='PinchRotateListener']"
+        name="managedName">MapPinchRotateDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='PinchRotateListener']/method[@name='onPinchRotate']"
+        name="eventName">MapPinchRotated</attr>
+
+  <!-- TwoFingerPanListener → MapTwoFingerPanned event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TwoFingerPanListener']"
+        name="managedName">MapTwoFingerPanDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TwoFingerPanListener']/method[@name='onTwoFingerPan']"
+        name="eventName">MapTwoFingerPanned</attr>
+
+  <!-- TwoFingerTapListener → MapTwoFingerTapped event -->
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TwoFingerTapListener']"
+        name="managedName">MapTwoFingerTapDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TwoFingerTapListener']/method[@name='onTwoFingerTap']"
+        name="eventName">MapTwoFingerTapped</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 4. Callback interfaces → managed names                            -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- Routing callbacks -->
+  <attr path="/api/package[@name='com.here.sdk.routing']/interface[@name='CalculateRouteCallback']"
+        name="managedName">RouteCalculatedHandler</attr>
+  <attr path="/api/package[@name='com.here.sdk.routing']/interface[@name='CalculateIsolineCallback']"
+        name="managedName">IsolineCalculatedHandler</attr>
+  <attr path="/api/package[@name='com.here.sdk.routing']/interface[@name='CalculateTrafficOnRouteCallback']"
+        name="managedName">TrafficOnRouteCalculatedHandler</attr>
+
+  <!-- Search callbacks -->
+  <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SearchCallback']"
+        name="managedName">SearchCompletedHandler</attr>
+  <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SuggestCallback']"
+        name="managedName">SuggestCompletedHandler</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 5. Type renames for clarity                                        -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- com.here.time.Duration clashes with System.TimeSpan -->
+  <attr path="/api/package[@name='com.here.time']/class[@name='Duration']"
+        name="managedName">HereDuration</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 6. Search module event mappings                                    -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- SearchInterface callback methods -->
+  <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SearchCallback']/method[@name='onSearchCompleted']"
+        name="eventName">SearchCompleted</attr>
+  <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SuggestCallback']/method[@name='onSuggestCompleted']"
+        name="eventName">SuggestCompleted</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 7. Routing module additional renames                               -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- Route handle is a simple struct-like class -->
+  <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='RouteHandle']"
+        name="managedName">RouteHandle</attr>
+
+  <!-- Avoid collision: Section exists in both routing and XML -->
+  <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='Section']"
+        name="managedName">RouteSection</attr>
+
+  <!-- Avoid collision: Maneuver exists in routing -->
+  <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='Maneuver']"
+        name="managedName">RouteManeuver</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 8. Traffic module event mappings                                    -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- Traffic callback methods -->
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficFlowQueryCallback']"
+        name="managedName">TrafficFlowQueryHandler</attr>
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficIncidentsQueryCallback']"
+        name="managedName">TrafficIncidentsQueryHandler</attr>
+
+  <!-- TrafficFlow callback event -->
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficFlowQueryCallback']/method[@name='onTrafficFlowFetched']"
+        name="eventName">TrafficFlowFetched</attr>
+
+  <!-- TrafficIncidents callback event -->
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficIncidentsQueryCallback']/method[@name='onTrafficIncidentsFetched']"
+        name="eventName">TrafficIncidentsFetched</attr>
+
+  <!-- Traffic incident lookup callback -->
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficIncidentLookupCallback']"
+        name="managedName">TrafficIncidentLookupHandler</attr>
+
+  <!-- Traffic incident lookup callback event -->
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficIncidentLookupCallback']/method[@name='onTrafficIncidentLookupCompleted']"
+        name="eventName">TrafficIncidentLookupCompleted</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 8b. Traffic module type renames                                     -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- Avoid collision between TrafficFlow the class and the interface -->
+  <attr path="/api/package[@name='com.here.sdk.traffic']/class[@name='TrafficFlow']"
+        name="managedName">TrafficFlowData</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 9. Map items renames                                                -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <!-- MapPolyline.Representation inner class hierarchy -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapPolyline.Representation']"
+        name="managedName">MapPolylineRepresentation</attr>
+  <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapPolyline.SolidRepresentation']"
+        name="managedName">MapPolylineSolidRepresentation</attr>
+  <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapPolyline.DashRepresentation']"
+        name="managedName">MapPolylineDashRepresentation</attr>
+  <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapPolyline.DashImageRepresentation']"
+        name="managedName">MapPolylineDashImageRepresentation</attr>
+
+  <!-- MapMeasureDependentRenderSize — keep readable name -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapMeasureDependentRenderSize']"
+        name="managedName">MapMeasureDependentRenderSize</attr>
+
+  <!-- DrawOrderType -->
+  <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='DrawOrderType']"
+        name="managedName">DrawOrderType</attr>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- 9. MapView datasource renames                                      -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <attr path="/api/package[@name='com.here.sdk.mapview.datasource']/interface[@name='TileSourceListener']"
+        name="managedName">TileSourceDelegate</attr>
+  <attr path="/api/package[@name='com.here.sdk.mapview.datasource']/interface[@name='TileSourceListener']/method[@name='onTileSourceReady']"
+        name="eventName">TileSourceReady</attr>
+</metadata>
