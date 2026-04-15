@@ -21,19 +21,36 @@ Most consumers will only reference `HereSdk.Explore.Maui`, which pulls in the pl
 - Stable: `4.25.5.0`
 - CI build: `4.25.5.0-ci.{build_number}`
 
+Defined in `Directory.Build.props`:
 ```xml
-<!-- In each .csproj -->
-<PropertyGroup>
-  <PackageId>HereSdk.Explore.Maui</PackageId>
-  <Version>$(PackageVersion)</Version>
-  <Description>HERE SDK Explore Edition for .NET MAUI — cross-platform maps, routing, search, and traffic</Description>
-  <PackageTags>here;sdk;maui;maps;routing;search;traffic;navigation</PackageTags>
-  <PackageProjectUrl>https://github.com/{org}/here-sdk-for-maui</PackageProjectUrl>
-  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  <PackageReadmeFile>README.md</PackageReadmeFile>
-  <PackageIcon>here-logo.png</PackageIcon>
+<HereSdkVersion>4.25.5.0</HereSdkVersion>
+<PackageVersion>4.25.5.0-alpha1</PackageVersion>
+```
+
+### Package Metadata
+
+Shared metadata (applied to all packages with `PackageId`) is defined in `Directory.Build.props`:
+
+```xml
+<PropertyGroup Condition="'$(PackageId)' != ''">
+    <Authors>angoratek</Authors>
+    <RepositoryUrl>https://github.com/angoratek/here-sdk-for-maui</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/angoratek/here-sdk-for-maui</PackageProjectUrl>
+    <Copyright>Copyright © 2026 angoratek</Copyright>
 </PropertyGroup>
 ```
+
+Per-package metadata in `.csproj` files:
+
+| Property | Android Binding | iOS Binding | MAUI Library |
+|---|---|---|---|
+| `PackageId` | `HereSdk.Explore.Android.Binding` | `HereSdk.Explore.iOS.Binding` | `HereSdk.Explore.Maui` |
+| `Description` | Android binding for .NET MAUI | iOS binding (Native Library Interop) | Cross-platform maps, routing, search, traffic |
+| `PackageTags` | here;sdk;android;binding;maui;maps | here;sdk;ios;binding;maui;maps;native-interop | here;sdk;maui;maps;routing;search;traffic;navigation |
+| `PackageLicenseExpression` | MIT | MIT | MIT |
+| `GenerateDocumentationFile` | true | true | true |
+| `PackageReadmeFile` | — | — | README.md |
 
 ### Packing Commands
 
@@ -49,15 +66,14 @@ dotnet pack src/HereSdk.Explore.Maui -c Release -p:PackageVersion=4.25.5.0
 After packing, verify:
 
 ```bash
-# List contents
-dotnet nuget locals all --list
-nuget explore HereSdk.Explore.Maui.4.25.5.0.nupkg
+# List package contents
+unzip -l artifacts/HereSdk.Explore.Maui.*.nupkg
 
 # Check that platform-specific libs are present
-# lib/net9.0-android/HereSdk.Explore.Maui.dll
-# lib/net9.0-android/HereSdk.Explore.Android.Binding.dll
-# lib/net9.0-ios/HereSdk.Explore.Maui.dll
-# lib/net9.0-ios/HereSdk.Explore.iOS.Binding.dll
+# lib/net10.0-android/HereSdk.Explore.Maui.dll
+# lib/net10.0-android/HereSdk.Explore.Android.Binding.dll
+# lib/net10.0-ios/HereSdk.Explore.Maui.dll
+# lib/net10.0-ios/HereSdk.Explore.iOS.Binding.dll
 ```
 
 ### Consuming the Package
@@ -94,25 +110,38 @@ on:
     branches: [main]
 
 jobs:
-  build-android:
-    runs-on: windows-latest
+  unit-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
+      - name: Run unit tests
+        run: dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
+
+  build-android:
+    runs-on: windows-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
       - run: dotnet workload install maui-android
-      - run: dotnet build src/HereSdk.Explore.Android.Binding -c Release
-      - run: dotnet build src/HereSdk.Explore.Maui -f net9.0-android -c Release
-      - run: dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
+      - name: Build Android binding
+        run: dotnet build src/HereSdk.Explore.Android.Binding -c Release
+      - name: Build MAUI library (Android)
+        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
 
   build-ios:
     runs-on: macos-latest
+    needs: unit-tests
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
       - run: dotnet workload install maui-ios
       - name: Build iOS NativeBridge
         run: |
@@ -120,38 +149,18 @@ jobs:
           ./build-xcframework.sh
       - name: Run Sharpie + fix bindings
         run: ./scripts/bind-ios.sh
-      - run: dotnet build src/HereSdk.Explore.iOS.Binding -c Release
-      - run: dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release
-      - run: dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
-
-  device-tests-android:
-    runs-on: macos-latest
-    needs: build-android
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
-      - run: dotnet workload install maui-android
-      - name: Create Android emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: default
-          arch: x86_64
-          script: dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-android -c Release
-
-  device-tests-ios:
-    runs-on: macos-latest
-    needs: build-ios
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
-      - run: dotnet workload install maui-ios
-      - run: dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-ios -c Release
+      - name: Build iOS binding
+        run: dotnet build src/HereSdk.Explore.iOS.Binding -c Release
+      - name: Build MAUI library (iOS)
+        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 ```
+
+**Notes:**
+- .NET 10.0.x is required (project targets net10.0-android and net10.0-ios)
+- Android build runs on Windows (most reliable for MAUI Android workloads)
+- iOS build runs on macOS (required for Xcode and Objective-Sharpie)
+- iOS NativeBridge xcframework must be built before the binding project
+- AAR is gitignored (too large for git); CI needs to download or restore from cache
 
 ### Publish Pipeline (`.github/workflows/publish.yml`)
 
@@ -170,22 +179,29 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
       - run: dotnet workload install maui
       - name: Build iOS NativeBridge
         run: |
           cd src/HereSdk.Explore.iOS.NativeBridge
           ./build-xcframework.sh
-      - name: Pack
+      - name: Run Sharpie + fix bindings
+        run: ./scripts/bind-ios.sh
+      - name: Pack NuGet packages
         run: |
           dotnet pack src/HereSdk.Explore.Android.Binding -c Release -p:PackageVersion=${{ github.ref_name }}
           dotnet pack src/HereSdk.Explore.iOS.Binding -c Release -p:PackageVersion=${{ github.ref_name }}
           dotnet pack src/HereSdk.Explore.Maui -c Release -p:PackageVersion=${{ github.ref_name }}
-      - name: Publish to NuGet
+      - name: Publish to NuGet.org
         run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
 ```
 
+**Required secrets:**
+- `NUGET_API_KEY` — NuGet.org API key for pushing packages
+
 ### iOS Binding Regeneration (`.github/workflows/ios-bindings.yml`)
+
+Not yet created. Planned workflow for regenerating iOS bindings when the SDK updates:
 
 ```yaml
 name: Regenerate iOS Bindings
@@ -217,77 +233,54 @@ jobs:
           branch: update-ios-bindings
 ```
 
+### AAR Restoration for CI
+
+The AAR (~61 MB) is gitignored. CI needs a way to restore it:
+
+**Option A** — Download from HERE developer portal (requires credentials)
+**Option B** — Store as GitHub Actions cache or artifact
+**Option C** — Use a private NuGet feed for the AAR
+
+Currently, the AAR must be manually placed in `src/HereSdk.Explore.Android.Binding/Jars/` before CI runs. This needs to be automated before CI can run unattended.
+
 ## Build Scripts
 
 ### scripts/build.sh
 
-```bash
-#!/bin/bash
-set -euo pipefail
+Full build: Android binding + iOS NativeBridge + iOS binding + MAUI library + tests.
 
-echo "=== Building Android Binding ==="
-dotnet build src/HereSdk.Explore.Android.Binding -c Release
+### scripts/build-android.sh
 
-echo "=== Building iOS NativeBridge ==="
-cd src/HereSdk.Explore.iOS.NativeBridge
-./build-xcframework.sh
-cd ../..
+Android-only build.
 
-echo "=== Building iOS Binding ==="
-dotnet build src/HereSdk.Explore.iOS.Binding -c Release
+### scripts/build-ios-native.sh
 
-echo "=== Building MAUI Library (Android) ==="
-dotnet build src/HereSdk.Explore.Maui -f net9.0-android -c Release
+Builds the iOS NativeBridge xcframework (requires Xcode).
 
-echo "=== Building MAUI Library (iOS) ==="
-dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release
+### scripts/bind-ios.sh
 
-echo "=== Running Unit Tests ==="
-dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
-
-echo "=== Build Complete ==="
-```
+Runs Objective-Sharpie and applies fixups to generate `ApiDefinition.cs` and `StructsAndEnums.cs`.
 
 ### scripts/test.sh
 
-```bash
-#!/bin/bash
-set -euo pipefail
-
-echo "=== Running Unit Tests ==="
-dotnet test tests/HereSdk.Explore.Maui.Tests -c Release --collect:"XPlat Code Coverage"
-
-echo "=== Running Android Device Tests ==="
-dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-android -c Release
-
-echo "=== Running iOS Device Tests ==="
-dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-ios -c Release
-```
+Runs unit tests + device tests.
 
 ### scripts/pack.sh
 
-```bash
-#!/bin/bash
-set -euo pipefail
+Packs all three NuGet packages and moves them to `artifacts/`.
 
-VERSION="${1:-4.25.5.0}"
+### scripts/clean.sh
 
-echo "=== Packing Android Binding ==="
-dotnet pack src/HereSdk.Explore.Android.Binding -c Release -p:PackageVersion=$VERSION
+Removes `bin/`, `obj/`, and `artifacts/` directories.
 
-echo "=== Building iOS NativeBridge ==="
-cd src/HereSdk.Explore.iOS.NativeBridge
-./build-xcframework.sh
-cd ../..
+## Known CI Gaps
 
-echo "=== Packing iOS Binding ==="
-dotnet pack src/HereSdk.Explore.iOS.Binding -c Release -p:PackageVersion=$VERSION
-
-echo "=== Packing MAUI Library ==="
-dotnet pack src/HereSdk.Explore.Maui -c Release -p:PackageVersion=$VERSION
-
-echo "=== Packages created in artifacts/ ==="
-mkdir -p artifacts
-find . -name "*.nupkg" -exec mv {} artifacts/ \;
-ls -la artifacts/
-```
+| Gap | Status | Resolution |
+|---|---|---|
+| AAR not in git | Open | Need download script or private feed |
+| iOS xcframework build requires Xcode | Open | CI uses macos-latest (has Xcode) |
+| No code coverage collection | Open | Add `coverlet.collector` package |
+| No Android device tests in CI | Open | Need emulator setup or Firebase Test Lab |
+| No iOS device tests in CI | Open | Need simulator setup in macOS runner |
+| No iOS binding regeneration workflow | Open | Create `ios-bindings.yml` |
+| No Android binding regeneration workflow | Open | Create script for AAR update automation |

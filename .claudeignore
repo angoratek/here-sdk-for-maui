@@ -1,0 +1,59 @@
+# HERE SDK for MAUI — Claude ignore rules
+# Excludes binary, generated, and non-source files from Claude context
+
+# SDK archives and extracted content (1.7 GB+)
+tmp/
+
+# Build outputs
+bin/
+obj/
+artifacts/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# macOS metadata
+.DS_Store
+._*
+
+# NuGet packages
+**/packages/
+*.nupkg
+**/[Pp]ackages/
+
+# HERE SDK binaries (AAR ~61MB, JARs)
+*.aar
+*.jar
+
+# iOS build outputs
+*.xcuserdata/
+*.xcscmblueprint
+build/
+DerivedData/
+
+# Compiled iOS NativeBridge xcframework (build output)
+src/HereSdk.Explore.iOS.NativeBridge/HereSdkExploreNativeBridge.xcframework/
+
+# Android build artifacts
+*.apk
+*.aab
+local.properties
+
+# Secrets and local config
+*.env
+credentials.json
+appsettings.Local.json
+
+# .NET lock files
+project.lock.json
+project.fragment.lock.json
+
+# Swap/backup files
+*.swp
+*.*~

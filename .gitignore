@@ -50,3 +50,4 @@ local.properties
 *.env
 credentials.json
 appsettings.Local.json
+appsettings.json

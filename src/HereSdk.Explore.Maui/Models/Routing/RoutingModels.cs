@@ -72,8 +72,11 @@ public record TrafficIncidentOnRoute(
 /// </summary>
 public enum WaypointType
 {
+    /// <summary>A stop waypoint (the route stops here).</summary>
     Stop,
+    /// <summary>A start waypoint.</summary>
     Start,
+    /// <summary>A pass-through waypoint (the route passes through without stopping).</summary>
     Through
 }
 
@@ -82,23 +85,41 @@ public enum WaypointType
 /// </summary>
 public enum RoutingError
 {
+    /// <summary>No error — route calculated successfully.</summary>
     None,
+    /// <summary>Network error during route calculation.</summary>
     NetworkError,
+    /// <summary>HTTP error from the routing service.</summary>
     HttpError,
+    /// <summary>No route found between the specified waypoints.</summary>
     NoRouteFound,
+    /// <summary>Invalid parameters provided.</summary>
     InvalidParameters,
+    /// <summary>Insufficient memory to calculate the route.</summary>
     InsufficientMemory,
+    /// <summary>Routing engine is not initialized.</summary>
     RoutingNotInitialized,
+    /// <summary>Error importing the routing graph.</summary>
     GraphImportError,
+    /// <summary>Error searching the routing graph.</summary>
     GraphSearchError,
+    /// <summary>No graph data available.</summary>
     NoGraphData,
+    /// <summary>No matching map data for the route.</summary>
     NoMatchingMapData,
+    /// <summary>No matching route found.</summary>
     NoMatchingRoute,
+    /// <summary>No acceptable route found (e.g., all routes violate restrictions).</summary>
     NoAcceptableRoute,
+    /// <summary>Route computation was cancelled.</summary>
     RouteComputeCancelled,
+    /// <summary>Invalid waypoints provided.</summary>
     WaypointError,
+    /// <summary>Transit routing is not allowed.</summary>
     TransitNotAllowed,
+    /// <summary>Transit route destination is not reachable.</summary>
     TransitRouteNotReachable,
+    /// <summary>Transit route not found.</summary>
     TransitRouteNotFound
 }
 
@@ -107,7 +128,9 @@ public enum RoutingError
 /// </summary>
 public enum OptimizationMode
 {
+    /// <summary>Optimize for the fastest route.</summary>
     Fastest,
+    /// <summary>Optimize for the shortest distance.</summary>
     Shortest
 }
 
@@ -116,12 +139,20 @@ public enum OptimizationMode
 /// </summary>
 public enum SectionTransportMode
 {
+    /// <summary>Car transport mode.</summary>
     Car,
+    /// <summary>Truck transport mode (respects truck restrictions).</summary>
     Truck,
+    /// <summary>Pedestrian transport mode.</summary>
     Pedestrian,
+    /// <summary>Bicycle transport mode.</summary>
     Bicycle,
+    /// <summary>Scooter/moped transport mode.</summary>
     Scooter,
+    /// <summary>Bus transport mode.</summary>
     Bus,
+    /// <summary>Taxi transport mode.</summary>
     Taxi,
+    /// <summary>Public transit transport mode.</summary>
     Transit
 }

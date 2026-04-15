@@ -1,13 +1,14 @@
 import Foundation
+import UIKit
 import heresdk
 
 /// ObjC-visible wrapper for MapMarker.
 @objc(HereMapMarker)
 public class HereMapMarker: NSObject {
-    private var marker: MapMarker?
-
     @objc public var latitude: Double
     @objc public var longitude: Double
+    @objc public var imageName: String?
+    private var _swiftMarker: MapMarker?
 
     @objc public init(latitude: Double, longitude: Double) {
         self.latitude = latitude
@@ -15,16 +16,29 @@ public class HereMapMarker: NSObject {
         super.init()
     }
 
-    /// Create with a MapImage (requires the actual MapImage from the SDK).
-    /// This will be called from C# after getting a MapImage via the factory.
-    func createMarker(with mapImage: MapImage) -> MapMarker {
-        let coordinates = GeoCoordinates(latitude: latitude, longitude: longitude)
-        let marker = MapMarker(at: coordinates, image: mapImage)
-        self.marker = marker
-        return marker
+    /// Create with image name (for MapScene-based add/remove).
+    @objc public init(latitude: Double, longitude: Double, imageName: String) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.imageName = imageName
+        super.init()
+    }
+
+    /// Creates a MapImage from the imageName (if provided), used by MapScene.addMapMarker.
+    func createMapImage() -> MapImage? {
+        guard let imageName = imageName else {
+            // Create a default marker image (1x1 green pixel) when no image is specified
+            // This is a placeholder — in production, use a proper marker icon
+            return try? MapImage(filePath: "marker", width: 32, height: 32)
+        }
+        return try? MapImage(named: imageName, width: 32, height: 32)
+    }
+
+    func setSwiftMarker(_ marker: MapMarker) {
+        self._swiftMarker = marker
     }
 
     var swiftMarker: MapMarker? {
-        return marker
+        return _swiftMarker
     }
 }

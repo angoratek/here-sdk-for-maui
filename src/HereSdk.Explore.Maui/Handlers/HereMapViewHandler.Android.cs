@@ -1,30 +1,125 @@
 #if ANDROID
 using Here.Explore.Maui.Controls;
-using Com.Here.Sdk.Mapview;
+using Here.Explore.Maui.Models;
+using Here.Explore.Maui.Models.Maps;
+using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.Handlers;
 
 public partial class HereMapViewHandler
 {
-    private MapView? _platformView;
+    private Here.Explore.Maps.MapView? _platformView;
+    private MapService? _mapService;
+    private Here.Explore.Maps.MapCamera? _camera;
+    private Here.Explore.Maps.MapScene? _scene;
+    private Here.Explore.Gestures.Gestures? _gestures;
 
-    protected override object CreatePlatformView()
+    protected override Android.Views.View CreatePlatformView()
     {
-        _platformView = new MapView(Platform.AppContext);
+        _platformView = new Here.Explore.Maps.MapView(Platform.AppContext);
+        _camera = _platformView.Camera;
+        _scene = _platformView.MapScene;
+        _gestures = _platformView.Gestures;
+
+        _mapService = new MapService();
+        _mapService.Initialize(_platformView);
+
+        // Wire up camera state changes
+        _camera?.AddListener(new CameraListener(this));
+
+        // Wire up map idle
+        _platformView.HereMap?.AddMapIdleListener(new IdleListener(this));
+
+        // Wire up gesture events
+        _gestures!.TapListener = new TapListener(this);
+
         return _platformView;
     }
 
-    private static void MapCameraTarget(IHereMapView view, HereMapViewHandler handler)
+    protected override void DisconnectHandler(Android.Views.View platformView)
     {
-        if (handler._platformView is null) return;
-        var target = view.CameraTarget;
-        handler._platformView.Camera.Target = new Com.Here.Sdk.Core.GeoCoordinates(target.Latitude, target.Longitude);
+        if (_gestures is not null)
+            _gestures.TapListener = null;
+        _mapService?.Dispose();
+        _platformView?.Dispose();
+        _camera = null;
+        _scene = null;
+        _gestures = null;
+        base.DisconnectHandler(platformView);
     }
 
-    private static void MapMapScheme(IHereMapView view, HereMapViewHandler handler)
+    public MapService? MapService => _mapService;
+
+    internal void OnCameraStateChanged(Here.Explore.Maps.MapCamera.State state)
     {
-        if (handler._platformView is null) return;
-        // Map scheme loading will be implemented in Phase 1
+        if (VirtualView is HereMapView map)
+        {
+            var args = new CameraStateChangedEventArgs(
+                new Models.GeoCoordinates(state.TargetCoordinates.Latitude, state.TargetCoordinates.Longitude),
+                state.ZoomLevel,
+                state.OrientationAtTarget.Bearing,
+                state.OrientationAtTarget.Tilt);
+            map.RaiseCameraStateChanged(args);
+        }
     }
+
+    internal void OnMapTapped(Here.Explore.Core.Point2D point)
+    {
+        if (VirtualView is HereMapView map && _mapService is not null)
+        {
+            var geoCoords = _platformView?.Camera?.GetState().TargetCoordinates;
+            var coordinates = geoCoords is not null
+                ? new GeoCoordinates(geoCoords.Latitude, geoCoords.Longitude)
+                : new GeoCoordinates(0, 0);
+            var screenPoint = new Models.Point2D(point.X, point.Y);
+            var args = new MapTappedEventArgs(coordinates, screenPoint);
+            _mapService.RaiseMapTapped(args);
+            map.RaiseMapTapped(args);
+        }
+    }
+
+    internal void OnMapIdle()
+    {
+        if (VirtualView is HereMapView map && _mapService is not null)
+        {
+            _mapService.RaiseMapIdle();
+            map.RaiseMapIdle();
+        }
+    }
+}
+
+internal class CameraListener : Java.Lang.Object, Here.Explore.Maps.MapCameraDelegate
+{
+    private readonly HereMapViewHandler _handler;
+    public CameraListener(HereMapViewHandler handler) => _handler = handler;
+
+    public void OnMapCameraUpdated(Here.Explore.Maps.MapCamera.State state)
+    {
+        _handler.OnCameraStateChanged(state);
+    }
+}
+
+internal class TapListener : Java.Lang.Object, Here.Explore.Gestures.MapTapDelegate
+{
+    private readonly HereMapViewHandler _handler;
+    public TapListener(HereMapViewHandler handler) => _handler = handler;
+
+    public void OnTap(Here.Explore.Core.Point2D point)
+    {
+        _handler.OnMapTapped(point);
+    }
+}
+
+internal class IdleListener : Java.Lang.Object, Here.Explore.Maps.MapIdleDelegate
+{
+    private readonly HereMapViewHandler _handler;
+    public IdleListener(HereMapViewHandler handler) => _handler = handler;
+
+    public void OnMapIdle()
+    {
+        _handler.OnMapIdle();
+    }
+
+    public void OnMapBusy() { }
 }
 #endif

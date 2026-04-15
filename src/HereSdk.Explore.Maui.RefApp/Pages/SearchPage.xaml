@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
+             xmlns:searchmodels="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
              x:Class="Here.Explore.Maui.RefApp.SearchPage"
+             x:DataType="viewmodels:SearchViewModel"
              Title="Search">
 
     <Grid RowDefinitions="Auto,*">
@@ -11,11 +14,12 @@
 
         <CollectionView Grid.Row="1" ItemsSource="{Binding Results}" Margin="10">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="searchmodels:Place">
                     <Frame Padding="10" Margin="0,0,0,5">
                         <StackLayout>
                             <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" />
-                            <Label Text="{Binding Coordinates.Latitude, StringFormat='{0:F6}, {1:F6}'}" FontSize="12" />
+                            <Label Text="{Binding Coordinates.Latitude, StringFormat='Lat: {0:F6}'}" FontSize="12" />
+                            <Label Text="{Binding Coordinates.Longitude, StringFormat='Lng: {0:F6}'}" FontSize="12" />
                         </StackLayout>
                     </Frame>
                 </DataTemplate>

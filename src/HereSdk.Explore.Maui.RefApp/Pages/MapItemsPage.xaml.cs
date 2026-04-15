@@ -7,6 +7,7 @@ public partial class MapItemsPage : ContentPage
     public MapItemsPage()
     {
         InitializeComponent();
+        BindingContext = new MapItemsViewModel();
     }
 
     public MapItemsPage(MapItemsViewModel viewModel) : this()

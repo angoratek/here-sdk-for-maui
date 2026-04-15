@@ -1,3 +1,4 @@
+#if IOS
 using Foundation;
 
 namespace Here.Explore.Maui.RefApp;
@@ -6,3 +7,4 @@ namespace Here.Explore.Maui.RefApp;
 public class AppDelegate : MauiUIApplicationDelegate
 {
 }
+#endif

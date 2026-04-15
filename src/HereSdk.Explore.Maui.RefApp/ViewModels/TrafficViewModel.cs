@@ -6,13 +6,30 @@ using Here.Explore.Maui.Models.Maps;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
 
-public class TrafficViewModel
+public class TrafficViewModel : ViewModelBase
 {
     private readonly ITrafficService? _trafficService;
+    private string _statusMessage = string.Empty;
+    private IReadOnlyList<TrafficFlow>? _flows;
+    private IReadOnlyList<TrafficIncident>? _incidents;
 
-    public string StatusMessage { get; private set; } = string.Empty;
-    public IReadOnlyList<TrafficFlow>? Flows { get; private set; }
-    public IReadOnlyList<TrafficIncident>? Incidents { get; private set; }
+    public string StatusMessage
+    {
+        get => _statusMessage;
+        private set => SetProperty(ref _statusMessage, value);
+    }
+
+    public IReadOnlyList<TrafficFlow>? Flows
+    {
+        get => _flows;
+        private set => SetProperty(ref _flows, value);
+    }
+
+    public IReadOnlyList<TrafficIncident>? Incidents
+    {
+        get => _incidents;
+        private set => SetProperty(ref _incidents, value);
+    }
 
     public TrafficViewModel() { }
 

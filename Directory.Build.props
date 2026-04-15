@@ -1,12 +1,20 @@
 <Project>
+  <!-- Import centralized version — single source of truth for all version numbers -->
+  <Import Project="Version.props" />
+
   <PropertyGroup>
-    <NetVersion>net9.0</NetVersion>
+    <NetVersion>net10.0</NetVersion>
     <MauiPlatforms>$(NetVersion)-android;$(NetVersion)-ios</MauiPlatforms>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <HereSdkVersion>4.25.5.0</HereSdkVersion>
-    <PackageVersion>4.25.5.0-alpha1</PackageVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PackageId)' != ''">
+    <Authors>angoratek</Authors>
+    <RepositoryUrl>https://github.com/angoratek/here-sdk-for-maui</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/angoratek/here-sdk-for-maui</PackageProjectUrl>
+    <Copyright>Copyright © 2026 angoratek</Copyright>
   </PropertyGroup>
 </Project>

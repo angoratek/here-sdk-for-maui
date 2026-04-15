@@ -68,15 +68,25 @@ public record Address(
 /// </summary>
 public enum SearchError
 {
+    /// <summary>No error — search succeeded.</summary>
     None,
+    /// <summary>Network error during search.</summary>
     NetworkError,
+    /// <summary>HTTP error from the search service.</summary>
     HttpError,
+    /// <summary>Search completed but returned no results.</summary>
     NoResults,
+    /// <summary>The search query is invalid.</summary>
     InvalidQuery,
+    /// <summary>Insufficient memory for the search operation.</summary>
     InsufficientMemory,
+    /// <summary>Search engine is not initialized.</summary>
     EngineNotInitialized,
+    /// <summary>The requested place was not found.</summary>
     PlaceNotFound,
+    /// <summary>Error serializing or deserializing the response.</summary>
     SerializationError,
+    /// <summary>Invalid parameter provided.</summary>
     InvalidParameter
 }
 
@@ -85,8 +95,11 @@ public enum SearchError
 /// </summary>
 public enum SuggestionType
 {
+    /// <summary>A specific place (POI or address).</summary>
     Place,
+    /// <summary>A category of places.</summary>
     Category,
+    /// <summary>A business chain.</summary>
     Chain
 }
 
@@ -95,16 +108,28 @@ public enum SuggestionType
 /// </summary>
 public enum SearchLanguage
 {
+    /// <summary>English.</summary>
     En,
+    /// <summary>German.</summary>
     De,
+    /// <summary>French.</summary>
     Fr,
+    /// <summary>Spanish.</summary>
     Es,
+    /// <summary>Italian.</summary>
     It,
+    /// <summary>Portuguese.</summary>
     Pt,
+    /// <summary>Dutch.</summary>
     Nl,
+    /// <summary>Polish.</summary>
     Pl,
+    /// <summary>Russian.</summary>
     Ru,
+    /// <summary>Chinese.</summary>
     Zh,
+    /// <summary>Japanese.</summary>
     Ja,
+    /// <summary>Korean.</summary>
     Ko
 }

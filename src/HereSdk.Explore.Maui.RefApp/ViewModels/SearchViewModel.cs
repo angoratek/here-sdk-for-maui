@@ -5,12 +5,23 @@ using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
 
-public class SearchViewModel
+public class SearchViewModel : ViewModelBase
 {
     private readonly ISearchService? _searchService;
+    private string _searchQuery = string.Empty;
+    private IReadOnlyList<Place>? _results;
 
-    public string SearchQuery { get; set; } = string.Empty;
-    public IReadOnlyList<Place>? Results { get; private set; }
+    public string SearchQuery
+    {
+        get => _searchQuery;
+        set => SetProperty(ref _searchQuery, value);
+    }
+
+    public IReadOnlyList<Place>? Results
+    {
+        get => _results;
+        private set => SetProperty(ref _results, value);
+    }
 
     public SearchViewModel() { }
 
@@ -32,9 +43,8 @@ public class SearchViewModel
                 new SearchOptions());
             Results = result.Places;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Handle search error
             Results = null;
         }
     }

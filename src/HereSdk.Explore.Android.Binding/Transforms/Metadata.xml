@@ -1,11 +1,11 @@
 <metadata>
-  <!-- ================================================================== -->
-  <!-- HERE SDK Explore Android Binding — Metadata Transforms             -->
-  <!-- ================================================================== -->
+  <!-- ============================================================ -->
+  <!-- HERE SDK Explore Android Binding Metadata Transforms         -->
+  <!-- ============================================================ -->
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 1. Remove Android platform/internal/implementation classes         -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 1. Remove Android platform/internal/implementation classes   -->
+  <!-- ============================================================== -->
 
   <!-- com.here.sdk package — platform internals -->
   <remove-node path="/api/package[@name='com.here.sdk']/class[starts-with(@name,'Android')]" />
@@ -105,14 +105,14 @@
   <!-- com.here.sdk.transport — remove *Impl classes -->
   <remove-node path="/api/package[@name='com.here.sdk.transport']/class[substring(@name, string-length(@name)-3)='Impl']" />
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 2. Event mappings — Listener interfaces → C# events                -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 2. Event mappings: Listener interfaces to C# events          -->
+  <!-- ============================================================== -->
 
   <!-- MapCameraListener → CameraStateChanged event -->
   <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapCameraListener']"
         name="managedName">MapCameraDelegate</attr>
-  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapCameraListener']/method[@name='onCameraStateChanged']"
+  <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapCameraListener']/method[@name='onMapCameraUpdated']"
         name="eventName">CameraStateChanged</attr>
 
   <!-- MapIdleListener → MapIdle event -->
@@ -129,9 +129,9 @@
   <attr path="/api/package[@name='com.here.sdk.mapview']/interface[@name='MapSceneConfigurationChangeListener']"
         name="managedName">MapSceneConfigurationChangeDelegate</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 3. Gesture listener event mappings                                 -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 3. Gesture listener event mappings                            -->
+  <!-- ============================================================== -->
 
   <!-- TapListener → MapTapped event -->
   <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TapListener']"
@@ -175,9 +175,9 @@
   <attr path="/api/package[@name='com.here.sdk.gestures']/interface[@name='TwoFingerTapListener']/method[@name='onTwoFingerTap']"
         name="eventName">MapTwoFingerTapped</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 4. Callback interfaces → managed names                            -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 4. Callback interfaces to managed names                       -->
+  <!-- ============================================================== -->
 
   <!-- Routing callbacks -->
   <attr path="/api/package[@name='com.here.sdk.routing']/interface[@name='CalculateRouteCallback']"
@@ -193,17 +193,20 @@
   <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SuggestCallback']"
         name="managedName">SuggestCompletedHandler</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 5. Type renames for clarity                                        -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 5. Type renames for clarity                                   -->
+  <!-- ============================================================== -->
 
   <!-- com.here.time.Duration clashes with System.TimeSpan -->
   <attr path="/api/package[@name='com.here.time']/class[@name='Duration']"
         name="managedName">HereDuration</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 6. Search module event mappings                                    -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- Remove IComparable from HereDuration to avoid CS0535 (CompareTo(Object) missing) -->
+  <remove-node path="/api/package[@name='com.here.time']/class[@name='Duration']/implements[@name='java.lang.Comparable']" />
+
+  <!-- ============================================================== -->
+  <!-- 6. Search module event mappings                               -->
+  <!-- ============================================================== -->
 
   <!-- SearchInterface callback methods -->
   <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SearchCallback']/method[@name='onSearchCompleted']"
@@ -211,9 +214,9 @@
   <attr path="/api/package[@name='com.here.sdk.search']/interface[@name='SuggestCallback']/method[@name='onSuggestCompleted']"
         name="eventName">SuggestCompleted</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 7. Routing module additional renames                               -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 7. Routing module additional renames                          -->
+  <!-- ============================================================== -->
 
   <!-- Route handle is a simple struct-like class -->
   <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='RouteHandle']"
@@ -227,9 +230,9 @@
   <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='Maneuver']"
         name="managedName">RouteManeuver</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 8. Traffic module event mappings                                    -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 8. Traffic module event mappings                              -->
+  <!-- ============================================================== -->
 
   <!-- Traffic callback methods -->
   <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficFlowQueryCallback']"
@@ -250,20 +253,20 @@
         name="managedName">TrafficIncidentLookupHandler</attr>
 
   <!-- Traffic incident lookup callback event -->
-  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficIncidentLookupCallback']/method[@name='onTrafficIncidentLookupCompleted']"
-        name="eventName">TrafficIncidentLookupCompleted</attr>
+  <attr path="/api/package[@name='com.here.sdk.traffic']/interface[@name='TrafficIncidentLookupCallback']/method[@name='onTrafficIncidentFetched']"
+        name="eventName">TrafficIncidentFetched</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 8b. Traffic module type renames                                     -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 8b. Traffic module type renames                               -->
+  <!-- ============================================================== -->
 
   <!-- Avoid collision between TrafficFlow the class and the interface -->
   <attr path="/api/package[@name='com.here.sdk.traffic']/class[@name='TrafficFlow']"
         name="managedName">TrafficFlowData</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 9. Map items renames                                                -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 9. Map items renames                                          -->
+  <!-- ============================================================== -->
 
   <!-- MapPolyline.Representation inner class hierarchy -->
   <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapPolyline.Representation']"
@@ -283,12 +286,9 @@
   <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='DrawOrderType']"
         name="managedName">DrawOrderType</attr>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!-- 9. MapView datasource renames                                      -->
-  <!-- ------------------------------------------------------------------ -->
+  <!-- ============================================================== -->
+  <!-- 9. MapView datasource renames                                -->
+  <!-- ============================================================== -->
 
-  <attr path="/api/package[@name='com.here.sdk.mapview.datasource']/interface[@name='TileSourceListener']"
-        name="managedName">TileSourceDelegate</attr>
-  <attr path="/api/package[@name='com.here.sdk.mapview.datasource']/interface[@name='TileSourceListener']/method[@name='onTileSourceReady']"
-        name="eventName">TileSourceReady</attr>
+  <!-- TileSourceListener does not exist in Explore SDK — removed stale entry -->
 </metadata>

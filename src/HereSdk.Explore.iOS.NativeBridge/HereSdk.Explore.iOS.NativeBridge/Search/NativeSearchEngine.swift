@@ -1,13 +1,6 @@
 import Foundation
 import heresdk
 
-/// ObjC-visible callback for search results.
-@objc(HereSearchCallback)
-public protocol HereSearchCallback: AnyObject {
-    @objc func onSearchCompleted(places: [HerePlace]?, error: String?)
-    @objc func onSuggestCompleted(suggestions: [HereSuggestion]?, error: String?)
-}
-
 /// ObjC-visible wrapper for SearchEngine.
 @objc(HereSearchEngine)
 public class HereSearchEngine: NSObject {
@@ -36,15 +29,94 @@ public class HereSearchEngine: NSObject {
         }
 
         let geoCoords = GeoCoordinates(latitude: latitude, longitude: longitude)
-        let textQuery = TextQuery(query, areaCenter: geoCoords)
+        let area = TextQuery.Area(areaCenter: geoCoords)
+        let textQuery = TextQuery(query, area: area)
         let options = SearchOptions()
 
-        engine.searchByText(textQuery, options: options) { error, places in
-            if let error = error {
-                completion(nil, error.localizedDescription)
+        engine.searchByText(textQuery, options: options) { searchError, places in
+            if let searchError = searchError {
+                completion(nil, String(describing: searchError))
             } else if let places = places {
                 let herePlaces = places.map { HerePlace.from($0) }
                 completion(herePlaces, nil)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
+
+    @objc public func searchByCategory(
+        categoryId: String,
+        latitude: Double,
+        longitude: Double,
+        completion: @escaping ([HerePlace]?, String?) -> Void
+    ) {
+        guard let engine = engine else {
+            completion(nil, "SearchEngine not initialized")
+            return
+        }
+
+        let geoCoords = GeoCoordinates(latitude: latitude, longitude: longitude)
+        let category = PlaceCategory(id: categoryId)
+        let area = CategoryQuery.Area(areaCenter: geoCoords)
+        let categoryQuery = CategoryQuery(category, area: area)
+        let options = SearchOptions()
+
+        engine.searchByCategory(categoryQuery, options: options) { searchError, places in
+            if let searchError = searchError {
+                completion(nil, String(describing: searchError))
+            } else if let places = places {
+                let herePlaces = places.map { HerePlace.from($0) }
+                completion(herePlaces, nil)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
+
+    @objc public func suggest(
+        query: String,
+        latitude: Double,
+        longitude: Double,
+        completion: @escaping ([HereSuggestion]?, String?) -> Void
+    ) {
+        guard let engine = engine else {
+            completion(nil, "SearchEngine not initialized")
+            return
+        }
+
+        let geoCoords = GeoCoordinates(latitude: latitude, longitude: longitude)
+        let area = TextQuery.Area(areaCenter: geoCoords)
+        let textQuery = TextQuery(query, area: area)
+        let options = SearchOptions()
+
+        engine.suggestByText(textQuery, options: options) { searchError, suggestions in
+            if let searchError = searchError {
+                completion(nil, String(describing: searchError))
+            } else if let suggestions = suggestions {
+                let hereSuggestions = suggestions.map { HereSuggestion.from($0) }
+                completion(hereSuggestions, nil)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
+
+    @objc public func searchByPlaceId(
+        placeId: String,
+        completion: @escaping (HerePlace?, String?) -> Void
+    ) {
+        guard let engine = engine else {
+            completion(nil, "SearchEngine not initialized")
+            return
+        }
+
+        let placeIdQuery = PlaceIdQuery(placeId)
+        engine.searchByPlaceId(placeIdQuery, languageCode: nil) { searchError, place in
+            if let searchError = searchError {
+                completion(nil, String(describing: searchError))
+            } else if let place = place {
+                completion(HerePlace.from(place), nil)
             } else {
                 completion(nil, nil)
             }
@@ -76,8 +148,8 @@ public class HerePlace: NSObject {
         return HerePlace(
             id: swift.id ?? "",
             title: swift.title ?? "",
-            latitude: swift.coordinates.latitude,
-            longitude: swift.coordinates.longitude
+            latitude: swift.geoCoordinates?.latitude ?? 0,
+            longitude: swift.geoCoordinates?.longitude ?? 0
         )
     }
 }
@@ -94,5 +166,14 @@ public class HereSuggestion: NSObject {
         self.id = id
         self.isPlace = isPlace
         super.init()
+    }
+
+    static func from(_ swift: Suggestion) -> HereSuggestion {
+        let isPlace = swift.type == .place
+        return HereSuggestion(
+            title: swift.title ?? "",
+            id: swift.id ?? "",
+            isPlace: isPlace
+        )
     }
 }

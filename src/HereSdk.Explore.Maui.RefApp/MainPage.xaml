@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
              xmlns:models="clr-namespace:Here.Explore.Maui.Models;assembly=HereSdk.Explore.Maui"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
              x:Class="Here.Explore.Maui.RefApp.MainPage"
+             x:DataType="viewmodels:MapViewModel"
              Title="HERE SDK Explore">
 
     <Grid RowDefinitions="Auto,*">

@@ -1,3 +1,5 @@
+using Here.Explore.Maui.Models;
+
 namespace Here.Explore.Maui.Models.Routing;
 
 /// <summary>
@@ -43,21 +45,38 @@ public record Maneuver(
 /// </summary>
 public enum ManeuverAction
 {
+    /// <summary>Depart from the start point.</summary>
     Depart,
+    /// <summary>Arrive at the destination.</summary>
     Arrive,
+    /// <summary>Turn left.</summary>
     Left,
+    /// <summary>Turn right.</summary>
     Right,
+    /// <summary>Make a sharp left turn.</summary>
     SharpLeft,
+    /// <summary>Make a sharp right turn.</summary>
     SharpRight,
+    /// <summary>Make a slight left turn.</summary>
     SlightLeft,
+    /// <summary>Make a slight right turn.</summary>
     SlightRight,
+    /// <summary>Continue straight.</summary>
     Straight,
+    /// <summary>Make a U-turn to the left.</summary>
     UTurnLeft,
+    /// <summary>Make a U-turn to the right.</summary>
     UTurnRight,
+    /// <summary>Take the left ramp.</summary>
     LeftRamp,
+    /// <summary>Take the right ramp.</summary>
     RightRamp,
+    /// <summary>Take the left exit.</summary>
     LeftExit,
+    /// <summary>Take the right exit.</summary>
     RightExit,
+    /// <summary>Enter a roundabout.</summary>
     Roundabout,
-    Ferry
+    /// <summary>Continue on the current road.</summary>
+    ContinueOn
 }

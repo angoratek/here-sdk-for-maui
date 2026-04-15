@@ -75,16 +75,22 @@ public class HereMapScene: NSObject {
     private let mapScene: MapScene
     private weak var callback: HereSceneLoadCallback?
 
-    @objc public init(_ mapScene: MapScene) {
+    /// Non-@objc init — ObjC can't provide a MapScene argument.
+    public init(_ mapScene: MapScene) {
         self.mapScene = mapScene
         super.init()
     }
 
+    /// @objc factory — creates from the bridge view which holds the MapView.
+    @objc public convenience init(bridgeView: HereMapBridgeView) {
+        self.init(bridgeView.swiftMapView!.mapScene)
+    }
+
     @objc public func loadScene(_ scheme: HereMapScheme) {
         guard let swiftScheme = scheme.toSwift() else { return }
-        mapScene.loadScene(page: swiftScheme) { [weak self] mapScene, error in
-            if let error = error {
-                self?.callback?.onSceneLoadFailed(error.localizedDescription)
+        mapScene.loadScene(mapScheme: swiftScheme) { [weak self] loadSceneError in
+            if let error = loadSceneError {
+                self?.callback?.onSceneLoadFailed(String(describing: error))
             } else {
                 self?.callback?.onSceneLoaded(scheme)
             }
@@ -93,6 +99,33 @@ public class HereMapScene: NSObject {
 
     @objc public func setCallback(_ callback: HereSceneLoadCallback) {
         self.callback = callback
+    }
+
+    // --- Marker management ---
+
+    @objc public func addMapMarker(_ marker: HereMapMarker) {
+        guard let mapImage = marker.createMapImage() else { return }
+        let coordinates = GeoCoordinates(latitude: marker.latitude, longitude: marker.longitude)
+        let swiftMarker = MapMarker(at: coordinates, image: mapImage)
+        marker.setSwiftMarker(swiftMarker)
+        mapScene.addMapMarker(swiftMarker)
+    }
+
+    @objc public func removeMapMarker(_ marker: HereMapMarker) {
+        guard let swiftMarker = marker.swiftMarker else { return }
+        mapScene.removeMapMarker(swiftMarker)
+    }
+
+    // --- 3D marker management ---
+
+    @objc public func addMapMarker3D(_ marker: HereMapMarker3D) {
+        guard let swiftMarker = marker.swiftMarker else { return }
+        mapScene.addMapMarker3d(swiftMarker)
+    }
+
+    @objc public func removeMapMarker3D(_ marker: HereMapMarker3D) {
+        guard let swiftMarker = marker.swiftMarker else { return }
+        mapScene.removeMapMarker3d(swiftMarker)
     }
 
     var swiftMapScene: MapScene {

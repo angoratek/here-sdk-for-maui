@@ -39,7 +39,7 @@ public class HereRoutingEngine: NSObject {
 
         engine.calculateRoute(with: swiftWaypoints, options: swiftOptions) { error, routes in
             if let error = error {
-                completion(HereRouteResult(error: error.localizedDescription, routes: nil))
+                completion(HereRouteResult(error: String(describing: error), routes: nil))
             } else if let routes = routes {
                 let routeResults = routes.map { HereRoute.from($0) }
                 completion(HereRouteResult(error: nil, routes: routeResults))
@@ -59,7 +59,7 @@ public class HereRoutingEngine: NSObject {
 public class HereWaypoint: NSObject {
     @objc public var latitude: Double
     @objc public var longitude: Double
-    @objc public var type: Int // 0=Stop, 1=Start, 2=Through
+    @objc public var type: Int // 0=Stopover, 1=PassThrough
 
     @objc public init(latitude: Double, longitude: Double, type: Int = 0) {
         self.latitude = latitude
@@ -70,17 +70,17 @@ public class HereWaypoint: NSObject {
 
     func toSwift() -> Waypoint {
         let coordinates = GeoCoordinates(latitude: latitude, longitude: longitude)
-        let waypointType: Waypoint.Type_
+        let waypointType: WaypointType
         switch type {
-        case 1: waypointType = .start
-        case 2: waypointType = .through
-        default: waypointType = .stop
+        case 1: waypointType = .passThrough
+        default: waypointType = .stopover
         }
         return Waypoint(coordinates: coordinates, type: waypointType)
     }
 }
 
-/// ObjC-visible wrapper for RoutingOptions (simplified).
+/// ObjC-visible wrapper for RoutingOptions.
+/// Uses TransportSpecification (the new v4.28+ pattern).
 @objc(HereRoutingOptions)
 public class HereRoutingOptions: NSObject {
     @objc public var transportMode: Int // 0=Car, 1=Truck, 2=Pedestrian, 3=Bicycle, 4=Scooter
@@ -91,14 +91,15 @@ public class HereRoutingOptions: NSObject {
     }
 
     func toSwift() -> RoutingOptions {
-        let options = RoutingOptions()
+        let transportSpec: TransportSpecification
         switch transportMode {
-        case 1: return CarOptions() // Will be expanded
-        case 2: return TruckOptions()
-        case 3: return PedestrianOptions()
-        case 4: return BicycleOptions()
-        default: return CarOptions()
+        case 1: transportSpec = TransportSpecification.TruckBuilder().build()
+        case 2: transportSpec = TransportSpecification.PedestrianBuilder().build()
+        case 3: transportSpec = TransportSpecification.BicycleBuilder().build()
+        case 4: transportSpec = TransportSpecification.ScooterBuilder().build()
+        default: transportSpec = TransportSpecification.CarBuilder().build()
         }
+        return RoutingOptions(transportSpecification: transportSpec)
     }
 }
 
@@ -118,10 +119,10 @@ public class HereRouteResult: NSObject {
 /// ObjC-visible wrapper for Route.
 @objc(HereRoute)
 public class HereRoute: NSObject {
-    @objc public var lengthInMeters: Double
+    @objc public var lengthInMeters: Int32
     @objc public var durationInSeconds: Double
 
-    @objc public init(lengthInMeters: Double, durationInSeconds: Double) {
+    @objc public init(lengthInMeters: Int32, durationInSeconds: Double) {
         self.lengthInMeters = lengthInMeters
         self.durationInSeconds = durationInSeconds
         super.init()
@@ -130,7 +131,7 @@ public class HereRoute: NSObject {
     static func from(_ swift: Route) -> HereRoute {
         return HereRoute(
             lengthInMeters: swift.lengthInMeters,
-            durationInSeconds: swift.durationInSeconds
+            durationInSeconds: swift.duration
         )
     }
 }

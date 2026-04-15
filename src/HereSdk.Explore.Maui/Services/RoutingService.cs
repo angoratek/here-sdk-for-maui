@@ -10,12 +10,15 @@ public partial class RoutingService : IRoutingService
 {
     private bool _disposed;
 
+#if !ANDROID && !IOS
+    // Non-platform stub implementations for unit-test context
     public Task<RoutingResult> CalculateRouteAsync(IReadOnlyList<Waypoint> waypoints, RoutingOptions options) =>
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<IsolineResult> CalculateIsolineAsync(GeoCoordinates center, IsolineOptions options) =>
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<TrafficOnRoute> GetTrafficOnRouteAsync(Route route) =>
         throw new NotImplementedException("Platform-specific implementation required.");
+#endif
 
     protected virtual void Dispose(bool disposing)
     {

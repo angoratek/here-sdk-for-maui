@@ -28,12 +28,12 @@ public class HereMapMarker3D: NSObject {
 
     @objc public func addToMapView(_ mapView: HereMapBridgeView) {
         guard let marker = marker else { return }
-        mapView.mapView.addMapMarker3D(marker)
+        mapView.swiftMapView?.mapScene.addMapMarker3d(marker)
     }
 
     @objc public func removeFromMapView(_ mapView: HereMapBridgeView) {
         guard let marker = marker else { return }
-        mapView.mapView.removeMapMarker3D(marker)
+        mapView.swiftMapView?.mapScene.removeMapMarker3d(marker)
     }
 
     var swiftMarker: MapMarker3D? { marker }

@@ -2,6 +2,7 @@
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.PlatformConverters;
+using Here.Explore.iOS;
 using UIKit;
 
 namespace Here.Explore.Maui.Services;
@@ -9,7 +10,7 @@ namespace Here.Explore.Maui.Services;
 /// <summary>
 /// iOS-specific MapService implementation using NativeBridge wrappers.
 /// </summary>
-public partial class MapService : IMapService
+public partial class MapService
 {
     private HereMapCamera? _camera;
     private HereMapScene? _scene;
@@ -21,10 +22,11 @@ public partial class MapService : IMapService
     private readonly Dictionary<MapPolyline, HereMapPolyline> _polylines = new();
     private readonly Dictionary<MapPolygon, HereMapPolygon> _polygons = new();
     private readonly Dictionary<MapArrow, HereMapArrow> _arrows = new();
+    private readonly Dictionary<MapMarker3D, HereMapMarker3D> _markers3D = new();
 
-    public override double ZoomLevel => _camera?.State.ZoomLevel ?? 0;
-    public override double Bearing => _camera?.State.Bearing ?? 0;
-    public override double Tilt => _camera?.State.Tilt ?? 0;
+    public double ZoomLevel => _camera?.State.ZoomLevel ?? 0;
+    public double Bearing => _camera?.State.Bearing ?? 0;
+    public double Tilt => _camera?.State.Tilt ?? 0;
 
     /// <summary>
     /// Initialize the service with iOS MapView components.
@@ -49,7 +51,10 @@ public partial class MapService : IMapService
     {
         if (_camera is null) throw new InvalidOperationException("MapService not initialized.");
         var iosCoords = target.ToiOS();
-        _camera.SetTarget(iosCoords, zoomLevel ?? -1);
+        if (zoomLevel.HasValue)
+            _camera.SetTarget(iosCoords, zoomLevel.Value);
+        else
+            _camera.SetTarget(iosCoords);
     }
 
     public async Task AnimateCameraAsync(CameraAnimation animation)
@@ -70,19 +75,21 @@ public partial class MapService : IMapService
 
     public void AddMapMarker(MapMarker marker)
     {
-        if (_mapBridgeView is null) throw new InvalidOperationException("MapService not initialized.");
+        if (_scene is null) throw new InvalidOperationException("MapService not initialized.");
         var iosCoords = marker.Coordinates.ToiOS();
-        var iosMarker = new HereMapMarker(iosCoords);
-        _mapBridgeView.AddMapMarker(iosMarker);
+        var iosMarker = marker.ImagePath is not null
+            ? new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude, marker.ImagePath)
+            : new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude);
+        _scene.AddMapMarker(iosMarker);
         _markers[marker] = iosMarker;
     }
 
     public void RemoveMapMarker(MapMarker marker)
     {
-        if (_mapBridgeView is null) throw new InvalidOperationException("MapService not initialized.");
+        if (_scene is null) throw new InvalidOperationException("MapService not initialized.");
         if (_markers.TryGetValue(marker, out var iosMarker))
         {
-            _mapBridgeView.RemoveMapMarker(iosMarker);
+            _scene.RemoveMapMarker(iosMarker);
             _markers.Remove(marker);
         }
     }
@@ -149,14 +156,25 @@ public partial class MapService : IMapService
 
     public void AddMapMarker3D(MapMarker3D marker)
     {
-        // MapMarker3D support on iOS requires NativeBridge wrapper
-        // Will be expanded with HereMapMarker3D NativeBridge class
-        throw new NotImplementedException("MapMarker3D support pending NativeBridge wrapper.");
+        if (_scene is null) throw new InvalidOperationException("MapService not initialized.");
+        if (marker.ImagePath is not null)
+        {
+            var iosMarker = new HereMapMarker3D(
+                marker.Coordinates.Latitude, marker.Coordinates.Longitude,
+                marker.ImagePath, 32, 32, marker.Scale);
+            _scene.AddMapMarker3D(iosMarker);
+            _markers3D[marker] = iosMarker;
+        }
     }
 
     public void RemoveMapMarker3D(MapMarker3D marker)
     {
-        throw new NotImplementedException("MapMarker3D support pending NativeBridge wrapper.");
+        if (_scene is null) throw new InvalidOperationException("MapService not initialized.");
+        if (_markers3D.TryGetValue(marker, out var iosMarker))
+        {
+            _scene.RemoveMapMarker3D(iosMarker);
+            _markers3D.Remove(marker);
+        }
     }
 
     public async Task<MapPickResult?> PickAsync(Point2D screenPoint) => null;
@@ -178,8 +196,8 @@ internal static class IosMapSchemeConverter
         MapScheme.NormalDay => HereMapScheme.NormalDay,
         MapScheme.NormalNight => HereMapScheme.NormalNight,
         MapScheme.HybridDay => HereMapScheme.HybridDay,
-        MapScheme.SatelliteDay => HereMapScheme.SatelliteDay,
-        MapScheme.TerrainDay => HereMapScheme.NormalDay, // No direct TerrainDay on iOS
+        MapScheme.SatelliteDay => HereMapScheme.Satellite,
+        MapScheme.TerrainDay => HereMapScheme.RoadNetworkDay, // Closest iOS equivalent
         _ => HereMapScheme.NormalDay,
     };
 }

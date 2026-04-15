@@ -36,6 +36,16 @@
 - 16 type aliases are missing from the original catalog (all completion handlers) — added below.
 - 39 nested enums on iOS (e.g., `Easing.InstantiationErrorCode`, `MapMarker.TextStyle.Placement`) need wrapping.
 - `JunctionsTraversability` is in `com.here.sdk.traffic` on Android, not core.
+- **[2026-04-14]** `TrafficIncidentOnRoute` is in `com.here.sdk.routing`, NOT `com.here.sdk.traffic` on both platforms. Its `id` is `String?` (optional) vs `TrafficIncident.id` which is `String` (non-null).
+- **[2026-04-14]** `TrafficOptimizationMode` is in `com.here.sdk.routing`, NOT `com.here.sdk.traffic` on Android.
+- **[2026-04-14]** `TrafficEngine` method names: Android uses `queryForFlow`/`queryForIncidents` (not `queryFlow`/`queryIncidents`).
+- **[2026-04-14]** `MapCameraAnimation` is in `com.here.sdk.mapview`, NOT `com.here.sdk.animation` on Android.
+- **[2026-04-14]** `MapItemKeyFrameTrack` naming: iOS uses capital F (`MapItemKeyFrameTrack`), Android uses lowercase f (`MapItemKeyframeTrack`).
+- **[2026-04-14]** `EasingFunction` is a top-level enum on iOS (38 cases), NOT nested inside `Easing`.
+- **[2026-04-14]** Missing from original catalog: 3 traffic callback interfaces, 2 traffic base interfaces, 2 TrafficIncident nested types (RestrictedVehicleCategory, VehicleRestriction).
+- **[2026-04-14]** Missing from original catalog: MapCameraAnimationFactory, MapItemRepresentation, DataSource builders (Point/Line/PolygonDataSourceBuilder), MapLayerPriority/Builder, keyframe structs.
+- **[2026-04-14]** Deprecated: `MapCameraKeyframeTrack.lookAtDistance(keyframes:easing:interpolationMode:)` — removed in v4.27.0; use `lookAtDistance(ofKind:keyframes:easing:interpolationMode:)`.
+- **[2026-04-14]** `TrafficDataProvider` has no public API surface — opaque handle class on both platforms.
 
 ## Module: Core
 
@@ -222,44 +232,48 @@ All type aliases are completion handler closures or error aliases. They map to C
 
 ### Map Items — Phase 3
 
+> **Validated 2026-04-14** against Android Javadoc and iOS Swift interface (v4.25.5.0).
+
 | Android Class | iOS Equivalent | MAUI Type | Phase | Validated |
 |---|---|---|---|---|
-| `MapMarker3D` | `MapMarker3D` (sealed) | `MapMarker3D` | 3 | ☐ |
-| `MapMarker3DModel` | `MapMarker3DModel` (sealed) | `MapMarker3DModel` | 3 | ☐ |
-| `MapMarkerCluster` | `MapMarkerCluster` (sealed) | `MapMarkerCluster` | 3 | ☐ |
-| `MapMarkerAnimation` | `MapMarkerAnimation` (sealed) | `MapMarkerAnimation` | 3 | ☐ |
-| `MapPolyline` | `MapPolyline` (sealed) | `MapPolyline` | 2 | ☐ |
-| `MapPolygon` | `MapPolygon` (sealed) | `MapPolygon` | 2 | ☐ |
-| `MapArrow` | `MapArrow` (sealed) | `MapArrow` | 3 | ☐ |
-| `MapImageOverlay` | `MapImageOverlay` (sealed) | `MapImageOverlay` | 3 | ☐ |
+| `MapMarker3D` | `MapMarker3D` (sealed) | `MapMarker3D` | 3 | ☑ |
+| `MapMarker3DModel` | `MapMarker3DModel` (sealed) | `MapMarker3DModel` | 3 | ☑ |
+| `MapMarkerCluster` | `MapMarkerCluster` (sealed) | `MapMarkerCluster` | 3 | ☑ |
+| `MapMarkerAnimation` | `MapMarkerAnimation` (sealed) | `MapMarkerAnimation` | 3 | ☑ |
+| `MapPolyline` | `MapPolyline` (sealed) | `MapPolyline` | 2 | ☑ |
+| `MapPolygon` | `MapPolygon` (sealed) | `MapPolygon` | 2 | ☑ |
+| `MapArrow` | `MapArrow` (sealed) | `MapArrow` | 3 | ☑ |
+| `MapImageOverlay` | `MapImageOverlay` (sealed) | `MapImageOverlay` | 3 | ☑ |
 
 ### Custom Layers — Phase 3
 
 | Android Class | iOS Equivalent | MAUI Type | Phase | Validated |
 |---|---|---|---|---|
-| `MapLayer` | `MapLayer` (sealed) | `MapLayer` | 3 | ☐ |
-| `MapLayerBuilder` | `MapLayerBuilder` (sealed) | `MapLayerBuilder` | 3 | ☐ |
-| `RasterDataSource` | `RasterDataSource` (sealed) | `RasterDataSource` | 3 | ☐ |
-| `PointDataSource` | `PointDataSource` (sealed) | `PointDataSource` | 3 | ☐ |
-| `LineDataSource` | `LineDataSource` (sealed) | `LineDataSource` | 3 | ☐ |
-| `PolygonDataSource` | `PolygonDataSource` (sealed) | `PolygonDataSource` | 3 | ☐ |
-| `TileUrlProviderFactory` | `TileUrlProviderFactory` (sealed) | `TileUrlProviderFactory` | 3 | ☐ |
-| `JsonStyleFactory` | `JsonStyleFactory` (sealed) | `JsonStyleFactory` | 3 | ☐ |
-| `Style` | `Style` (sealed) | `Style` | 3 | ☐ |
-| `Mesh` / `MeshBuilder` | `Mesh` / `MeshBuilder` (sealed) | `Mesh` / `MeshBuilder` | 3 | ☐ |
+| `MapLayer` | `MapLayer` (sealed) | `MapLayer` | 3 | ☑ |
+| `MapLayerBuilder` | `MapLayerBuilder` (sealed) | `MapLayerBuilder` | 3 | ☑ |
+| `RasterDataSource` | `RasterDataSource` (sealed) | `RasterDataSource` | 3 | ☑ |
+| `PointDataSource` | `PointDataSource` (sealed) | `PointDataSource` | 3 | ☑ |
+| `LineDataSource` | `LineDataSource` (sealed) | `LineDataSource` | 3 | ☑ |
+| `PolygonDataSource` | `PolygonDataSource` (sealed) | `PolygonDataSource` | 3 | ☑ |
+| `TileUrlProviderFactory` | `TileUrlProviderFactory` (sealed) | `TileUrlProviderFactory` | 3 | ☑ |
+| `JsonStyleFactory` | `JsonStyleFactory` (sealed) | `JsonStyleFactory` | 3 | ☑ |
+| `Style` | `Style` (sealed) | `Style` | 3 | ☑ |
+| `Mesh` / `MeshBuilder` | `Mesh` / `MeshBuilder` (sealed) | `Mesh` / `MeshBuilder` | 3 | ☑ |
 
 ### Camera + Animation — Phase 1-3
 
 | Android Class | iOS Equivalent | MAUI Type | Phase | Validated |
 |---|---|---|---|---|
-| `MapCameraLimits` | `MapCameraLimits` (sealed) | `MapCameraLimits` | 2 | ☐ |
-| `MapCameraAnimation` | `MapCameraAnimation` (sealed) | `MapCameraAnimation` | 1 | ☐ |
-| `MapCameraKeyframeTrack` | `MapCameraKeyframeTrack` (sealed) | `MapCameraKeyframeTrack` | 3 | ☐ |
-| `MapItemKeyFrameTrack` | `MapItemKeyFrameTrack` (sealed) | `MapItemKeyFrameTrack` | 3 | ☐ |
-| `MapSceneLights` | `MapSceneLights` (sealed) | `MapSceneLights` | 3 | ☐ |
-| `MapContentSettings` | `MapContentSettings` (sealed) | `MapContentSettings` | 3 | ☐ |
-| `MapContext` | `MapContext` (sealed) | `MapContext` | 3 | ☐ |
-| `AssetsManager` | `AssetsManager` (sealed) | `AssetsManager` | 3 | ☐ |
+| `MapCameraLimits` | `MapCameraLimits` (sealed) | `MapCameraLimits` | 2 | ☑ |
+| `MapCameraAnimation` | `MapCameraAnimation` (sealed) | `MapCameraAnimation` | 1 | ☑ |
+| `MapCameraKeyframeTrack` | `MapCameraKeyframeTrack` (sealed) | `MapCameraKeyframeTrack` | 3 | ☑ |
+| `MapItemKeyFrameTrack` | `MapItemKeyFrameTrack` (sealed) | `MapItemKeyFrameTrack` | 3 | ☑ ⚠️ |
+| `MapSceneLights` | `MapSceneLights` (sealed) | `MapSceneLights` | 3 | ☑ |
+| `MapContentSettings` | `MapContentSettings` (sealed) | `MapContentSettings` | 3 | ☑ |
+| `MapContext` | `MapContext` (sealed) | `MapContext` | 3 | ☑ |
+| `AssetsManager` | `AssetsManager` (sealed) | `AssetsManager` | 3 | ☑ |
+
+> **⚠️ MapItemKeyFrameTrack**: iOS uses capital F (`MapItemKeyFrameTrack`) while Android uses lowercase f (`MapItemKeyframeTrack`). NativeBridge must use the iOS casing.
 
 ### Gesture Delegates — Phase 1
 
@@ -462,34 +476,74 @@ All type aliases are completion handler closures or error aliases. They map to C
 
 ### Android: `com.here.sdk.traffic` (15 classes, 5 interfaces)
 
+> **Validated 2026-04-14** against Android Javadoc and iOS Swift interface (v4.25.5.0).
+> See Corrections Log below for discrepancies.
+
 ### Key Classes — Phase 3
 
 | Android Class | iOS Equivalent | MAUI Type | Phase | Validated |
 |---|---|---|---|---|
-| `TrafficEngine` | `TrafficEngine` (sealed) | `TrafficEngine` | 3 | ☐ |
-| `TrafficFlow` | `TrafficFlow` (sealed) | `TrafficFlow` | 3 | ☐ |
-| `TrafficIncident` | `TrafficIncident` (sealed) | `TrafficIncident` | 3 | ☐ |
-| `TrafficIncidentOnRoute` | `TrafficIncidentOnRoute` (sealed) | `TrafficIncidentOnRoute` | 3 | ☐ |
-| `TrafficDataProvider` | `TrafficDataProvider` (sealed) | `TrafficDataProvider` | 3 | ☐ |
+| `TrafficEngine` | `TrafficEngine` (sealed) | `TrafficEngine` | 3 | ☑ |
+| `TrafficFlow` | `TrafficFlow` (sealed) | `TrafficFlow` | 3 | ☑ |
+| `TrafficIncident` | `TrafficIncident` (sealed) | `TrafficIncident` | 3 | ☑ |
+| `TrafficIncidentOnRoute` | `TrafficIncidentOnRoute` (sealed) | `TrafficIncidentOnRoute` | 3 | ☑ ⚠️ |
+| `TrafficDataProvider` | `TrafficDataProvider` (sealed) | `TrafficDataProvider` | 3 | ☑ |
+
+> **⚠️ TrafficIncidentOnRoute**: Android places this in `com.here.sdk.routing`, NOT `com.here.sdk.traffic`. iOS also has it under Routing. It conforms to `TrafficIncidentBase` (traffic) but lives in the routing package. The `id` property is `String?` (optional) on iOS vs `String` (non-null) on `TrafficIncident`.
 
 ### Traffic Structs — Phase 3
 
-| iOS Struct | MAUI Type | Phase | Validated |
-|---|---|---|---|
-| `TrafficFlowQueryOptions` | `TrafficFlowQueryOptions` | 3 | ☐ |
-| `TrafficIncidentsQueryOptions` | `TrafficIncidentsQueryOptions` | 3 | ☐ |
-| `TrafficIncidentLookupOptions` | `TrafficIncidentLookupOptions` | 3 | ☐ |
-| `TrafficLocation` | `TrafficLocation` | 3 | ☐ |
+| iOS Struct | MAUI Type | Phase | Validated | NSObject Wrapper |
+|---|---|---|---|---|
+| `TrafficFlowQueryOptions` | `TrafficFlowQueryOptions` | 3 | ☑ | Yes |
+| `TrafficIncidentsQueryOptions` | `TrafficIncidentsQueryOptions` | 3 | ☑ | Yes |
+| `TrafficIncidentLookupOptions` | `TrafficIncidentLookupOptions` | 3 | ☑ | Yes |
+| `TrafficLocation` | `TrafficLocation` | 3 | ☑ | Yes (contains GeoPolyline) |
 
 ### Traffic Enums — Phase 3
 
-| Enum | MAUI Type | Phase | Validated |
-|---|---|---|---|
-| `TrafficQueryError` | `TrafficQueryError` | 3 | ☐ |
-| `TrafficIncidentImpact` | `TrafficIncidentImpact` | 3 | ☐ |
-| `TrafficIncidentType` | `TrafficIncidentType` | 3 | ☐ |
-| `Traversability` | `Traversability` | 3 | ☐ |
-| `TrafficOptimizationMode` | `TrafficOptimizationMode` | 3 | ☐ |
+| Enum | MAUI Type | Phase | Validated | Values |
+|---|---|---|---|---|
+| `TrafficQueryError` | `TrafficQueryError` | 3 | ☑ | 19 |
+| `TrafficIncidentImpact` | `TrafficIncidentImpact` | 3 | ☑ | 5 (Critical, Major, Minor, Low, Unknown) |
+| `TrafficIncidentType` | `TrafficIncidentType` | 3 | ☑ | 12 |
+| `Traversability` | `Traversability` | 3 | ☑ | 3 (Open, Closed, ReversibleNotRoutable) |
+| `JunctionsTraversability` | `JunctionsTraversability` | 3 | ☑ | 5 (AllOpen, AllClosed, IntermediateClosedEdgeOpen, StartOpenOthersClosed, EndOpenOthersClosed) |
+| `TrafficOptimizationMode` | `TrafficOptimizationMode` | 3 | ☑ ⚠️ | 3 (TimeDependent, LongTermClosuresOnly, Disabled) |
+
+> **⚠️ TrafficOptimizationMode**: Android places this in `com.here.sdk.routing`, NOT `com.here.sdk.traffic`. It belongs with routing options, not the traffic engine.
+
+### Traffic Callbacks — Phase 3 (MISSING from original catalog)
+
+| Android Interface | iOS Type Alias | MAUI Type | Phase | Validated |
+|---|---|---|---|---|
+| `TrafficFlowQueryCallback` | `TrafficFlowQueryCompletionHandler` | `EventHandler<TrafficFlowQueryEventArgs>` | 3 | ☑ |
+| `TrafficIncidentsQueryCallback` | `TrafficIncidentsQueryCompletionHandler` | `EventHandler<TrafficIncidentsQueryEventArgs>` | 3 | ☑ |
+| `TrafficIncidentLookupCallback` | `TrafficIncidentCompletionHandler` | `EventHandler<TrafficIncidentLookupEventArgs>` | 3 | ☑ |
+
+### Traffic Base Interfaces — Phase 3 (MISSING from original catalog)
+
+| Android Interface | iOS Protocol | MAUI Type | Phase | Validated |
+|---|---|---|---|---|
+| `TrafficFlowBase` | `TrafficFlowBase` (AnyObject) | `ITrafficFlowBase` | 3 | ☑ |
+| `TrafficIncidentBase` | `TrafficIncidentBase` (AnyObject) | `ITrafficIncidentBase` | 3 | ☑ |
+
+### TrafficIncident Nested Types — Phase 3 (MISSING from original catalog)
+
+| Type | Kind | MAUI Type | Phase | Validated | iOS Wrapper |
+|---|---|---|---|---|---|
+| `TrafficIncident.RestrictedVehicleCategory` | Enum (13 values) | `RestrictedVehicleCategory` | 3 | ☑ | NSInteger wrapper |
+| `TrafficIncident.VehicleRestriction` | Class (27 fields) | `VehicleRestriction` | 3 | ☑ | NSObject wrapper |
+
+### Traffic Validation Corrections
+
+1. **Method naming**: Android `TrafficEngine` uses `queryForFlow`/`queryForIncidents` (not `queryFlow`/`queryIncidents`)
+2. **TrafficIncidentOnRoute** is in `com.here.sdk.routing` on both platforms, not traffic
+3. **TrafficOptimizationMode** is in `com.here.sdk.routing` on Android, not traffic
+4. **TrafficDataProvider** has no public API surface — it is an opaque handle class
+5. **TrafficFlow** extends `TrafficFlowBase` (provides `freeFlowSpeedInMetersPerSecond`, `jamFactor`); **TrafficIncident** extends `TrafficIncidentBase` (provides `impact`, `type`, `description`, `startTime`, `endTime`)
+6. **TrafficFlow** properties on both platforms: `location`, `speedInMetersPerSecond?`, `speedUncappedInMetersPerSecond?`, `jamTendency?`, `confidence?`, `traversability?`, `junctionsTraversability?`, `freeFlowSpeedInMetersPerSecond`, `jamFactor`
+7. **TrafficIncident** additional properties beyond base: `id`, `originalId`, `parentId?`, `junctionsTraversability`, `isRoadClosed`, `codes`, `summary`, `entryTime?`, `location`, `vehicleRestrictions`
 
 ---
 
@@ -532,15 +586,105 @@ All type aliases are completion handler closures or error aliases. They map to C
 
 ### Android: `com.here.sdk.animation` (23 classes, 1 interface)
 
+> **Validated 2026-04-14** against Android Javadoc and iOS Swift interface.
+
 ### Key Classes — Phase 1-3
 
 | Android Class | iOS Equivalent | MAUI Type | Phase | Validated |
 |---|---|---|---|---|
-| `Easing` | `Easing` (sealed) | `Easing` | 3 | ☐ |
-| `MapCameraAnimation` | `MapCameraAnimation` (sealed) | `MapCameraAnimation` | 1 | ☐ |
-| `MapCameraKeyframeTrack` | `MapCameraKeyframeTrack` (sealed) | `MapCameraKeyframeTrack` | 3 | ☐ |
-| `MapMarkerAnimation` | `MapMarkerAnimation` (sealed) | `MapMarkerAnimation` | 3 | ☐ |
-| `MapPolylineAnimation` | `MapPolylineAnimation` (sealed) | `MapPolylineAnimation` | 3 | ☐ |
+| `Easing` | `Easing` (sealed) | `Easing` | 3 | ☑ |
+| `MapCameraAnimation` | `MapCameraAnimation` (sealed) | `MapCameraAnimation` | 1 | ☑ ⚠️ |
+| `MapCameraKeyframeTrack` | `MapCameraKeyframeTrack` (sealed) | `MapCameraKeyframeTrack` | 3 | ☑ |
+| `MapMarkerAnimation` | `MapMarkerAnimation` (sealed) | `MapMarkerAnimation` | 3 | ☑ |
+| `MapPolylineAnimation` | `MapPolylineAnimation` (sealed) | `MapPolylineAnimation` | 3 | ☑ |
+
+> **⚠️ MapCameraAnimation** is in `com.here.sdk.mapview` on Android, NOT `com.here.sdk.animation`. Only `MapMarkerAnimation` and `MapPolylineAnimation` are in the animation package.
+
+### Phase 3 Validation — iOS Nested Types Requiring Wrappers
+
+**Enums needing NSInteger wrappers (all UInt32-backed):**
+
+| Nested Enum | Parent Type | Cases | MAUI Type |
+|---|---|---|---|
+| `Easing.InstantiationErrorCode` | Easing | 5 | `EasingInstantiationError` |
+| `EasingFunction` (top-level) | — | 38 | `EasingFunction` |
+| `KeyframeInterpolationMode` (top-level) | — | 3 (Step, Linear, Smooth) | `KeyframeInterpolationMode` |
+| `MapMarker3DModel.InstantiationErrorCode` | MapMarker3DModel | 1 | `MapMarker3DModelError` |
+| `MapMarkerAnimation.InstantiationErrorCode` | MapMarkerAnimation | 1 (IncompatibleTrack) | `MapMarkerAnimationError` |
+| `MapPolylineAnimation.InstantiationErrorCode` | MapPolylineAnimation | 1 (IncompatibleTrack) | `MapPolylineAnimationError` |
+| `MapItemKeyFrameTrack.InstantiationErrorCode` | MapItemKeyFrameTrack | 2 | `MapItemKeyFrameTrackError` |
+| `MapCameraKeyframeTrack.InstantiationErrorCode` | MapCameraKeyframeTrack | 2 | `MapCameraKeyframeTrackError` |
+| `MapPolyline.Representation.InstantiationErrorCode` | MapPolyline.Representation | 1 | `MapPolylineRepresentationError` |
+| `MapSceneLights.Category` | MapSceneLights | 3 (Main, Back, Rim) | `MapSceneLightCategory` |
+| `MapSceneLights.AttributeSettingError` | MapSceneLights | 1 (NoLights) | `MapSceneLightSettingError` |
+| `MapContentSettings.TrafficRefreshPeriodErrorCode` | MapContentSettings | 2 | `TrafficRefreshPeriodError` |
+| `MapContext.MemoryManagementStrategy` | MapContext | 2 (Fixed, Dynamic) | `MemoryManagementStrategy` |
+| `MapContext.MemoryManagementResultCode` | MapContext | 5 | `MemoryManagementResultCode` |
+| `MapContext.ResourceType` | MapContext | 1 (Memory) | `MapContextResourceType` |
+| `MapContext.FreeResourceSeverity` | MapContext | 2 (Moderate, Critical) | `FreeResourceSeverity` |
+| `MapLayerBuilder.InstantiationErrorCode` | MapLayerBuilder | 2 | `MapLayerBuilderError` |
+| `JsonStyleFactory.InstantiationErrorCode` | JsonStyleFactory | 2 | `JsonStyleFactoryError` |
+| `MapContentType` (top-level) | — | 4 | `MapContentType` |
+| `LineCap` (top-level) | — | 3 (Round, Square, Butt) | `LineCap` |
+| `DrawOrderType` (top-level) | — | 2 | `DrawOrderType` |
+| `AnimationState` (top-level) | — | 3 (Started, Completed, Cancelled) | `AnimationState` |
+| `RenderSize.Unit` (nested) | RenderSize | 3 (Pixels, DIP, Meters) | `RenderSizeUnit` |
+| `MapMeasureDependentRenderSize.InstantiationErrorCode` | MapMeasureDependentRenderSize | 3 | — |
+
+**Structs needing NSObject wrappers:**
+
+| Nested Struct | Parent Type | Key Properties |
+|---|---|---|
+| `MapMarkerCluster.Grouping` | MapMarkerCluster | `markers`, `parent` |
+| `MapMarkerCluster.ImageStyle` | MapMarkerCluster | `image`, `anchor` |
+| `MapMarkerCluster.CounterStyle` | MapMarkerCluster | `textColor`, `fontSize`, `textAnchor`, `maxCountNumber`, `aboveMaxText` |
+| `MapSceneLights.Direction` | MapSceneLights | `azimuth`, `altitude` |
+| `MapContext.MemoryManagementResult` | MapContext | `diffBetweenVideoMemoryLimitAndRequirementInKiB?`, `resultCode` |
+| `MapContext.MemoryManagementOptions` | MapContext | `memoryManagementStrategy`, `tileCacheMemoryLimitInKiB?`, `videoMemoryLimitInKiB?` |
+| `MapLayerBuilder.InstantiationErrorDetails` | MapLayerBuilder | `errorCode`, `errorDescription?` |
+| `JsonStyleFactory.InstantiationErrorDetails` | JsonStyleFactory | `errorCode`, `errorDescription?` |
+| `ScalarKeyframe` | — | `value` (Double), `duration` (TimeInterval) |
+| `GeoCoordinatesKeyframe` | — | `value` (GeoCoordinates), `duration` |
+| `GeoOrientationKeyframe` | — | `value` (GeoOrientation), `duration` |
+| `Point2DKeyframe` | — | `value` (Point2D), `duration` |
+| `Anchor2DKeyframe` | — | `value` (Anchor2D), `duration` |
+
+### Phase 3 Validation — Additional Types NOT in Original Catalog
+
+These types were discovered during validation and need to be added for complete API coverage:
+
+| Type | Kind | Package | Notes |
+|---|---|---|---|
+| `MapCameraAnimationFactory` | class | mapview | Static factory for `createAnimation` and `flyTo` — essential for camera animations |
+| `MapItemRepresentation` | class | mapview | Abstract base for `MapPolyline.Representation` |
+| `PointDataSourceBuilder` | class | mapview.datasource | Required to construct `PointDataSource` |
+| `LineDataSourceBuilder` | class | mapview.datasource | Required to construct `LineDataSource` |
+| `PolygonDataSourceBuilder` | class | mapview.datasource | Required to construct `PolygonDataSource` |
+| `MapLayerPriority` | class | mapview | Used by `MapLayer`/`MapLayerBuilder` |
+| `MapLayerPriorityBuilder` | class | mapview | Builder for `MapLayerPriority` |
+| `MapLayerVisibilityRange` | class | mapview | Used by `MapLayerBuilder.withVisibilityRange` |
+| `MapLayerMapMeasureDependentStorageLevels` | class | mapview | Storage level configuration |
+| `QuadMeshBuilder` | class | mapview | Extends `MeshBuilder` for quad geometry |
+| `TriangleMeshBuilder` | class | mapview | Extends `MeshBuilder` for triangle geometry |
+| `MapMeasureRange` | struct | — | Used by visibility ranges |
+| `MapMeasureDependentRenderSize` | struct | — | Used for line widths etc. |
+
+### Phase 3 Validation — Deprecated APIs
+
+| API | Deprecated | Replacement | Notes |
+|---|---|---|---|
+| `MapCameraKeyframeTrack.lookAtDistance(keyframes:easing:interpolationMode:)` | v4.27.0 | `lookAtDistance(ofKind:keyframes:easing:interpolationMode:)` | New version takes `MapMeasure.Kind` param |
+
+### Phase 3 Validation — Beta APIs
+
+These types/methods are marked BETA in the SDK and may change:
+- `JsonStyleFactory`, `Style` — custom map styling
+- `PointDataSource`, `LineDataSource`, `PolygonDataSource` — custom data layers
+- `AssetsManager` — font registration
+- `MapContext` memory management methods
+- `MapLayer.setStyle()`, `MapLayerBuilder.withStyle()`
+- `MapArrow.setMeasureDependentTailWidth()`
+- `TrafficEngine.queryForFlow()` — traffic flow querying
 
 ---
 

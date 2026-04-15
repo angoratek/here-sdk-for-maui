@@ -5,14 +5,26 @@ using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
 
-public class RoutingViewModel
+public class RoutingViewModel : ViewModelBase
 {
     private readonly IRoutingService? _routingService;
+    private Route? _calculatedRoute;
+    private string _statusMessage = string.Empty;
 
     public GeoCoordinates Start { get; set; } = new(52.531268, 13.387659); // Berlin
     public GeoCoordinates End { get; set; } = new(48.8566, 2.3522); // Paris
-    public Route? CalculatedRoute { get; private set; }
-    public string StatusMessage { get; private set; } = string.Empty;
+
+    public Route? CalculatedRoute
+    {
+        get => _calculatedRoute;
+        private set => SetProperty(ref _calculatedRoute, value);
+    }
+
+    public string StatusMessage
+    {
+        get => _statusMessage;
+        private set => SetProperty(ref _statusMessage, value);
+    }
 
     public RoutingViewModel() { }
 

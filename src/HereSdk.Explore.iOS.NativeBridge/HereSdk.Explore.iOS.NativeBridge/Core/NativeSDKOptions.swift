@@ -37,7 +37,6 @@ public class HereSdkEngine: NSObject {
     }
 
     @objc public static func shutdown() {
-        SDKNativeEngine.sharedInstance?.dispose()
         SDKNativeEngine.sharedInstance = nil
     }
 }

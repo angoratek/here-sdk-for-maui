@@ -1,0 +1,437 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1BB50C1A4A974608894CDE39 /* NativeMapCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA173F07BE83C8061F8830CE /* NativeMapCamera.swift */; };
+		1E852C5442EE13C9182E6338 /* NativeSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C15BC3C51ED6D42F56C2832 /* NativeSearchEngine.swift */; };
+		2BC90AB69058937BB8699724 /* NativeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4BCCD4C296195A3F3B903 /* NativeMapView.swift */; };
+		315D44FDCE1946D9A6397336 /* NativeMapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8884FE9B65BD7FE9EE7EE603 /* NativeMapScene.swift */; };
+		38D96FF45D34DC8B728DBDC6 /* NativeSDKOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC470A9F031305116A217C11 /* NativeSDKOptions.swift */; };
+		39ED104183AE46E86D1357FA /* NativeRoutingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F756CE4F7FA42594B50F3B58 /* NativeRoutingEngine.swift */; };
+		4D54366A23685A9F78881F4C /* NativeMapMarker3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D52DAC3D9B8BE0B98C827D /* NativeMapMarker3D.swift */; };
+		5938AEBEBF59254DCEE7B82C /* NativeGeoPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA7E8C3453ABFDFE87957F0 /* NativeGeoPolyline.swift */; };
+		5DBB8E189362BE5FAD3CF7B5 /* NativeGeoCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143E263A27E3628D5AC75BA4 /* NativeGeoCoordinates.swift */; };
+		7BF9BEBA1492FB8C8DF34193 /* NativeMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DAD093EFD3784E23F62664 /* NativeMapMarker.swift */; };
+		9BFA8A0D70C33C2F6E17E5A4 /* NativeGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613F1288254A4D7F38BD44A6 /* NativeGestures.swift */; };
+		A0A2B83F9A476D29CA005922 /* heresdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9679423E71CB628909453BE8 /* heresdk.xcframework */; };
+		AB2BDA460A29B7E65E0F520A /* NativePrimitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B25FC703D32522A98D7D07 /* NativePrimitives.swift */; };
+		B52A38538560D1DDA39B6C72 /* NativeMapItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9DF410D28ADDCF5D7C4F4A /* NativeMapItems.swift */; };
+		B8AE1E33A3DDA62838250B9A /* NativeGeoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E270842F7FF1B0D352138B /* NativeGeoBox.swift */; };
+		E0B169BBA31C014E2328B345 /* NativeTrafficEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD9C3B70EA4D68F406D2C8B /* NativeTrafficEngine.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0C15BC3C51ED6D42F56C2832 /* NativeSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSearchEngine.swift; sourceTree = "<group>"; };
+		0DA7E8C3453ABFDFE87957F0 /* NativeGeoPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGeoPolyline.swift; sourceTree = "<group>"; };
+		143E263A27E3628D5AC75BA4 /* NativeGeoCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGeoCoordinates.swift; sourceTree = "<group>"; };
+		28B25FC703D32522A98D7D07 /* NativePrimitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePrimitives.swift; sourceTree = "<group>"; };
+		2DF4BCCD4C296195A3F3B903 /* NativeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapView.swift; sourceTree = "<group>"; };
+		55E270842F7FF1B0D352138B /* NativeGeoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGeoBox.swift; sourceTree = "<group>"; };
+		5A9DF410D28ADDCF5D7C4F4A /* NativeMapItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapItems.swift; sourceTree = "<group>"; };
+		613F1288254A4D7F38BD44A6 /* NativeGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGestures.swift; sourceTree = "<group>"; };
+		6BD9C3B70EA4D68F406D2C8B /* NativeTrafficEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTrafficEngine.swift; sourceTree = "<group>"; };
+		6FDCC4E94363BF37D6EC08AC /* HereSdkExploreNativeBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HereSdkExploreNativeBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8884FE9B65BD7FE9EE7EE603 /* NativeMapScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapScene.swift; sourceTree = "<group>"; };
+		9679423E71CB628909453BE8 /* heresdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = heresdk.xcframework; path = "../../tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks/heresdk.xcframework"; sourceTree = "<group>"; };
+		99D52DAC3D9B8BE0B98C827D /* NativeMapMarker3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapMarker3D.swift; sourceTree = "<group>"; };
+		AC470A9F031305116A217C11 /* NativeSDKOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSDKOptions.swift; sourceTree = "<group>"; };
+		CA173F07BE83C8061F8830CE /* NativeMapCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapCamera.swift; sourceTree = "<group>"; };
+		F2DAD093EFD3784E23F62664 /* NativeMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapMarker.swift; sourceTree = "<group>"; };
+		F756CE4F7FA42594B50F3B58 /* NativeRoutingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRoutingEngine.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F9CDC9F784C491B2D4A3A05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0A2B83F9A476D29CA005922 /* heresdk.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		09EF2CBE4ED73177412B4D11 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FDCC4E94363BF37D6EC08AC /* HereSdkExploreNativeBridge.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		121D195E5AB8AAE59FDBA35F /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				6BD9C3B70EA4D68F406D2C8B /* NativeTrafficEngine.swift */,
+			);
+			path = Traffic;
+			sourceTree = "<group>";
+		};
+		14B789ABAAFE6367F2249D7C /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				613F1288254A4D7F38BD44A6 /* NativeGestures.swift */,
+				CA173F07BE83C8061F8830CE /* NativeMapCamera.swift */,
+				5A9DF410D28ADDCF5D7C4F4A /* NativeMapItems.swift */,
+				F2DAD093EFD3784E23F62664 /* NativeMapMarker.swift */,
+				99D52DAC3D9B8BE0B98C827D /* NativeMapMarker3D.swift */,
+				8884FE9B65BD7FE9EE7EE603 /* NativeMapScene.swift */,
+				2DF4BCCD4C296195A3F3B903 /* NativeMapView.swift */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		3432B9C459AC8D93136E7585 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				F756CE4F7FA42594B50F3B58 /* NativeRoutingEngine.swift */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		A883D21635F915D9CE0EB96C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9679423E71CB628909453BE8 /* heresdk.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAC2A60A79A7D5ECF617C827 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				55E270842F7FF1B0D352138B /* NativeGeoBox.swift */,
+				143E263A27E3628D5AC75BA4 /* NativeGeoCoordinates.swift */,
+				0DA7E8C3453ABFDFE87957F0 /* NativeGeoPolyline.swift */,
+				28B25FC703D32522A98D7D07 /* NativePrimitives.swift */,
+				AC470A9F031305116A217C11 /* NativeSDKOptions.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BFEE256F3605D2AE9A939D81 /* HereSdk.Explore.iOS.NativeBridge */ = {
+			isa = PBXGroup;
+			children = (
+				BAC2A60A79A7D5ECF617C827 /* Core */,
+				14B789ABAAFE6367F2249D7C /* Maps */,
+				3432B9C459AC8D93136E7585 /* Routing */,
+				FB8E0ABA1DAABB785BDFA95D /* Search */,
+				121D195E5AB8AAE59FDBA35F /* Traffic */,
+				DCA04DE5113E823ECD4AD846 /* Transport */,
+			);
+			path = HereSdk.Explore.iOS.NativeBridge;
+			sourceTree = "<group>";
+		};
+		DCA04DE5113E823ECD4AD846 /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
+		FACC798E2460ED3D7D145F0F = {
+			isa = PBXGroup;
+			children = (
+				BFEE256F3605D2AE9A939D81 /* HereSdk.Explore.iOS.NativeBridge */,
+				A883D21635F915D9CE0EB96C /* Frameworks */,
+				09EF2CBE4ED73177412B4D11 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FB8E0ABA1DAABB785BDFA95D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				0C15BC3C51ED6D42F56C2832 /* NativeSearchEngine.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E055A55B5EE8406948C9D8A /* HereSdkExploreNativeBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC0F12CAFE21E6545DC487ED /* Build configuration list for PBXNativeTarget "HereSdkExploreNativeBridge" */;
+			buildPhases = (
+				8AA697BA0BED60947850D06F /* Sources */,
+				6F9CDC9F784C491B2D4A3A05 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HereSdkExploreNativeBridge;
+			packageProductDependencies = (
+			);
+			productName = HereSdkExploreNativeBridge;
+			productReference = 6FDCC4E94363BF37D6EC08AC /* HereSdkExploreNativeBridge.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA4C413955790456D4884E35 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 490ED40210B780CD312B3CAF /* Build configuration list for PBXProject "HereSdkExploreNativeBridge" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = FACC798E2460ED3D7D145F0F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 09EF2CBE4ED73177412B4D11 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E055A55B5EE8406948C9D8A /* HereSdkExploreNativeBridge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8AA697BA0BED60947850D06F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8AE1E33A3DDA62838250B9A /* NativeGeoBox.swift in Sources */,
+				5DBB8E189362BE5FAD3CF7B5 /* NativeGeoCoordinates.swift in Sources */,
+				5938AEBEBF59254DCEE7B82C /* NativeGeoPolyline.swift in Sources */,
+				9BFA8A0D70C33C2F6E17E5A4 /* NativeGestures.swift in Sources */,
+				1BB50C1A4A974608894CDE39 /* NativeMapCamera.swift in Sources */,
+				B52A38538560D1DDA39B6C72 /* NativeMapItems.swift in Sources */,
+				7BF9BEBA1492FB8C8DF34193 /* NativeMapMarker.swift in Sources */,
+				4D54366A23685A9F78881F4C /* NativeMapMarker3D.swift in Sources */,
+				315D44FDCE1946D9A6397336 /* NativeMapScene.swift in Sources */,
+				2BC90AB69058937BB8699724 /* NativeMapView.swift in Sources */,
+				AB2BDA460A29B7E65E0F520A /* NativePrimitives.swift in Sources */,
+				39ED104183AE46E86D1357FA /* NativeRoutingEngine.swift in Sources */,
+				38D96FF45D34DC8B728DBDC6 /* NativeSDKOptions.swift in Sources */,
+				1E852C5442EE13C9182E6338 /* NativeSearchEngine.swift in Sources */,
+				E0B169BBA31C014E2328B345 /* NativeTrafficEngine.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		20323F36C134542F7C10B4ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		4BB8BA9B88DB7B8EDE768FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks\"",
+				);
+				INFOPLIST_FILE = HereSdk.Explore.iOS.NativeBridge/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "$(inherited) -ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.here.explore.NativeBridge;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		6A61AE4B43A3C4DF576BEE7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		986F2B33493D4D80F9857F29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks\"",
+				);
+				INFOPLIST_FILE = HereSdk.Explore.iOS.NativeBridge/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "$(inherited) -ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.here.explore.NativeBridge;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		490ED40210B780CD312B3CAF /* Build configuration list for PBXProject "HereSdkExploreNativeBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A61AE4B43A3C4DF576BEE7A /* Debug */,
+				20323F36C134542F7C10B4ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CC0F12CAFE21E6545DC487ED /* Build configuration list for PBXNativeTarget "HereSdkExploreNativeBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				986F2B33493D4D80F9857F29 /* Debug */,
+				4BB8BA9B88DB7B8EDE768FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA4C413955790456D4884E35 /* Project object */;
+}

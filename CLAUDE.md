@@ -16,12 +16,13 @@ src/
   HereSdk.Explore.Maui/               # Cross-platform MAUI class library
   HereSdk.Explore.Maui.RefApp/        # Demo/reference app
 tests/
-  HereSdk.Explore.Maui.Tests/         # xUnit unit tests (net9.0, no device needed)
-  HereSdk.Explore.Maui.DeviceTests/   # Platform device tests (net9.0-android;net9.0-ios)
+  HereSdk.Explore.Maui.Tests/         # xUnit unit tests (net10.0, no device needed)
+  HereSdk.Explore.Maui.DeviceTests/   # Platform device tests (net10.0-android;net10.0-ios)
 scripts/
   build.sh, build-android.sh, build-ios-native.sh, bind-ios.sh, test.sh, pack.sh, clean.sh
 plan/                                  # Design documents (this plan)
 tmp/                                   # SDK archives (gitignored)
+Version.props                          # Centralized version numbers (HereSdkVersion, PackageVersion)
 ```
 
 ## Build Commands
@@ -33,21 +34,28 @@ tmp/                                   # SDK archives (gitignored)
 # Android binding only
 dotnet build src/HereSdk.Explore.Android.Binding -c Release
 
-# iOS: build NativeBridge first, then bind
-cd src/HereSdk.Explore.iOS.NativeBridge && ./build-xcframework.sh && cd ../..
+# iOS: build NativeBridge xcframework first
+cd src/HereSdk.Explore.iOS.NativeBridge
+xcodegen generate  # regenerate Xcode project from project.yml
+cd ../..
+./scripts/build-ios-native.sh   # builds xcframework for device + simulator, copies to Binding/Libs/
+
+# Run Objective-Sharpie against xcframework headers (optional, manual fixup required)
 ./scripts/bind-ios.sh
+
+# Build iOS binding
 dotnet build src/HereSdk.Explore.iOS.Binding -c Release
 
 # MAUI library (both platforms)
-dotnet build src/HereSdk.Explore.Maui -f net9.0-android -c Release
-dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release
+dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
+dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 
 # Unit tests (no device needed)
 dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
 
 # Device tests
-dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-android -c Release
-dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-ios -c Release
+dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
+dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 ```
 
 ## Conventions
@@ -80,13 +88,16 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-ios -c Release
 ## iOS Binding — Critical Details
 
 1. **Swift structs cannot be `@objc`** — each struct needs an `NSObject` wrapper class with `toSwift()` / `fromSwift()` converters
-2. **Swift enums are `UInt32`-backed** — need `NSInteger` wrapper enums with explicit raw value mapping
+2. **Swift enums are `UInt32`-backed** — need `NSInteger` wrapper enums with explicit raw value mapping. **Never use `.localizedDescription`** on these enums — use `String(describing:)` instead
 3. **128 sealed classes** — use containment (has-a), never inheritance
 4. **`RefreshRouteOptions`** is deprecated (removal in v4.28.0) — do NOT bind it
 5. **39 nested enums** (e.g., `Easing.InstantiationErrorCode`) need separate NSInteger wrappers
 6. **`CollectionOf<T>`** exists only on iOS — Android erases the type parameter
 7. **Objective-Sharpie output** always needs manual fixup — resolve every `[Verify]` attribute
 8. **Memory management**: Use weak references for delegate protocols; implement `IDisposable` on all C# wrappers; test for retain cycles
+9. **TransportSpecification uses builder pattern**: `TransportSpecification.CarBuilder().build()`, NOT `CarSpecifications().transportSpecification`
+10. **MapView is ObjC-visible** as `HereMapView` (UIView subclass) — wrapped via `HereMapBridgeView.Create()` + `.PlatformView`
+11. **MapScene manages markers** via `addMapMarker()`/`removeMapMarker()`, not MapBridgeView
 
 ## Android Binding — Critical Details
 
@@ -117,8 +128,8 @@ If a type exists on only one platform, document it as platform-specific in `plan
 
 ## Testing
 
-- **Unit tests** (`tests/HereSdk.Explore.Maui.Tests`): net9.0, no device needed. Test models, converters, service logic with mocks.
-- **Device tests** (`tests/HereSdk.Explore.Maui.DeviceTests`): net9.0-android;net9.0-ios. Require emulator/simulator. Test actual SDK initialization, binding type access, platform converters.
+- **Unit tests** (`tests/HereSdk.Explore.Maui.Tests`): net10.0, no device needed. Test models, converters, service logic with mocks.
+- **Device tests** (`tests/HereSdk.Explore.Maui.DeviceTests`): net10.0-android;net10.0-ios. Require emulator/simulator. Test actual SDK initialization, binding type access, platform converters.
 - **Mock framework**: NSubstitute for C# interfaces; Android mock JAR for Android device tests.
 - **Naming**: `{MethodName}_{Scenario}_{Expected}`
 - **Target**: 80%+ coverage on shared logic (models, converters, services)
@@ -128,10 +139,10 @@ If a type exists on only one platform, document it as platform-specific in `plan
 | Phase | Scope | Status |
 |-------|-------|--------|
 | 0 | Foundation: scaffolding, Android binding, iOS NativeBridge skeleton | Complete |
-| 1 | MapView + SDK Init: map display, camera, gestures, markers | Scaffolded |
-| 2 | Search + Routing: full search & routing across both platforms | Scaffolded |
-| 3 | Traffic + Advanced: traffic, map items, advanced features | Scaffolded |
-| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs | Scaffolded |
+| 1 | MapView + SDK Init: map display, camera, gestures, markers | Complete (Android + iOS xcframework built) |
+| 2 | Search + Routing: full search & routing across both platforms | Complete (Android + iOS NativeBridge functional) |
+| 3 | Traffic + Advanced: traffic, map items, advanced features | Complete (Android + iOS NativeBridge functional) |
+| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs | In Progress (4.1-4.6 done, 4.7 remaining) |
 
 ## Key Discrepancies Found (from verification)
 

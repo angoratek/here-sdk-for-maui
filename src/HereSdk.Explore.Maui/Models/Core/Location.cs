@@ -16,8 +16,12 @@ public record Location(
 /// </summary>
 public enum LocationSource
 {
+    /// <summary>Unknown location source.</summary>
     Unknown,
+    /// <summary>GPS satellite fix.</summary>
     Gps,
+    /// <summary>Network-based location (cell/Wi-Fi).</summary>
     Network,
+    /// <summary>Passive provider (uses other apps' fixes).</summary>
     Passive
 }

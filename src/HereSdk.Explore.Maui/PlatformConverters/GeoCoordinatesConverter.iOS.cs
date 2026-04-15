@@ -1,5 +1,6 @@
 #if IOS
 using Here.Explore.Maui.Models;
+using Here.Explore.iOS;
 
 namespace Here.Explore.Maui.PlatformConverters;
 

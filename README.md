@@ -9,12 +9,11 @@ Cross-platform .NET MAUI bindings for the [HERE SDK](https://www.here.com/) Expl
 - **Search** — Text search, category search, auto-suggest, place details
 - **Routing** — Car, truck, pedestrian, bicycle, scooter, EV routing with maneuvers
 - **Traffic** — Real-time traffic flow and incident queries
-- **Map items** — Markers, polylines, polygons, 3D markers, clusters
-- **Custom layers** — Raster and vector tile sources, custom map styles
+- **Map items** — Markers, polylines, polygons, 3D markers
 
 ## Prerequisites
 
-- **.NET 9 SDK** — [Download](https://dotnet.microsoft.com/download/dotnet/9.0)
+- **.NET 10 SDK** — [Download](https://dotnet.microsoft.com/download/dotnet/10.0)
 - **.NET MAUI workloads** — `dotnet workload install maui`
 - **macOS + Xcode 15+** — Required for iOS binding (Native Library Interop)
 - **Android SDK** — API 34+ recommended
@@ -59,12 +58,12 @@ builder.UseHereSdkExplore(new HereSdkOptions
 // Search
 var results = await searchService.SearchAsync(
     new TextQuery("coffee nearby"),
-    new SearchOptions { SearchArea = new GeoCircle(center, 1000) });
+    new SearchOptions());
 
 // Routing
 var route = await routingService.CalculateRouteAsync(
     new[] { new Waypoint(start), new Waypoint(end) },
-    new CarOptions());
+    new RoutingOptions(TransportMode: SectionTransportMode.Car));
 ```
 
 ## Architecture
@@ -104,9 +103,6 @@ This is the standard pattern recommended by the MAUI Community Toolkit for Swift
 ### Android
 
 ```bash
-# Extract AAR (first time only)
-cp tmp/heresdk-explore-android-*/heresdk-explore-android-*.aar src/HereSdk.Explore.Android.Binding/Jars/
-
 # Build Android binding
 dotnet build src/HereSdk.Explore.Android.Binding -c Release
 ```
@@ -114,12 +110,13 @@ dotnet build src/HereSdk.Explore.Android.Binding -c Release
 ### iOS
 
 ```bash
-# Build NativeBridge xcframework (requires Xcode)
+# Build NativeBridge xcframework (requires Xcode + XcodeGen)
 cd src/HereSdk.Explore.iOS.NativeBridge
-./build-xcframework.sh
+xcodegen generate
 cd ../..
+./scripts/build-ios-native.sh
 
-# Run Objective-Sharpie + fix bindings
+# Run Objective-Sharpie + fix bindings (optional — ApiDefinition.cs is already maintained)
 ./scripts/bind-ios.sh
 
 # Build iOS binding
@@ -130,8 +127,8 @@ dotnet build src/HereSdk.Explore.iOS.Binding -c Release
 
 ```bash
 # Build for both platforms
-dotnet build src/HereSdk.Explore.Maui -f net9.0-android -c Release
-dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release
+dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
+dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 
 # Or use the build script
 ./scripts/build.sh
@@ -144,8 +141,8 @@ dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release
 dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
 
 # Device tests (requires emulator/simulator)
-dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-android -c Release
-dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net9.0-ios -c Release
+dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
+dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 ```
 
 ## Project Structure
@@ -159,10 +156,11 @@ here-sdk-for-maui/
 │   ├── HereSdk.Explore.Maui/                  # Cross-platform MAUI library
 │   └── HereSdk.Explore.Maui.RefApp/           # Demo app
 ├── tests/
-│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests
+│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests (198 tests)
 │   └── HereSdk.Explore.Maui.DeviceTests/      # Platform device tests
 ├── scripts/                                    # Build, test, pack scripts
 ├── plan/                                       # Design documents
+├── Version.props                               # Centralized version numbers
 └── tmp/                                        # SDK archives (gitignored)
 ```
 
@@ -181,10 +179,10 @@ Most consumers should reference only `HereSdk.Explore.Maui`.
 | Phase | Scope | Status |
 |-------|-------|--------|
 | 0 | Foundation: scaffolding, bindings, build infrastructure | Complete |
-| 1 | MapView + SDK Init: map display, camera, gestures, markers | Scaffolded |
-| 2 | Search + Routing: full search & routing on both platforms | Scaffolded |
-| 3 | Traffic + Advanced: traffic, map items, advanced features | Scaffolded |
-| 4 | Polish + NuGet: coverage, packaging, CI/CD, docs | Scaffolded |
+| 1 | MapView + SDK Init: map display, camera, gestures, markers | Complete |
+| 2 | Search + Routing: full search & routing on both platforms | Complete |
+| 3 | Traffic + Advanced: traffic, map items, advanced features | Complete |
+| 4 | Polish + NuGet: coverage, packaging, CI/CD, docs | In Progress |
 
 See [plan/06-phased-delivery.md](plan/06-phased-delivery.md) for detailed task breakdowns.
 
@@ -204,6 +202,7 @@ See [plan/06-phased-delivery.md](plan/06-phased-delivery.md) for detailed task b
 - **iOS `RefreshRouteOptions`** is deprecated and will NOT be bound
 - **iOS binary size** — xcframework is ~831 MB (stripped for release)
 - **macOS required** for building iOS bindings (Xcode dependency)
+- **iOS feature gaps**: Isoline routing and traffic-on-route not yet in NativeBridge; map pick returns null
 
 ## License
 

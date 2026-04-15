@@ -1,4 +1,5 @@
 using Here.Explore.Maui.Controls;
+using Here.Explore.Maui.Handlers;
 using Here.Explore.Maui.Services;
 using Microsoft.Maui.Hosting;
 
@@ -22,6 +23,11 @@ public static class HereSdkExtensions
         builder.Services.AddSingleton<IRoutingService, RoutingService>();
         builder.Services.AddSingleton<ISearchService, SearchService>();
         builder.Services.AddSingleton<ITrafficService, TrafficService>();
+
+        builder.ConfigureMauiHandlers(handlers =>
+        {
+            handlers.AddHandler<IHereMapView, HereMapViewHandler>();
+        });
 
         return builder;
     }

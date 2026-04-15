@@ -1,0 +1,309 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3 effective-5.10 (swiftlang-6.3.0.123.5 clang-2100.0.123.102)
+// swift-module-flags: -target x86_64-apple-ios15.2-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name HereSdkExploreNativeBridge
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import heresdk
+@objc(HereGeoBox) public class HereGeoBox : ObjectiveC.NSObject {
+  @objc public var southWest: HereSdkExploreNativeBridge.HereGeoCoordinates
+  @objc public var northEast: HereSdkExploreNativeBridge.HereGeoCoordinates
+  @objc public init(southWest: HereSdkExploreNativeBridge.HereGeoCoordinates, northEast: HereSdkExploreNativeBridge.HereGeoCoordinates)
+  @objc deinit
+}
+@objc(HereGeoCoordinates) public class HereGeoCoordinates : ObjectiveC.NSObject {
+  @objc public var latitude: Swift.Double
+  @objc public var longitude: Swift.Double
+  @objc public init(latitude: Swift.Double, longitude: Swift.Double)
+  @objc deinit
+}
+@objc(HereGeoPolyline) public class HereGeoPolyline : ObjectiveC.NSObject {
+  @objc public var vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates]
+  @objc public init(vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates])
+  @objc deinit
+}
+@objc(HereGeoPolygon) public class HereGeoPolygon : ObjectiveC.NSObject {
+  @objc public var vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates]
+  @objc public init(vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates])
+  @objc deinit
+}
+@objc(HereTapDelegate) public protocol HereTapDelegate {
+  @objc func onTap(originX: Swift.Double, originY: Swift.Double)
+}
+@objc(HereLongPressDelegate) public protocol HereLongPressDelegate {
+  @objc func onLongPress(state: Swift.Int, originX: Swift.Double, originY: Swift.Double)
+}
+@objc(HereDoubleTapDelegate) public protocol HereDoubleTapDelegate {
+  @objc func onDoubleTap(originX: Swift.Double, originY: Swift.Double)
+}
+@objc(HereGestures) public class HereGestures : ObjectiveC.NSObject {
+  public init(_ gestures: heresdk.Gestures)
+  @objc convenience public init(bridgeView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public func setTapDelegate(_ delegate: (any HereSdkExploreNativeBridge.HereTapDelegate)?)
+  @objc public func setLongPressDelegate(_ delegate: (any HereSdkExploreNativeBridge.HereLongPressDelegate)?)
+  @objc public func setDoubleTapDelegate(_ delegate: (any HereSdkExploreNativeBridge.HereDoubleTapDelegate)?)
+  @objc deinit
+}
+@objc(HereCameraState) public class HereCameraState : ObjectiveC.NSObject {
+  @objc public var targetLatitude: Swift.Double
+  @objc public var targetLongitude: Swift.Double
+  @objc public var bearing: Swift.Double
+  @objc public var tilt: Swift.Double
+  @objc public var distanceToTargetInMeters: Swift.Double
+  @objc public var zoomLevel: Swift.Double
+  @objc public init(targetLatitude: Swift.Double, targetLongitude: Swift.Double, bearing: Swift.Double, tilt: Swift.Double, distanceToTargetInMeters: Swift.Double, zoomLevel: Swift.Double)
+  @objc deinit
+}
+@objc(HereMapCameraDelegate) public protocol HereMapCameraDelegate {
+  @objc optional func onMapCameraUpdated(_ cameraState: HereSdkExploreNativeBridge.HereCameraState)
+}
+@objc(HereMapCamera) public class HereMapCamera : ObjectiveC.NSObject {
+  public init(_ camera: heresdk.MapCamera)
+  @objc convenience public init(bridgeView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public var state: HereSdkExploreNativeBridge.HereCameraState {
+    @objc get
+  }
+  @objc public func setTarget(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates)
+  @objc public func setTarget(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates, zoomLevel: Swift.Double)
+  @objc public func addDelegate(_ delegate: any HereSdkExploreNativeBridge.HereMapCameraDelegate)
+  @objc public func removeDelegate()
+  @objc deinit
+}
+extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
+  public func onMapCameraUpdated(_ cameraState: heresdk.MapCamera.State)
+}
+@objc(HereMapPolyline) public class HereMapPolyline : ObjectiveC.NSObject {
+  @objc public var drawOrder: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc public init(vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates], color: UIKit.UIColor, widthInPixels: Swift.Double)
+  @objc public func addToMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public func removeFromMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc deinit
+}
+@objc(HereMapPolygon) public class HereMapPolygon : ObjectiveC.NSObject {
+  @objc public var drawOrder: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc public init(vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates], fillColor: UIKit.UIColor)
+  @objc public init(vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates], fillColor: UIKit.UIColor, outlineColor: UIKit.UIColor, outlineWidthInPixels: Swift.Double)
+  @objc public func addToMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public func removeFromMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc deinit
+}
+@objc(HereMapArrow) public class HereMapArrow : ObjectiveC.NSObject {
+  @objc public init(vertices: [HereSdkExploreNativeBridge.HereGeoCoordinates], widthInPixels: Swift.Double, color: UIKit.UIColor)
+  @objc public func addToMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public func removeFromMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc deinit
+}
+@objc(HereMapMarker) public class HereMapMarker : ObjectiveC.NSObject {
+  @objc public var latitude: Swift.Double
+  @objc public var longitude: Swift.Double
+  @objc public var imageName: Swift.String?
+  @objc public init(latitude: Swift.Double, longitude: Swift.Double)
+  @objc public init(latitude: Swift.Double, longitude: Swift.Double, imageName: Swift.String)
+  @objc deinit
+}
+@objc(HereMapMarker3D) public class HereMapMarker3D : ObjectiveC.NSObject {
+  @objc public var bearing: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc public var scale: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc public init(latitude: Swift.Double, longitude: Swift.Double, imageName: Swift.String, width: Swift.Int32, height: Swift.Int32, scale: Swift.Double)
+  @objc public func addToMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public func removeFromMapView(_ mapView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc deinit
+}
+@objc(HereMapScheme) public enum HereMapScheme : ObjectiveC.NSInteger {
+  case normalDay = 0
+  case normalNight = 1
+  case satellite = 2
+  case hybridDay = 3
+  case hybridNight = 4
+  case liteDay = 5
+  case liteNight = 6
+  case liteHybridDay = 7
+  case liteHybridNight = 8
+  case logisticsDay = 9
+  case logisticsNight = 10
+  case logisticsHybridDay = 11
+  case logisticsHybridNight = 12
+  case roadNetworkDay = 13
+  case roadNetworkNight = 14
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+@objc(HereSceneLoadCallback) public protocol HereSceneLoadCallback {
+  @objc func onSceneLoaded(_ scheme: HereSdkExploreNativeBridge.HereMapScheme)
+  @objc func onSceneLoadFailed(_ error: Swift.String)
+}
+@objc(HereMapScene) public class HereMapScene : ObjectiveC.NSObject {
+  public init(_ mapScene: heresdk.MapScene)
+  @objc convenience public init(bridgeView: HereSdkExploreNativeBridge.HereMapBridgeView)
+  @objc public func loadScene(_ scheme: HereSdkExploreNativeBridge.HereMapScheme)
+  @objc public func setCallback(_ callback: any HereSdkExploreNativeBridge.HereSceneLoadCallback)
+  @objc public func addMapMarker(_ marker: HereSdkExploreNativeBridge.HereMapMarker)
+  @objc public func removeMapMarker(_ marker: HereSdkExploreNativeBridge.HereMapMarker)
+  @objc public func addMapMarker3D(_ marker: HereSdkExploreNativeBridge.HereMapMarker3D)
+  @objc public func removeMapMarker3D(_ marker: HereSdkExploreNativeBridge.HereMapMarker3D)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(HereMapBridgeView) public class HereMapBridgeView : ObjectiveC.NSObject {
+  @objc public static func create() -> HereSdkExploreNativeBridge.HereMapBridgeView
+  @objc public var platformView: UIKit.UIView? {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(HerePoint2D) public class HerePoint2D : ObjectiveC.NSObject {
+  @objc public var x: Swift.Double
+  @objc public var y: Swift.Double
+  @objc public init(x: Swift.Double, y: Swift.Double)
+  @objc deinit
+}
+@objc(HereSize2D) public class HereSize2D : ObjectiveC.NSObject {
+  @objc public var width: Swift.Double
+  @objc public var height: Swift.Double
+  @objc public init(width: Swift.Double, height: Swift.Double)
+  @objc deinit
+}
+@objc(HereLocation) public class HereLocation : ObjectiveC.NSObject {
+  @objc public var latitude: Swift.Double
+  @objc public var longitude: Swift.Double
+  @objc public var speedInMetersPerSecond: Swift.Double
+  @objc public var bearingInDegrees: Swift.Double
+  @objc public var timestampInMilliseconds: Swift.Int64
+  @objc public init(latitude: Swift.Double, longitude: Swift.Double, speedInMetersPerSecond: Swift.Double = 0, bearingInDegrees: Swift.Double = 0, timestampInMilliseconds: Swift.Int64 = 0)
+  @objc deinit
+}
+@objc(HereInstantiationErrorCode) public enum HereInstantiationErrorCode : ObjectiveC.NSInteger {
+  case none = 0
+  case networkError = 1
+  case invalidCredentials = 2
+  case invalidOptions = 3
+  case alreadyInitialized = 4
+  case engineDisposed = 5
+  case internalError = 6
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+@objc(HereRouteCalculatedCallback) public protocol HereRouteCalculatedCallback {
+  @objc func onRouteCalculated(routes: [[Swift.String : Any]]?, error: Swift.String?)
+}
+@objc(HereRoutingEngine) public class HereRoutingEngine : ObjectiveC.NSObject {
+  @objc public init(sdkEnginePointer: Swift.Int64)
+  @objc public func calculateRoute(waypoints: [HereSdkExploreNativeBridge.HereWaypoint], options: HereSdkExploreNativeBridge.HereRoutingOptions, completion: @escaping (HereSdkExploreNativeBridge.HereRouteResult) -> Swift.Void)
+  @objc deinit
+}
+@objc(HereWaypoint) public class HereWaypoint : ObjectiveC.NSObject {
+  @objc public var latitude: Swift.Double
+  @objc public var longitude: Swift.Double
+  @objc public var type: Swift.Int
+  @objc public init(latitude: Swift.Double, longitude: Swift.Double, type: Swift.Int = 0)
+  @objc deinit
+}
+@objc(HereRoutingOptions) public class HereRoutingOptions : ObjectiveC.NSObject {
+  @objc public var transportMode: Swift.Int
+  @objc public init(transportMode: Swift.Int = 0)
+  @objc deinit
+}
+@objc(HereRouteResult) public class HereRouteResult : ObjectiveC.NSObject {
+  @objc public var error: Swift.String?
+  @objc public var routes: [HereSdkExploreNativeBridge.HereRoute]?
+  @objc public init(error: Swift.String?, routes: [HereSdkExploreNativeBridge.HereRoute]?)
+  @objc deinit
+}
+@objc(HereRoute) public class HereRoute : ObjectiveC.NSObject {
+  @objc public var lengthInMeters: Swift.Int32
+  @objc public var durationInSeconds: Swift.Double
+  @objc public init(lengthInMeters: Swift.Int32, durationInSeconds: Swift.Double)
+  @objc deinit
+}
+@objc(HereSdkOptions) public class HereSdkOptions : ObjectiveC.NSObject {
+  @objc public var accessKeyId: Swift.String
+  @objc public var accessKeySecret: Swift.String
+  @objc public var cachePath: Swift.String?
+  @objc public init(accessKeyId: Swift.String, accessKeySecret: Swift.String, cachePath: Swift.String? = nil)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(HereSdkEngine) public class HereSdkEngine : ObjectiveC.NSObject {
+  @objc public static func initialize(_ options: HereSdkExploreNativeBridge.HereSdkOptions)
+  @objc public static func shutdown()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(HereSearchEngine) public class HereSearchEngine : ObjectiveC.NSObject {
+  @objc public init(sdkEnginePointer: Swift.Int64)
+  @objc public func searchByText(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
+  @objc public func searchByCategory(categoryId: Swift.String, latitude: Swift.Double, longitude: Swift.Double, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
+  @objc public func suggest(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, completion: @escaping ([HereSdkExploreNativeBridge.HereSuggestion]?, Swift.String?) -> Swift.Void)
+  @objc public func searchByPlaceId(placeId: Swift.String, completion: @escaping (HereSdkExploreNativeBridge.HerePlace?, Swift.String?) -> Swift.Void)
+  @objc deinit
+}
+@objc(HerePlace) public class HerePlace : ObjectiveC.NSObject {
+  @objc public var id: Swift.String
+  @objc public var title: Swift.String
+  @objc public var latitude: Swift.Double
+  @objc public var longitude: Swift.Double
+  @objc public init(id: Swift.String, title: Swift.String, latitude: Swift.Double, longitude: Swift.Double)
+  @objc deinit
+}
+@objc(HereSuggestion) public class HereSuggestion : ObjectiveC.NSObject {
+  @objc public var title: Swift.String
+  @objc public var id: Swift.String
+  @objc public var isPlace: Swift.Bool
+  @objc public init(title: Swift.String, id: Swift.String, isPlace: Swift.Bool)
+  @objc deinit
+}
+@objc(HereTrafficFlowCallback) public protocol HereTrafficFlowCallback {
+  @objc func onFlowQueryCompleted(flows: [HereSdkExploreNativeBridge.HereTrafficFlow]?, error: Swift.String?)
+}
+@objc(HereTrafficIncidentsCallback) public protocol HereTrafficIncidentsCallback {
+  @objc func onIncidentsQueryCompleted(incidents: [HereSdkExploreNativeBridge.HereTrafficIncident]?, error: Swift.String?)
+}
+@objc(HereTrafficEngine) public class HereTrafficEngine : ObjectiveC.NSObject {
+  @objc public init(sdkEnginePointer: Swift.Int64)
+  @objc public func queryFlow(latitude: Swift.Double, longitude: Swift.Double, radiusInMeters: Swift.Double, completion: @escaping ([HereSdkExploreNativeBridge.HereTrafficFlow]?, Swift.String?) -> Swift.Void)
+  @objc public func queryIncidents(latitude: Swift.Double, longitude: Swift.Double, radiusInMeters: Swift.Double, completion: @escaping ([HereSdkExploreNativeBridge.HereTrafficIncident]?, Swift.String?) -> Swift.Void)
+  @objc deinit
+}
+@objc(HereTrafficFlow) public class HereTrafficFlow : ObjectiveC.NSObject {
+  @objc public var jamFactor: Swift.Double
+  @objc public var speedInMetersPerSecond: Swift.Double
+  @objc public var freeFlowSpeedInMetersPerSecond: Swift.Double
+  @objc public init(jamFactor: Swift.Double, speedInMetersPerSecond: Swift.Double, freeFlowSpeedInMetersPerSecond: Swift.Double)
+  @objc deinit
+}
+@objc(HereTrafficIncident) public class HereTrafficIncident : ObjectiveC.NSObject {
+  @objc public var id: Swift.String
+  @objc public var descriptionText: Swift.String
+  @objc public var typeRawValue: Swift.Int
+  @objc public var impactRawValue: Swift.Int
+  @objc public var isRoadClosed: Swift.Bool
+  @objc public init(id: Swift.String, descriptionText: Swift.String, typeRawValue: Swift.Int, impactRawValue: Swift.Int, isRoadClosed: Swift.Bool)
+  @objc deinit
+}
+extension HereSdkExploreNativeBridge.HereMapScheme : Swift.Equatable {}
+extension HereSdkExploreNativeBridge.HereMapScheme : Swift.Hashable {}
+extension HereSdkExploreNativeBridge.HereMapScheme : Swift.RawRepresentable {}
+extension HereSdkExploreNativeBridge.HereInstantiationErrorCode : Swift.Equatable {}
+extension HereSdkExploreNativeBridge.HereInstantiationErrorCode : Swift.Hashable {}
+extension HereSdkExploreNativeBridge.HereInstantiationErrorCode : Swift.RawRepresentable {}

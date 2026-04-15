@@ -1,14 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-android</TargetFramework>
+    <TargetFramework>net10.0-android</TargetFramework>
     <PackageId>HereSdk.Explore.Android.Binding</PackageId>
     <Description>HERE SDK Explore Edition Android binding for .NET MAUI</Description>
     <Version>$(PackageVersion)</Version>
     <PackageTags>here;sdk;android;binding;maui;maps</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS0108;CS0618;CS8766;CS0535;BG8A00</NoWarn>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <AndroidLibrary Include="Jars\heresdk-explore-android-4.25.5.0.274356.aar" />
+    <AndroidLibrary Include="Jars\heresdk-explore-android-$(HereSdkArtifactVersion).aar" />
   </ItemGroup>
   <ItemGroup>
     <AndroidNamespaceReplacement Include="com.here.sdk.core" Replacement="Here.Explore.Core" />

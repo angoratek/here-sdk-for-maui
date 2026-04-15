@@ -14,7 +14,6 @@ public protocol HereTrafficIncidentsCallback: AnyObject {
 }
 
 /// ObjC-visible wrapper for TrafficEngine.
-/// Uses queryForFlow/queryForIncidents (the actual Swift SDK method names).
 @objc(HereTrafficEngine)
 public class HereTrafficEngine: NSObject {
     private var engine: TrafficEngine?
@@ -45,9 +44,9 @@ public class HereTrafficEngine: NSObject {
                                 radiusInMeters: radiusInMeters)
         let options = TrafficFlowQueryOptions()
 
-        engine.queryForFlow(inside: circle, queryOptions: options) { error, flows in
-            if let error = error {
-                completion(nil, error.localizedDescription)
+        engine.queryForFlow(inside: circle, queryOptions: options) { queryError, flows in
+            if let queryError = queryError {
+                completion(nil, String(describing: queryError))
             } else if let flows = flows {
                 let hereFlows = flows.map { HereTrafficFlow.from($0) }
                 completion(hereFlows, nil)
@@ -72,9 +71,9 @@ public class HereTrafficEngine: NSObject {
                                 radiusInMeters: radiusInMeters)
         let options = TrafficIncidentsQueryOptions()
 
-        engine.queryForIncidents(inside: circle, queryOptions: options) { error, incidents in
-            if let error = error {
-                completion(nil, error.localizedDescription)
+        engine.queryForIncidents(inside: circle, queryOptions: options) { queryError, incidents in
+            if let queryError = queryError {
+                completion(nil, String(describing: queryError))
             } else if let incidents = incidents {
                 let hereIncidents = incidents.map { HereTrafficIncident.from($0) }
                 completion(hereIncidents, nil)
@@ -117,8 +116,8 @@ public class HereTrafficFlow: NSObject {
 public class HereTrafficIncident: NSObject {
     @objc public var id: String
     @objc public var descriptionText: String
-    @objc public var typeRawValue: Int  // Maps to TrafficIncidentType
-    @objc public var impactRawValue: Int // Maps to TrafficIncidentImpact
+    @objc public var typeRawValue: Int
+    @objc public var impactRawValue: Int
     @objc public var isRoadClosed: Bool
 
     @objc public init(id: String, descriptionText: String, typeRawValue: Int, impactRawValue: Int, isRoadClosed: Bool) {

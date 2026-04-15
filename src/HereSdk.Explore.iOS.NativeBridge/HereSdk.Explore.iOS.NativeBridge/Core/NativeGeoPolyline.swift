@@ -11,9 +11,9 @@ public class HereGeoPolyline: NSObject {
         super.init()
     }
 
-    func toSwift() -> GeoPolyline {
+    func toSwift() -> GeoPolyline? {
         let coords = vertices.map { $0.toSwift() }
-        return (try? GeoPolyline(vertices: coords)) ?? GeoPolyline(vertices: [])
+        return try? GeoPolyline(vertices: coords)
     }
 
     static func from(_ swift: GeoPolyline) -> HereGeoPolyline {
@@ -31,9 +31,9 @@ public class HereGeoPolygon: NSObject {
         super.init()
     }
 
-    func toSwift() -> GeoPolygon {
+    func toSwift() -> GeoPolygon? {
         let coords = vertices.map { $0.toSwift() }
-        return (try? GeoPolygon(vertices: coords)) ?? GeoPolygon(vertices: [])
+        return try? GeoPolygon(vertices: coords)
     }
 
     static func from(_ swift: GeoPolygon) -> HereGeoPolygon {

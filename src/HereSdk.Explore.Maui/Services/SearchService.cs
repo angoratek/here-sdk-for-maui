@@ -10,6 +10,8 @@ public partial class SearchService : ISearchService
 {
     private bool _disposed;
 
+#if !ANDROID && !IOS
+    // Non-platform stub implementations for unit-test context
     public Task<SearchResult> SearchAsync(TextQuery query, SearchOptions options) =>
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<SearchResult> SearchAsync(CategoryQuery query, SearchOptions options) =>
@@ -18,6 +20,7 @@ public partial class SearchService : ISearchService
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<Place?> GetPlaceByIdAsync(string placeId) =>
         throw new NotImplementedException("Platform-specific implementation required.");
+#endif
 
     protected virtual void Dispose(bool disposing)
     {

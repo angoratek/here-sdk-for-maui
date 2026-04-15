@@ -33,12 +33,12 @@ public class HereMapPolyline: NSObject {
 
     @objc public func addToMapView(_ mapView: HereMapBridgeView) {
         guard let polyline = polyline else { return }
-        mapView.mapView.addMapPolyline(polyline)
+        mapView.swiftMapView?.mapScene.addMapPolyline(polyline)
     }
 
     @objc public func removeFromMapView(_ mapView: HereMapBridgeView) {
         guard let polyline = polyline else { return }
-        mapView.mapView.removeMapPolyline(polyline)
+        mapView.swiftMapView?.mapScene.removeMapPolyline(polyline)
     }
 
     var swiftPolyline: MapPolyline? { polyline }
@@ -78,12 +78,12 @@ public class HereMapPolygon: NSObject {
 
     @objc public func addToMapView(_ mapView: HereMapBridgeView) {
         guard let polygon = polygon else { return }
-        mapView.mapView.addMapPolygon(polygon)
+        mapView.swiftMapView?.mapScene.addMapPolygon(polygon)
     }
 
     @objc public func removeFromMapView(_ mapView: HereMapBridgeView) {
         guard let polygon = polygon else { return }
-        mapView.mapView.removeMapPolygon(polygon)
+        mapView.swiftMapView?.mapScene.removeMapPolygon(polygon)
     }
 
     var swiftPolygon: MapPolygon? { polygon }
@@ -107,12 +107,12 @@ public class HereMapArrow: NSObject {
 
     @objc public func addToMapView(_ mapView: HereMapBridgeView) {
         guard let arrow = arrow else { return }
-        mapView.mapView.addMapArrow(arrow)
+        mapView.swiftMapView?.mapScene.addMapArrow(arrow)
     }
 
     @objc public func removeFromMapView(_ mapView: HereMapBridgeView) {
         guard let arrow = arrow else { return }
-        mapView.mapView.removeMapArrow(arrow)
+        mapView.swiftMapView?.mapScene.removeMapArrow(arrow)
     }
 
     var swiftArrow: MapArrow? { arrow }

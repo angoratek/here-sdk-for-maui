@@ -1,3 +1,4 @@
+using Xunit;
 using Here.Explore.Maui.Models;
 
 namespace Here.Explore.Maui.Tests.Models;
@@ -15,7 +16,7 @@ public class HereSdkOptionsTests
         Assert.Equal("test-key", options.AccessKeyId);
         Assert.Equal("test-secret", options.AccessKeySecret);
         Assert.Null(options.CachePath);
-        Assert.Equal(CachePolicy.Default, options.CachePolicy);
+        Assert.Equal(HereSdkCachePolicy.Default, options.CachePolicy);
     }
 
     [Fact]
@@ -26,9 +27,9 @@ public class HereSdkOptionsTests
             AccessKeyId = "key",
             AccessKeySecret = "secret",
             CachePath = "/tmp/here-cache",
-            CachePolicy = CachePolicy.OfflineOnly
+            CachePolicy = HereSdkCachePolicy.OfflineOnly
         };
         Assert.Equal("/tmp/here-cache", options.CachePath);
-        Assert.Equal(CachePolicy.OfflineOnly, options.CachePolicy);
+        Assert.Equal(HereSdkCachePolicy.OfflineOnly, options.CachePolicy);
     }
 }

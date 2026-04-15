@@ -17,13 +17,17 @@ targets:
     type: framework
     platform: iOS
     sources:
-      - HereSdk.Explore.iOS.NativeBridge
+      - path: HereSdk.Explore.iOS.NativeBridge
+        type: group
+        excludes:
+          - "Info.plist"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.here.explore.NativeBridge
         INFOPLIST_FILE: HereSdk.Explore.iOS.NativeBridge/Info.plist
         DEFINES_MODULE: YES
         SWIFT_INSTALL_OBJC_HEADER: YES
+        SKIP_INSTALL: NO
         OTHER_LDFLAGS: $(inherited) -ObjC
     dependencies:
-      - framework: ../../../tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks/heresdk.xcframework
+      - framework: ../../tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks/heresdk.xcframework

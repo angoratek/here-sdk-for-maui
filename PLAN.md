@@ -8,7 +8,7 @@
 | What | Value |
 |---|---|
 | SDK | HERE Explore SDK v4.25.5.0 |
-| .NET | .NET 9 |
+| .NET | .NET 10 |
 | Platforms | Android (API 24+), iOS (15.2+) |
 | iOS Binding | Native Library Interop (Swift wrapper → ObjC → Sharpie) |
 | API Style | Unified idiomatic C# |
@@ -45,20 +45,40 @@ These were found by cross-referencing plan claims against actual SDK data:
 8. **`AuthenticationMode`, `LogControl`, `SDKBuildInformation`, `SDKLogger`** belong to `core.engine`, not `core`
 9. **`com.here.sdk.core.utilities`** is empty — removed from namespace mapping
 10. **`AndroidLibrayInclusion`** was a typo in csproj example — removed
+11. **`SearchError`/`RoutingError` are Java.Lang.Enum** — cannot use in C# switch, must use if/else if with .Equals()
+12. **`ManeuverAction` naming**: binding uses PascalCase (LeftTurn, SharpLeftTurn, LeftUTurn) not the simplified names
+13. **`ManeuverAction` has no Ferry** — Explore SDK doesn't expose Ferry as a maneuver action
+14. **`Address.HouseNumOrName`** (not HouseNumber), **`Address.Country`** (not CountryName)
+15. **`RouteHandle.Handle`** (string field, not Id)
+16. **`RouteSection.DeparturePlace`/`ArrivalPlace`** (RoutePlace type, not Departure/Arrival)
+17. **`Isoline.RangeValue`** (double, not RangeInMeters) and **`Isoline.Polygons`** (IList\<GeoPolygon\>)
+18. **`RoadTexts.Names.DefaultValue`** (for road name), **`RoadTexts.NumbersWithDirection.DefaultValue`** (for road number)
+19. **`TransportSpecification`** uses builder pattern (CarBuilder, TruckBuilder, etc.)
+20. **`SearchEngine.Search(TextQuery, ...)`** uses `ISearchCallbackExtended`, while **`SearchByText(TextQuery, ...)`** uses `SearchCompletedHandler`
 
 ## Phase Summary
 
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Foundation: scaffolding, Android binding, iOS NativeBridge skeleton | ✅ Complete |
-| 1 | MapView + SDK Init: map display, camera, gestures, markers | ✅ Scaffolded |
-| 2 | Search + Routing: full search & routing across both platforms | ✅ Scaffolded |
-| 3 | Traffic + Advanced: traffic, map items, advanced features | ✅ Scaffolded |
-| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs | Scaffolded |
+| 1 | MapView + SDK Init: map display, camera, gestures, markers | ✅ Complete (Android ✅, iOS ✅ — NativeBridge xcframework built, real API bindings) |
+| 2 | Search + Routing: full search & routing across both platforms | ✅ Complete (Android ✅, iOS ✅ — NativeBridge HereSearchEngine/HereRoutingEngine functional) |
+| 3 | Traffic + Advanced: traffic, map items, advanced features | ✅ Complete (Android ✅, iOS ✅ — NativeBridge HereTrafficEngine functional) |
+| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs | 🔨 In Progress (4.1 ✅, 4.2 ✅, 4.3 ✅, 4.4 ✅, 4.5 ✅, 4.6 ✅; 4.7 remaining) |
 
 > **Note**: All phases are scaffolded with code structure, models, services, NativeBridge wrappers, and tests.
-> Runtime build verification requires: `dotnet` SDK (9.0+) and Xcode (15+) with developer tools configured.
-> Run `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` and install .NET 9 SDK to verify builds.
+> **Current status (2026-04-15)**: Android + iOS binding + MAUI library all build. 198 unit tests pass.
+> Phase 4 progress: API coverage audit complete (4.1), NuGet metadata (4.4), XML docs (4.5), CI/CD .NET 10 (4.6).
+> iOS NativeBridge xcframework: **BUILT** — real Swift wrapper compiled for arm64 + simulator, ObjC headers generated.
+> iOS binding ApiDefinition.cs: **Matches actual xcframework headers** — all 30+ types correctly bound.
+> iOS service implementations: SearchService, RoutingService, TrafficService **functional** (using NativeBridge completion handlers). MapService functional (camera, gestures, map items, scene loading).
+> iOS HereMapViewHandler: Uses real HereMapBridgeView.Create() + PlatformView.
+> Added: Transport models (TruckSpecifications, CarSpecifications, TransportSpecification, AvoidanceOptions).
+> Added: Gesture events (MapDoubleTapped, MapLongPressed, MapPanned, MapPinchRotated).
+> Added: Route detail models (RouteHandle, Span, Toll, SectionNotice, Signpost, RoutePlace).
+> Added: Version.props — centralized version file for HereSdkVersion, PackageVersion.
+> Added: appsettings.json credential management for RefApp.
+> Remaining Phase 4: final validation on physical devices (4.7). iOS RefApp build requires Xcode version alignment with .NET SDK.
 
 ## Validation Rule
 

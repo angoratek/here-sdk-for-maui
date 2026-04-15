@@ -48,7 +48,6 @@ public class HereSize2D: NSObject {
 public class HereLocation: NSObject {
     @objc public var latitude: Double
     @objc public var longitude: Double
-    @objc public var altitude: Double
     @objc public var speedInMetersPerSecond: Double
     @objc public var bearingInDegrees: Double
     @objc public var timestampInMilliseconds: Int64
@@ -56,14 +55,12 @@ public class HereLocation: NSObject {
     @objc public init(
         latitude: Double,
         longitude: Double,
-        altitude: Double = 0,
         speedInMetersPerSecond: Double = 0,
         bearingInDegrees: Double = 0,
         timestampInMilliseconds: Int64 = 0
     ) {
         self.latitude = latitude
         self.longitude = longitude
-        self.altitude = altitude
         self.speedInMetersPerSecond = speedInMetersPerSecond
         self.bearingInDegrees = bearingInDegrees
         self.timestampInMilliseconds = timestampInMilliseconds
@@ -71,12 +68,10 @@ public class HereLocation: NSObject {
     }
 
     func toSwift() -> Location {
-        let coordinates = GeoCoordinates(latitude: latitude, longitude: latitude)
         return Location(
             coordinates: GeoCoordinates(latitude: latitude, longitude: longitude),
-            altitude: altitude != 0 ? altitude : nil,
-            speedInMetersPerSecond: speedInMetersPerSecond != 0 ? speedInMetersPerSecond : nil,
-            bearingInDegrees: bearingInDegrees != 0 ? bearingInDegrees : nil
+            bearingInDegrees: bearingInDegrees != 0 ? bearingInDegrees : nil,
+            speedInMetersPerSecond: speedInMetersPerSecond != 0 ? speedInMetersPerSecond : nil
         )
     }
 
@@ -84,7 +79,6 @@ public class HereLocation: NSObject {
         HereLocation(
             latitude: swift.coordinates.latitude,
             longitude: swift.coordinates.longitude,
-            altitude: swift.altitude ?? 0,
             speedInMetersPerSecond: swift.speedInMetersPerSecond ?? 0,
             bearingInDegrees: swift.bearingInDegrees ?? 0
         )

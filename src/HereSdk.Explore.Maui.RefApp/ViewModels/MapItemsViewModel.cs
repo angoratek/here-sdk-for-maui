@@ -5,11 +5,16 @@ using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
 
-public class MapItemsViewModel
+public class MapItemsViewModel : ViewModelBase
 {
     private readonly IMapService? _mapService;
+    private string _statusMessage = string.Empty;
 
-    public string StatusMessage { get; private set; } = string.Empty;
+    public string StatusMessage
+    {
+        get => _statusMessage;
+        private set => SetProperty(ref _statusMessage, value);
+    }
 
     public MapItemsViewModel() { }
 

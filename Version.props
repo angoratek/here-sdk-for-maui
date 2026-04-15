@@ -1,0 +1,22 @@
+<Project>
+  <!--
+    Centralized version file for the HERE SDK MAUI project.
+    All version numbers are defined here and consumed by Directory.Build.props
+    and any project that needs to reference the SDK version.
+
+    To update: change the values below and all projects will pick up the new version.
+  -->
+  <PropertyGroup Label="Version">
+    <!-- HERE Explore SDK native version (used for AAR/JAR file names, package versioning) -->
+    <HereSdkVersion>4.25.5.0</HereSdkVersion>
+
+    <!-- HERE SDK build number (part of AAR/JAR filenames) -->
+    <HereSdkBuildNumber>274356</HereSdkBuildNumber>
+
+    <!-- Combined SDK artifact version (e.g., "4.25.5.0.274356") -->
+    <HereSdkArtifactVersion>$(HereSdkVersion).$(HereSdkBuildNumber)</HereSdkArtifactVersion>
+
+    <!-- NuGet package version (follows SDK version with pre-release suffix) -->
+    <PackageVersion>4.25.5.0-alpha1</PackageVersion>
+  </PropertyGroup>
+</Project>

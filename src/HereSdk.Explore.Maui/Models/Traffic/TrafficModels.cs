@@ -57,12 +57,19 @@ public record TrafficIncidentLookupOptions();
 /// </summary>
 public enum TrafficQueryError
 {
+    /// <summary>No error — query succeeded.</summary>
     None,
+    /// <summary>Network error during query.</summary>
     NetworkError,
+    /// <summary>HTTP error from the traffic service.</summary>
     HttpError,
+    /// <summary>Query completed but returned no results.</summary>
     NoResults,
+    /// <summary>The query parameters are invalid.</summary>
     InvalidQuery,
+    /// <summary>Traffic engine is not initialized.</summary>
     EngineNotInitialized,
+    /// <summary>Insufficient memory for the query.</summary>
     InsufficientMemory
 }
 
@@ -71,17 +78,29 @@ public enum TrafficQueryError
 /// </summary>
 public enum TrafficIncidentType
 {
+    /// <summary>Unknown incident type.</summary>
     Unknown,
+    /// <summary>Traffic accident.</summary>
     Accident,
+    /// <summary>Traffic congestion/jam.</summary>
     Congestion,
+    /// <summary>Disabled or broken-down vehicle.</summary>
     DisabledVehicle,
+    /// <summary>Lane restriction (reduced lanes).</summary>
     LaneRestriction,
+    /// <summary>Road closure.</summary>
     RoadClosure,
+    /// <summary>Road hazard (debris, animals, etc.).</summary>
     RoadHazard,
+    /// <summary>Road construction.</summary>
     Construction,
+    /// <summary>Mass transit disruption.</summary>
     MassTransit,
+    /// <summary>Planned event (parade, marathon, etc.).</summary>
     PlannedEvent,
+    /// <summary>Weather-related incident.</summary>
     Weather,
+    /// <summary>Other incident type.</summary>
     Miscellaneous
 }
 
@@ -90,9 +109,14 @@ public enum TrafficIncidentType
 /// </summary>
 public enum TrafficIncidentImpact
 {
+    /// <summary>Unknown impact severity.</summary>
     Unknown,
+    /// <summary>Minor impact — slight delays.</summary>
     Minor,
+    /// <summary>Moderate impact — noticeable delays.</summary>
     Moderate,
+    /// <summary>Major impact — significant delays.</summary>
     Major,
+    /// <summary>Road is closed.</summary>
     Closed
 }

@@ -8,9 +8,10 @@ public protocol HereTapDelegate: AnyObject {
 }
 
 /// ObjC-visible delegate for long press gestures.
+/// Includes gesture state (begin/update/end) as an integer: 0=begin, 1=update, 2=end.
 @objc(HereLongPressDelegate)
 public protocol HereLongPressDelegate: AnyObject {
-    @objc func onLongPress(originX: Double, originY: Double)
+    @objc func onLongPress(state: Int, originX: Double, originY: Double)
 }
 
 /// ObjC-visible delegate for double tap gestures.
@@ -24,9 +25,15 @@ public protocol HereDoubleTapDelegate: AnyObject {
 public class HereGestures: NSObject {
     private let gestures: Gestures
 
-    @objc public init(_ gestures: Gestures) {
+    /// Non-@objc init — ObjC can't provide a Gestures argument.
+    public init(_ gestures: Gestures) {
         self.gestures = gestures
         super.init()
+    }
+
+    /// @objc factory — creates from the bridge view which holds the MapView.
+    @objc public convenience init(bridgeView: HereMapBridgeView) {
+        self.init(bridgeView.swiftMapView!.gestures)
     }
 
     @objc public func setTapDelegate(_ delegate: HereTapDelegate?) {
@@ -64,8 +71,8 @@ private class TapDelegateWrapper: NSObject, TapDelegate {
 private class LongPressDelegateWrapper: NSObject, LongPressDelegate {
     private weak var delegate: HereLongPressDelegate?
     init(_ delegate: HereLongPressDelegate) { self.delegate = delegate }
-    func onLongPress(origin: Point2D) {
-        delegate?.onLongPress(originX: origin.x, originY: origin.y)
+    func onLongPress(state: GestureState, origin: Point2D) {
+        delegate?.onLongPress(state: Int(state.rawValue), originX: origin.x, originY: origin.y)
     }
 }
 

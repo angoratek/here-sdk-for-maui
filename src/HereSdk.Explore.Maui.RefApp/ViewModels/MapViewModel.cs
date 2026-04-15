@@ -3,14 +3,14 @@ using Here.Explore.Maui.Models;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
 
-public class MapViewModel
+public class MapViewModel : ViewModelBase
 {
     private GeoCoordinates _mapCenter = new(52.531268, 13.387659); // Berlin
 
     public GeoCoordinates MapCenter
     {
         get => _mapCenter;
-        set => _mapCenter = value;
+        set => SetProperty(ref _mapCenter, value);
     }
 
     public ICommand NormalDayCommand => new Command(() => { /* Switch to NormalDay scheme */ });

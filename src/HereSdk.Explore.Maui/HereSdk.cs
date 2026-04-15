@@ -25,18 +25,22 @@ public static class HereSdk
 #if ANDROID
     private static void InternalInitialize(HereSdkOptions options)
     {
-        var androidOptions = new Com.Here.Sdk.Core.Engine.SDKOptions
-        {
-            AccessKeyId = options.AccessKeyId,
-            AccessKeySecret = options.AccessKeySecret,
-        };
-        Com.Here.Sdk.Core.Engine.SDKNativeEngine.CreateInstance(androidOptions);
+        var authMode = Here.Explore.Core.Engine.AuthenticationMode.WithKeySecret(options.AccessKeyId, options.AccessKeySecret);
+        var androidOptions = new Here.Explore.Core.Engine.SDKOptions(authMode);
+        if (options.CachePath is not null)
+            androidOptions.CachePath = options.CachePath;
+        Here.Explore.Core.Engine.SDKNativeEngine.MakeSharedInstance(Platform.AppContext, androidOptions);
     }
 #elif IOS
     private static void InternalInitialize(HereSdkOptions options)
     {
-        var iosOptions = new HereSdkOptions(options.AccessKeyId, options.AccessKeySecret, options.CachePath);
-        HereSdkEngine.Initialize(iosOptions);
+        var iosOptions = new Here.Explore.iOS.HereSdkOptions(options.AccessKeyId, options.AccessKeySecret, options.CachePath);
+        Here.Explore.iOS.HereSdkEngine.Initialize(iosOptions);
+    }
+#else
+    private static void InternalInitialize(HereSdkOptions options)
+    {
+        // No-op: platform SDK not available in unit-test context
     }
 #endif
 
@@ -48,9 +52,9 @@ public static class HereSdk
         if (!_initialized) return;
 
 #if ANDROID
-        Com.Here.Sdk.Core.Engine.SDKNativeEngine.Instance?.Dispose();
+        Here.Explore.Core.Engine.SDKNativeEngine.SharedInstance?.Dispose();
 #elif IOS
-        HereSdkEngine.Shutdown();
+        Here.Explore.iOS.HereSdkEngine.Shutdown();
 #endif
         _initialized = false;
     }
@@ -61,9 +65,16 @@ public static class HereSdk
 /// </summary>
 public record HereSdkOptions
 {
+    /// <summary>HERE SDK access key ID (from your HERE developer account).</summary>
     public required string AccessKeyId { get; init; }
+
+    /// <summary>HERE SDK access key secret (from your HERE developer account).</summary>
     public required string AccessKeySecret { get; init; }
+
+    /// <summary>Optional path for the SDK cache directory. Null uses the default location.</summary>
     public string? CachePath { get; init; }
+
+    /// <summary>Cache policy controlling how map data is cached locally.</summary>
     public HereSdkCachePolicy CachePolicy { get; init; } = HereSdkCachePolicy.Default;
 }
 
@@ -72,7 +83,12 @@ public record HereSdkOptions
 /// </summary>
 public enum HereSdkCachePolicy
 {
+    /// <summary>Default caching — cache map data for offline use.</summary>
     Default,
+
+    /// <summary>Disable caching — always fetch from network.</summary>
     NoCache,
+
+    /// <summary>Offline only — use cached data without network access.</summary>
     OfflineOnly,
 }

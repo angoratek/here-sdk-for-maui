@@ -52,9 +52,15 @@ public class HereMapCamera: NSObject {
     private let camera: MapCamera
     private weak var delegate: HereMapCameraDelegate?
 
-    @objc public init(_ camera: MapCamera) {
+    /// Non-@objc init — ObjC can't provide a MapCamera argument.
+    public init(_ camera: MapCamera) {
         self.camera = camera
         super.init()
+    }
+
+    /// @objc factory — creates from the bridge view which holds the MapView.
+    @objc public convenience init(bridgeView: HereMapBridgeView) {
+        self.init(bridgeView.swiftMapView!.camera)
     }
 
     @objc public var state: HereCameraState {
@@ -63,14 +69,14 @@ public class HereMapCamera: NSObject {
 
     @objc public func setTarget(_ coordinates: HereGeoCoordinates) {
         let update = MapCameraUpdateFactory.lookAt(point: GeoCoordinatesUpdate(latitude: coordinates.latitude, longitude: coordinates.longitude))
-        camera.update(update)
+        camera.applyUpdate(update)
     }
 
     @objc public func setTarget(_ coordinates: HereGeoCoordinates, zoomLevel: Double) {
         let geoUpdate = GeoCoordinatesUpdate(latitude: coordinates.latitude, longitude: coordinates.longitude)
         let measure = MapMeasure(kind: .zoomLevel, value: zoomLevel)
         let update = MapCameraUpdateFactory.lookAt(point: geoUpdate, measure: measure)
-        camera.update(update)
+        camera.applyUpdate(update)
     }
 
     @objc public func addDelegate(_ delegate: HereMapCameraDelegate) {

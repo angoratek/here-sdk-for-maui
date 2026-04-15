@@ -80,14 +80,59 @@ public record CameraStateChangedEventArgs(
 );
 
 /// <summary>
+/// Event args for map tapped events.
+/// </summary>
+public record MapTappedEventArgs(
+    GeoCoordinates Coordinates,
+    Point2D ScreenPoint
+);
+
+/// <summary>
+/// Event args for map double-tapped events.
+/// </summary>
+public record MapDoubleTappedEventArgs(
+    GeoCoordinates Coordinates,
+    Point2D ScreenPoint
+);
+
+/// <summary>
+/// Event args for map long-pressed events.
+/// </summary>
+public record MapLongPressedEventArgs(
+    GeoCoordinates Coordinates,
+    Point2D ScreenPoint
+);
+
+/// <summary>
+/// Event args for map panned (dragged) events.
+/// </summary>
+public record MapPannedEventArgs(
+    GeoCoordinates Coordinates,
+    Point2D Delta
+);
+
+/// <summary>
+/// Event args for map pinch/rotate gesture events.
+/// </summary>
+public record MapPinchRotatedEventArgs(
+    double Scale,
+    double RotationInDegrees
+);
+
+/// <summary>
 /// Map scheme (visual style).
 /// </summary>
 public enum MapScheme
 {
+    /// <summary>Normal day — light map with labels.</summary>
     NormalDay,
+    /// <summary>Normal night — dark map with labels.</summary>
     NormalNight,
+    /// <summary>Hybrid day — satellite imagery with labels.</summary>
     HybridDay,
+    /// <summary>Satellite day — satellite imagery without labels.</summary>
     SatelliteDay,
+    /// <summary>Terrain day — terrain elevation with labels.</summary>
     TerrainDay
 }
 
@@ -96,8 +141,11 @@ public enum MapScheme
 /// </summary>
 public enum DrawOrderType
 {
+    /// <summary>Draw above polygon layers.</summary>
     AbovePolygons,
+    /// <summary>Draw above polygons and ADAS layers.</summary>
     AbovePolygonsAndAdas,
+    /// <summary>Draw below polygon layers.</summary>
     BelowPolygons
 }
 
@@ -106,8 +154,11 @@ public enum DrawOrderType
 /// </summary>
 public enum LineCap
 {
+    /// <summary>Rounded line cap.</summary>
     Round,
+    /// <summary>Square line cap extending past endpoint.</summary>
     Square,
+    /// <summary>Flat line cap at endpoint.</summary>
     Butt
 }
 
@@ -116,10 +167,16 @@ public enum LineCap
 /// </summary>
 public enum MapContentCategory
 {
+    /// <summary>No specific category.</summary>
     NoCategory,
-   poiCategory,
+    /// <summary>Points of interest (restaurants, gas stations, etc.).</summary>
+    PoiCategory,
+    /// <summary>Traffic incidents.</summary>
     TrafficIncidentCategory,
+    /// <summary>Car-specific content.</summary>
     CarCategory,
+    /// <summary>Truck-specific content.</summary>
     TruckCategory,
+    /// <summary>Pedestrian-specific content.</summary>
     PedestrianCategory
 }

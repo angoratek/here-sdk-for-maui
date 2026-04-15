@@ -1,13 +1,14 @@
 #if IOS
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Traffic;
+using Here.Explore.iOS;
 
 namespace Here.Explore.Maui.Services;
 
 /// <summary>
 /// iOS-specific TrafficService implementation using NativeBridge.
 /// </summary>
-public partial class TrafficService : ITrafficService
+public partial class TrafficService
 {
     private HereTrafficEngine? _engine;
 

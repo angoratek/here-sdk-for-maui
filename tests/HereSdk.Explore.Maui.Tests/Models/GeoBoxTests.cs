@@ -1,3 +1,4 @@
+using Xunit;
 using Here.Explore.Maui.Models;
 
 namespace Here.Explore.Maui.Tests.Models;

@@ -1,18 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-ios</TargetFramework>
+    <TargetFramework>net10.0-ios</TargetFramework>
     <IsBindingProject>true</IsBindingProject>
     <PackageId>HereSdk.Explore.iOS.Binding</PackageId>
     <Description>HERE SDK Explore Edition iOS binding for .NET MAUI (Native Library Interop)</Description>
     <Version>$(PackageVersion)</Version>
     <PackageTags>here;sdk;ios;binding;maui;maps;native-interop</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1591;CS8632</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="Exists('Libs\HereSdk.Explore.iOS.NativeBridge.xcframework')">
     <NativeReference Include="Libs\HereSdk.Explore.iOS.NativeBridge.xcframework">
       <Kind>Framework</Kind>
       <Frameworks>Foundation UIKit CoreLocation</Frameworks>
