@@ -6,6 +6,7 @@ namespace Here.Explore.Maui.Controls;
 
 /// <summary>
 /// Cross-platform HERE map view control.
+/// Map events are exposed via <see cref="Map"/> (IMapService).
 /// </summary>
 public class HereMapView : View, IHereMapView
 {
@@ -32,7 +33,7 @@ public class HereMapView : View, IHereMapView
         set => SetValue(MapSchemeProperty, value);
     }
 
-    /// <summary>Gets the map service for camera control, markers, and scene management.</summary>
+    /// <summary>Gets the map service for camera control, markers, scene management, and events.</summary>
     public IMapService Map => _mapService.Value;
 
     private Lazy<IMapService> _mapService;
@@ -42,44 +43,13 @@ public class HereMapView : View, IHereMapView
     {
         _mapService = new Lazy<IMapService>(() =>
         {
-            // Prefer the handler's MapService (which has the platform view initialized)
-            if (Handler is Handlers.HereMapViewHandler handler && handler.MapService is not null)
-                return handler.MapService;
+            // The handler creates the MapService and exposes it via the handler's MapService property.
+            // We use the MAUI handler infrastructure to resolve it without coupling to a specific handler type.
+            if (Handler is Handlers.HereMapViewHandler h && h.MapService is not null)
+                return h.MapService;
 
-            // Fallback to DI-resolved service
-            if (Handler?.MauiContext?.Services is not null)
-                return Handler.MauiContext.Services.GetRequiredService<IMapService>();
-
-            throw new InvalidOperationException("MapService not available. Ensure HERE SDK is initialized.");
+            throw new InvalidOperationException(
+                "MapService not available. Ensure the HereMapView has been added to the visual tree and HERE SDK is initialized.");
         });
     }
-
-    /// <summary>Raised when the camera position changes.</summary>
-    public event EventHandler<CameraStateChangedEventArgs>? CameraStateChanged;
-
-    /// <summary>Raised when the map is idle (rendering and loading complete).</summary>
-    public event EventHandler? MapIdle;
-
-    /// <summary>Raised when the user taps on the map.</summary>
-    public event EventHandler<MapTappedEventArgs>? MapTapped;
-
-    /// <summary>Raised when the user double-taps on the map.</summary>
-    public event EventHandler<MapDoubleTappedEventArgs>? MapDoubleTapped;
-
-    /// <summary>Raised when the user long-presses on the map.</summary>
-    public event EventHandler<MapLongPressedEventArgs>? MapLongPressed;
-
-    /// <summary>Raised when the user pans (drags) the map.</summary>
-    public event EventHandler<MapPannedEventArgs>? MapPanned;
-
-    /// <summary>Raised when the user pinch-zooms or rotates the map.</summary>
-    public event EventHandler<MapPinchRotatedEventArgs>? MapPinchRotated;
-
-    internal void RaiseCameraStateChanged(CameraStateChangedEventArgs e) => CameraStateChanged?.Invoke(this, e);
-    internal void RaiseMapIdle() => MapIdle?.Invoke(this, EventArgs.Empty);
-    internal void RaiseMapTapped(MapTappedEventArgs e) => MapTapped?.Invoke(this, e);
-    internal void RaiseMapDoubleTapped(MapDoubleTappedEventArgs e) => MapDoubleTapped?.Invoke(this, e);
-    internal void RaiseMapLongPressed(MapLongPressedEventArgs e) => MapLongPressed?.Invoke(this, e);
-    internal void RaiseMapPanned(MapPannedEventArgs e) => MapPanned?.Invoke(this, e);
-    internal void RaiseMapPinchRotated(MapPinchRotatedEventArgs e) => MapPinchRotated?.Invoke(this, e);
 }

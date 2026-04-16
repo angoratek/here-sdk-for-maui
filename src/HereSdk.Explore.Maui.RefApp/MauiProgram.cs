@@ -1,4 +1,5 @@
 using Here.Explore.Maui;
+using Here.Explore.Maui.RefApp.ViewModels;
 using Microsoft.Extensions.Configuration;
 
 namespace Here.Explore.Maui.RefApp;
@@ -25,6 +26,13 @@ public static class MauiProgram
 
         builder.UseMauiApp<App>()
                .UseHereSdkExplore(options);
+
+        // Register ViewModels (they receive services via constructor injection)
+        builder.Services.AddTransient<MapViewModel>();
+        builder.Services.AddTransient<SearchViewModel>();
+        builder.Services.AddTransient<RoutingViewModel>();
+        builder.Services.AddTransient<TrafficViewModel>();
+        builder.Services.AddTransient<MapItemsViewModel>();
 
         return builder.Build();
     }

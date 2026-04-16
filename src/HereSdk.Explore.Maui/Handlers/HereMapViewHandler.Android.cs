@@ -9,7 +9,6 @@ namespace Here.Explore.Maui.Handlers;
 public partial class HereMapViewHandler
 {
     private Here.Explore.Maps.MapView? _platformView;
-    private MapService? _mapService;
     private Here.Explore.Maps.MapCamera? _camera;
     private Here.Explore.Maps.MapScene? _scene;
     private Here.Explore.Gestures.Gestures? _gestures;
@@ -21,8 +20,9 @@ public partial class HereMapViewHandler
         _scene = _platformView.MapScene;
         _gestures = _platformView.Gestures;
 
-        _mapService = new MapService();
-        _mapService.Initialize(_platformView);
+        var mapService = new MapService();
+        mapService.Initialize(_platformView);
+        _mapService = mapService;
 
         // Wire up camera state changes
         _camera?.AddListener(new CameraListener(this));
@@ -40,7 +40,8 @@ public partial class HereMapViewHandler
     {
         if (_gestures is not null)
             _gestures.TapListener = null;
-        _mapService?.Dispose();
+        (_mapService as MapService)?.Dispose();
+        _mapService = null;
         _platformView?.Dispose();
         _camera = null;
         _scene = null;
@@ -48,24 +49,22 @@ public partial class HereMapViewHandler
         base.DisconnectHandler(platformView);
     }
 
-    public MapService? MapService => _mapService;
-
     internal void OnCameraStateChanged(Here.Explore.Maps.MapCamera.State state)
     {
-        if (VirtualView is HereMapView map)
+        if (_mapService is MapService ms)
         {
             var args = new CameraStateChangedEventArgs(
                 new Models.GeoCoordinates(state.TargetCoordinates.Latitude, state.TargetCoordinates.Longitude),
                 state.ZoomLevel,
                 state.OrientationAtTarget.Bearing,
                 state.OrientationAtTarget.Tilt);
-            map.RaiseCameraStateChanged(args);
+            ms.RaiseCameraStateChanged(args);
         }
     }
 
     internal void OnMapTapped(Here.Explore.Core.Point2D point)
     {
-        if (VirtualView is HereMapView map && _mapService is not null)
+        if (_mapService is MapService ms)
         {
             var geoCoords = _platformView?.Camera?.GetState().TargetCoordinates;
             var coordinates = geoCoords is not null
@@ -73,18 +72,14 @@ public partial class HereMapViewHandler
                 : new GeoCoordinates(0, 0);
             var screenPoint = new Models.Point2D(point.X, point.Y);
             var args = new MapTappedEventArgs(coordinates, screenPoint);
-            _mapService.RaiseMapTapped(args);
-            map.RaiseMapTapped(args);
+            ms.RaiseMapTapped(args);
         }
     }
 
     internal void OnMapIdle()
     {
-        if (VirtualView is HereMapView map && _mapService is not null)
-        {
-            _mapService.RaiseMapIdle();
-            map.RaiseMapIdle();
-        }
+        if (_mapService is MapService ms)
+            ms.RaiseMapIdle();
     }
 }
 

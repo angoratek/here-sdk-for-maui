@@ -306,6 +306,20 @@
   - iOS NativeBridge xcframework built and integrated ✅ (2026-04-15: arm64 + simulator)
   - iOS ApiDefinition.cs matches actual xcframework headers ✅ (2026-04-15: 30+ types bound)
   - iOS service implementations functional (Search, Routing, Traffic, Map) ✅ (2026-04-15)
+  - Architecture review completed and critical issues fixed ✅ (2026-04-15)
+    - xcframework naming mismatch fixed (csproj→HereSdkExploreNativeBridge.xcframework) ✅
+    - MapService DI registration fixed (removed from DI, accessed via HereMapView.Map) ✅
+    - RefApp wired with services via DI ✅
+    - Property mappers implemented (CameraTarget, MapScheme) ✅
+    - ApiDefinition type mismatches fixed (nint→int for Int32) ✅
+    - PlatformView nullable annotation fixed ✅
+    - Events unified on IMapService only (removed from IHereMapView) ✅
+    - iOS gesture events wired (tap, long press, double tap) ✅
+    - Duplicate CachePolicy enum removed ✅
+    - Unused GeoBox converters removed ✅
+    - Redundant Metadata.xml entries removed (26 entries) ✅
+    - Unused @objc protocols removed from NativeBridge ✅
+    - ICommand allocation fixed (lazy initialization in RefApp) ✅
   - Complete every checkbox in `05-api-surface-catalog.md` ⏳
   - Run all tests on physical devices (Android + iOS) ⏳
   - Test on multiple OS versions (Android API 24-35, iOS 15-18) ⏳

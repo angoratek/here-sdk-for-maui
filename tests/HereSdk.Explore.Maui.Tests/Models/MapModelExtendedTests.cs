@@ -235,10 +235,10 @@ public class MapModelExtendedTests
     }
 
     [Fact]
-    public void CachePolicy_Values()
+    public void HereSdkCachePolicy_Values()
     {
-        Assert.Equal(0, (int)CachePolicy.Default);
-        Assert.Equal(1, (int)CachePolicy.NoCache);
-        Assert.Equal(2, (int)CachePolicy.OfflineOnly);
+        Assert.Equal(0, (int)HereSdkCachePolicy.Default);
+        Assert.Equal(1, (int)HereSdkCachePolicy.NoCache);
+        Assert.Equal(2, (int)HereSdkCachePolicy.OfflineOnly);
     }
 }

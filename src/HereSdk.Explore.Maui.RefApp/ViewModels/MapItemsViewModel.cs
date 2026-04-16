@@ -7,7 +7,7 @@ namespace Here.Explore.Maui.RefApp.ViewModels;
 
 public class MapItemsViewModel : ViewModelBase
 {
-    private readonly IMapService? _mapService;
+    private IMapService? _mapService;
     private string _statusMessage = string.Empty;
 
     public string StatusMessage
@@ -23,16 +23,30 @@ public class MapItemsViewModel : ViewModelBase
         _mapService = mapService;
     }
 
-    public ICommand AddPolylineCommand => new Command(async () => await AddPolylineAsync());
-    public ICommand AddPolygonCommand => new Command(async () => await AddPolygonAsync());
-    public ICommand AddArrowCommand => new Command(async () => await AddArrowAsync());
-    public ICommand AddMarkerCommand => new Command(async () => await AddMarkerAsync());
-    public ICommand ClearAllCommand => new Command(() => ClearAll());
+    /// <summary>
+    /// Sets the map service. Called by the page after the handler creates the MapService.
+    /// </summary>
+    internal void SetMapService(IMapService mapService) => _mapService = mapService;
 
-    private MapPolyline? _lastPolyline;
-    private MapPolygon? _lastPolygon;
-    private MapArrow? _lastArrow;
-    private MapMarker? _lastMarker;
+    private ICommand? _addPolylineCommand;
+    public ICommand AddPolylineCommand => _addPolylineCommand ??= new Command(async () => await AddPolylineAsync());
+
+    private ICommand? _addPolygonCommand;
+    public ICommand AddPolygonCommand => _addPolygonCommand ??= new Command(async () => await AddPolygonAsync());
+
+    private ICommand? _addArrowCommand;
+    public ICommand AddArrowCommand => _addArrowCommand ??= new Command(async () => await AddArrowAsync());
+
+    private ICommand? _addMarkerCommand;
+    public ICommand AddMarkerCommand => _addMarkerCommand ??= new Command(async () => await AddMarkerAsync());
+
+    private ICommand? _clearAllCommand;
+    public ICommand ClearAllCommand => _clearAllCommand ??= new Command(() => ClearAll());
+
+    private readonly List<MapPolyline> _polylines = new();
+    private readonly List<MapPolygon> _polygons = new();
+    private readonly List<MapArrow> _arrows = new();
+    private readonly List<MapMarker> _markers = new();
 
     private async Task AddPolylineAsync()
     {
@@ -52,7 +66,7 @@ public class MapItemsViewModel : ViewModelBase
                 WidthInPixels: 5
             );
             _mapService.AddMapPolyline(polyline);
-            _lastPolyline = polyline;
+            _polylines.Add(polyline);
             StatusMessage = "Polyline added";
         }
         catch (Exception ex)
@@ -78,7 +92,7 @@ public class MapItemsViewModel : ViewModelBase
                 FillColor: 0x44FF0000 // Semi-transparent red
             );
             _mapService.AddMapPolygon(polygon);
-            _lastPolygon = polygon;
+            _polygons.Add(polygon);
             StatusMessage = "Polygon added";
         }
         catch (Exception ex)
@@ -105,7 +119,7 @@ public class MapItemsViewModel : ViewModelBase
                 WidthInPixels: 8
             );
             _mapService.AddMapArrow(arrow);
-            _lastArrow = arrow;
+            _arrows.Add(arrow);
             StatusMessage = "Arrow added";
         }
         catch (Exception ex)
@@ -123,7 +137,7 @@ public class MapItemsViewModel : ViewModelBase
             var center = await _mapService.GetCameraTargetAsync();
             var marker = new MapMarker(center);
             _mapService.AddMapMarker(marker);
-            _lastMarker = marker;
+            _markers.Add(marker);
             StatusMessage = "Marker added";
         }
         catch (Exception ex)
@@ -138,15 +152,15 @@ public class MapItemsViewModel : ViewModelBase
 
         try
         {
-            if (_lastPolyline is not null) _mapService.RemoveMapPolyline(_lastPolyline);
-            if (_lastPolygon is not null) _mapService.RemoveMapPolygon(_lastPolygon);
-            if (_lastArrow is not null) _mapService.RemoveMapArrow(_lastArrow);
-            if (_lastMarker is not null) _mapService.RemoveMapMarker(_lastMarker);
+            foreach (var p in _polylines) _mapService.RemoveMapPolyline(p);
+            foreach (var p in _polygons) _mapService.RemoveMapPolygon(p);
+            foreach (var a in _arrows) _mapService.RemoveMapArrow(a);
+            foreach (var m in _markers) _mapService.RemoveMapMarker(m);
 
-            _lastPolyline = null;
-            _lastPolygon = null;
-            _lastArrow = null;
-            _lastMarker = null;
+            _polylines.Clear();
+            _polygons.Clear();
+            _arrows.Clear();
+            _markers.Clear();
             StatusMessage = "Cleared all map items";
         }
         catch (Exception ex)

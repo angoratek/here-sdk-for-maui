@@ -14,8 +14,8 @@
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
   </ItemGroup>
-  <ItemGroup Condition="Exists('Libs\HereSdk.Explore.iOS.NativeBridge.xcframework')">
-    <NativeReference Include="Libs\HereSdk.Explore.iOS.NativeBridge.xcframework">
+  <ItemGroup Condition="Exists('Libs\HereSdkExploreNativeBridge.xcframework')">
+    <NativeReference Include="Libs\HereSdkExploreNativeBridge.xcframework">
       <Kind>Framework</Kind>
       <Frameworks>Foundation UIKit CoreLocation</Frameworks>
       <LinkerFlags>-L "$(XcodeDeveloperDirectory)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator" -L "$(XcodeDeveloperDirectory)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos" -Wl,-rpath -Wl,@executable_path/Frameworks</LinkerFlags>

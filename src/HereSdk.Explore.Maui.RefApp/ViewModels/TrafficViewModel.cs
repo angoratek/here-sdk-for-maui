@@ -8,7 +8,7 @@ namespace Here.Explore.Maui.RefApp.ViewModels;
 
 public class TrafficViewModel : ViewModelBase
 {
-    private readonly ITrafficService? _trafficService;
+    private readonly ITrafficService _trafficService;
     private string _statusMessage = string.Empty;
     private IReadOnlyList<TrafficFlow>? _flows;
     private IReadOnlyList<TrafficIncident>? _incidents;
@@ -31,20 +31,19 @@ public class TrafficViewModel : ViewModelBase
         private set => SetProperty(ref _incidents, value);
     }
 
-    public TrafficViewModel() { }
-
     public TrafficViewModel(ITrafficService trafficService)
     {
         _trafficService = trafficService;
     }
 
-    public ICommand QueryFlowCommand => new Command(async () => await QueryFlowAsync());
-    public ICommand QueryIncidentsCommand => new Command(async () => await QueryIncidentsAsync());
+    private ICommand? _queryFlowCommand;
+    public ICommand QueryFlowCommand => _queryFlowCommand ??= new Command(async () => await QueryFlowAsync());
+
+    private ICommand? _queryIncidentsCommand;
+    public ICommand QueryIncidentsCommand => _queryIncidentsCommand ??= new Command(async () => await QueryIncidentsAsync());
 
     private async Task QueryFlowAsync()
     {
-        if (_trafficService is null) return;
-
         StatusMessage = "Querying traffic flow...";
         try
         {
@@ -63,8 +62,6 @@ public class TrafficViewModel : ViewModelBase
 
     private async Task QueryIncidentsAsync()
     {
-        if (_trafficService is null) return;
-
         StatusMessage = "Querying traffic incidents...";
         try
         {

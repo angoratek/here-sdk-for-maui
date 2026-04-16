@@ -1,18 +1,6 @@
 import Foundation
 import heresdk
 
-/// ObjC-visible callback for traffic flow query results.
-@objc(HereTrafficFlowCallback)
-public protocol HereTrafficFlowCallback: AnyObject {
-    @objc func onFlowQueryCompleted(flows: [HereTrafficFlow]?, error: String?)
-}
-
-/// ObjC-visible callback for traffic incident query results.
-@objc(HereTrafficIncidentsCallback)
-public protocol HereTrafficIncidentsCallback: AnyObject {
-    @objc func onIncidentsQueryCompleted(incidents: [HereTrafficIncident]?, error: String?)
-}
-
 /// ObjC-visible wrapper for TrafficEngine.
 @objc(HereTrafficEngine)
 public class HereTrafficEngine: NSObject {

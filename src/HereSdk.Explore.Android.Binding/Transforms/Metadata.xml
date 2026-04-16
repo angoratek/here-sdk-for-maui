@@ -17,68 +17,43 @@
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[starts-with(@name,'Android')]" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[substring(@name, string-length(@name)-3)='Impl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[substring(@name, string-length(@name)-4)='Init']" />
+  <!-- Non-pattern named removals (not covered by *Impl or *Init patterns) -->
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='CAresInitialiserBridge']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='CAresInitialiserBridgeImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ApplicationUtils']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ApplicationUtilsInitializer']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ApplicationVersionProvider']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='LockingProcess']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ProcessKiller']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ProcessKillerImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangeNotifier']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangeNotifierImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangedListener']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DnsChangedListenerImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusNotifier']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusNotifierImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusListener']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatusListenerImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdStorage']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdStorageImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdCallback']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='DeviceIdCallbackImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='AssetsLoader']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='AssetsLoaderImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='LocaleFactory']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='LocaleFactoryImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='OptionalModulesInitializer']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='OptionalModulesInitializerImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='PlatformUtils']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='PlatformUtilsInitializer']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='PlatformUtilsInitializerImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core.engine']/class[@name='ConnectivityStatus']" />
 
   <!-- com.here.sdk.core — remove internal/impl classes -->
   <remove-node path="/api/package[@name='com.here.sdk.core']/class[substring(@name, string-length(@name)-3)='Impl']" />
   <remove-node path="/api/package[@name='com.here.sdk.core']/class[substring(@name, string-length(@name)-8)='Internal']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='AuthenticationCallbackImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='ColorInternal']" />
+  <!-- Non-pattern named removals -->
   <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='InetAddressConverter']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='InetAddressInternal']" />
   <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='SDKLibraryList']" />
   <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='SDKLibraryLoader']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='PolylineSimplificationCallbackImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='LocationListenerImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.core']/class[@name='CustomMetadataValueImpl']" />
 
   <!-- com.here.sdk.mapview — remove internal/impl/platform classes -->
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[substring(@name, string-length(@name)-3)='Impl']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[substring(@name, string-length(@name)-8)='Internal']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapViewBaseImpl']" />
+  <!-- Non-pattern named removals -->
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapViewInternalHsdk']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapCameraListenerImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapIdleListenerImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapViewLifecycleListenerImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='RenderTargetUpdatedListenerImpl']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapSceneConfigurationChangeListenerImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NetworkChangeBroadcastReceiver']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NetworkChangesObserver']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NativeSurface']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='DisplayMetricsUtils']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='AttributeUtils']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='GeoConverter']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='IconProviderInternal']" />
-  <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='ViewPinImpl']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='ViewPinsManager']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='MapSceneAccessor']" />
   <remove-node path="/api/package[@name='com.here.sdk.mapview']/class[@name='NetworkChangeCallback']" />
@@ -218,10 +193,6 @@
   <!-- 7. Routing module additional renames                          -->
   <!-- ============================================================== -->
 
-  <!-- Route handle is a simple struct-like class -->
-  <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='RouteHandle']"
-        name="managedName">RouteHandle</attr>
-
   <!-- Avoid collision: Section exists in both routing and XML -->
   <attr path="/api/package[@name='com.here.sdk.routing']/class[@name='Section']"
         name="managedName">RouteSection</attr>
@@ -285,10 +256,4 @@
   <!-- DrawOrderType -->
   <attr path="/api/package[@name='com.here.sdk.mapview']/class[@name='DrawOrderType']"
         name="managedName">DrawOrderType</attr>
-
-  <!-- ============================================================== -->
-  <!-- 9. MapView datasource renames                                -->
-  <!-- ============================================================== -->
-
-  <!-- TileSourceListener does not exist in Explore SDK — removed stale entry -->
 </metadata>

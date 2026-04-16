@@ -19,7 +19,6 @@ public static class HereSdkExtensions
     {
         HereSdk.Initialize(options);
 
-        builder.Services.AddSingleton<IMapService, MapService>();
         builder.Services.AddSingleton<IRoutingService, RoutingService>();
         builder.Services.AddSingleton<ISearchService, SearchService>();
         builder.Services.AddSingleton<ITrafficService, TrafficService>();

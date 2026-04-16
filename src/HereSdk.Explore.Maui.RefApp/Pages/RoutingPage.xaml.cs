@@ -4,13 +4,7 @@ namespace Here.Explore.Maui.RefApp;
 
 public partial class RoutingPage : ContentPage
 {
-    public RoutingPage()
-    {
-        InitializeComponent();
-        BindingContext = new RoutingViewModel();
-    }
-
-    public RoutingPage(ViewModels.RoutingViewModel viewModel)
+    public RoutingPage(RoutingViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

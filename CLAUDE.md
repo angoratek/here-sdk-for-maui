@@ -98,6 +98,11 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 9. **TransportSpecification uses builder pattern**: `TransportSpecification.CarBuilder().build()`, NOT `CarSpecifications().transportSpecification`
 10. **MapView is ObjC-visible** as `HereMapView` (UIView subclass) — wrapped via `HereMapBridgeView.Create()` + `.PlatformView`
 11. **MapScene manages markers** via `addMapMarker()`/`removeMapMarker()`, not MapBridgeView
+12. **MapService is NOT in DI** — it's created by the handler and accessed via `HereMapView.Map`. Other services (IRoutingService, ISearchService, ITrafficService) are DI singletons.
+13. **Map events are on IMapService only** — `HereMapView` does NOT have its own events; subscribe to `mapView.Map.CameraStateChanged`, `mapView.Map.MapTapped`, etc.
+14. **iOS gesture delegates** are bound as concrete classes (`HereTapDelegate`, `HereLongPressDelegate`, `HereDoubleTapDelegate`) — subclass them, don't implement the `IHereTapDelegate` interface
+15. **iOS xcframework filename** is `HereSdkExploreNativeBridge.xcframework` (no dots), not `HereSdk.Explore.iOS.NativeBridge.xcframework`
+16. **Int32 properties in ApiDefinition.cs** use `int`, not `nint` (which maps to NSInteger, 64-bit on arm64)
 
 ## Android Binding — Critical Details
 

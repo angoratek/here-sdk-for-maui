@@ -58,19 +58,6 @@ public enum UnitSystem
 }
 
 /// <summary>
-/// Cache policy for the SDK.
-/// </summary>
-public enum CachePolicy
-{
-    /// <summary>Default caching behavior.</summary>
-    Default,
-    /// <summary>Disable caching.</summary>
-    NoCache,
-    /// <summary>Use cached data only (no network).</summary>
-    OfflineOnly
-}
-
-/// <summary>
 /// Engine base URL options.
 /// </summary>
 public enum EngineBaseUrl

@@ -4,13 +4,7 @@ namespace Here.Explore.Maui.RefApp;
 
 public partial class TrafficPage : ContentPage
 {
-    public TrafficPage()
-    {
-        InitializeComponent();
-        BindingContext = new TrafficViewModel();
-    }
-
-    public TrafficPage(ViewModels.TrafficViewModel viewModel)
+    public TrafficPage(TrafficViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

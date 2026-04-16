@@ -7,7 +7,7 @@ namespace Here.Explore.Maui.RefApp.ViewModels;
 
 public class RoutingViewModel : ViewModelBase
 {
-    private readonly IRoutingService? _routingService;
+    private readonly IRoutingService _routingService;
     private Route? _calculatedRoute;
     private string _statusMessage = string.Empty;
 
@@ -26,19 +26,16 @@ public class RoutingViewModel : ViewModelBase
         private set => SetProperty(ref _statusMessage, value);
     }
 
-    public RoutingViewModel() { }
-
     public RoutingViewModel(IRoutingService routingService)
     {
         _routingService = routingService;
     }
 
-    public ICommand CalculateRouteCommand => new Command(async () => await CalculateRouteAsync());
+    private ICommand? _calculateRouteCommand;
+    public ICommand CalculateRouteCommand => _calculateRouteCommand ??= new Command(async () => await CalculateRouteAsync());
 
     private async Task CalculateRouteAsync()
     {
-        if (_routingService is null) return;
-
         StatusMessage = "Calculating route...";
         try
         {

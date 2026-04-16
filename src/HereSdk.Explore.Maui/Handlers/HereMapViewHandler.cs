@@ -26,15 +26,21 @@ public partial class HereMapViewHandler : ViewHandler<IHereMapView, object>
     /// <summary>Initializes a new instance of the <see cref="HereMapViewHandler"/> class.</summary>
     public HereMapViewHandler() : base(PropertyMapper) { }
 
+    /// <summary>Gets the map service (initialized by platform-specific partial).</summary>
+    public IMapService? MapService => _mapService;
+    private IMapService? _mapService;
+
     /// <summary>Maps the CameraTarget property change to the platform map service.</summary>
     private static void MapCameraTarget(HereMapViewHandler handler, IHereMapView view)
     {
-        // Handled by MapService directly
+        if (handler.MapService is not null && view.CameraTarget is not null)
+            _ = handler.MapService.SetCameraTargetAsync(view.CameraTarget);
     }
 
     /// <summary>Maps the MapScheme property change to the platform map service.</summary>
     private static void MapMapScheme(HereMapViewHandler handler, IHereMapView view)
     {
-        // Handled by MapService directly
+        if (handler.MapService is not null)
+            _ = handler.MapService.LoadSceneAsync(view.MapScheme);
     }
 }

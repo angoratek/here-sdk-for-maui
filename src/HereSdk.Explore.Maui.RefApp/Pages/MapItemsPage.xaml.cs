@@ -10,8 +10,13 @@ public partial class MapItemsPage : ContentPage
         BindingContext = new MapItemsViewModel();
     }
 
-    public MapItemsPage(MapItemsViewModel viewModel) : this()
+    /// <summary>
+    /// Sets the map service after the page is created, allowing the ViewModel
+    /// to interact with the map from the main page's HereMapView.
+    /// </summary>
+    internal void SetMapService(Services.IMapService mapService)
     {
-        BindingContext = viewModel;
+        if (BindingContext is MapItemsViewModel vm)
+            vm.SetMapService(mapService);
     }
 }

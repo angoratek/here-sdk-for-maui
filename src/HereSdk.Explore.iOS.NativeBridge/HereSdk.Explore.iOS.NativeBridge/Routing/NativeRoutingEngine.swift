@@ -1,12 +1,6 @@
 import Foundation
 import heresdk
 
-/// ObjC-visible callback protocol for route calculation results.
-@objc(HereRouteCalculatedCallback)
-public protocol HereRouteCalculatedCallback: AnyObject {
-    @objc func onRouteCalculated(routes: [[String: Any]]?, error: String?)
-}
-
 /// ObjC-visible wrapper for RoutingEngine.
 @objc(HereRoutingEngine)
 public class HereRoutingEngine: NSObject {

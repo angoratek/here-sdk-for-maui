@@ -205,7 +205,7 @@ namespace Here.Explore.iOS
         HereMapBridgeView Create();
 
         [Export("platformView")]
-        UIKit.UIView PlatformView { get; }
+        UIKit.UIView? PlatformView { get; }
     }
 
     [BaseType(typeof(NSObject))]
@@ -311,7 +311,7 @@ namespace Here.Explore.iOS
     interface HereMapMarker3D
     {
         [Export("initWithLatitude:longitude:imageName:width:height:scale:")]
-        IntPtr Constructor(double latitude, double longitude, string imageName, nint width, nint height, double scale);
+        IntPtr Constructor(double latitude, double longitude, string imageName, int width, int height, double scale);
 
         [Export("bearing")]
         double Bearing { get; set; }
@@ -331,7 +331,7 @@ namespace Here.Explore.iOS
     interface HereMapPolyline
     {
         [Export("drawOrder")]
-        nint DrawOrder { get; set; }
+        int DrawOrder { get; set; }
 
         [Export("initWithVertices:color:widthInPixels:")]
         IntPtr Constructor(HereGeoCoordinates[] vertices, UIColor color, double widthInPixels);
@@ -348,7 +348,7 @@ namespace Here.Explore.iOS
     interface HereMapPolygon
     {
         [Export("drawOrder")]
-        nint DrawOrder { get; set; }
+        int DrawOrder { get; set; }
 
         [Export("initWithVertices:fillColor:")]
         IntPtr Constructor(HereGeoCoordinates[] vertices, UIColor fillColor);
@@ -471,10 +471,10 @@ namespace Here.Explore.iOS
     interface HereRoute
     {
         [Export("initWithLengthInMeters:durationInSeconds:")]
-        IntPtr Constructor(nint lengthInMeters, double durationInSeconds);
+        IntPtr Constructor(int lengthInMeters, double durationInSeconds);
 
         [Export("lengthInMeters")]
-        nint LengthInMeters { get; set; }
+        int LengthInMeters { get; set; }
 
         [Export("durationInSeconds")]
         double DurationInSeconds { get; set; }

@@ -4,13 +4,7 @@ namespace Here.Explore.Maui.RefApp;
 
 public partial class SearchPage : ContentPage
 {
-    public SearchPage()
-    {
-        InitializeComponent();
-        BindingContext = new SearchViewModel();
-    }
-
-    public SearchPage(ViewModels.SearchViewModel viewModel)
+    public SearchPage(SearchViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
