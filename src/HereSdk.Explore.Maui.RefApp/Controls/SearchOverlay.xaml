@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Here.Explore.Maui.RefApp.Controls.SearchOverlay"
+        StrokeShape="RoundRectangle 12"
+        Background="#F8F8F8"
+        Padding="16,12"
+        Margin="16,16,16,8"
+        HorizontalOptions="Fill"
+        VerticalOptions="Start">
+    <Border.Shadow>
+        <Shadow Brush="#30000000" Offset="0,2" Radius="8" />
+    </Border.Shadow>
+    <Grid ColumnDefinitions="*,Auto">
+        <SearchBar x:Name="SearchBar"
+                   Placeholder="Search places..."
+                   Text="{Binding SearchQuery, Mode=TwoWay}"
+                   SearchCommand="{Binding SearchCommand}"
+                   CancelButtonColor="#2196F3" />
+        <Button Grid.Column="1"
+                Text="✕"
+                Command="{Binding ClearSearchCommand}"
+                BackgroundColor="Transparent"
+                WidthRequest="32"
+                HeightRequest="32"
+                VerticalOptions="Center"
+                Padding="0"
+                FontSize="18" />
+    </Grid>
+</Border>

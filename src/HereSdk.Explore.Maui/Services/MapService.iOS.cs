@@ -179,6 +179,36 @@ public partial class MapService
 
     public async Task<MapPickResult?> PickAsync(Point2D screenPoint) => null;
 
+    public void ClearAllMapItems()
+    {
+        if (_scene is null) return;
+
+        // Remove all markers
+        foreach (var iosMarker in _markers.Values)
+            _scene.RemoveMapMarker(iosMarker);
+        _markers.Clear();
+
+        // Remove all polylines
+        foreach (var iosPolyline in _polylines.Values)
+            _scene.RemoveMapPolyline(iosPolyline);
+        _polylines.Clear();
+
+        // Remove all polygons
+        foreach (var iosPolygon in _polygons.Values)
+            _scene.RemoveMapPolygon(iosPolygon);
+        _polygons.Clear();
+
+        // Remove all arrows
+        foreach (var iosArrow in _arrows.Values)
+            _scene.RemoveMapArrow(iosArrow);
+        _arrows.Clear();
+
+        // Remove all 3D markers
+        foreach (var iosMarker3D in _markers3D.Values)
+            _scene.RemoveMapMarker3D(iosMarker3D);
+        _markers3D.Clear();
+    }
+
     private static UIColor ColorFromHex(uint hex)
     {
         var r = (float)((hex >> 16) & 0xFF) / 255f;

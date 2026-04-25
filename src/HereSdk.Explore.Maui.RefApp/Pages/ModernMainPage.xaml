@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+             xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
+             xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
+             x:Class="Here.Explore.Maui.RefApp.Pages.ModernMainPage"
+             x:DataType="viewmodels:ModernMainViewModel"
+             Title="HERE SDK Explore"
+             BackgroundColor="LightBlue">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToBoolConverter x:Key="NullToBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Fullscreen map -->
+        <controls:HereMapView
+            CameraTarget="{Binding MapCenter}"
+            MapScheme="{Binding SelectedScheme}" />
+
+        <!-- Search overlay (top) -->
+        <local:SearchOverlay
+            SearchQuery="{Binding SearchQuery}"
+            SearchCommand="{Binding SearchCommand}"
+            ClearSearchCommand="{Binding ClearSearchCommand}" />
+
+        <!-- Map style picker (top-right) -->
+        <local:MapStylePicker
+            SelectedScheme="{Binding SelectedScheme}"
+            ChangeMapSchemeCommand="{Binding ChangeMapSchemeCommand}" />
+
+        <!-- Waypoint buttons (floating, when place selected) -->
+        <HorizontalStackLayout
+            VerticalOptions="End"
+            HorizontalOptions="Center"
+            Margin="0,0,0,180"
+            Spacing="10"
+            IsVisible="{Binding SelectedPlace, Converter={StaticResource NullToBool}}">
+            <Button Text="Set as Start"
+                    Command="{Binding SetAsStartCommand}"
+                    BackgroundColor="#2196F3"
+                    CornerRadius="8"
+                    Padding="16,10" />
+            <Button Text="Set as Dest"
+                    Command="{Binding SetAsDestinationCommand}"
+                    BackgroundColor="#4CAF50"
+                    CornerRadius="8"
+                    Padding="16,10" />
+            <Button Text="Add Via"
+                    Command="{Binding AddViaPointCommand}"
+                    BackgroundColor="#FF9800"
+                    CornerRadius="8"
+                    Padding="16,10" />
+        </HorizontalStackLayout>
+
+        <!-- Calculate route button (floating, when 2+ waypoints) -->
+        <Button
+            Text="Calculate Route"
+            Command="{Binding CalculateRouteCommand}"
+            BackgroundColor="#2196F3"
+            CornerRadius="24"
+            Padding="24,12"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,0,0,100"
+            IsVisible="{Binding CanCalculateRoute}" />
+
+        <!-- Route details panel (bottom, when route calculated) -->
+        <local:RouteDetailsPanel
+            DistanceText="{Binding DistanceText}"
+            DurationText="{Binding DurationText}"
+            Maneuvers="{Binding Maneuvers}"
+            ClearRouteCommand="{Binding ClearRouteCommand}"
+            HasRoute="{Binding CurrentRoute, Converter={StaticResource NullToBool}}" />
+    </Grid>
+</ContentPage>

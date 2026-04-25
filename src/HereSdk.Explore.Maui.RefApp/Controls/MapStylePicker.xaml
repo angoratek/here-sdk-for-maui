@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Here.Explore.Maui.RefApp.Controls.MapStylePicker"
+        StrokeShape="RoundRectangle 8"
+        Background="White"
+        Margin="16,80,16,0"
+        HorizontalOptions="End"
+        VerticalOptions="Start">
+    <Border.Shadow>
+        <Shadow Brush="#30000000" Offset="0,2" Radius="8" />
+    </Border.Shadow>
+    <Picker ItemsSource="{Binding MapSchemes}"
+            SelectedItem="{Binding SelectedScheme, Mode=TwoWay}"
+            Title="Map Style"
+            WidthRequest="150"
+            BackgroundColor="Transparent" />
+</Border>

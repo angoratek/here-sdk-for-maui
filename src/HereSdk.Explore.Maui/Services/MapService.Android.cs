@@ -216,8 +216,37 @@ public partial class MapService
 
     public Task<Here.Explore.Maui.Models.Maps.MapPickResult?> PickAsync(Point2D screenPoint)
     {
-        // Will be implemented with full pick result handling
         return Task.FromResult<Here.Explore.Maui.Models.Maps.MapPickResult?>(null);
+    }
+
+    public void ClearAllMapItems()
+    {
+        if (_mapScene is null) return;
+
+        // Remove all markers
+        foreach (var androidMarker in _markers.Values)
+            _mapScene.RemoveMapMarker(androidMarker);
+        _markers.Clear();
+
+        // Remove all polylines
+        foreach (var androidPolyline in _polylines.Values)
+            _mapScene.RemoveMapPolyline(androidPolyline);
+        _polylines.Clear();
+
+        // Remove all polygons
+        foreach (var androidPolygon in _polygons.Values)
+            _mapScene.RemoveMapPolygon(androidPolygon);
+        _polygons.Clear();
+
+        // Remove all arrows
+        foreach (var androidArrow in _arrows.Values)
+            _mapScene.RemoveMapArrow(androidArrow);
+        _arrows.Clear();
+
+        // Remove all 3D markers
+        foreach (var androidMarker3D in _markers3D.Values)
+            _mapScene.RemoveMapMarker3d(androidMarker3D);
+        _markers3D.Clear();
     }
 
     private static Here.Explore.Core.Color ToCoreColor(uint argb)

@@ -1,6 +1,8 @@
 using Here.Explore.Maui;
 using Here.Explore.Maui.Controls;
 using Here.Explore.Maui.Handlers;
+using Here.Explore.Maui.RefApp.Converters;
+using Here.Explore.Maui.RefApp.Pages;
 using Here.Explore.Maui.RefApp.ViewModels;
 using Here.Explore.Maui.Services;
 using Microsoft.Extensions.Configuration;
@@ -65,12 +67,19 @@ public static class MauiProgram
             System.Diagnostics.Debug.WriteLine($"INIT ERROR: {InitError}");
         }
 
-        // Register ViewModels (always register so the page can render)
+        // Register ViewModels
         builder.Services.AddTransient<MapViewModel>();
         builder.Services.AddTransient<SearchViewModel>();
         builder.Services.AddTransient<RoutingViewModel>();
         builder.Services.AddTransient<TrafficViewModel>();
         builder.Services.AddTransient<MapItemsViewModel>();
+        builder.Services.AddTransient<ModernMainViewModel>();
+
+        // Register pages
+        builder.Services.AddTransient<ModernMainPage>();
+
+        // Register converters
+        builder.Services.AddTransient<NullToBoolConverter>();
 
         Android.Util.Log.Debug("REFAPP_DIAG", "CreateMauiApp completed");
         return builder.Build();

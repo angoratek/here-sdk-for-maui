@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Here.Explore.Maui.RefApp.Controls.RouteDetailsPanel"
+        VerticalOptions="End"
+        StrokeShape="RoundRectangle 20,20,0,0"
+        Background="White"
+        IsVisible="{Binding HasRoute}">
+    <Border.Shadow>
+        <Shadow Brush="#50000000" Offset="0,-2" Radius="16" />
+    </Border.Shadow>
+    <Grid RowDefinitions="Auto,*,Auto" MinimumHeightRequest="200">
+        <!-- Handle for dragging -->
+        <BoxView Grid.Row="0"
+                 HeightRequest="4"
+                 WidthRequest="40"
+                 BackgroundColor="#CCC"
+                 CornerRadius="2"
+                 HorizontalOptions="Center"
+                 Margin="0,8" />
+
+        <!-- Summary header -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Padding="20,8">
+            <Label Grid.Column="0"
+                   Text="{Binding DistanceText}"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+            <Label Grid.Column="1"
+                   Text="{Binding DurationText}"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="20,0"
+                   VerticalOptions="Center" />
+            <Button Grid.Column="2"
+                    Text="✕"
+                    Command="{Binding ClearRouteCommand}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="32"
+                    HeightRequest="32"
+                    VerticalOptions="Center"
+                    Padding="0"
+                    FontSize="18" />
+        </Grid>
+
+        <!-- Maneuver list -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Maneuvers}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="20,8" ColumnDefinitions="40,*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Action}"
+                               FontSize="12"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding Instruction}"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               Margin="8,0,0,0" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Action buttons -->
+        <HorizontalStackLayout Grid.Row="2"
+                               Padding="20,16"
+                               Spacing="12">
+            <Button Text="Clear Route"
+                    Command="{Binding ClearRouteCommand}"
+                    BackgroundColor="#757575"
+                    CornerRadius="8"
+                    HorizontalOptions="FillAndExpand" />
+        </HorizontalStackLayout>
+    </Grid>
+</Border>

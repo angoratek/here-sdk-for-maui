@@ -89,4 +89,7 @@ public interface IMapService : IHereSdkService
 
     /// <summary>Raised when the user taps on the map.</summary>
     event EventHandler<MapTappedEventArgs>? MapTapped;
+
+    /// <summary>Clears all map items (markers, polylines, polygons, arrows).</summary>
+    void ClearAllMapItems();
 }

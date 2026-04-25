@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:searchmodels="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
+        x:Class="Here.Explore.Maui.RefApp.Controls.SearchResultsList"
+        StrokeShape="RoundRectangle 12"
+        Background="White"
+        Margin="16,0,16,8"
+        HorizontalOptions="Fill"
+        VerticalOptions="Start"
+        IsVisible="{Binding HasResults}">
+    <Border.Shadow>
+        <Shadow Brush="#40000000" Offset="0,4" Radius="12" />
+    </Border.Shadow>
+    <CollectionView ItemsSource="{Binding Suggestions}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedSuggestion, Mode=TwoWay}"
+                    MaxHeightRequest="300">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="searchmodels:Suggestion">
+                <Grid Padding="16,12" ColumnDefinitions="32,*">
+                    <Image Grid.Column="0"
+                           Source="ic_location"
+                           WidthRequest="24"
+                           HeightRequest="24"
+                           VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           Text="{Binding Title}"
+                           FontSize="15"
+                           VerticalOptions="Center"
+                           Margin="8,0,0,0" />
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</Border>

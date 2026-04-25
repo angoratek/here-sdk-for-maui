@@ -39,6 +39,7 @@ public partial class MapService : IMapService
     public void AddMapMarker3D(MapMarker3D marker) => throw new NotImplementedException("Platform-specific implementation required.");
     public void RemoveMapMarker3D(MapMarker3D marker) => throw new NotImplementedException("Platform-specific implementation required.");
     public Task<MapPickResult?> PickAsync(Point2D screenPoint) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void ClearAllMapItems() => throw new NotImplementedException("Platform-specific implementation required.");
 #endif
 
     internal void RaiseCameraStateChanged(CameraStateChangedEventArgs e) => CameraStateChanged?.Invoke(this, e);
