@@ -16,6 +16,8 @@ public partial class HereMapViewHandler
     protected override Android.Views.View CreatePlatformView()
     {
         _platformView = new Here.Explore.Maps.MapView(Platform.AppContext);
+        _platformView.OnCreate(null);
+
         _camera = _platformView.Camera;
         _scene = _platformView.MapScene;
         _gestures = _platformView.Gestures;
@@ -26,18 +28,52 @@ public partial class HereMapViewHandler
 
         // Wire up camera state changes
         _camera?.AddListener(new CameraListener(this));
+        Android.Util.Log.Debug("REFAPP_DIAG", $"Camera listener wired, camera={(_camera is null ? "null" : "ok")}");
 
         // Wire up map idle
-        _platformView.HereMap?.AddMapIdleListener(new IdleListener(this));
+        var hereMap = _platformView.HereMap;
+        Android.Util.Log.Debug("REFAPP_DIAG", $"HereMap={(hereMap is null ? "null" : "ok")}");
+        if (hereMap is not null)
+        {
+            hereMap.AddMapIdleListener(new IdleListener(this));
+            Android.Util.Log.Debug("REFAPP_DIAG", "Map idle listener wired");
+        }
 
         // Wire up gesture events
         _gestures!.TapListener = new TapListener(this);
+
+        // Start rendering
+        _platformView.OnResume();
+        Android.Util.Log.Debug("REFAPP_DIAG", $"MapView.OnResume called, camera={(_camera is null ? "null" : "ok")}");
+
+        // Set initial camera target with zoom level
+        if (VirtualView?.CameraTarget is { } target && _camera is not null)
+        {
+            Android.Util.Log.Debug("REFAPP_DIAG", $"Setting camera target: {target.Latitude},{target.Longitude} with zoom 10");
+            var geoCoords = new Here.Explore.Core.GeoCoordinates(target.Latitude, target.Longitude);
+            _camera.LookAt(geoCoords, new Here.Explore.Core.GeoOrientationUpdate(new Here.Explore.Core.GeoOrientation(0, 0)),
+                new Here.Explore.Maps.MapMeasure(Here.Explore.Maps.MapMeasure.Kind.ZoomLevel!, 10.0));
+        }
+        else
+        {
+            Android.Util.Log.Debug("REFAPP_DIAG", $"No camera target set, VirtualView={VirtualView}");
+        }
+
+        // Load the initial map scene (XAML defaults don't trigger property changed callbacks)
+        var initialScheme = VirtualView?.MapScheme ?? Models.Maps.MapScheme.NormalDay;
+        Android.Util.Log.Debug("REFAPP_DIAG", $"Loading initial scene: {initialScheme}");
+        _ = LoadInitialSceneAsync(initialScheme);
 
         return _platformView;
     }
 
     protected override void DisconnectHandler(Android.Views.View platformView)
     {
+        if (_platformView is not null)
+        {
+            _platformView.OnPause();
+            _platformView.OnDestroy();
+        }
         if (_gestures is not null)
             _gestures.TapListener = null;
         (_mapService as MapService)?.Dispose();
@@ -81,6 +117,18 @@ public partial class HereMapViewHandler
         if (_mapService is MapService ms)
             ms.RaiseMapIdle();
     }
+
+    private async Task LoadInitialSceneAsync(Models.Maps.MapScheme scheme)
+    {
+        try
+        {
+            await _mapService!.LoadSceneAsync(scheme);
+        }
+        catch
+        {
+            // Scene load failures are non-fatal — the map will show a blank state
+        }
+    }
 }
 
 internal class CameraListener : Java.Lang.Object, Here.Explore.Maps.MapCameraDelegate
@@ -90,6 +138,7 @@ internal class CameraListener : Java.Lang.Object, Here.Explore.Maps.MapCameraDel
 
     public void OnMapCameraUpdated(Here.Explore.Maps.MapCamera.State state)
     {
+        Android.Util.Log.Debug("REFAPP_DIAG", $"CameraListener.OnMapCameraUpdated: lat={state.TargetCoordinates.Latitude}, lon={state.TargetCoordinates.Longitude}, zoom={state.ZoomLevel}");
         _handler.OnCameraStateChanged(state);
     }
 }
@@ -112,9 +161,13 @@ internal class IdleListener : Java.Lang.Object, Here.Explore.Maps.MapIdleDelegat
 
     public void OnMapIdle()
     {
+        Android.Util.Log.Debug("REFAPP_DIAG", "IdleListener.OnMapIdle called");
         _handler.OnMapIdle();
     }
 
-    public void OnMapBusy() { }
+    public void OnMapBusy()
+    {
+        Android.Util.Log.Debug("REFAPP_DIAG", "IdleListener.OnMapBusy called");
+    }
 }
 #endif

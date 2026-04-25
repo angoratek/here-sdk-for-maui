@@ -30,6 +30,11 @@ public partial class HereMapViewHandler
         _gestures.SetLongPressDelegate(new LongPressDelegateHandler(this));
         _gestures.SetDoubleTapDelegate(new DoubleTapDelegateHandler(this));
 
+        // Load the initial map scene. The MapScheme property defaults to NormalDay,
+        // so XAML setting MapScheme="NormalDay" never triggers the property changed callback.
+        var initialScheme = VirtualView?.MapScheme ?? Models.Maps.MapScheme.NormalDay;
+        _ = LoadInitialSceneAsync(initialScheme);
+
         // The bridge view exposes the MapView as a UIView via PlatformView
         _platformView = _bridgeView.PlatformView ?? new UIKit.UIView(CoreGraphics.CGRect.Empty);
         return _platformView;
@@ -69,6 +74,19 @@ public partial class HereMapViewHandler
     internal void OnMapLongPressed(nint state, double originX, double originY)
     {
         // Long press event not yet on IMapService — captured for future use
+    }
+
+    private async Task LoadInitialSceneAsync(Models.Maps.MapScheme scheme)
+    {
+        try
+        {
+            await _mapService!.LoadSceneAsync(scheme);
+            System.Diagnostics.Debug.WriteLine($"[HereMapViewHandler] Initial scene loaded: {scheme}");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[HereMapViewHandler] Failed to load initial scene: {ex.Message}");
+        }
     }
 }
 

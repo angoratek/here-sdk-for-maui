@@ -8,6 +8,9 @@ public static class HereSdk
 {
     private static bool _initialized;
 
+    /// <summary>Gets whether the HERE SDK has been initialized.</summary>
+    public static bool IsInitialized => _initialized;
+
     /// <summary>
     /// Initialize the HERE SDK for Explore edition.
     /// </summary>
@@ -30,6 +33,11 @@ public static class HereSdk
         if (options.CachePath is not null)
             androidOptions.CachePath = options.CachePath;
         Here.Explore.Core.Engine.SDKNativeEngine.MakeSharedInstance(Platform.AppContext, androidOptions);
+        // Verify initialization succeeded
+        var engine = Here.Explore.Core.Engine.SDKNativeEngine.SharedInstance;
+        if (engine is null)
+            throw new InvalidOperationException("HERE SDK SDKNativeEngine.SharedInstance is null after MakeSharedInstance. This usually indicates invalid credentials.");
+        Android.Util.Log.Info("HereSdk", $"SDK initialized successfully. Engine={engine.GetType().Name}");
     }
 #elif IOS
     private static void InternalInitialize(HereSdkOptions options)

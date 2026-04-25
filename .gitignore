@@ -11,6 +11,7 @@ artifacts/
 *.suo
 *.userosscache
 *.sln.docstates
+settings.json
 
 # .NET
 *.swp

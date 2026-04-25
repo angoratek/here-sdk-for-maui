@@ -43,8 +43,6 @@ public class HereMapView : View, IHereMapView
     {
         _mapService = new Lazy<IMapService>(() =>
         {
-            // The handler creates the MapService and exposes it via the handler's MapService property.
-            // We use the MAUI handler infrastructure to resolve it without coupling to a specific handler type.
             if (Handler is Handlers.HereMapViewHandler h && h.MapService is not null)
                 return h.MapService;
 

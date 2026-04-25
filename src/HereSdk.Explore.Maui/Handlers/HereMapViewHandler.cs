@@ -41,6 +41,17 @@ public partial class HereMapViewHandler : ViewHandler<IHereMapView, object>
     private static void MapMapScheme(HereMapViewHandler handler, IHereMapView view)
     {
         if (handler.MapService is not null)
+        {
+#if ANDROID
+            Android.Util.Log.Info("HereMapViewHandler", $"Loading scene: {view.MapScheme}");
+#endif
             _ = handler.MapService.LoadSceneAsync(view.MapScheme);
+        }
+        else
+        {
+#if ANDROID
+            Android.Util.Log.Warn("HereMapViewHandler", "MapMapScheme called but MapService is NULL");
+#endif
+        }
     }
 }

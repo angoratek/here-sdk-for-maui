@@ -247,6 +247,7 @@ internal class SceneLoadCallback : Java.Lang.Object, Here.Explore.Maps.MapScene.
 
     public void OnLoadScene(Here.Explore.Maps.MapError? error)
     {
+        Android.Util.Log.Debug("REFAPP_DIAG", $"SceneLoadCallback.OnLoadScene called, error={(error is null ? "null" : error.Value.ToString())}");
         if (error is null)
             _tcs.SetResult(true);
         else
