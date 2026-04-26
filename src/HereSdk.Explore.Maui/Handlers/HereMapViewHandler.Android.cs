@@ -113,7 +113,7 @@ public partial class HereMapViewHandler
         }
     }
 
-    internal void OnMapLongPressed(Here.Explore.Core.Point2D point)
+    internal void OnMapLongPressed(Here.Explore.Gestures.GestureState state, Here.Explore.Core.Point2D point)
     {
         if (_mapService is MapService ms)
         {
@@ -174,9 +174,9 @@ internal class LongPressListener : Java.Lang.Object, Here.Explore.Gestures.MapLo
     private readonly HereMapViewHandler _handler;
     public LongPressListener(HereMapViewHandler handler) => _handler = handler;
 
-    public void OnLongPress(Here.Explore.Core.Point2D point)
+    public void OnLongPress(Here.Explore.Gestures.GestureState state, Here.Explore.Core.Point2D point)
     {
-        _handler.OnMapLongPressed(point);
+        _handler.OnMapLongPressed(state, point);
     }
 }
 
