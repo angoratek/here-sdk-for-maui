@@ -131,6 +131,14 @@ public record MapPinchRotatedEventArgs(
 );
 
 /// <summary>
+/// Event args for map pinched events.
+/// </summary>
+public record MapPinchedEventArgs(
+    double Scale,
+    GeoCoordinates Center
+);
+
+/// <summary>
 /// Map scheme (visual style).
 /// </summary>
 public enum MapScheme

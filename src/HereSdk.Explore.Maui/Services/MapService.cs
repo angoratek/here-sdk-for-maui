@@ -15,6 +15,9 @@ public partial class MapService : IMapService
     public event EventHandler<CameraStateChangedEventArgs>? CameraStateChanged;
     public event EventHandler? MapIdle;
     public event EventHandler<MapTappedEventArgs>? MapTapped;
+    public event EventHandler<MapLongPressedEventArgs>? MapLongPressed;
+    public event EventHandler<MapTappedEventArgs>? MapDoubleTapped;
+    public event EventHandler<MapPinchedEventArgs>? MapPinched;
 
     public MapScheme CurrentScheme { get; protected set; } = MapScheme.NormalDay;
 
@@ -47,6 +50,9 @@ public partial class MapService : IMapService
     internal void RaiseCameraStateChanged(CameraStateChangedEventArgs e) => CameraStateChanged?.Invoke(this, e);
     internal void RaiseMapIdle() => MapIdle?.Invoke(this, EventArgs.Empty);
     internal void RaiseMapTapped(MapTappedEventArgs e) => MapTapped?.Invoke(this, e);
+    internal void RaiseMapLongPressed(MapLongPressedEventArgs e) => MapLongPressed?.Invoke(this, e);
+    internal void RaiseMapDoubleTapped(MapTappedEventArgs e) => MapDoubleTapped?.Invoke(this, e);
+    internal void RaiseMapPinched(MapPinchedEventArgs e) => MapPinched?.Invoke(this, e);
 
     protected virtual void Dispose(bool disposing)
     {

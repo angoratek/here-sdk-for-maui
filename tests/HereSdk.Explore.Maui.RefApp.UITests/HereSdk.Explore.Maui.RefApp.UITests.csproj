@@ -1,30 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <UseMaui>true</UseMaui>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <NoWarn>NU1900</NoWarn>
+    <NoWarn>NU1900;MA002</NoWarn>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.20" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.*" />
     <PackageReference Include="xunit" Version="2.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
     <PackageReference Include="NSubstitute" Version="5.*" />
   </ItemGroup>
   <!--
-    Shared source from the MAUI library (models + interfaces + service stubs).
-    Platform-specific files (*.Android.cs, *.iOS.cs) are excluded.
+    Shared source from the MAUI library and RefApp (ViewModels, Models, Services).
     Uses Compile with Link to include as source without project reference.
+    Platform-specific files (*.Android.cs, *.iOS.cs) are excluded.
   -->
   <ItemGroup>
+    <!-- Core -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui\HereSdk.cs" Link="Shared\HereSdk.cs" />
+    <!-- Models -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Models\**\*.cs" LinkBase="Shared\Models" />
+    <!-- Services interfaces and stubs -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\IHereSdkService.cs" Link="Shared\Services\IHereSdkService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\IMapService.cs" Link="Shared\Services\IMapService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\IRoutingService.cs" Link="Shared\Services\IRoutingService.cs" />
@@ -32,10 +34,12 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\ITrafficService.cs" Link="Shared\Services\ITrafficService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\ILocationService.cs" Link="Shared\Services\ILocationService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\MapService.cs" Link="Shared\Services\MapService.cs" />
-    <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\TrafficService.cs" Link="Shared\Services\TrafficService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\RoutingService.cs" Link="Shared\Services\RoutingService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\SearchService.cs" Link="Shared\Services\SearchService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\LocationService.cs" Link="Shared\Services\LocationService.cs" />
-    <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\CircleGeometryHelper.cs" Link="Shared\Helpers\CircleGeometryHelper.cs" />
+    <!-- Helpers -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\**\*.cs" LinkBase="Shared\Helpers" />
+    <!-- RefApp ViewModels -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\ViewModels\**\*.cs" LinkBase="RefApp\ViewModels" />
   </ItemGroup>
 </Project>

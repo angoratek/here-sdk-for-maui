@@ -98,6 +98,15 @@ public interface IMapService : IHereSdkService
     /// <summary>Raised when the user taps on the map.</summary>
     event EventHandler<MapTappedEventArgs>? MapTapped;
 
+    /// <summary>Raised when the user long-presses on the map.</summary>
+    event EventHandler<MapLongPressedEventArgs>? MapLongPressed;
+
+    /// <summary>Raised when the user double-taps on the map.</summary>
+    event EventHandler<MapTappedEventArgs>? MapDoubleTapped;
+
+    /// <summary>Raised when the user pinches the map.</summary>
+    event EventHandler<MapPinchedEventArgs>? MapPinched;
+
     /// <summary>Clears all map items (markers, polylines, polygons, arrows).</summary>
     void ClearAllMapItems();
 }

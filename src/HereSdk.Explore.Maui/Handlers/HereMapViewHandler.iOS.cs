@@ -68,12 +68,22 @@ public partial class HereMapViewHandler
 
     internal void OnMapDoubleTapped(double originX, double originY)
     {
-        // Double tap event not yet on IMapService — captured for future use
+        if (_mapService is MapService ms)
+        {
+            var coordinates = new GeoCoordinates(0, 0); // TODO: convert screen point to geo coordinates
+            var screenPoint = new Point2D(originX, originY);
+            ms.RaiseMapDoubleTapped(new MapTappedEventArgs(coordinates, screenPoint));
+        }
     }
 
     internal void OnMapLongPressed(nint state, double originX, double originY)
     {
-        // Long press event not yet on IMapService — captured for future use
+        if (_mapService is MapService ms)
+        {
+            var coordinates = new GeoCoordinates(0, 0); // TODO: convert screen point to geo coordinates
+            var screenPoint = new Point2D(originX, originY);
+            ms.RaiseMapLongPressed(new MapLongPressedEventArgs(coordinates, screenPoint));
+        }
     }
 
     private async Task LoadInitialSceneAsync(Models.Maps.MapScheme scheme)

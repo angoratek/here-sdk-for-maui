@@ -41,6 +41,7 @@ public partial class HereMapViewHandler
 
         // Wire up gesture events
         _gestures!.TapListener = new TapListener(this);
+        _gestures.LongPressListener = new LongPressListener(this);
 
         // Start rendering
         _platformView.OnResume();
@@ -112,6 +113,20 @@ public partial class HereMapViewHandler
         }
     }
 
+    internal void OnMapLongPressed(Here.Explore.Core.Point2D point)
+    {
+        if (_mapService is MapService ms)
+        {
+            var geoCoords = _platformView?.Camera?.GetState().TargetCoordinates;
+            var coordinates = geoCoords is not null
+                ? new GeoCoordinates(geoCoords.Latitude, geoCoords.Longitude)
+                : new GeoCoordinates(0, 0);
+            var screenPoint = new Models.Point2D(point.X, point.Y);
+            var args = new MapLongPressedEventArgs(coordinates, screenPoint);
+            ms.RaiseMapLongPressed(args);
+        }
+    }
+
     internal void OnMapIdle()
     {
         if (_mapService is MapService ms)
@@ -151,6 +166,17 @@ internal class TapListener : Java.Lang.Object, Here.Explore.Gestures.MapTapDeleg
     public void OnTap(Here.Explore.Core.Point2D point)
     {
         _handler.OnMapTapped(point);
+    }
+}
+
+internal class LongPressListener : Java.Lang.Object, Here.Explore.Gestures.MapLongPressDelegate
+{
+    private readonly HereMapViewHandler _handler;
+    public LongPressListener(HereMapViewHandler handler) => _handler = handler;
+
+    public void OnLongPress(Here.Explore.Core.Point2D point)
+    {
+        _handler.OnMapLongPressed(point);
     }
 }
 
