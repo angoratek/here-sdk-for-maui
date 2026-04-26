@@ -42,6 +42,7 @@ public partial class HereMapViewHandler
         // Wire up gesture events
         _gestures!.TapListener = new TapListener(this);
         _gestures.LongPressListener = new LongPressListener(this);
+        _gestures.PinchRotateListener = new PinchRotateListener(this);
 
         // Start rendering
         _platformView.OnResume();
@@ -127,6 +128,19 @@ public partial class HereMapViewHandler
         }
     }
 
+    internal void OnMapPinchRotated(Here.Explore.Gestures.GestureState state, Here.Explore.Core.Point2D pivotPoint, Here.Explore.Core.Point2D focalPoint, double scale, Here.Explore.Core.Angle rotation)
+    {
+        if (_mapService is MapService ms)
+        {
+            var geoCoords = _platformView?.Camera?.GetState().TargetCoordinates;
+            var center = geoCoords is not null
+                ? new GeoCoordinates(geoCoords.Latitude, geoCoords.Longitude)
+                : new GeoCoordinates(0, 0);
+            var args = new MapPinchedEventArgs(scale, center);
+            ms.RaiseMapPinched(args);
+        }
+    }
+
     internal void OnMapIdle()
     {
         if (_mapService is MapService ms)
@@ -194,6 +208,17 @@ internal class IdleListener : Java.Lang.Object, Here.Explore.Maps.MapIdleDelegat
     public void OnMapBusy()
     {
         Android.Util.Log.Debug("REFAPP_DIAG", "IdleListener.OnMapBusy called");
+    }
+}
+
+internal class PinchRotateListener : Java.Lang.Object, Here.Explore.Gestures.MapPinchRotateDelegate
+{
+    private readonly HereMapViewHandler _handler;
+    public PinchRotateListener(HereMapViewHandler handler) => _handler = handler;
+
+    public void OnPinchRotate(Here.Explore.Gestures.GestureState state, Here.Explore.Core.Point2D pivotPoint, Here.Explore.Core.Point2D focalPoint, double scale, Here.Explore.Core.Angle rotation)
+    {
+        _handler.OnMapPinchRotated(state, pivotPoint, focalPoint, scale, rotation);
     }
 }
 #endif

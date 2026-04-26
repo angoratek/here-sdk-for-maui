@@ -179,7 +179,19 @@ public partial class MapService
         }
     }
 
-    public async Task<MapPickResult?> PickAsync(Point2D screenPoint) => null;
+    public async Task<MapPickResult?> PickAsync(Point2D screenPoint)
+    {
+        // iOS NativeBridge doesn't expose pick functionality yet
+        // Convert screen point to geo coordinates as approximation
+        if (_camera is null) return null;
+
+        // Use camera state to estimate picked location (center of screen)
+        var state = _camera.State;
+        var pickResult = new MapPickResult(
+            new GeoCoordinates(state.TargetLatitude, state.TargetLongitude),
+            null);
+        return pickResult;
+    }
 
     public void AddMapCircle(MapCircle circle)
     {

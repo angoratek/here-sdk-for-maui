@@ -56,6 +56,16 @@ public partial class HereMapViewHandler
         base.DisconnectHandler(platformView);
     }
 
+    internal void OnMapPinched(double scale)
+    {
+        if (_mapService is MapService ms)
+        {
+            var coordinates = new GeoCoordinates(0, 0); // TODO: get actual center from camera
+            var args = new MapPinchedEventArgs(scale, coordinates);
+            ms.RaiseMapPinched(args);
+        }
+    }
+
     internal void OnMapTapped(double originX, double originY)
     {
         if (_mapService is MapService ms)

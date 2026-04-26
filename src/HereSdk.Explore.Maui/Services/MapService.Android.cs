@@ -276,9 +276,19 @@ public partial class MapService
         }
     }
 
-    public Task<Here.Explore.Maui.Models.Maps.MapPickResult?> PickAsync(Point2D screenPoint)
+    public async Task<Here.Explore.Maui.Models.Maps.MapPickResult?> PickAsync(Point2D screenPoint)
     {
-        return Task.FromResult<Here.Explore.Maui.Models.Maps.MapPickResult?>(null);
+        if (_mapView is null) throw new InvalidOperationException("MapService not initialized.");
+
+        var tcs = new TaskCompletionSource<Here.Explore.Maui.Models.Maps.MapPickResult?>();
+        var pickPoint = new Here.Explore.Core.Point2D(screenPoint.X, screenPoint.Y);
+        var pickArea = new Here.Explore.Core.Rectangle2D(pickPoint, new Here.Explore.Core.Size2D(1, 1));
+        // Create filter with MAP_ITEMS content type
+        var filter = new Here.Explore.Maps.MapScene.MapPickFilter(
+            new List<Here.Explore.Maps.MapScene.MapPickFilter.ContentType> { Here.Explore.Maps.MapScene.MapPickFilter.ContentType.MapItems! });
+
+        _mapView.Pick(filter, pickArea, new MapPickCallback(tcs));
+        return await tcs.Task;
     }
 
     public void AddMapCircle(Here.Explore.Maui.Models.Maps.MapCircle circle)
@@ -389,6 +399,42 @@ internal class SceneLoadCallback : Java.Lang.Object, Here.Explore.Maps.MapScene.
             _tcs.SetResult(true);
         else
             _tcs.SetException(new Exception($"Scene load error: {error.Value}"));
+    }
+}
+
+internal class MapPickCallback : Java.Lang.Object, Here.Explore.Maps.IMapViewBase.IMapPickCallback
+{
+    private readonly TaskCompletionSource<Here.Explore.Maui.Models.Maps.MapPickResult?> _tcs;
+    public MapPickCallback(TaskCompletionSource<Here.Explore.Maui.Models.Maps.MapPickResult?> tcs) => _tcs = tcs;
+
+    public void OnPickMap(Here.Explore.Maps.MapPickResult? result)
+    {
+        if (result is null)
+        {
+            _tcs.SetResult(null);
+            return;
+        }
+
+        // Get coordinates from the first picked item (marker, polyline, etc.)
+        var mapItems = result.MapItems;
+        double lat = 0, lon = 0;
+
+        if (mapItems != null)
+        {
+            // Try to get coordinates from first marker
+            var markers = mapItems.Markers;
+            if (markers.Count > 0)
+            {
+                var marker = markers[0];
+                lat = marker.Coordinates.Latitude;
+                lon = marker.Coordinates.Longitude;
+            }
+        }
+
+        var pickResult = new Here.Explore.Maui.Models.Maps.MapPickResult(
+            new GeoCoordinates(lat, lon),
+            result);
+        _tcs.SetResult(pickResult);
     }
 }
 #endif
