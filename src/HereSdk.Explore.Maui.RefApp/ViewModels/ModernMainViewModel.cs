@@ -9,49 +9,96 @@ using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
 
-/// <summary>
-/// Unified ViewModel for the modern main page with search, routing, and map functionality.
-/// </summary>
 public class ModernMainViewModel : ViewModelBase, IDisposable
 {
-    private readonly IMapService _mapService;
+    private IMapService _mapService = null!;
     private readonly ISearchService _searchService;
     private readonly IRoutingService _routingService;
+    private readonly ILocationService _locationService;
 
     // Search state
-    private string _searchQuery = string.Empty;
-    private IReadOnlyList<Suggestion>? _suggestions;
-    private Place? _selectedPlace;
+    private string _originQuery = string.Empty;
+    private string _destinationQuery = string.Empty;
+    private IReadOnlyList<Suggestion>? _originSuggestions;
+    private IReadOnlyList<Suggestion>? _destinationSuggestions;
+    private Place? _originPlace;
+    private Place? _destinationPlace;
 
     // Route state
-    private readonly ObservableCollection<Waypoint> _waypoints = new();
     private Route? _currentRoute;
     private MapPolyline? _routePolyline;
 
     // Map state
-    private GeoCoordinates _mapCenter = new(52.531268, 13.387659); // Berlin
     private MapScheme _selectedScheme = MapScheme.NormalDay;
+    private double _currentZoom = 10;
+    private bool _isLoading;
+    private bool _isMapObjectsPanelVisible;
 
-    // Properties
-    public string SearchQuery
+    // Map objects
+    private readonly List<MapMarker> _demoMarkers = new();
+    private readonly List<MapCircle> _demoCircles = new();
+    private readonly List<MapPolyline> _demoPolylines = new();
+    private readonly List<MapPolygon> _demoPolygons = new();
+    private bool _markersVisible;
+    private bool _circlesVisible;
+    private bool _polylinesVisible;
+    private bool _polygonsVisible;
+
+    public string OriginQuery
     {
-        get => _searchQuery;
-        set => SetProperty(ref _searchQuery, value);
+        get => _originQuery;
+        set => SetProperty(ref _originQuery, value);
     }
 
-    public IReadOnlyList<Suggestion>? Suggestions
+    public string DestinationQuery
     {
-        get => _suggestions;
-        private set => SetProperty(ref _suggestions, value);
+        get => _destinationQuery;
+        set => SetProperty(ref _destinationQuery, value);
     }
 
-    public Place? SelectedPlace
+    public IReadOnlyList<Suggestion>? OriginSuggestions
     {
-        get => _selectedPlace;
-        private set => SetProperty(ref _selectedPlace, value);
+        get => _originSuggestions;
+        private set => SetProperty(ref _originSuggestions, value);
     }
 
-    public ObservableCollection<Waypoint> Waypoints => _waypoints;
+    public IReadOnlyList<Suggestion>? DestinationSuggestions
+    {
+        get => _destinationSuggestions;
+        private set => SetProperty(ref _destinationSuggestions, value);
+    }
+
+    public Place? OriginPlace
+    {
+        get => _originPlace;
+        private set
+        {
+            if (SetProperty(ref _originPlace, value))
+            {
+                OnPropertyChanged(nameof(CanCalculateRoute));
+                ((Command)CalculateRouteCommand).ChangeCanExecute();
+            }
+        }
+    }
+
+    public Place? DestinationPlace
+    {
+        get => _destinationPlace;
+        private set
+        {
+            if (SetProperty(ref _destinationPlace, value))
+            {
+                OnPropertyChanged(nameof(CanCalculateRoute));
+                ((Command)CalculateRouteCommand).ChangeCanExecute();
+            }
+        }
+    }
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
 
     public Route? CurrentRoute
     {
@@ -65,16 +112,15 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         set => SetProperty(ref _selectedScheme, value);
     }
 
-    public GeoCoordinates MapCenter
+    public bool IsMapObjectsPanelVisible
     {
-        get => _mapCenter;
-        set => SetProperty(ref _mapCenter, value);
+        get => _isMapObjectsPanelVisible;
+        set => SetProperty(ref _isMapObjectsPanelVisible, value);
     }
 
-    // Computed properties
-    public bool HasResults => Suggestions?.Count > 0;
+    public bool HasRoute => CurrentRoute != null;
 
-    public bool CanCalculateRoute => _waypoints.Count >= 2;
+    public bool CanCalculateRoute => OriginPlace != null && DestinationPlace != null;
 
     public string DistanceText => CurrentRoute != null ? $"{CurrentRoute.LengthInMeters / 1000.0:F1} km" : "--";
 
@@ -84,111 +130,205 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         CurrentRoute?.Sections.SelectMany(s => s.Maneuvers).ToList() ?? new List<Maneuver>();
 
     // Commands
-    public ICommand SearchCommand { get; }
-    public ICommand SelectSuggestionCommand { get; }
-    public ICommand SetAsStartCommand { get; }
-    public ICommand SetAsDestinationCommand { get; }
-    public ICommand AddViaPointCommand { get; }
+    public ICommand SearchOriginCommand { get; }
+    public ICommand SearchDestinationCommand { get; }
+    public ICommand SelectOriginCommand { get; }
+    public ICommand SelectDestinationCommand { get; }
+    public ICommand ClearOriginCommand { get; }
+    public ICommand ClearDestinationCommand { get; }
+    public ICommand SwapLocationsCommand { get; }
     public ICommand CalculateRouteCommand { get; }
     public ICommand ClearRouteCommand { get; }
+    public ICommand CenterOnLocationCommand { get; }
+    public ICommand ZoomInCommand { get; }
+    public ICommand ZoomOutCommand { get; }
+    public ICommand ResetMapOrientationCommand { get; }
     public ICommand ChangeMapSchemeCommand { get; }
-    public ICommand ClearSearchCommand { get; }
+    public ICommand ToggleMapObjectsPanelCommand { get; }
+    public ICommand ToggleMarkersCommand { get; }
+    public ICommand ToggleCirclesCommand { get; }
+    public ICommand TogglePolylinesCommand { get; }
+    public ICommand TogglePolygonsCommand { get; }
+    public ICommand ClearMapObjectsCommand { get; }
 
-    public ModernMainViewModel(IMapService mapService, ISearchService searchService, IRoutingService routingService)
+    public ModernMainViewModel(
+        ISearchService searchService,
+        IRoutingService routingService,
+        ILocationService locationService)
     {
-        _mapService = mapService;
         _searchService = searchService;
         _routingService = routingService;
+        _locationService = locationService;
 
-        SearchCommand = new Command(async () => await SearchAsync());
-        SelectSuggestionCommand = new Command<Place>(async p => await SelectPlaceAsync(p));
-        SetAsStartCommand = new Command<Place>(p => SetWaypoint(0, p, WaypointType.Start));
-        SetAsDestinationCommand = new Command<Place>(p => SetWaypoint(1, p, WaypointType.Stop));
-        AddViaPointCommand = new Command<Place>(p => InsertWaypoint(p));
+        SearchOriginCommand = new Command(async () => await SearchAsync(isOrigin: true));
+        SearchDestinationCommand = new Command(async () => await SearchAsync(isOrigin: false));
+        SelectOriginCommand = new Command<Suggestion>(async s => await SelectSuggestionAsync(s, isOrigin: true));
+        SelectDestinationCommand = new Command<Suggestion>(async s => await SelectSuggestionAsync(s, isOrigin: false));
+        ClearOriginCommand = new Command(() => ClearSearch(isOrigin: true));
+        ClearDestinationCommand = new Command(() => ClearSearch(isOrigin: false));
+        SwapLocationsCommand = new Command(SwapLocations);
         CalculateRouteCommand = new Command(async () => await CalculateRouteAsync(), () => CanCalculateRoute);
         ClearRouteCommand = new Command(ClearRoute);
+        CenterOnLocationCommand = new Command(async () => await CenterOnLocationAsync());
+        ZoomInCommand = new Command(() => ZoomBy(1));
+        ZoomOutCommand = new Command(() => ZoomBy(-1));
+        ResetMapOrientationCommand = new Command(ResetMapOrientation);
         ChangeMapSchemeCommand = new Command<MapScheme>(async s => await ChangeMapSchemeAsync(s));
-        ClearSearchCommand = new Command(ClearSearch);
+        ToggleMapObjectsPanelCommand = new Command(() => IsMapObjectsPanelVisible = !IsMapObjectsPanelVisible);
+        ToggleMarkersCommand = new Command(async () => await ToggleMarkersAsync());
+        ToggleCirclesCommand = new Command(async () => await ToggleCirclesAsync());
+        TogglePolylinesCommand = new Command(async () => await TogglePolylinesAsync());
+        TogglePolygonsCommand = new Command(async () => await TogglePolygonsAsync());
+        ClearMapObjectsCommand = new Command(ClearMapObjects);
     }
 
-    private async Task SearchAsync()
+    public void InitializeMapView(Here.Explore.Maui.Controls.HereMapView mapView)
     {
-        if (string.IsNullOrWhiteSpace(SearchQuery))
-            return;
+        _mapService = mapView.Map;
+        System.Diagnostics.Debug.WriteLine($"InitializeMapView: _mapService initialized, isNull={_mapService is null}");
+    }
 
+    private async Task SearchAsync(bool isOrigin)
+    {
+        var query = isOrigin ? OriginQuery : DestinationQuery;
+        System.Diagnostics.Debug.WriteLine($"SearchAsync({isOrigin}): query='{query}'");
+        if (string.IsNullOrWhiteSpace(query)) return;
+
+        IsLoading = true;
         try
         {
             var result = await _searchService.SuggestAsync(
-                new TextQuery(SearchQuery),
-                new SearchOptions { MaxItems = 10 });
+                new TextQuery(query),
+                new SearchOptions { MaxItems = 8 });
+            System.Diagnostics.Debug.WriteLine($"SearchAsync: got {result.Suggestions?.Count ?? 0} suggestions");
 
-            Suggestions = result.Suggestions ?? new List<Suggestion>();
-            OnPropertyChanged(nameof(HasResults));
+            if (isOrigin)
+                OriginSuggestions = result.Suggestions ?? new List<Suggestion>();
+            else
+                DestinationSuggestions = result.Suggestions ?? new List<Suggestion>();
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Search error: {ex}");
-            Suggestions = new List<Suggestion>();
+            if (isOrigin)
+                OriginSuggestions = new List<Suggestion>();
+            else
+                DestinationSuggestions = new List<Suggestion>();
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 
-    private async Task SelectPlaceAsync(Place place)
+    private async Task SelectSuggestionAsync(Suggestion suggestion, bool isOrigin)
     {
-        SelectedPlace = place;
+        System.Diagnostics.Debug.WriteLine($"SelectSuggestionAsync({isOrigin}): id={suggestion.Id}, title='{suggestion.Title}'");
+        if (string.IsNullOrEmpty(suggestion.Id)) return;
 
-        // Add marker for selected place
-        var marker = new MapMarker(place.Coordinates, Text: place.Title);
-        _mapService.AddMapMarker(marker);
+        IsLoading = true;
+        try
+        {
+            var place = await _searchService.GetPlaceByIdAsync(suggestion.Id);
+            System.Diagnostics.Debug.WriteLine($"SelectSuggestionAsync: place={(place is null ? "null" : $"'{place.Title}' @ {place.Coordinates.Latitude},{place.Coordinates.Longitude}")}");
+            if (place is null) return;
 
-        // Center map on selected place
-        await _mapService.SetCameraTargetAsync(place.Coordinates, 15);
+            if (isOrigin)
+            {
+                OriginQuery = place.Title;
+                OriginSuggestions = null;
+                OriginPlace = place;
+            }
+            else
+            {
+                DestinationQuery = place.Title;
+                DestinationSuggestions = null;
+                DestinationPlace = place;
+            }
+
+            // Add marker for selected place
+            var marker = new MapMarker(place.Coordinates, Text: place.Title);
+            _mapService.AddMapMarker(marker);
+
+            // Center map on selected place
+            await _mapService.SetCameraTargetAsync(place.Coordinates, 15);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Select suggestion error: {ex}");
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
-    private void SetWaypoint(int index, Place place, WaypointType type)
+    private void ClearSearch(bool isOrigin)
     {
-        var waypoint = new Waypoint(place.Coordinates, type, Name: place.Title);
-
-        while (_waypoints.Count <= index)
-            _waypoints.Add(new Waypoint(new GeoCoordinates(0, 0), WaypointType.Through));
-
-        _waypoints[index] = waypoint;
-        ((Command)CalculateRouteCommand).ChangeCanExecute();
+        if (isOrigin)
+        {
+            OriginQuery = string.Empty;
+            OriginSuggestions = null;
+            OriginPlace = null;
+        }
+        else
+        {
+            DestinationQuery = string.Empty;
+            DestinationSuggestions = null;
+            DestinationPlace = null;
+        }
     }
 
-    private void InsertWaypoint(Place place)
+    private void SwapLocations()
     {
-        // Insert before the last waypoint (destination)
-        var insertIndex = Math.Max(0, _waypoints.Count - 1);
-        _waypoints.Insert(insertIndex, new Waypoint(place.Coordinates, WaypointType.Through, Name: place.Title));
+        var tempQuery = OriginQuery;
+        var tempPlace = OriginPlace;
+
+        OriginQuery = DestinationQuery;
+        OriginPlace = DestinationPlace;
+        DestinationQuery = tempQuery;
+        DestinationPlace = tempPlace;
+
+        OnPropertyChanged(nameof(CanCalculateRoute));
         ((Command)CalculateRouteCommand).ChangeCanExecute();
     }
 
     private async Task CalculateRouteAsync()
     {
-        if (_waypoints.Count < 2)
-            return;
+        System.Diagnostics.Debug.WriteLine("CalculateRouteAsync called");
+        if (OriginPlace is null || DestinationPlace is null) return;
 
+        IsLoading = true;
         try
         {
-            var result = await _routingService.CalculateRouteAsync(_waypoints.ToList(), new RoutingOptions());
+            var waypoints = new List<Waypoint>
+            {
+                new(OriginPlace.Coordinates, WaypointType.Start, Name: OriginPlace.Title),
+                new(DestinationPlace.Coordinates, WaypointType.Stop, Name: DestinationPlace.Title)
+            };
+
+            var result = await _routingService.CalculateRouteAsync(waypoints, new RoutingOptions());
+            System.Diagnostics.Debug.WriteLine($"CalculateRouteAsync: result.Error={result.Error}, RoutesCount={result.Routes?.Count ?? 0}");
 
             if (result.Error == RoutingError.None && result.Routes?.Count > 0)
             {
                 CurrentRoute = result.Routes[0];
+                OnPropertyChanged(nameof(HasRoute));
+                OnPropertyChanged(nameof(DistanceText));
+                OnPropertyChanged(nameof(DurationText));
+                OnPropertyChanged(nameof(Maneuvers));
+                System.Diagnostics.Debug.WriteLine($"CalculateRouteAsync: route set, {CurrentRoute.Sections.Count} sections, {Maneuvers.Count} maneuvers");
 
-                // Extract geometry and draw polyline
+                // Draw route polyline
                 var geometry = RouteGeometryHelper.ExtractGeometry(CurrentRoute);
                 if (geometry.Count > 0)
                 {
                     _routePolyline = RouteGeometryHelper.CreatePolyline(geometry);
                     _mapService.AddMapPolyline(_routePolyline);
 
-                    // Center map on route midpoint
                     var midIndex = geometry.Count / 2;
                     await _mapService.SetCameraTargetAsync(geometry[midIndex], 10);
                 }
-
-                ((Command)ClearRouteCommand).ChangeCanExecute();
             }
             else
             {
@@ -198,6 +338,10 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Route calculation error: {ex}");
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 
@@ -210,7 +354,50 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         }
 
         CurrentRoute = null;
-        ((Command)ClearRouteCommand).ChangeCanExecute();
+        OnPropertyChanged(nameof(HasRoute));
+        OnPropertyChanged(nameof(DistanceText));
+        OnPropertyChanged(nameof(DurationText));
+        OnPropertyChanged(nameof(Maneuvers));
+    }
+
+    private async Task CenterOnLocationAsync()
+    {
+        IsLoading = true;
+        try
+        {
+            var location = await _locationService.GetCurrentLocationAsync();
+            if (location is null)
+            {
+                System.Diagnostics.Debug.WriteLine("Location not available");
+                return;
+            }
+
+            _currentZoom = 15;
+            await _mapService.SetCameraTargetAsync(location.Coordinates, (int)_currentZoom);
+
+            // Add a location marker
+            var marker = new MapMarker(location.Coordinates, Text: "You are here");
+            _mapService.AddMapMarker(marker);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Location error: {ex}");
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private void ZoomBy(int delta)
+    {
+        _currentZoom = Math.Max(1, Math.Min(20, _currentZoom + delta));
+        _ = _mapService.SetCameraTargetAsync(_mapService.GetCameraTargetAsync().Result, (int)_currentZoom);
+    }
+
+    private void ResetMapOrientation()
+    {
+        _ = _mapService.SetCameraTargetAsync(_mapService.GetCameraTargetAsync().Result, (int)_currentZoom);
     }
 
     private async Task ChangeMapSchemeAsync(MapScheme scheme)
@@ -226,15 +413,143 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         }
     }
 
-    private void ClearSearch()
+    // Map objects
+    private async Task ToggleMarkersAsync()
     {
-        SearchQuery = string.Empty;
-        Suggestions = new List<Suggestion>();
-        OnPropertyChanged(nameof(HasResults));
+        System.Diagnostics.Debug.WriteLine("ToggleMarkersAsync called");
+        try
+        {
+            if (_markersVisible)
+            {
+                foreach (var m in _demoMarkers) _mapService.RemoveMapMarker(m);
+                _demoMarkers.Clear();
+                _markersVisible = false;
+                System.Diagnostics.Debug.WriteLine("ToggleMarkersAsync: markers removed");
+                return;
+            }
+
+            var center = await _mapService.GetCameraTargetAsync();
+            var marker = new MapMarker(center, Text: "Demo Marker");
+            _mapService.AddMapMarker(marker);
+            _demoMarkers.Add(marker);
+            _markersVisible = true;
+            System.Diagnostics.Debug.WriteLine("ToggleMarkersAsync: marker added");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ToggleMarkersAsync ERROR: {ex}");
+        }
+    }
+
+    private async Task ToggleCirclesAsync()
+    {
+        System.Diagnostics.Debug.WriteLine("ToggleCirclesAsync called");
+        try
+        {
+            if (_circlesVisible)
+            {
+                foreach (var c in _demoCircles) _mapService.RemoveMapCircle(c);
+                _demoCircles.Clear();
+                _circlesVisible = false;
+                System.Diagnostics.Debug.WriteLine("ToggleCirclesAsync: circles removed");
+                return;
+            }
+
+            var center = await _mapService.GetCameraTargetAsync();
+            var circle = new MapCircle(center, 500, FillColor: 0x3300FF00, StrokeColor: 0xFF00FF00);
+            _mapService.AddMapCircle(circle);
+            _demoCircles.Add(circle);
+            _circlesVisible = true;
+            System.Diagnostics.Debug.WriteLine("ToggleCirclesAsync: circle added");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ToggleCirclesAsync ERROR: {ex}");
+        }
+    }
+
+    private async Task TogglePolylinesAsync()
+    {
+        System.Diagnostics.Debug.WriteLine("TogglePolylinesAsync called");
+        try
+        {
+            if (_polylinesVisible)
+            {
+                foreach (var p in _demoPolylines) _mapService.RemoveMapPolyline(p);
+                _demoPolylines.Clear();
+                _polylinesVisible = false;
+                System.Diagnostics.Debug.WriteLine("TogglePolylinesAsync: polylines removed");
+                return;
+            }
+
+            var center = await _mapService.GetCameraTargetAsync();
+            var polyline = new MapPolyline(new List<GeoCoordinates>
+            {
+                new(center.Latitude - 0.01, center.Longitude - 0.01),
+                new(center.Latitude + 0.005, center.Longitude),
+                new(center.Latitude + 0.01, center.Longitude + 0.01),
+            }, Color: 0xFF0000FF, WidthInPixels: 5);
+            _mapService.AddMapPolyline(polyline);
+            _demoPolylines.Add(polyline);
+            _polylinesVisible = true;
+            System.Diagnostics.Debug.WriteLine("TogglePolylinesAsync: polyline added");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"TogglePolylinesAsync ERROR: {ex}");
+        }
+    }
+
+    private async Task TogglePolygonsAsync()
+    {
+        System.Diagnostics.Debug.WriteLine("TogglePolygonsAsync called");
+        try
+        {
+            if (_polygonsVisible)
+            {
+                foreach (var p in _demoPolygons) _mapService.RemoveMapPolygon(p);
+                _demoPolygons.Clear();
+                _polygonsVisible = false;
+                System.Diagnostics.Debug.WriteLine("TogglePolygonsAsync: polygons removed");
+                return;
+            }
+
+            var center = await _mapService.GetCameraTargetAsync();
+            var polygon = new MapPolygon(new List<GeoCoordinates>
+            {
+                new(center.Latitude + 0.005, center.Longitude),
+                new(center.Latitude - 0.003, center.Longitude + 0.008),
+                new(center.Latitude - 0.003, center.Longitude - 0.008),
+            }, FillColor: 0x44FF0000);
+            _mapService.AddMapPolygon(polygon);
+            _demoPolygons.Add(polygon);
+            _polygonsVisible = true;
+            System.Diagnostics.Debug.WriteLine("TogglePolygonsAsync: polygon added");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"TogglePolygonsAsync ERROR: {ex}");
+        }
+    }
+
+    private void ClearMapObjects()
+    {
+        foreach (var m in _demoMarkers) _mapService.RemoveMapMarker(m);
+        foreach (var c in _demoCircles) _mapService.RemoveMapCircle(c);
+        foreach (var p in _demoPolylines) _mapService.RemoveMapPolyline(p);
+        foreach (var p in _demoPolygons) _mapService.RemoveMapPolygon(p);
+        _demoMarkers.Clear();
+        _demoCircles.Clear();
+        _demoPolylines.Clear();
+        _demoPolygons.Clear();
+        _markersVisible = false;
+        _circlesVisible = false;
+        _polylinesVisible = false;
+        _polygonsVisible = false;
     }
 
     public void Dispose()
     {
-        // Services are registered as singletons in DI - don't dispose here
+        // Services are singletons in DI — don't dispose here
     }
 }

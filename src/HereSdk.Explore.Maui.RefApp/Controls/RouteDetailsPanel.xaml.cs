@@ -52,6 +52,5 @@ public partial class RouteDetailsPanel : Border
     public RouteDetailsPanel()
     {
         InitializeComponent();
-        BindingContext = this;
     }
 }

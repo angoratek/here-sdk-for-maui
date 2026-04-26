@@ -38,7 +38,10 @@ public record Maneuver(
     string? NextRoadNumber = null,
     double? LengthInMeters = null,
     long? DurationInSeconds = null
-);
+)
+{
+    public string DistanceText => LengthInMeters.HasValue ? $"{LengthInMeters.Value:F0} m" : "";
+}
 
 /// <summary>
 /// Maneuver action types.

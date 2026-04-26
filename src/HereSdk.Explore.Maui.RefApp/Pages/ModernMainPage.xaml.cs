@@ -11,5 +11,13 @@ public partial class ModernMainPage : ContentPage
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
+
+        Loaded += OnPageLoaded;
+    }
+
+    private void OnPageLoaded(object? sender, EventArgs e)
+    {
+        Loaded -= OnPageLoaded;
+        _viewModel.InitializeMapView(MapView);
     }
 }

@@ -2,6 +2,7 @@
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.PlatformConverters;
+using Here.Explore.Maui.Helpers;
 using Here.Explore.iOS;
 using UIKit;
 
@@ -23,6 +24,7 @@ public partial class MapService
     private readonly Dictionary<MapPolygon, HereMapPolygon> _polygons = new();
     private readonly Dictionary<MapArrow, HereMapArrow> _arrows = new();
     private readonly Dictionary<MapMarker3D, HereMapMarker3D> _markers3D = new();
+    private readonly Dictionary<MapCircle, HereMapPolygon> _circles = new();
 
     public double ZoomLevel => _camera?.State.ZoomLevel ?? 0;
     public double Bearing => _camera?.State.Bearing ?? 0;
@@ -179,9 +181,30 @@ public partial class MapService
 
     public async Task<MapPickResult?> PickAsync(Point2D screenPoint) => null;
 
+    public void AddMapCircle(MapCircle circle)
+    {
+        if (_mapBridgeView is null) throw new InvalidOperationException("MapService not initialized.");
+        var vertices = CircleGeometryHelper.GenerateCircleVertices(circle.Center, circle.RadiusInMeters);
+        var iosVertices = vertices.Select(v => v.ToiOS()).ToArray();
+        var fillColor = ColorFromHex(circle.FillColor);
+        var iosPolygon = new HereMapPolygon(iosVertices, fillColor);
+        iosPolygon.AddToMapView(_mapBridgeView);
+        _circles[circle] = iosPolygon;
+    }
+
+    public void RemoveMapCircle(MapCircle circle)
+    {
+        if (_mapBridgeView is null) throw new InvalidOperationException("MapService not initialized.");
+        if (_circles.TryGetValue(circle, out var iosPolygon))
+        {
+            iosPolygon.RemoveFromMapView(_mapBridgeView);
+            _circles.Remove(circle);
+        }
+    }
+
     public void ClearAllMapItems()
     {
-        if (_scene is null) return;
+        if (_scene is null || _mapBridgeView is null) return;
 
         // Remove all markers
         foreach (var iosMarker in _markers.Values)
@@ -190,23 +213,28 @@ public partial class MapService
 
         // Remove all polylines
         foreach (var iosPolyline in _polylines.Values)
-            _scene.RemoveMapPolyline(iosPolyline);
+            iosPolyline.RemoveFromMapView(_mapBridgeView);
         _polylines.Clear();
 
         // Remove all polygons
         foreach (var iosPolygon in _polygons.Values)
-            _scene.RemoveMapPolygon(iosPolygon);
+            iosPolygon.RemoveFromMapView(_mapBridgeView);
         _polygons.Clear();
 
         // Remove all arrows
         foreach (var iosArrow in _arrows.Values)
-            _scene.RemoveMapArrow(iosArrow);
+            iosArrow.RemoveFromMapView(_mapBridgeView);
         _arrows.Clear();
 
         // Remove all 3D markers
         foreach (var iosMarker3D in _markers3D.Values)
             _scene.RemoveMapMarker3D(iosMarker3D);
         _markers3D.Clear();
+
+        // Remove all circles
+        foreach (var iosCircle in _circles.Values)
+            iosCircle.RemoveFromMapView(_mapBridgeView);
+        _circles.Clear();
     }
 
     private static UIColor ColorFromHex(uint hex)

@@ -6,10 +6,11 @@ Cross-platform .NET MAUI bindings for the [HERE SDK](https://www.here.com/) Expl
 
 - **Unified C# API** — One idiomatic interface for both Android and iOS
 - **Map display** — MapView control with camera, gestures, schemes
-- **Search** — Text search, category search, auto-suggest, place details
-- **Routing** — Car, truck, pedestrian, bicycle, scooter, EV routing with maneuvers
+- **Search** — Text search, category search, auto-suggest, place details with dual-input origin/destination UX
+- **Routing** — Car, truck, pedestrian, bicycle, scooter, EV routing with maneuvers and visual route display
 - **Traffic** — Real-time traffic flow and incident queries
-- **Map items** — Markers, polylines, polygons, 3D markers
+- **Location** — Device location via `ILocationService` (cross-platform, MAUI Geolocation-based)
+- **Map items** — Markers, polylines, polygons, arrows, circles (polygon-approximated), 3D markers
 
 ## Prerequisites
 
@@ -48,7 +49,6 @@ builder.UseHereSdkExplore(new HereSdkOptions
 
 <here:HereMapView
     x:Name="Map"
-    CameraTarget="{Binding Center}"
     MapScheme="NormalDay" />
 ```
 
@@ -64,7 +64,21 @@ var results = await searchService.SearchAsync(
 var route = await routingService.CalculateRouteAsync(
     new[] { new Waypoint(start), new Waypoint(end) },
     new RoutingOptions(TransportMode: SectionTransportMode.Car));
+
+// Location
+var location = await locationService.GetCurrentLocationAsync();
 ```
+
+## Reference App
+
+The included reference app (`HereSdk.Explore.Maui.RefApp`) demonstrates:
+
+- **Dual-input search** — Origin and destination search with autocomplete
+- **Route calculation** — Visual route display with distance/duration and maneuver list
+- **Map style picker** — Toggle between Normal Day, Night, Hybrid, Satellite, Terrain
+- **Location button** — Centers map on device location via `ILocationService`
+- **Map objects panel** — Toggle markers, circles, polylines, and polygons on the map
+- **Zoom & compass controls** — Floating map controls
 
 ## Architecture
 
@@ -91,6 +105,16 @@ var route = await routingService.CalculateRouteAsync(
   │                  │  │  (Swift-only)        │
   └──────────────────┘  └─────────────────────┘
 ```
+
+### NuGet Packages
+
+| Package | Description |
+|---------|-------------|
+| `HereSdk.Explore.Maui` | Cross-platform MAUI library (depends on platform bindings) |
+| `HereSdk.Explore.Android.Binding` | Android AAR binding |
+| `HereSdk.Explore.iOS.Binding` | iOS NativeBridge binding |
+
+Most consumers should reference only `HereSdk.Explore.Maui`.
 
 ### Why NativeBridge for iOS?
 
@@ -134,6 +158,16 @@ dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 ./scripts/build.sh
 ```
 
+### Reference App
+
+```bash
+# Android
+dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-android -c Debug
+
+# iOS (requires macOS + Xcode)
+dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-ios -c Debug
+```
+
 ### Tests
 
 ```bash
@@ -145,6 +179,18 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
 dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 ```
 
+### Packaging
+
+```bash
+# Pack all NuGet packages
+./scripts/pack.sh
+
+# Or with a custom version
+./scripts/pack.sh 4.25.5.0-beta1
+```
+
+Packages are output to `artifacts/`.
+
 ## Project Structure
 
 ```
@@ -154,25 +200,15 @@ here-sdk-for-maui/
 │   ├── HereSdk.Explore.iOS.NativeBridge/       # Swift wrapper (Xcode project)
 │   ├── HereSdk.Explore.iOS.Binding/            # iOS C# binding
 │   ├── HereSdk.Explore.Maui/                  # Cross-platform MAUI library
-│   └── HereSdk.Explore.Maui.RefApp/           # Demo app
+│   └── HereSdk.Explore.Maui.RefApp/           # Demo/reference app
 ├── tests/
-│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests (198 tests)
+│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests (201 tests)
 │   └── HereSdk.Explore.Maui.DeviceTests/      # Platform device tests
 ├── scripts/                                    # Build, test, pack scripts
 ├── plan/                                       # Design documents
 ├── Version.props                               # Centralized version numbers
 └── tmp/                                        # SDK archives (gitignored)
 ```
-
-## NuGet Packages
-
-| Package | Description |
-|---------|-------------|
-| `HereSdk.Explore.Maui` | Cross-platform MAUI library (depends on platform bindings) |
-| `HereSdk.Explore.Android.Binding` | Android AAR binding |
-| `HereSdk.Explore.iOS.Binding` | iOS NativeBridge binding |
-
-Most consumers should reference only `HereSdk.Explore.Maui`.
 
 ## Roadmap
 
@@ -203,6 +239,8 @@ See [plan/06-phased-delivery.md](plan/06-phased-delivery.md) for detailed task b
 - **iOS binary size** — xcframework is ~831 MB (stripped for release)
 - **macOS required** for building iOS bindings (Xcode dependency)
 - **iOS feature gaps**: Isoline routing and traffic-on-route not yet in NativeBridge; map pick returns null
+- **Location service** uses `Microsoft.Maui.Devices.Sensors.Geolocation` as primary source; HERE native positioning not yet exposed in iOS NativeBridge
+- **Map circles** are approximated as polygons (HERE SDK has no native circle primitive)
 
 ## License
 

@@ -7,6 +7,11 @@
     <Version>$(PackageVersion)</Version>
     <PackageTags>here;sdk;ios;binding;maui;maps;native-interop</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>HERE SDK for MAUI Contributors</Authors>
+    <Copyright>Copyright (c) 2026</Copyright>
+    <PackageProjectUrl>https://github.com/angoratek/here-sdk-for-maui</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/angoratek/here-sdk-for-maui</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591;CS8632</NoWarn>
   </PropertyGroup>

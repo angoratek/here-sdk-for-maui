@@ -11,7 +11,7 @@ echo "=== Packing Android Binding ==="
 dotnet pack src/HereSdk.Explore.Android.Binding -c Release -p:PackageVersion="$VERSION"
 
 echo "=== Packing iOS Binding ==="
-if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdk.Explore.iOS.NativeBridge.xcframework" ]; then
+if [ -d "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
     dotnet pack src/HereSdk.Explore.iOS.Binding -c Release -p:PackageVersion="$VERSION"
 else
     echo "Skipping iOS binding pack — xcframework not found."

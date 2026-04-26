@@ -76,6 +76,14 @@ public interface IMapService : IHereSdkService
     /// <param name="marker">The 3D marker to remove.</param>
     void RemoveMapMarker3D(MapMarker3D marker);
 
+    /// <summary>Adds a circle overlay on the map (approximated as a polygon).</summary>
+    /// <param name="circle">The circle to add.</param>
+    void AddMapCircle(MapCircle circle);
+
+    /// <summary>Removes a previously added circle.</summary>
+    /// <param name="circle">The circle to remove.</param>
+    void RemoveMapCircle(MapCircle circle);
+
     /// <summary>Picks map items at the specified screen coordinate.</summary>
     /// <param name="screenPoint">The screen coordinate to pick at.</param>
     /// <returns>The pick result, or null if nothing was found.</returns>

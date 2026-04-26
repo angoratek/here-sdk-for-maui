@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
+        xmlns:searchmodels="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
+        x:Class="Here.Explore.Maui.RefApp.Controls.SearchLocationInput"
+        x:Name="This"
+        StrokeShape="RoundRectangle 12"
+        Background="White"
+        Padding="0"
+        HorizontalOptions="Fill"
+        VerticalOptions="Start"
+        Stroke="#E0E0E0"
+        StrokeThickness="1">
+    <Border.Shadow>
+        <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
+    </Border.Shadow>
+
+    <Grid RowDefinitions="Auto,Auto"
+          Padding="12,0,12,0"
+          BackgroundColor="White"
+          ColumnDefinitions="32,*,32"
+          HeightRequest="52">
+        <!-- Icon -->
+        <Label Grid.Row="0" Grid.Column="0"
+               Text="{Binding Icon, Source={x:Reference This}}"
+               FontSize="18"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+
+        <!-- Input -->
+        <Entry Grid.Row="0" Grid.Column="1"
+               x:Name="InputEntry"
+               Text="{Binding Query, Source={x:Reference This}, Mode=TwoWay}"
+               Placeholder="{Binding Placeholder, Source={x:Reference This}}"
+               FontSize="15"
+               VerticalOptions="Center"
+               BackgroundColor="Transparent"
+               ReturnType="Search"
+               ReturnCommand="{Binding SearchCommand, Source={x:Reference This}}" />
+
+        <!-- Clear button -->
+        <Button Grid.Row="0" Grid.Column="2"
+                Text="✕"
+                WidthRequest="28"
+                HeightRequest="28"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="Transparent"
+                Command="{Binding ClearCommand, Source={x:Reference This}}"
+                Opacity="0.5"
+                Padding="0"
+                FontSize="14">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding Query, Source={x:Reference This}}"
+                             Value="">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding Query, Source={x:Reference This}}"
+                             Value="{x:Null}">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+
+        <!-- Suggestions dropdown -->
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                StrokeShape="RoundRectangle 0,0,12,12"
+                Background="#FAFAFA"
+                IsVisible="{Binding HasSuggestions, Source={x:Reference This}}"
+                Margin="-12,4,-12,-4"
+                Padding="0,4,0,4"
+                MaximumHeightRequest="220">
+            <CollectionView ItemsSource="{Binding Suggestions, Source={x:Reference This}}"
+                           SelectionMode="None"
+                           BackgroundColor="Transparent">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="searchmodels:Suggestion">
+                        <Grid Padding="12,10" ColumnDefinitions="32,*"
+                              BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectSuggestionCommand, Source={x:Reference This}}"
+                                                      CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                            <Label Grid.Column="0"
+                                   Text="📍"
+                                   FontSize="16"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.6" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Title}"
+                                       FontSize="14"
+                                       TextColor="#1A1A1A"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+                                <Label Text="{Binding Type}"
+                                       FontSize="11"
+                                       TextColor="#888888"
+                                       Margin="0,2,0,0" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</Border>

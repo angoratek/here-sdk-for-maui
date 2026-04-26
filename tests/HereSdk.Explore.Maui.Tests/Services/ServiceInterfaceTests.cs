@@ -30,6 +30,12 @@ public class ServiceInterfaceTests
     }
 
     [Fact]
+    public void ILocationService_Extends_IDisposable()
+    {
+        Assert.True(typeof(IDisposable).IsAssignableFrom(typeof(ILocationService)));
+    }
+
+    [Fact]
     public void MapService_Implements_IMapService()
     {
         Assert.True(typeof(IMapService).IsAssignableFrom(typeof(MapService)));
@@ -75,5 +81,17 @@ public class ServiceInterfaceTests
     public void TrafficService_Implements_IDisposable()
     {
         Assert.True(typeof(IDisposable).IsAssignableFrom(typeof(TrafficService)));
+    }
+
+    [Fact]
+    public void LocationService_Implements_ILocationService()
+    {
+        Assert.True(typeof(ILocationService).IsAssignableFrom(typeof(LocationService)));
+    }
+
+    [Fact]
+    public void LocationService_Implements_IDisposable()
+    {
+        Assert.True(typeof(IDisposable).IsAssignableFrom(typeof(LocationService)));
     }
 }

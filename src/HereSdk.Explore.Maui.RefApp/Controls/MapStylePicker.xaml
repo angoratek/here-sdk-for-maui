@@ -2,17 +2,76 @@
 <Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="Here.Explore.Maui.RefApp.Controls.MapStylePicker"
-        StrokeShape="RoundRectangle 8"
-        Background="White"
-        Margin="16,80,16,0"
+        x:Name="This"
+        VerticalOptions="End"
         HorizontalOptions="End"
-        VerticalOptions="Start">
-    <Border.Shadow>
-        <Shadow Brush="#30000000" Offset="0,2" Radius="8" />
-    </Border.Shadow>
-    <Picker ItemsSource="{Binding MapSchemes}"
-            SelectedItem="{Binding SelectedScheme, Mode=TwoWay}"
-            Title="Map Style"
-            WidthRequest="150"
-            BackgroundColor="Transparent" />
+        Margin="0,0,16,16"
+        StrokeShape="RoundRectangle 16"
+        Background="Transparent">
+
+    <Grid RowDefinitions="Auto,Auto" MinimumWidthRequest="48">
+        <!-- Toggle button -->
+        <Button Grid.Row="0"
+                x:Name="ToggleButton"
+                Text="🗺️"
+                WidthRequest="48"
+                HeightRequest="48"
+                BackgroundColor="White"
+                CornerRadius="24"
+                Command="{Binding ToggleDropdownCommand}"
+                FontSize="20"
+                Padding="0">
+            <Button.Shadow>
+                <Shadow Brush="#50000000" Offset="0,4" Radius="12" />
+            </Button.Shadow>
+        </Button>
+
+        <!-- Dropdown panel -->
+        <Border Grid.Row="1"
+                x:Name="DropdownPanel"
+                StrokeShape="RoundRectangle 16"
+                Background="White"
+                IsVisible="{Binding IsDropdownExpanded, Source={x:Reference This}}"
+                Margin="0,8,0,0"
+                Padding="8">
+            <Border.Shadow>
+                <Shadow Brush="#60000000" Offset="0,4" Radius="16" />
+            </Border.Shadow>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Map Style"
+                       FontSize="11"
+                       FontAttributes="Bold"
+                       TextColor="#888888"
+                       HorizontalOptions="Center"
+                       Margin="0,4,0,4" />
+
+                <CollectionView ItemsSource="{Binding MapSchemes, Source={x:Reference This}}"
+                               SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="local:MapSchemeItem">
+                            <Grid Padding="8,8">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectSchemeCommand, Source={x:Reference This}}"
+                                                          CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <Grid ColumnDefinitions="28,*">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Icon}"
+                                           FontSize="16"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Label}"
+                                           FontSize="13"
+                                           TextColor="#333333"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
 </Border>

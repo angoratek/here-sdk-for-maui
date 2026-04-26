@@ -162,6 +162,8 @@ public interface IMapService
     void RemoveMapPolygon(MapPolygon polygon);
     void AddMapArrow(MapArrow arrow);
     void RemoveMapArrow(MapArrow arrow);
+    void AddMapCircle(MapCircle circle);
+    void RemoveMapCircle(MapCircle circle);
 
     // Picking
     Task<MapPickResult> PickAsync(Point2D screenPoint);
@@ -234,6 +236,23 @@ public interface ITrafficService
     Task<TrafficIncident?> LookupIncidentAsync(string incidentId, TrafficIncidentLookupOptions options);
 }
 ```
+
+### ILocationService
+
+```csharp
+namespace Here.Explore.Maui.Services;
+
+public interface ILocationService : IHereSdkService
+{
+    Task<Location?> GetCurrentLocationAsync(CancellationToken cancellationToken = default);
+    event EventHandler<Location>? LocationChanged;
+    Task StartListeningAsync(CancellationToken cancellationToken = default);
+    Task StopListeningAsync();
+    bool IsListening { get; }
+}
+```
+
+**Note**: Uses `Microsoft.Maui.Devices.Sensors.Geolocation` as the primary source. HERE native positioning is not yet exposed in the iOS NativeBridge.
 
 ## HereMapView Control (MAUI Handler)
 
@@ -337,6 +356,7 @@ builder.Services.AddSingleton<IMapService, MapService>();
 builder.Services.AddSingleton<IRoutingService, RoutingService>();
 builder.Services.AddSingleton<ISearchService, SearchService>();
 builder.Services.AddSingleton<ITrafficService, TrafficService>();
+builder.Services.AddSingleton<ILocationService, LocationService>();
 
 // Handler registration is done via AddMauiControls or in the library's Extension method:
 builder.UseHereSdkExplore();

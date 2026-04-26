@@ -28,9 +28,12 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\IRoutingService.cs" Link="Shared\Services\IRoutingService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\ISearchService.cs" Link="Shared\Services\ISearchService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\ITrafficService.cs" Link="Shared\Services\ITrafficService.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\ILocationService.cs" Link="Shared\Services\ILocationService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\MapService.cs" Link="Shared\Services\MapService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\TrafficService.cs" Link="Shared\Services\TrafficService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\RoutingService.cs" Link="Shared\Services\RoutingService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\SearchService.cs" Link="Shared\Services\SearchService.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\LocationService.cs" Link="Shared\Services\LocationService.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\CircleGeometryHelper.cs" Link="Shared\Helpers\CircleGeometryHelper.cs" />
   </ItemGroup>
 </Project>

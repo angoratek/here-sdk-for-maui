@@ -1,5 +1,6 @@
 #if ANDROID
 using Here.Explore.Maui.Models;
+using Here.Explore.Maui.Helpers;
 
 namespace Here.Explore.Maui.Services;
 
@@ -28,6 +29,7 @@ public partial class MapService
     private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapPolygon, Here.Explore.Maps.MapPolygon> _polygons = new();
     private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapArrow, Here.Explore.Maps.MapArrow> _arrows = new();
     private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapMarker3D, Here.Explore.Maps.MapMarker3D> _markers3D = new();
+    private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapCircle, Here.Explore.Maps.MapPolygon> _circles = new();
 
     internal void Initialize(Here.Explore.Maps.MapView mapView)
     {
@@ -99,7 +101,12 @@ public partial class MapService
 
     public void AddMapMarker(Here.Explore.Maui.Models.Maps.MapMarker marker)
     {
-        if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
+        Android.Util.Log.Debug("REFAPP_DIAG", $"AddMapMarker called: {marker.Coordinates.Latitude},{marker.Coordinates.Longitude}");
+        if (_mapScene is null)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", "AddMapMarker: _mapScene is null");
+            throw new InvalidOperationException("MapService not initialized.");
+        }
         var androidCoords = new Here.Explore.Core.GeoCoordinates(marker.Coordinates.Latitude, marker.Coordinates.Longitude);
         // MapImage requires an Android drawable resource — attempt to load custom marker, fallback to system icon
         Here.Explore.Maps.MapImage? mapImage = null;
@@ -109,69 +116,124 @@ public partial class MapService
             if (resId != 0)
                 mapImage = Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, resId);
         }
-        catch { /* fallback below */ }
+        catch (Exception ex) { Android.Util.Log.Warn("REFAPP_DIAG", $"AddMapMarker: custom marker load failed: {ex.Message}"); }
 
-        // Use a simple 1x1 pixel fallback if no resource found
-        mapImage ??= Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, global::Android.Resource.Drawable.IcMenuCompass);
+        try
+        {
+            mapImage ??= Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, global::Android.Resource.Drawable.IcMenuCompass);
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", $"AddMapMarker: fallback marker load failed: {ex.Message}");
+            throw;
+        }
+
         var androidMarker = new Here.Explore.Maps.MapMarker(androidCoords, mapImage!);
         _mapScene.AddMapMarker(androidMarker);
         _markers[marker] = androidMarker;
+        Android.Util.Log.Debug("REFAPP_DIAG", "AddMapMarker: success");
     }
 
     public void RemoveMapMarker(Here.Explore.Maui.Models.Maps.MapMarker marker)
     {
+        Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapMarker called");
         if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
         if (_markers.TryGetValue(marker, out var androidMarker))
         {
             _mapScene.RemoveMapMarker(androidMarker);
             _markers.Remove(marker);
+            Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapMarker: success");
+        }
+        else
+        {
+            Android.Util.Log.Warn("REFAPP_DIAG", "RemoveMapMarker: marker not found");
         }
     }
 
     public void AddMapPolyline(Here.Explore.Maui.Models.Maps.MapPolyline polyline)
     {
-        if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
-        var vertices = polyline.Vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList();
-        var geoPolyline = new Here.Explore.Core.GeoPolyline(vertices);
-        var lineWidth = new Here.Explore.Maps.MapMeasureDependentRenderSize(
-            Here.Explore.Maps.MapMeasure.Kind.ZoomLevel!,
-            Here.Explore.Maps.RenderSize.Unit.DensityIndependentPixels!,
-            new System.Collections.Generic.Dictionary<Java.Lang.Double, Java.Lang.Double> { [(Java.Lang.Double)polyline.WidthInPixels] = (Java.Lang.Double)polyline.WidthInPixels });
-        var color = ToCoreColor(polyline.Color);
-        var representation = new Here.Explore.Maps.MapPolyline.MapPolylineSolidRepresentation(lineWidth, color, Here.Explore.Maps.LineCap.Round!);
-        var androidPolyline = new Here.Explore.Maps.MapPolyline(geoPolyline, representation);
-        _mapScene.AddMapPolyline(androidPolyline);
-        _polylines[polyline] = androidPolyline;
+        Android.Util.Log.Debug("REFAPP_DIAG", $"AddMapPolyline called: {polyline.Vertices.Count} vertices");
+        if (_mapScene is null)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", "AddMapPolyline: _mapScene is null");
+            throw new InvalidOperationException("MapService not initialized.");
+        }
+        try
+        {
+            var vertices = polyline.Vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList();
+            var geoPolyline = new Here.Explore.Core.GeoPolyline(vertices);
+            var lineWidth = new Here.Explore.Maps.MapMeasureDependentRenderSize(
+                Here.Explore.Maps.MapMeasure.Kind.ZoomLevel!,
+                Here.Explore.Maps.RenderSize.Unit.DensityIndependentPixels!,
+                new System.Collections.Generic.Dictionary<Java.Lang.Double, Java.Lang.Double> { [(Java.Lang.Double)polyline.WidthInPixels] = (Java.Lang.Double)polyline.WidthInPixels });
+            var color = ToCoreColor(polyline.Color);
+            var representation = new Here.Explore.Maps.MapPolyline.MapPolylineSolidRepresentation(lineWidth, color, Here.Explore.Maps.LineCap.Round!);
+            var androidPolyline = new Here.Explore.Maps.MapPolyline(geoPolyline, representation);
+            _mapScene.AddMapPolyline(androidPolyline);
+            _polylines[polyline] = androidPolyline;
+            Android.Util.Log.Debug("REFAPP_DIAG", "AddMapPolyline: success");
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", $"AddMapPolyline: exception: {ex}");
+            throw;
+        }
     }
 
     public void RemoveMapPolyline(Here.Explore.Maui.Models.Maps.MapPolyline polyline)
     {
+        Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapPolyline called");
         if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
         if (_polylines.TryGetValue(polyline, out var androidPolyline))
         {
             _mapScene.RemoveMapPolyline(androidPolyline);
             _polylines.Remove(polyline);
+            Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapPolyline: success");
+        }
+        else
+        {
+            Android.Util.Log.Warn("REFAPP_DIAG", "RemoveMapPolyline: polyline not found");
         }
     }
 
     public void AddMapPolygon(Here.Explore.Maui.Models.Maps.MapPolygon polygon)
     {
-        if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
-        var vertices = polygon.Vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList();
-        var geoPolygon = new Here.Explore.Core.GeoPolygon(vertices);
-        var fillColor = ToCoreColor(polygon.FillColor);
-        var androidPolygon = new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
-        _mapScene.AddMapPolygon(androidPolygon);
-        _polygons[polygon] = androidPolygon;
+        Android.Util.Log.Debug("REFAPP_DIAG", $"AddMapPolygon called: {polygon.Vertices.Count} vertices");
+        if (_mapScene is null)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", "AddMapPolygon: _mapScene is null");
+            throw new InvalidOperationException("MapService not initialized.");
+        }
+        try
+        {
+            var vertices = polygon.Vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList();
+            var geoPolygon = new Here.Explore.Core.GeoPolygon(vertices);
+            var fillColor = ToCoreColor(polygon.FillColor);
+            var androidPolygon = new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
+            _mapScene.AddMapPolygon(androidPolygon);
+            _polygons[polygon] = androidPolygon;
+            Android.Util.Log.Debug("REFAPP_DIAG", "AddMapPolygon: success");
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", $"AddMapPolygon: exception: {ex}");
+            throw;
+        }
     }
 
     public void RemoveMapPolygon(Here.Explore.Maui.Models.Maps.MapPolygon polygon)
     {
+        Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapPolygon called");
         if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
         if (_polygons.TryGetValue(polygon, out var androidPolygon))
         {
             _mapScene.RemoveMapPolygon(androidPolygon);
             _polygons.Remove(polygon);
+            Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapPolygon: success");
+        }
+        else
+        {
+            Android.Util.Log.Warn("REFAPP_DIAG", "RemoveMapPolygon: polygon not found");
         }
     }
 
@@ -219,6 +281,47 @@ public partial class MapService
         return Task.FromResult<Here.Explore.Maui.Models.Maps.MapPickResult?>(null);
     }
 
+    public void AddMapCircle(Here.Explore.Maui.Models.Maps.MapCircle circle)
+    {
+        Android.Util.Log.Debug("REFAPP_DIAG", $"AddMapCircle called: center={circle.Center.Latitude},{circle.Center.Longitude} radius={circle.RadiusInMeters}");
+        if (_mapScene is null)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", "AddMapCircle: _mapScene is null");
+            throw new InvalidOperationException("MapService not initialized.");
+        }
+        try
+        {
+            var vertices = CircleGeometryHelper.GenerateCircleVertices(circle.Center, circle.RadiusInMeters);
+            var geoPolygon = new Here.Explore.Core.GeoPolygon(vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList());
+            var fillColor = ToCoreColor(circle.FillColor);
+            var androidPolygon = new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
+            _mapScene.AddMapPolygon(androidPolygon);
+            _circles[circle] = androidPolygon;
+            Android.Util.Log.Debug("REFAPP_DIAG", "AddMapCircle: success");
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", $"AddMapCircle: exception: {ex}");
+            throw;
+        }
+    }
+
+    public void RemoveMapCircle(Here.Explore.Maui.Models.Maps.MapCircle circle)
+    {
+        Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapCircle called");
+        if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
+        if (_circles.TryGetValue(circle, out var androidPolygon))
+        {
+            _mapScene.RemoveMapPolygon(androidPolygon);
+            _circles.Remove(circle);
+            Android.Util.Log.Debug("REFAPP_DIAG", "RemoveMapCircle: success");
+        }
+        else
+        {
+            Android.Util.Log.Warn("REFAPP_DIAG", "RemoveMapCircle: circle not found");
+        }
+    }
+
     public void ClearAllMapItems()
     {
         if (_mapScene is null) return;
@@ -247,6 +350,11 @@ public partial class MapService
         foreach (var androidMarker3D in _markers3D.Values)
             _mapScene.RemoveMapMarker3d(androidMarker3D);
         _markers3D.Clear();
+
+        // Remove all circles
+        foreach (var androidCircle in _circles.Values)
+            _mapScene.RemoveMapPolygon(androidCircle);
+        _circles.Clear();
     }
 
     private static Here.Explore.Core.Color ToCoreColor(uint argb)

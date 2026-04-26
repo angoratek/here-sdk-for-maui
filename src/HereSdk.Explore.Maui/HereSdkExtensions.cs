@@ -22,6 +22,7 @@ public static class HereSdkExtensions
         builder.Services.AddSingleton<IRoutingService, RoutingService>();
         builder.Services.AddSingleton<ISearchService, SearchService>();
         builder.Services.AddSingleton<ITrafficService, TrafficService>();
+        builder.Services.AddSingleton<ILocationService, LocationService>();
 
         builder.ConfigureMauiHandlers(handlers =>
         {

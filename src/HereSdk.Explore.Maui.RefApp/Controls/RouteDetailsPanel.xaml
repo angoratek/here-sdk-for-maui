@@ -2,79 +2,142 @@
 <Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="Here.Explore.Maui.RefApp.Controls.RouteDetailsPanel"
+        x:Name="This"
         VerticalOptions="End"
-        StrokeShape="RoundRectangle 20,20,0,0"
+        StrokeShape="RoundRectangle 24,24,0,0"
         Background="White"
         IsVisible="{Binding HasRoute}">
     <Border.Shadow>
-        <Shadow Brush="#50000000" Offset="0,-2" Radius="16" />
+        <Shadow Brush="#60000000" Offset="0,-4" Radius="24" />
     </Border.Shadow>
-    <Grid RowDefinitions="Auto,*,Auto" MinimumHeightRequest="200">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" MinimumHeightRequest="220" MaximumHeightRequest="400">
         <!-- Handle for dragging -->
         <BoxView Grid.Row="0"
                  HeightRequest="4"
                  WidthRequest="40"
-                 BackgroundColor="#CCC"
+                 BackgroundColor="#E0E0E0"
                  CornerRadius="2"
                  HorizontalOptions="Center"
-                 Margin="0,8" />
+                 Margin="0,12" />
 
         <!-- Summary header -->
-        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Padding="20,8">
-            <Label Grid.Column="0"
-                   Text="{Binding DistanceText}"
-                   FontSize="18"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center" />
-            <Label Grid.Column="1"
-                   Text="{Binding DurationText}"
-                   FontSize="18"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="20,0"
-                   VerticalOptions="Center" />
+        <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto" Padding="20,12">
+            <!-- Distance -->
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                <Label Text="{Binding DistanceText}"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#1A1A1A"
+                       VerticalOptions="Center" />
+                <Label Text="Distance"
+                       FontSize="11"
+                       TextColor="#888888"
+                       VerticalOptions="Center"
+                       Margin="0,-2,0,0" />
+            </VerticalStackLayout>
+
+            <!-- Duration -->
+            <VerticalStackLayout Grid.Column="1"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+                <Label Text="{Binding DurationText}"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#1A1A1A"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Label Text="Duration"
+                       FontSize="11"
+                       TextColor="#888888"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="0,-2,0,0" />
+            </VerticalStackLayout>
+
+            <!-- Close button -->
             <Button Grid.Column="2"
                     Text="✕"
-                    Command="{Binding ClearRouteCommand}"
-                    BackgroundColor="Transparent"
-                    WidthRequest="32"
-                    HeightRequest="32"
+                    WidthRequest="36"
+                    HeightRequest="36"
                     VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#F5F5F5"
+                    CornerRadius="18"
+                    Command="{Binding ClearRouteCommand}"
+                    Opacity="0.8"
                     Padding="0"
                     FontSize="18" />
         </Grid>
 
-        <!-- Maneuver list -->
-        <CollectionView Grid.Row="1"
+        <!-- Maneuver list with separator -->
+        <CollectionView Grid.Row="2"
                         ItemsSource="{Binding Maneuvers}"
-                        SelectionMode="None">
+                        SelectionMode="None"
+                        BackgroundColor="#FAFAFA">
+            <CollectionView.Header>
+                <BoxView HeightRequest="1"
+                         BackgroundColor="#EEEEEE"
+                         HorizontalOptions="Fill"
+                         Margin="0,0,0,8" />
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="20,8" ColumnDefinitions="40,*">
-                        <Label Grid.Column="0"
-                               Text="{Binding Action}"
-                               FontSize="12"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center" />
+                    <Grid Padding="20,12,20,12" ColumnDefinitions="40,*,Auto">
+                        <!-- Maneuver icon with background -->
+                        <Border Grid.Column="0"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#E3F2FD"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            <Label Text="🧭"
+                                   FontSize="16"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <!-- Instruction -->
                         <Label Grid.Column="1"
                                Text="{Binding Instruction}"
                                FontSize="14"
+                               TextColor="#333333"
                                VerticalOptions="Center"
-                               Margin="8,0,0,0" />
+                               Margin="12,0,0,0"
+                               LineBreakMode="WordWrap" />
+
+                        <!-- Distance for maneuver -->
+                        <Label Grid.Column="2"
+                               Text="{Binding DistanceText}"
+                               FontSize="12"
+                               TextColor="#888888"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <!-- Action buttons -->
-        <HorizontalStackLayout Grid.Row="2"
+        <HorizontalStackLayout Grid.Row="3"
                                Padding="20,16"
-                               Spacing="12">
+                               Spacing="12"
+                               BackgroundColor="#FAFAFA">
+            <BoxView HeightRequest="1"
+                     BackgroundColor="#EEEEEE"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center" />
             <Button Text="Clear Route"
                     Command="{Binding ClearRouteCommand}"
-                    BackgroundColor="#757575"
+                    BackgroundColor="Transparent"
+                    TextColor="#D32F2F"
+                    BorderColor="#D32F2F"
+                    BorderWidth="1"
                     CornerRadius="8"
-                    HorizontalOptions="FillAndExpand" />
+                    Padding="20,10"
+                    FontAttributes="Bold"
+                    HorizontalOptions="End" />
         </HorizontalStackLayout>
     </Grid>
 </Border>

@@ -38,6 +38,8 @@ public partial class MapService : IMapService
     public void RemoveMapArrow(MapArrow arrow) => throw new NotImplementedException("Platform-specific implementation required.");
     public void AddMapMarker3D(MapMarker3D marker) => throw new NotImplementedException("Platform-specific implementation required.");
     public void RemoveMapMarker3D(MapMarker3D marker) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void AddMapCircle(MapCircle circle) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void RemoveMapCircle(MapCircle circle) => throw new NotImplementedException("Platform-specific implementation required.");
     public Task<MapPickResult?> PickAsync(Point2D screenPoint) => throw new NotImplementedException("Platform-specific implementation required.");
     public void ClearAllMapItems() => throw new NotImplementedException("Platform-specific implementation required.");
 #endif

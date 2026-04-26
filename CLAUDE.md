@@ -98,11 +98,12 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 9. **TransportSpecification uses builder pattern**: `TransportSpecification.CarBuilder().build()`, NOT `CarSpecifications().transportSpecification`
 10. **MapView is ObjC-visible** as `HereMapView` (UIView subclass) — wrapped via `HereMapBridgeView.Create()` + `.PlatformView`
 11. **MapScene manages markers** via `addMapMarker()`/`removeMapMarker()`, not MapBridgeView
-12. **MapService is NOT in DI** — it's created by the handler and accessed via `HereMapView.Map`. Other services (IRoutingService, ISearchService, ITrafficService) are DI singletons.
+12. **MapService is NOT in DI** — it's created by the handler and accessed via `HereMapView.Map`. Other services (IRoutingService, ISearchService, ITrafficService, ILocationService) are DI singletons.
 13. **Map events are on IMapService only** — `HereMapView` does NOT have its own events; subscribe to `mapView.Map.CameraStateChanged`, `mapView.Map.MapTapped`, etc.
 14. **iOS gesture delegates** are bound as concrete classes (`HereTapDelegate`, `HereLongPressDelegate`, `HereDoubleTapDelegate`) — subclass them, don't implement the `IHereTapDelegate` interface
 15. **iOS xcframework filename** is `HereSdkExploreNativeBridge.xcframework` (no dots), not `HereSdk.Explore.iOS.NativeBridge.xcframework`
 16. **Int32 properties in ApiDefinition.cs** use `int`, not `nint` (which maps to NSInteger, 64-bit on arm64)
+17. **HERE native positioning is NOT exposed in iOS NativeBridge yet** — `ILocationService` uses `Microsoft.Maui.Devices.Sensors.Geolocation` as the primary source on both platforms
 
 ## Android Binding — Critical Details
 
@@ -147,7 +148,7 @@ If a type exists on only one platform, document it as platform-specific in `plan
 | 1 | MapView + SDK Init: map display, camera, gestures, markers | Complete (Android + iOS xcframework built) |
 | 2 | Search + Routing: full search & routing across both platforms | Complete (Android + iOS NativeBridge functional) |
 | 3 | Traffic + Advanced: traffic, map items, advanced features | Complete (Android + iOS NativeBridge functional) |
-| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs | In Progress (4.1-4.6 done, 4.7 remaining) |
+| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs, ref app UX | In Progress (4.1-4.8 done, 4.9 remaining) |
 
 ## Key Discrepancies Found (from verification)
 
@@ -157,3 +158,5 @@ If a type exists on only one platform, document it as platform-specific in `plan
 4. `com.here.sdk.core.utilities` is empty — removed from namespace mapping
 5. `FuelType` belongs to Transport module, NOT Search
 6. `AuthenticationMode`, `LogControl`, `SDKBuildInformation`, `SDKLogger` belong to `core.engine`, not `core`
+7. **Map circles** — HERE SDK has no native circle primitive on either platform; implemented as polygon approximation via `CircleGeometryHelper`
+8. **iOS NativeBridge lacks positioning types** — `ILocationService` uses MAUI Geolocation as cross-platform fallback

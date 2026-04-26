@@ -1,0 +1,34 @@
+using Here.Explore.Maui.Helpers;
+using Here.Explore.Maui.Models;
+using Here.Explore.Maui.Models.Maps;
+
+namespace Here.Explore.Maui.DeviceTests.Android;
+
+public class MapServiceAndroidTests
+{
+    [Fact]
+    public void CircleGeometryHelper_GeneratesVertices()
+    {
+        var center = new GeoCoordinates(52.5, 13.4);
+        var vertices = CircleGeometryHelper.GenerateCircleVertices(center, 1000);
+
+        Assert.NotEmpty(vertices);
+        Assert.True(vertices.Count >= 3);
+    }
+
+    [Fact]
+    public void MapCircle_Model_CanBeCreated()
+    {
+        var circle = new MapCircle(new GeoCoordinates(52.5, 13.4), 500, FillColor: 0x330000FF);
+        Assert.Equal(500, circle.RadiusInMeters);
+        Assert.Equal(0x330000FF, circle.FillColor);
+    }
+
+    [Fact]
+    public void MapCircle_Model_DefaultStrokeColor()
+    {
+        var circle = new MapCircle(new GeoCoordinates(0, 0), 100);
+        Assert.Equal(0xFF0000FF, circle.StrokeColor);
+        Assert.Equal(2, circle.StrokeWidthInPixels);
+    }
+}

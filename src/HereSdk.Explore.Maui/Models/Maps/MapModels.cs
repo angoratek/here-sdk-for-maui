@@ -62,6 +62,17 @@ public record MapArrow(
 );
 
 /// <summary>
+/// A circle drawn on the map. Implemented internally as a polygon approximation.
+/// </summary>
+public record MapCircle(
+    GeoCoordinates Center,
+    double RadiusInMeters,
+    uint FillColor = 0x330000FF,
+    uint StrokeColor = 0xFF0000FF,
+    int StrokeWidthInPixels = 2
+);
+
+/// <summary>
 /// Result of picking map items at a screen coordinate.
 /// </summary>
 public record MapPickResult(

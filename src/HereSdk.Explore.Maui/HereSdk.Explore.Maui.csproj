@@ -5,9 +5,14 @@
     <SingleProject>true</SingleProject>
     <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
     <PackageId>HereSdk.Explore.Maui</PackageId>
-    <Description>HERE SDK Explore Edition for .NET MAUI — cross-platform maps, routing, search, and traffic</Description>
-    <PackageTags>here;sdk;maui;maps;routing;search;traffic;navigation</PackageTags>
+    <Description>HERE SDK Explore Edition for .NET MAUI — cross-platform maps, routing, search, traffic, and location</Description>
+    <PackageTags>here;sdk;maui;maps;routing;search;traffic;navigation;location</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>HERE SDK for MAUI Contributors</Authors>
+    <Copyright>Copyright (c) 2026</Copyright>
+    <PackageProjectUrl>https://github.com/angoratek/here-sdk-for-maui</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/angoratek/here-sdk-for-maui</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>
     <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -7,11 +7,14 @@ public partial class SearchResultsList : Border
     public static readonly BindableProperty SuggestionsProperty =
         BindableProperty.Create(nameof(Suggestions), typeof(IReadOnlyList<object>), typeof(SearchResultsList));
 
-    public static readonly BindableProperty SelectedSuggestionProperty =
-        BindableProperty.Create(nameof(SelectedSuggestion), typeof(object), typeof(SearchResultsList), defaultBindingMode: BindingMode.TwoWay);
+    public static readonly BindableProperty SelectedItemProperty =
+        BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(SearchResultsList), defaultBindingMode: BindingMode.TwoWay);
 
     public static readonly BindableProperty HasResultsProperty =
         BindableProperty.Create(nameof(HasResults), typeof(bool), typeof(SearchResultsList), false);
+
+    public static readonly BindableProperty ItemSelectedCommandProperty =
+        BindableProperty.Create(nameof(ItemSelectedCommand), typeof(ICommand), typeof(SearchResultsList));
 
     public IReadOnlyList<object>? Suggestions
     {
@@ -19,10 +22,10 @@ public partial class SearchResultsList : Border
         set => SetValue(SuggestionsProperty, value);
     }
 
-    public object? SelectedSuggestion
+    public object? SelectedItem
     {
-        get => GetValue(SelectedSuggestionProperty);
-        set => SetValue(SelectedSuggestionProperty, value);
+        get => GetValue(SelectedItemProperty);
+        set => SetValue(SelectedItemProperty, value);
     }
 
     public bool HasResults
@@ -31,9 +34,26 @@ public partial class SearchResultsList : Border
         set => SetValue(HasResultsProperty, value);
     }
 
+    public ICommand? ItemSelectedCommand
+    {
+        get => (ICommand?)GetValue(ItemSelectedCommandProperty);
+        set => SetValue(ItemSelectedCommandProperty, value);
+    }
+
     public SearchResultsList()
     {
         InitializeComponent();
         BindingContext = this;
+        ResultsCollectionView.SelectionChanged += OnSelectionChanged;
+    }
+
+    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.Count > 0 && e.CurrentSelection[0] is object suggestion)
+        {
+            ItemSelectedCommand?.Execute(suggestion);
+            // Clear selection after executing command
+            ResultsCollectionView.SelectedItem = null;
+        }
     }
 }
