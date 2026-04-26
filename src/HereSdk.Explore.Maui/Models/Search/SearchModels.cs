@@ -36,7 +36,20 @@ public record Place(
     GeoCoordinates Coordinates,
     Address? Address = null,
     double? DistanceInMeters = null,
-    string? Category = null
+    string? Category = null,
+    PlaceCategory? PrimaryCategory = null,
+    IReadOnlyList<PlaceCategory>? Categories = null,
+    Contact? Contact = null,
+    OpeningHours? OpeningHours = null
+);
+
+/// <summary>
+/// Place category information.
+/// </summary>
+public record PlaceCategory(
+    string Id,
+    string Name,
+    IReadOnlyList<string>? Aliases = null
 );
 
 /// <summary>
@@ -61,6 +74,34 @@ public record Address(
     string? CountryCode = null,
     string? CountryName = null,
     string? PostalCode = null
+);
+
+/// <summary>
+/// Contact information for a place.
+/// </summary>
+public record Contact(
+    string? Phone = null,
+    string? Website = null,
+    string? Email = null
+);
+
+/// <summary>
+/// Opening hours for a place.
+/// </summary>
+public record OpeningHours(
+    bool IsOpenNow = false,
+    IReadOnlyList<TimeRange>? TimeRanges = null,
+    string? RawText = null
+);
+
+/// <summary>
+/// A time range for opening hours.
+/// </summary>
+public record TimeRange(
+    DayOfWeek StartDay,
+    TimeSpan StartTime,
+    DayOfWeek EndDay,
+    TimeSpan EndTime
 );
 
 /// <summary>

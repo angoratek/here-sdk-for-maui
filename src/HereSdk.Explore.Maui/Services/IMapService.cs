@@ -109,4 +109,25 @@ public interface IMapService : IHereSdkService
 
     /// <summary>Clears all map items (markers, polylines, polygons, arrows).</summary>
     void ClearAllMapItems();
+
+    /// <summary>Adds marker clustering to group nearby markers (Android only).</summary>
+    /// <param name="cluster">The clustering configuration.</param>
+    /// <param name="markers">The markers to cluster.</param>
+    void AddMapMarkerCluster(MapMarkerCluster cluster, IEnumerable<MapMarker> markers);
+
+    /// <summary>Removes marker clustering.</summary>
+    /// <param name="cluster">The clustering configuration to remove.</param>
+    void RemoveMapMarkerCluster(MapMarkerCluster cluster);
+
+    /// <summary>Adds a location indicator (user location puck) to the map (Android only).</summary>
+    /// <param name="indicator">The location indicator configuration.</param>
+    void AddLocationIndicator(LocationIndicator indicator);
+
+    /// <summary>Updates the location indicator position and bearing.</summary>
+    /// <param name="location">The new location.</param>
+    /// <param name="bearing">The new bearing in degrees.</param>
+    void UpdateLocationIndicator(GeoCoordinates location, double? bearing = null);
+
+    /// <summary>Removes the location indicator from the map.</summary>
+    void RemoveLocationIndicator();
 }

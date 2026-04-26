@@ -45,6 +45,11 @@ public partial class MapService : IMapService
     public void RemoveMapCircle(MapCircle circle) => throw new NotImplementedException("Platform-specific implementation required.");
     public Task<MapPickResult?> PickAsync(Point2D screenPoint) => throw new NotImplementedException("Platform-specific implementation required.");
     public void ClearAllMapItems() => throw new NotImplementedException("Platform-specific implementation required.");
+    public void AddMapMarkerCluster(MapMarkerCluster cluster, IEnumerable<MapMarker> markers) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void RemoveMapMarkerCluster(MapMarkerCluster cluster) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void AddLocationIndicator(LocationIndicator indicator) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void UpdateLocationIndicator(GeoCoordinates location, double? bearing = null) => throw new NotImplementedException("Platform-specific implementation required.");
+    public void RemoveLocationIndicator() => throw new NotImplementedException("Platform-specific implementation required.");
 #endif
 
     internal void RaiseCameraStateChanged(CameraStateChangedEventArgs e) => CameraStateChanged?.Invoke(this, e);

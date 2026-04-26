@@ -36,6 +36,57 @@ public record MapMarker3D(
 );
 
 /// <summary>
+/// Marker clustering configuration. Groups nearby markers into clusters.
+/// </summary>
+public record MapMarkerCluster(
+    double MinZoomLevel = 1.0,
+    double MaxZoomLevel = 20.0,
+    int MinMarkersPerCluster = 2,
+    ClusterStyle? Style = null
+);
+
+/// <summary>
+/// Styling for cluster counters.
+/// </summary>
+public record ClusterStyle(
+    int FontSize = 14,
+    uint TextColor = 0xFFFFFFFF,
+    ClusterTextAnchor TextAnchor = ClusterTextAnchor.Center,
+    int MaxCountNumber = 99
+);
+
+/// <summary>
+/// Anchor position for cluster text.
+/// </summary>
+public enum ClusterTextAnchor
+{
+    Center,
+    Left,
+    Right,
+    Top,
+    Bottom
+}
+
+/// <summary>
+/// Location indicator (user location puck) configuration.
+/// </summary>
+public record LocationIndicator(
+    GeoCoordinates Location,
+    double Bearing = 0.0,
+    LocationIndicatorStyle Style = LocationIndicatorStyle.Pedestrian,
+    bool IsVisible = true
+);
+
+/// <summary>
+/// Visual style for location indicator.
+/// </summary>
+public enum LocationIndicatorStyle
+{
+    Pedestrian,
+    Navigation
+}
+
+/// <summary>
 /// A polyline drawn on the map.
 /// </summary>
 public record MapPolyline(

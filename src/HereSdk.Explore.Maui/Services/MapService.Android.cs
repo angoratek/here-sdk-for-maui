@@ -1,5 +1,6 @@
 #if ANDROID
 using Here.Explore.Maui.Models;
+using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Helpers;
 
 namespace Here.Explore.Maui.Services;
@@ -385,6 +386,71 @@ public partial class MapService
         Here.Explore.Maui.Models.Maps.MapScheme.TerrainDay => Here.Explore.Maps.MapScheme.NormalDay!, // No TerrainDay in binding
         _ => Here.Explore.Maps.MapScheme.NormalDay!,
     };
+
+    public void AddMapMarkerCluster(MapMarkerCluster cluster, IEnumerable<MapMarker> markers)
+    {
+        if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
+
+        // Create ImageStyle with default cluster image
+        var clusterImage = Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, global::Android.Resource.Drawable.IcMenuCompass)!;
+        var imageStyle = new Here.Explore.Maps.MapMarkerCluster.ImageStyle(clusterImage);
+        var androidCluster = new Here.Explore.Maps.MapMarkerCluster(imageStyle);
+
+        foreach (var marker in markers)
+        {
+            var coords = new Here.Explore.Core.GeoCoordinates(marker.Coordinates.Latitude, marker.Coordinates.Longitude);
+            var image = Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, global::Android.Resource.Drawable.IcMenuCompass)!;
+            var androidMarker = new Here.Explore.Maps.MapMarker(coords, image);
+            androidCluster.AddMapMarker(androidMarker);
+        }
+
+        _mapScene.AddMapMarkerCluster(androidCluster);
+    }
+
+    public void RemoveMapMarkerCluster(MapMarkerCluster cluster)
+    {
+        if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
+        _mapScene.RemoveAllMapMarkers();
+    }
+
+    public void AddLocationIndicator(LocationIndicator indicator)
+    {
+        if (_mapView is null) throw new InvalidOperationException("MapService not initialized.");
+
+        var androidIndicator = new Here.Explore.Maps.LocationIndicator(_mapView);
+        var indicatorStyle = indicator.Style == LocationIndicatorStyle.Navigation
+            ? Here.Explore.Maps.LocationIndicator.IndicatorStyle.Navigation!
+            : Here.Explore.Maps.LocationIndicator.IndicatorStyle.Pedestrian!;
+        androidIndicator.LocationIndicatorStyle = indicatorStyle;
+        androidIndicator.Active = indicator.IsVisible;
+        androidIndicator.Enable(_mapView);
+
+        // Store reference for updates
+        _locationIndicator = androidIndicator;
+
+        // Update initial position
+        UpdateLocationIndicator(indicator.Location, indicator.Bearing);
+    }
+
+    public void UpdateLocationIndicator(GeoCoordinates location, double? bearing = null)
+    {
+        if (_mapView is null || _locationIndicator is null) return;
+
+        var androidCoords = new Here.Explore.Core.GeoCoordinates(location.Latitude, location.Longitude);
+        var androidLocation = new Here.Explore.Core.Location(androidCoords);
+        if (bearing.HasValue)
+            androidLocation.BearingInDegrees = (Java.Lang.Double?)bearing.Value;
+        _locationIndicator.UpdateLocation(androidLocation);
+    }
+
+    public void RemoveLocationIndicator()
+    {
+        if (_locationIndicator is null) return;
+        _locationIndicator.Disable();
+        _locationIndicator = null;
+    }
+
+    private Here.Explore.Maps.LocationIndicator? _locationIndicator;
 }
 
 internal class SceneLoadCallback : Java.Lang.Object, Here.Explore.Maps.MapScene.ILoadSceneCallback

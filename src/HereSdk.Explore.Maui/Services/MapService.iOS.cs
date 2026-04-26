@@ -257,6 +257,33 @@ public partial class MapService
         var a = (float)((hex >> 24) & 0xFF) / 255f;
         return new UIColor(r, g, b, a);
     }
+
+    public void AddMapMarkerCluster(MapMarkerCluster cluster, IEnumerable<MapMarker> markers)
+    {
+        // iOS NativeBridge doesn't expose marker clustering - markers added individually
+        foreach (var marker in markers)
+            AddMapMarker(marker);
+    }
+
+    public void RemoveMapMarkerCluster(MapMarkerCluster cluster)
+    {
+        // iOS NativeBridge doesn't expose marker clustering
+    }
+
+    public void AddLocationIndicator(LocationIndicator indicator)
+    {
+        // iOS NativeBridge doesn't expose location indicator - use platform location services
+    }
+
+    public void UpdateLocationIndicator(GeoCoordinates location, double? bearing = null)
+    {
+        // iOS NativeBridge doesn't expose location indicator
+    }
+
+    public void RemoveLocationIndicator()
+    {
+        // iOS NativeBridge doesn't expose location indicator
+    }
 }
 
 internal static class IosMapSchemeConverter
