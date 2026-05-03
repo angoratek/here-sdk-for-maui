@@ -75,12 +75,15 @@ public static class MauiProgram
         builder.Services.AddTransient<TrafficViewModel>();
         builder.Services.AddTransient<MapItemsViewModel>();
         builder.Services.AddTransient<ModernMainViewModel>();
+        builder.Services.AddTransient<SettingsViewModel>();
 
         // Register pages
         builder.Services.AddTransient<ModernMainPage>();
+        builder.Services.AddTransient<SettingsPage>();
 
         // Register converters
         builder.Services.AddTransient<NullToBoolConverter>();
+        builder.Services.AddTransient<BoolToColorConverter>();
 
         Android.Util.Log.Debug("REFAPP_DIAG", "CreateMauiApp completed");
         return builder.Build();

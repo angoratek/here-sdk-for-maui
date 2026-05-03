@@ -16,6 +16,14 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
     private readonly IRoutingService _routingService;
     private readonly ILocationService _locationService;
 
+    // Default location: San Francisco
+    private static readonly GeoCoordinates DefaultLocation = new(37.7749, -122.4194);
+    private const double DefaultZoom = 12;
+
+    // Search debounce
+    private CancellationTokenSource? _originSearchCts;
+    private CancellationTokenSource? _destinationSearchCts;
+
     // Search state
     private string _originQuery = string.Empty;
     private string _destinationQuery = string.Empty;
@@ -30,9 +38,19 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
 
     // Map state
     private MapScheme _selectedScheme = MapScheme.NormalDay;
-    private double _currentZoom = 10;
+    private double _currentZoom = DefaultZoom;
     private bool _isLoading;
     private bool _isMapObjectsPanelVisible;
+
+    // Location tracking state
+    private bool _isTrackingLocation;
+    private LocationIndicator? _locationIndicator;
+
+    // Drawing mode state
+    private DrawingMode _currentDrawingMode;
+    private readonly List<GeoCoordinates> _drawingPoints = new();
+    private MapPolyline? _drawingPreviewPolyline;
+    private MapPolygon? _drawingPreviewPolygon;
 
     // Map objects
     private readonly List<MapMarker> _demoMarkers = new();
@@ -122,6 +140,18 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
 
     public bool CanCalculateRoute => OriginPlace != null && DestinationPlace != null;
 
+    public bool IsTrackingLocation
+    {
+        get => _isTrackingLocation;
+        private set => SetProperty(ref _isTrackingLocation, value);
+    }
+
+    public DrawingMode CurrentDrawingMode
+    {
+        get => _currentDrawingMode;
+        private set => SetProperty(ref _currentDrawingMode, value);
+    }
+
     public string DistanceText => CurrentRoute != null ? $"{CurrentRoute.LengthInMeters / 1000.0:F1} km" : "--";
 
     public string DurationText => CurrentRoute != null ? $"{CurrentRoute.DurationInSeconds / 60:F0} min" : "--";
@@ -150,6 +180,9 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
     public ICommand TogglePolylinesCommand { get; }
     public ICommand TogglePolygonsCommand { get; }
     public ICommand ClearMapObjectsCommand { get; }
+    public ICommand SetDrawingModeCommand { get; }
+    public ICommand FinishDrawingCommand { get; }
+    public ICommand CancelDrawingCommand { get; }
 
     public ModernMainViewModel(
         ISearchService searchService,
@@ -169,7 +202,7 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         SwapLocationsCommand = new Command(SwapLocations);
         CalculateRouteCommand = new Command(async () => await CalculateRouteAsync(), () => CanCalculateRoute);
         ClearRouteCommand = new Command(ClearRoute);
-        CenterOnLocationCommand = new Command(async () => await CenterOnLocationAsync());
+        CenterOnLocationCommand = new Command(async () => await ToggleLocationTrackingAsync());
         ZoomInCommand = new Command(() => ZoomBy(1));
         ZoomOutCommand = new Command(() => ZoomBy(-1));
         ResetMapOrientationCommand = new Command(ResetMapOrientation);
@@ -180,23 +213,67 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         TogglePolylinesCommand = new Command(async () => await TogglePolylinesAsync());
         TogglePolygonsCommand = new Command(async () => await TogglePolygonsAsync());
         ClearMapObjectsCommand = new Command(ClearMapObjects);
+        SetDrawingModeCommand = new Command<DrawingMode>(SetDrawingMode);
+        FinishDrawingCommand = new Command(async () => await FinishDrawingAsync());
+        CancelDrawingCommand = new Command(CancelDrawing);
     }
 
-    public void InitializeMapView(Here.Explore.Maui.Controls.HereMapView mapView)
+    public async void InitializeMapView(Here.Explore.Maui.Controls.HereMapView mapView)
     {
         _mapService = mapView.Map;
         System.Diagnostics.Debug.WriteLine($"InitializeMapView: _mapService initialized, isNull={_mapService is null}");
+
+        if (_mapService is null) return;
+
+        // Set default camera position to San Francisco
+        try
+        {
+            await _mapService.SetCameraTargetAsync(DefaultLocation, DefaultZoom);
+            System.Diagnostics.Debug.WriteLine($"Map initialized at San Francisco ({DefaultLocation.Latitude}, {DefaultLocation.Longitude}), zoom {DefaultZoom}");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to set default location: {ex}");
+        }
     }
 
     private async Task SearchAsync(bool isOrigin)
     {
         var query = isOrigin ? OriginQuery : DestinationQuery;
         System.Diagnostics.Debug.WriteLine($"SearchAsync({isOrigin}): query='{query}'");
-        if (string.IsNullOrWhiteSpace(query)) return;
+
+        // Cancel previous search
+        if (isOrigin)
+        {
+            _originSearchCts?.Cancel();
+            _originSearchCts?.Dispose();
+            _originSearchCts = new CancellationTokenSource();
+        }
+        else
+        {
+            _destinationSearchCts?.Cancel();
+            _destinationSearchCts?.Dispose();
+            _destinationSearchCts = new CancellationTokenSource();
+        }
+
+        // Require minimum 2 characters
+        if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
+        {
+            if (isOrigin)
+                OriginSuggestions = null;
+            else
+                DestinationSuggestions = null;
+            return;
+        }
+
+        var cts = isOrigin ? _originSearchCts : _destinationSearchCts;
 
         IsLoading = true;
         try
         {
+            // Debounce: wait 300ms after last keystroke
+            await Task.Delay(300, cts!.Token);
+
             var result = await _searchService.SuggestAsync(
                 new TextQuery(query),
                 new SearchOptions { MaxItems = 8 });
@@ -206,6 +283,11 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
                 OriginSuggestions = result.Suggestions ?? new List<Suggestion>();
             else
                 DestinationSuggestions = result.Suggestions ?? new List<Suggestion>();
+        }
+        catch (OperationCanceledException)
+        {
+            System.Diagnostics.Debug.WriteLine($"SearchAsync({isOrigin}): cancelled");
+            // Ignored - search was superseded by newer search
         }
         catch (Exception ex)
         {
@@ -360,32 +442,72 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         OnPropertyChanged(nameof(Maneuvers));
     }
 
-    private async Task CenterOnLocationAsync()
+    private async Task ToggleLocationTrackingAsync()
     {
-        IsLoading = true;
-        try
+        if (_isTrackingLocation)
         {
-            var location = await _locationService.GetCurrentLocationAsync();
-            if (location is null)
+            // Stop tracking
+            await _locationService.StopListeningAsync();
+            _locationService.LocationChanged -= OnLocationChanged;
+
+            if (_locationIndicator != null)
             {
-                System.Diagnostics.Debug.WriteLine("Location not available");
-                return;
+                _mapService.RemoveLocationIndicator();
+                _locationIndicator = null;
             }
 
-            _currentZoom = 15;
-            await _mapService.SetCameraTargetAsync(location.Coordinates, (int)_currentZoom);
+            IsTrackingLocation = false;
+            System.Diagnostics.Debug.WriteLine("Location tracking stopped");
+        }
+        else
+        {
+            // Start tracking
+            IsLoading = true;
+            try
+            {
+                var location = await _locationService.GetCurrentLocationAsync();
+                if (location is null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Location not available");
+                    return;
+                }
 
-            // Add a location marker
-            var marker = new MapMarker(location.Coordinates, Text: "You are here");
-            _mapService.AddMapMarker(marker);
+                // Center map on current location
+                _currentZoom = 15;
+                await _mapService.SetCameraTargetAsync(location.Coordinates, (int)_currentZoom);
+
+                // Add location indicator (navigation puck)
+                _locationIndicator = new LocationIndicator(
+                    location.Coordinates,
+                    location.BearingInDegrees ?? 0,
+                    LocationIndicatorStyle.Navigation,
+                    true);
+                _mapService.AddLocationIndicator(_locationIndicator);
+
+                // Start continuous listening
+                await _locationService.StartListeningAsync();
+                _locationService.LocationChanged += OnLocationChanged;
+
+                IsTrackingLocation = true;
+                System.Diagnostics.Debug.WriteLine($"Location tracking started at {location.Coordinates.Latitude}, {location.Coordinates.Longitude}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Location tracking error: {ex}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
-        catch (Exception ex)
+    }
+
+    private void OnLocationChanged(object? sender, Models.Location e)
+    {
+        if (_isTrackingLocation && _locationIndicator != null)
         {
-            System.Diagnostics.Debug.WriteLine($"Location error: {ex}");
-        }
-        finally
-        {
-            IsLoading = false;
+            _mapService.UpdateLocationIndicator(e.Coordinates, e.BearingInDegrees);
+            System.Diagnostics.Debug.WriteLine($"Location updated: {e.Coordinates.Latitude}, {e.Coordinates.Longitude}, bearing: {e.BearingInDegrees}");
         }
     }
 
@@ -548,8 +670,146 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
         _polygonsVisible = false;
     }
 
+    // Drawing mode methods
+    private void SetDrawingMode(DrawingMode mode)
+    {
+        if (_currentDrawingMode == mode)
+        {
+            // Toggle off if same mode selected
+            _currentDrawingMode = DrawingMode.None;
+        }
+        else
+        {
+            _currentDrawingMode = mode;
+            _drawingPoints.Clear();
+        }
+        OnPropertyChanged(nameof(CurrentDrawingMode));
+        System.Diagnostics.Debug.WriteLine($"Drawing mode set to: {_currentDrawingMode}");
+    }
+
+    public void OnMapTapped(GeoCoordinates coordinates)
+    {
+        if (_currentDrawingMode == DrawingMode.None) return;
+
+        _drawingPoints.Add(coordinates);
+        System.Diagnostics.Debug.WriteLine($"Drawing point added: {coordinates.Latitude}, {coordinates.Longitude}. Total points: {_drawingPoints.Count}");
+
+        switch (_currentDrawingMode)
+        {
+            case DrawingMode.Marker:
+                _mapService.AddMapMarker(new MapMarker(coordinates, Text: "Marker"));
+                _currentDrawingMode = DrawingMode.None;
+                _drawingPoints.Clear();
+                OnPropertyChanged(nameof(CurrentDrawingMode));
+                break;
+
+            case DrawingMode.Polyline:
+            case DrawingMode.Polygon:
+                UpdatePreviewShape();
+                break;
+        }
+    }
+
+    public void OnMapDoubleTapped(GeoCoordinates coordinates)
+    {
+        if (_currentDrawingMode is DrawingMode.Polyline or DrawingMode.Polygon)
+        {
+            FinishDrawingAsync().Wait();
+        }
+    }
+
+    private void UpdatePreviewShape()
+    {
+        if (_drawingPoints.Count < 2) return;
+
+        // Remove previous preview
+        if (_drawingPreviewPolyline != null)
+            _mapService.RemoveMapPolyline(_drawingPreviewPolyline);
+        if (_drawingPreviewPolygon != null)
+            _mapService.RemoveMapPolygon(_drawingPreviewPolygon);
+
+        if (_currentDrawingMode == DrawingMode.Polyline)
+        {
+            _drawingPreviewPolyline = new MapPolyline(
+                new List<GeoCoordinates>(_drawingPoints),
+                Color: 0xFFFF0000,
+                WidthInPixels: 3);
+            _mapService.AddMapPolyline(_drawingPreviewPolyline);
+        }
+        else if (_currentDrawingMode == DrawingMode.Polygon)
+        {
+            _drawingPreviewPolygon = new MapPolygon(
+                new List<GeoCoordinates>(_drawingPoints),
+                FillColor: 0x44FF0000);
+            _mapService.AddMapPolygon(_drawingPreviewPolygon);
+        }
+    }
+
+    private async Task FinishDrawingAsync()
+    {
+        if (_drawingPoints.Count < 2)
+        {
+            CancelDrawing();
+            return;
+        }
+
+        // Remove preview
+        if (_drawingPreviewPolyline != null)
+            _mapService.RemoveMapPolyline(_drawingPreviewPolyline);
+        if (_drawingPreviewPolygon != null)
+            _mapService.RemoveMapPolygon(_drawingPreviewPolygon);
+
+        // Add final shape
+        if (_currentDrawingMode == DrawingMode.Polyline)
+        {
+            var polyline = new MapPolyline(
+                new List<GeoCoordinates>(_drawingPoints),
+                Color: 0xFFFF0000,
+                WidthInPixels: 5);
+            _mapService.AddMapPolyline(polyline);
+            _demoPolylines.Add(polyline);
+        }
+        else if (_currentDrawingMode == DrawingMode.Polygon)
+        {
+            var polygon = new MapPolygon(
+                new List<GeoCoordinates>(_drawingPoints),
+                FillColor: 0x66FF0000);
+            _mapService.AddMapPolygon(polygon);
+            _demoPolygons.Add(polygon);
+        }
+
+        System.Diagnostics.Debug.WriteLine($"Drawing finished: {_currentDrawingMode} with {_drawingPoints.Count} points");
+        _currentDrawingMode = DrawingMode.None;
+        _drawingPoints.Clear();
+        OnPropertyChanged(nameof(CurrentDrawingMode));
+    }
+
+    private void CancelDrawing()
+    {
+        // Remove preview
+        if (_drawingPreviewPolyline != null)
+            _mapService.RemoveMapPolyline(_drawingPreviewPolyline);
+        if (_drawingPreviewPolygon != null)
+            _mapService.RemoveMapPolygon(_drawingPreviewPolygon);
+
+        _currentDrawingMode = DrawingMode.None;
+        _drawingPoints.Clear();
+        OnPropertyChanged(nameof(CurrentDrawingMode));
+        System.Diagnostics.Debug.WriteLine("Drawing cancelled");
+    }
+
     public void Dispose()
     {
         // Services are singletons in DI — don't dispose here
     }
+}
+
+/// <summary>Drawing mode for interactive shape creation.</summary>
+public enum DrawingMode
+{
+    None,
+    Marker,
+    Polyline,
+    Polygon,
+    Circle
 }
