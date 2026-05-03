@@ -22,6 +22,16 @@ public class HereMapBridgeView: NSObject {
         return mapView
     }
 
+    /// Convert screen coordinates to geo coordinates.
+    @objc public func viewToGeoCoordinates(originX: Double, originY: Double) -> HereGeoCoordinates? {
+        guard let mapView = mapView else { return nil }
+        let point = Point2D(x: originX, y: originY)
+        if let geo = mapView.viewToGeoCoordinates(viewCoordinates: point) {
+            return HereGeoCoordinates.from(geo)
+        }
+        return nil
+    }
+
     /// Non-@objc accessor for Swift code within the framework.
     var swiftMapView: MapView? { mapView }
 }

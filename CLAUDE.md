@@ -116,6 +116,30 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 7. **Remove** `*Impl`, `*Internal`, `Android*` platform classes from binding
 8. **The mock JAR** (`heresdk-explore-mock-*.jar`) is used for testing — reference it in the test project
 
+## Reference App Debugging & Testing
+
+1. **Debug logging is mandatory** for every map service operation (entry, exit, coordinates, errors):
+   - Shared code: `System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] message")`
+   - Android handler: `Android.Util.Log.Debug("REFAPP_DIAG", "message")`
+   - iOS handler: `System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] message")`
+   - iOS NativeBridge: `NSLog("REFAPP_DIAG: %@", message)`
+2. **Test cadence**: Every feature change must include:
+   - Unit test in `tests/HereSdk.Explore.Maui.Tests` for models, converters, and service logic.
+   - UI test in `tests/HereSdk.Explore.Maui.RefApp.UITests` for ViewModel commands and state changes.
+   - Device test in `tests/HereSdk.Explore.Maui.DeviceTests` when native bindings or platform handlers are touched.
+3. **CI gate**: All three test projects must pass before a PR is considered merge-ready:
+   ```bash
+   dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
+   dotnet test tests/HereSdk.Explore.Maui.RefApp.UITests -c Release
+   dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
+   dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
+   ```
+4. **Common emulator gotchas**:
+   - Android: `MapView` requires hardware acceleration; enable it in `AndroidManifest.xml` (`android:hardwareAccelerated="true"`).
+   - iOS: The xcframework must be copied to `src/HereSdk.Explore.iOS.Binding/Libs/` after every NativeBridge rebuild.
+   - Android context null during startup: use embedded resources for config, not `Application.Context` (see memory `android_context_null_during_startup.md`).
+5. **Build often, test early**: Run `dotnet build` and the relevant test subset after every file change. Do not batch days of work without building.
+
 ## API Validation
 
 Every type MUST be validated against BOTH API references before marking complete:

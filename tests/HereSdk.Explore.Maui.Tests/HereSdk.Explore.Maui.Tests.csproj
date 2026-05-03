@@ -37,5 +37,6 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\SearchService.cs" Link="Shared\Services\SearchService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\LocationService.cs" Link="Shared\Services\LocationService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\CircleGeometryHelper.cs" Link="Shared\Helpers\CircleGeometryHelper.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\RouteGeometryHelper.cs" Link="Shared\Helpers\RouteGeometryHelper.cs" />
   </ItemGroup>
 </Project>

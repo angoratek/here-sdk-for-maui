@@ -22,7 +22,8 @@ public record Section(
     IReadOnlyList<Maneuver> Maneuvers,
     SectionTransportMode TransportMode,
     double LengthInMeters,
-    long DurationInSeconds
+    long DurationInSeconds,
+    IReadOnlyList<GeoCoordinates>? Geometry = null
 );
 
 /// <summary>

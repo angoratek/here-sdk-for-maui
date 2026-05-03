@@ -8,6 +8,7 @@ namespace Here.Explore.Maui.Services;
 /// <summary>
 /// iOS-specific SearchService implementation using NativeBridge wrappers.
 /// Uses HereSearchEngine for text search, category search, suggest, and place-by-id.
+/// Passes SearchOptions (maxItems, languageCode) through to the native engine.
 /// </summary>
 public partial class SearchService
 {
@@ -25,8 +26,10 @@ public partial class SearchService
 
         var latitude = query.AreaCenter?.Latitude ?? 0;
         var longitude = query.AreaCenter?.Longitude ?? 0;
+        var maxItems = options.MaxItems ?? 0;
+        var languageCode = options.Language.HasValue ? (nint)options.Language.Value : -1;
 
-        _engine.SearchByText(query.Query, latitude, longitude, (places, error) =>
+        _engine.SearchByText(query.Query, latitude, longitude, (int)maxItems, languageCode, (places, error) =>
         {
             if (error is not null)
                 tcs.SetResult(new SearchResult(ToSharedSearchError(error), null));
@@ -46,8 +49,10 @@ public partial class SearchService
 
         var latitude = query.AreaCenter?.Latitude ?? 0;
         var longitude = query.AreaCenter?.Longitude ?? 0;
+        var maxItems = options.MaxItems ?? 0;
+        var languageCode = options.Language.HasValue ? (nint)options.Language.Value : -1;
 
-        _engine.SearchByCategory(query.CategoryId, latitude, longitude, (places, error) =>
+        _engine.SearchByCategory(query.CategoryId, latitude, longitude, (int)maxItems, languageCode, (places, error) =>
         {
             if (error is not null)
                 tcs.SetResult(new SearchResult(ToSharedSearchError(error), null));
@@ -67,8 +72,10 @@ public partial class SearchService
 
         var latitude = query.AreaCenter?.Latitude ?? 0;
         var longitude = query.AreaCenter?.Longitude ?? 0;
+        var maxItems = options.MaxItems ?? 0;
+        var languageCode = options.Language.HasValue ? (nint)options.Language.Value : -1;
 
-        _engine.Suggest(query.Query, latitude, longitude, (suggestions, error) =>
+        _engine.Suggest(query.Query, latitude, longitude, (int)maxItems, languageCode, (suggestions, error) =>
         {
             if (error is not null)
                 tcs.SetResult(new SuggestResult(ToSharedSearchError(error), null));

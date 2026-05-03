@@ -104,7 +104,7 @@ public partial class HereMapViewHandler
     {
         if (_mapService is MapService ms)
         {
-            var geoCoords = _platformView?.Camera?.GetState().TargetCoordinates;
+            var geoCoords = _platformView?.ViewToGeoCoordinates(point);
             var coordinates = geoCoords is not null
                 ? new GeoCoordinates(geoCoords.Latitude, geoCoords.Longitude)
                 : new GeoCoordinates(0, 0);
@@ -118,7 +118,7 @@ public partial class HereMapViewHandler
     {
         if (_mapService is MapService ms)
         {
-            var geoCoords = _platformView?.Camera?.GetState().TargetCoordinates;
+            var geoCoords = _platformView?.ViewToGeoCoordinates(point);
             var coordinates = geoCoords is not null
                 ? new GeoCoordinates(geoCoords.Latitude, geoCoords.Longitude)
                 : new GeoCoordinates(0, 0);

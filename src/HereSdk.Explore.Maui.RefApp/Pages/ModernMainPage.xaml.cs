@@ -44,6 +44,6 @@ public partial class ModernMainPage : ContentPage
 
     private async void OnSettingsClicked(object? sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new NavigationPage(new SettingsPage(_settingsViewModel)));
+        await Navigation.PushModalAsync(new SettingsPage(_settingsViewModel));
     }
 }

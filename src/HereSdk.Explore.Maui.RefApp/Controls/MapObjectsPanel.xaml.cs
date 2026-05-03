@@ -80,6 +80,37 @@ public partial class MapObjectsPanel : Border
     public MapObjectsPanel()
     {
         InitializeComponent();
-        BindingContext = this;
+    }
+
+    private void OnDrawMarkerClicked(object? sender, EventArgs e)
+    {
+#if ANDROID
+        Android.Util.Log.Debug("REFAPP_DIAG", "OnDrawMarkerClicked");
+#endif
+        SetDrawingModeCommand?.Execute(DrawingMode.Marker);
+    }
+
+    private void OnDrawPolylineClicked(object? sender, EventArgs e)
+    {
+#if ANDROID
+        Android.Util.Log.Debug("REFAPP_DIAG", "OnDrawPolylineClicked");
+#endif
+        SetDrawingModeCommand?.Execute(DrawingMode.Polyline);
+    }
+
+    private void OnDrawPolygonClicked(object? sender, EventArgs e)
+    {
+#if ANDROID
+        Android.Util.Log.Debug("REFAPP_DIAG", "OnDrawPolygonClicked");
+#endif
+        SetDrawingModeCommand?.Execute(DrawingMode.Polygon);
+    }
+
+    private void OnCancelDrawingClicked(object? sender, EventArgs e)
+    {
+#if ANDROID
+        Android.Util.Log.Debug("REFAPP_DIAG", "OnCancelDrawingClicked");
+#endif
+        CancelDrawingCommand?.Execute(null);
     }
 }

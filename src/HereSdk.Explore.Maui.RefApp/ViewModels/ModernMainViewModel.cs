@@ -133,7 +133,13 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
     public bool IsMapObjectsPanelVisible
     {
         get => _isMapObjectsPanelVisible;
-        set => SetProperty(ref _isMapObjectsPanelVisible, value);
+        set
+        {
+            if (SetProperty(ref _isMapObjectsPanelVisible, value))
+            {
+                System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] IsMapObjectsPanelVisible changed to {value}");
+            }
+        }
     }
 
     public bool HasRoute => CurrentRoute != null;
@@ -684,7 +690,11 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
             _drawingPoints.Clear();
         }
         OnPropertyChanged(nameof(CurrentDrawingMode));
+#if ANDROID
+        Android.Util.Log.Debug("REFAPP_DIAG", $"Drawing mode set to: {_currentDrawingMode}");
+#else
         System.Diagnostics.Debug.WriteLine($"Drawing mode set to: {_currentDrawingMode}");
+#endif
     }
 
     public void OnMapTapped(GeoCoordinates coordinates)
@@ -720,7 +730,8 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
 
     private void UpdatePreviewShape()
     {
-        if (_drawingPoints.Count < 2) return;
+        var minPoints = _currentDrawingMode == DrawingMode.Polygon ? 3 : 2;
+        if (_drawingPoints.Count < minPoints) return;
 
         // Remove previous preview
         if (_drawingPreviewPolyline != null)
@@ -747,7 +758,8 @@ public class ModernMainViewModel : ViewModelBase, IDisposable
 
     private async Task FinishDrawingAsync()
     {
-        if (_drawingPoints.Count < 2)
+        var minPoints = _currentDrawingMode == DrawingMode.Polygon ? 3 : 2;
+        if (_drawingPoints.Count < minPoints)
         {
             CancelDrawing();
             return;

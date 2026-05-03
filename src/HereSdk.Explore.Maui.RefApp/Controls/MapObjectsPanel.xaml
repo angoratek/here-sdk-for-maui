@@ -7,11 +7,7 @@
         x:Name="This"
         StrokeShape="RoundRectangle 16"
         Background="White"
-        Padding="12"
-        Margin="0,0,16,16"
-        HorizontalOptions="End"
-        VerticalOptions="End"
-        IsVisible="{Binding PanelVisible, Source={x:Reference This}}">
+        Padding="12">
     <Border.Shadow>
         <Shadow Brush="#50000000" Offset="0,4" Radius="16" />
     </Border.Shadow>
@@ -39,8 +35,7 @@
                     BackgroundColor="#E3F2FD"
                     TextColor="#1976D2"
                     CornerRadius="20"
-                    Command="{Binding SetDrawingModeCommand, Source={x:Reference This}}"
-                    CommandParameter="{x:Static viewmodels:DrawingMode.Marker}"
+                    Clicked="OnDrawMarkerClicked"
                     FontSize="16"
                     Padding="0" />
             <Button x:Name="DrawPolylineButton"
@@ -50,8 +45,7 @@
                     BackgroundColor="#E8F5E9"
                     TextColor="#388E3C"
                     CornerRadius="20"
-                    Command="{Binding SetDrawingModeCommand, Source={x:Reference This}}"
-                    CommandParameter="{x:Static viewmodels:DrawingMode.Polyline}"
+                    Clicked="OnDrawPolylineClicked"
                     FontSize="16"
                     Padding="0" />
             <Button x:Name="DrawPolygonButton"
@@ -61,8 +55,7 @@
                     BackgroundColor="#F3E5F5"
                     TextColor="#7B1FA2"
                     CornerRadius="20"
-                    Command="{Binding SetDrawingModeCommand, Source={x:Reference This}}"
-                    CommandParameter="{x:Static viewmodels:DrawingMode.Polygon}"
+                    Clicked="OnDrawPolygonClicked"
                     FontSize="16"
                     Padding="0" />
             <Button x:Name="CancelDrawButton"
@@ -72,7 +65,7 @@
                     BackgroundColor="#FFEBEE"
                     TextColor="#D32F2F"
                     CornerRadius="20"
-                    Command="{Binding CancelDrawingCommand, Source={x:Reference This}}"
+                    Clicked="OnCancelDrawingClicked"
                     FontSize="16"
                     Padding="0" />
         </HorizontalStackLayout>

@@ -226,14 +226,16 @@
         <!-- Map objects panel -->
         <local:MapObjectsPanel
             VerticalOptions="End"
-            HorizontalOptions="End"
-            Margin="0,0,80,80"
+            HorizontalOptions="Start"
+            Margin="16,0,0,80"
             IsVisible="{Binding IsMapObjectsPanelVisible}"
             ToggleMarkersCommand="{Binding ToggleMarkersCommand}"
             ToggleCirclesCommand="{Binding ToggleCirclesCommand}"
             TogglePolylinesCommand="{Binding TogglePolylinesCommand}"
             TogglePolygonsCommand="{Binding TogglePolygonsCommand}"
-            ClearAllCommand="{Binding ClearMapObjectsCommand}" />
+            ClearAllCommand="{Binding ClearMapObjectsCommand}"
+            SetDrawingModeCommand="{Binding SetDrawingModeCommand}"
+            CancelDrawingCommand="{Binding CancelDrawingCommand}" />
 
         <!-- Calculate route button (prominent, below search panel) -->
         <Button Grid.Row="0"

@@ -84,11 +84,108 @@ public partial class RoutingService
 
     private static Route ToSharedRoute(HereRoute iosRoute)
     {
-        return new Route(
-            string.Empty,
-            new List<Section>(),
-            iosRoute.LengthInMeters,
-            (long)iosRoute.DurationInSeconds);
+        var handle = iosRoute.RouteHandle ?? string.Empty;
+        var sections = new List<Section>();
+
+        if (iosRoute.Sections is not null)
+        {
+            var sectionIndex = 0;
+            foreach (var s in iosRoute.Sections)
+            {
+                var departure = new GeoCoordinates(s.Departure.Latitude, s.Departure.Longitude);
+                var arrival = new GeoCoordinates(s.Arrival.Latitude, s.Arrival.Longitude);
+                var transportMode = ToSharedTransportMode((uint)s.TransportMode);
+
+                var maneuvers = new List<Maneuver>();
+                if (s.Maneuvers is not null)
+                {
+                    foreach (var m in s.Maneuvers)
+                    {
+                        var mCoords = new GeoCoordinates(m.Coordinates.Latitude, m.Coordinates.Longitude);
+                        var action = ToSharedManeuverAction((uint)m.Action);
+                        maneuvers.Add(new Maneuver(
+                            mCoords,
+                            action,
+                            m.Text,
+                            m.TurnAngleInDegrees,
+                            null,
+                            null,
+                            null,
+                            m.LengthInMeters,
+                            (long)m.DurationInSeconds));
+                    }
+                }
+
+                IReadOnlyList<GeoCoordinates>? geometry = null;
+                if (s.Geometry is not null)
+                {
+                    geometry = s.Geometry.Vertices
+                        .Select(v => new GeoCoordinates(v.Latitude, v.Longitude))
+                        .ToList();
+                }
+
+                sections.Add(new Section(
+                    sectionIndex++,
+                    departure,
+                    arrival,
+                    maneuvers,
+                    transportMode,
+                    s.LengthInMeters,
+                    (long)s.DurationInSeconds,
+                    geometry));
+            }
+        }
+
+        return new Route(handle, sections, iosRoute.LengthInMeters, (long)iosRoute.DurationInSeconds);
+    }
+
+    private static SectionTransportMode ToSharedTransportMode(uint rawValue)
+    {
+        // SectionTransportMode raw values from HERE SDK iOS:
+        // car=0, truck=1, pedestrian=2, ferry=3, carShuttleTrain=4, scooter=5, bicycle=6,
+        // publicTransit=7, taxi=8, bus=9, privateBus=10
+        return rawValue switch
+        {
+            1 => SectionTransportMode.Truck,
+            2 => SectionTransportMode.Pedestrian,
+            5 => SectionTransportMode.Scooter,
+            6 => SectionTransportMode.Bicycle,
+            7 => SectionTransportMode.Transit,
+            8 => SectionTransportMode.Taxi,
+            9 => SectionTransportMode.Bus,
+            _ => SectionTransportMode.Car,
+        };
+    }
+
+    private static ManeuverAction ToSharedManeuverAction(uint rawValue)
+    {
+        // ManeuverAction raw values from HERE SDK iOS:
+        // depart=0, arrive=1, leftUTurn=2, sharpLeftTurn=3, leftTurn=4, slightLeftTurn=5,
+        // continueOn=6, slightRightTurn=7, rightTurn=8, sharpRightTurn=9, rightUTurn=10,
+        // leftExit=11, rightExit=12, leftRamp=13, rightRamp=14, leftFork=15, middleFork=16,
+        // rightFork=17, enterHighwayFromLeft=18, enterHighwayFromRight=19,
+        // leftRoundaboutEnter=20, rightRoundaboutEnter=21, ...
+        return rawValue switch
+        {
+            0 => ManeuverAction.Depart,
+            1 => ManeuverAction.Arrive,
+            2 => ManeuverAction.UTurnLeft,
+            3 => ManeuverAction.SharpLeft,
+            4 => ManeuverAction.Left,
+            5 => ManeuverAction.SlightLeft,
+            6 => ManeuverAction.Straight,
+            7 => ManeuverAction.SlightRight,
+            8 => ManeuverAction.Right,
+            9 => ManeuverAction.SharpRight,
+            10 => ManeuverAction.UTurnRight,
+            11 => ManeuverAction.LeftExit,
+            12 => ManeuverAction.RightExit,
+            13 => ManeuverAction.LeftRamp,
+            14 => ManeuverAction.RightRamp,
+            20 => ManeuverAction.Roundabout,
+            21 => ManeuverAction.Roundabout,
+            _ => ManeuverAction.Straight,
+        };
     }
 }
 #endif

@@ -58,7 +58,7 @@ public class ModernMainViewModelTests : IDisposable
 
         // Act
         _viewModel.SearchOriginCommand.Execute(null);
-        await Task.Delay(50);
+        await Task.Delay(400);
 
         // Assert
         await _searchService.Received(1).SuggestAsync(Arg.Any<TextQuery>(), Arg.Any<SearchOptions>());
@@ -80,11 +80,29 @@ public class ModernMainViewModelTests : IDisposable
 
         // Act
         _viewModel.SearchDestinationCommand.Execute(null);
-        await Task.Delay(50);
+        await Task.Delay(400);
 
         // Assert
         Assert.NotNull(_viewModel.DestinationSuggestions);
         Assert.Single(_viewModel.DestinationSuggestions);
+    }
+
+    [Fact]
+    public async Task SearchOriginCommand_PassesMaxItemsToSearchService()
+    {
+        // Arrange
+        _viewModel.OriginQuery = "Berlin";
+        _searchService.SuggestAsync(Arg.Any<TextQuery>(), Arg.Any<SearchOptions>())
+            .Returns(new SuggestResult(SearchError.None, new List<Suggestion>()));
+
+        // Act
+        _viewModel.SearchOriginCommand.Execute(null);
+        await Task.Delay(400);
+
+        // Assert
+        await _searchService.Received(1).SuggestAsync(
+            Arg.Any<TextQuery>(),
+            Arg.Is<SearchOptions>(o => o.MaxItems == 8));
     }
 
     [Fact]
@@ -191,6 +209,52 @@ public class ModernMainViewModelTests : IDisposable
     }
 
     [Fact]
+    public async Task CalculateRouteCommand_DisplaysRoutePolylineOnMap()
+    {
+        // Arrange - set up places
+        var originField = typeof(ModernMainViewModel).GetField("_originPlace",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var destField = typeof(ModernMainViewModel).GetField("_destinationPlace",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        originField.SetValue(_viewModel, new Place("id1", "Origin", new GeoCoordinates(52.52, 13.405)));
+        destField.SetValue(_viewModel, new Place("id2", "Destination", new GeoCoordinates(48.135, 11.582)));
+
+        var route = new Route(
+            "test-route",
+            new List<Section>
+            {
+                new(0, new GeoCoordinates(52.52, 13.405), new GeoCoordinates(48.135, 11.582),
+                    new List<Maneuver>
+                    {
+                        new(new GeoCoordinates(52.52, 13.405), ManeuverAction.Depart),
+                        new(new GeoCoordinates(48.135, 11.582), ManeuverAction.Arrive)
+                    },
+                    SectionTransportMode.Car, 584000, 19800)
+            },
+            584000,
+            19800
+        );
+        _routingService.CalculateRouteAsync(Arg.Any<List<Waypoint>>(), Arg.Any<RoutingOptions>())
+            .Returns(new RoutingResult(RoutingError.None, new List<Route> { route }));
+
+        var mockMapService = Substitute.For<IMapService>();
+        mockMapService.SetCameraTargetAsync(Arg.Any<GeoCoordinates>(), Arg.Any<double>()).Returns(Task.CompletedTask);
+        mockMapService.AddMapPolyline(Arg.Any<MapPolyline>());
+        var mapServiceField = typeof(ModernMainViewModel).GetField("_mapService",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        mapServiceField!.SetValue(_viewModel, mockMapService);
+
+        // Act
+        _viewModel.CalculateRouteCommand.Execute(null);
+        await Task.Delay(50);
+
+        // Assert
+        Assert.NotNull(_viewModel.CurrentRoute);
+        mockMapService.Received(1).AddMapPolyline(Arg.Any<MapPolyline>());
+        await mockMapService.Received(1).SetCameraTargetAsync(Arg.Any<GeoCoordinates>(), Arg.Any<double>());
+    }
+
+    [Fact]
     public void ClearRouteCommand_ClearsRouteState()
     {
         // Act
@@ -244,7 +308,7 @@ public class ModernMainViewModelTests : IDisposable
         // Mock MapService via reflection
         var mockMapService = Substitute.For<IMapService>();
         mockMapService.SetCameraTargetAsync(Arg.Any<GeoCoordinates>(), 15).Returns(Task.CompletedTask);
-        mockMapService.AddMapMarker(Arg.Any<MapMarker>());
+        mockMapService.AddLocationIndicator(Arg.Any<LocationIndicator>());
         var mapServiceField = typeof(ModernMainViewModel).GetField("_mapService",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         mapServiceField!.SetValue(_viewModel, mockMapService);
@@ -256,7 +320,7 @@ public class ModernMainViewModelTests : IDisposable
         // Assert
         await _locationService.Received(1).GetCurrentLocationAsync();
         await mockMapService.Received(1).SetCameraTargetAsync(Arg.Any<GeoCoordinates>(), 15);
-        mockMapService.Received(1).AddMapMarker(Arg.Any<MapMarker>());
+        mockMapService.Received(1).AddLocationIndicator(Arg.Any<LocationIndicator>());
     }
 
     #endregion

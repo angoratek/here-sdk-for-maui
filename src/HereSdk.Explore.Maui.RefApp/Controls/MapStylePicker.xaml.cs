@@ -12,8 +12,7 @@ public partial class MapStylePicker : Border
         BindableProperty.Create(nameof(ChangeMapSchemeCommand), typeof(ICommand), typeof(MapStylePicker));
 
     public static readonly BindableProperty IsDropdownExpandedProperty =
-        BindableProperty.Create(nameof(IsDropdownExpanded), typeof(bool), typeof(MapStylePicker), false,
-            propertyChanged: OnIsDropdownExpandedChanged);
+        BindableProperty.Create(nameof(IsDropdownExpanded), typeof(bool), typeof(MapStylePicker), false);
 
     public MapScheme SelectedScheme
     {
@@ -45,15 +44,16 @@ public partial class MapStylePicker : Border
 
     public MapStylePicker()
     {
-        InitializeComponent();
-        BindingContext = this;
         ToggleDropdownCommand = new Command(ToggleDropdown);
         SelectSchemeCommand = new Command<MapSchemeItem>(SelectScheme);
+        InitializeComponent();
+        BindingContext = this;
     }
 
     private void ToggleDropdown()
     {
         IsDropdownExpanded = !IsDropdownExpanded;
+        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] MapStylePicker ToggleDropdown: IsDropdownExpanded={IsDropdownExpanded}");
     }
 
     private void SelectScheme(MapSchemeItem? item)
@@ -64,14 +64,6 @@ public partial class MapStylePicker : Border
         IsDropdownExpanded = false;
     }
 
-    private static void OnIsDropdownExpandedChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (bindable is MapStylePicker picker &&
-            picker.FindByName<Border>("DropdownPanel") is Border dropdown)
-        {
-            dropdown.IsVisible = picker.IsDropdownExpanded;
-        }
-    }
 }
 
 public record MapSchemeItem(MapScheme Scheme, string Label, string Icon);

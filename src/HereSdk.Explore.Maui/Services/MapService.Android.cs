@@ -1,4 +1,5 @@
 #if ANDROID
+using Android.Runtime;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Helpers;
@@ -164,11 +165,14 @@ public partial class MapService
             var vertices = polyline.Vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList();
             var geoPolyline = new Here.Explore.Core.GeoPolyline(vertices);
             var lineWidth = new Here.Explore.Maps.MapMeasureDependentRenderSize(
-                Here.Explore.Maps.MapMeasure.Kind.ZoomLevel!,
-                Here.Explore.Maps.RenderSize.Unit.DensityIndependentPixels!,
-                new System.Collections.Generic.Dictionary<Java.Lang.Double, Java.Lang.Double> { [(Java.Lang.Double)polyline.WidthInPixels] = (Java.Lang.Double)polyline.WidthInPixels });
+                Here.Explore.Maps.RenderSize.Unit.Pixels!,
+                polyline.WidthInPixels);
             var color = ToCoreColor(polyline.Color);
-            var representation = new Here.Explore.Maps.MapPolyline.MapPolylineSolidRepresentation(lineWidth, color, Here.Explore.Maps.LineCap.Round!);
+            var cap = Here.Explore.Maps.LineCap.Round;
+            Android.Util.Log.Debug("REFAPP_DIAG", $"lineWidth: sizeUnit={(lineWidth.SizeUnit?.ToString() ?? "null")}, measureKind={(lineWidth.MeasureKind?.ToString() ?? "null")}, sizes count={(lineWidth.Sizes is null ? -1 : lineWidth.Sizes.Count)}, width={polyline.WidthInPixels}");
+            Android.Util.Log.Debug("REFAPP_DIAG", $"polyline color argb={polyline.Color:X}, cap={(cap?.ToString() ?? "null")}");
+            if (cap is null) throw new InvalidOperationException("LineCap is null");
+            var representation = new Here.Explore.Maps.MapPolyline.MapPolylineSolidRepresentation(lineWidth, color, cap);
             var androidPolyline = new Here.Explore.Maps.MapPolyline(geoPolyline, representation);
             _mapScene.AddMapPolyline(androidPolyline);
             _polylines[polyline] = androidPolyline;
@@ -370,11 +374,8 @@ public partial class MapService
 
     private static Here.Explore.Core.Color ToCoreColor(uint argb)
     {
-        var a = (float)((argb >> 24) & 0xFF) / 255f;
-        var r = (float)((argb >> 16) & 0xFF) / 255f;
-        var g = (float)((argb >> 8) & 0xFF) / 255f;
-        var b = (float)(argb & 0xFF) / 255f;
-        return new Here.Explore.Core.Color(g, a, r, b);
+        // Use the factory method that accepts Android ARGB integer directly.
+        return Here.Explore.Core.Color.ValueOf((int)argb);
     }
 
     private static Here.Explore.Maps.MapScheme ToAndroidMapScheme(Here.Explore.Maui.Models.Maps.MapScheme scheme) => scheme switch

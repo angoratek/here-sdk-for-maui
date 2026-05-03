@@ -21,9 +21,16 @@ public static class RouteGeometryHelper
 
         foreach (var section in route.Sections)
         {
-            foreach (var maneuver in section.Maneuvers)
+            if (section.Geometry is not null && section.Geometry.Count > 0)
             {
-                coordinates.Add(maneuver.Coordinates);
+                coordinates.AddRange(section.Geometry);
+            }
+            else
+            {
+                foreach (var maneuver in section.Maneuvers)
+                {
+                    coordinates.Add(maneuver.Coordinates);
+                }
             }
         }
 

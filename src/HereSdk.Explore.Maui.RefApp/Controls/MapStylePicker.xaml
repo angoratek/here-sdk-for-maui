@@ -11,8 +11,56 @@
         Background="Transparent">
 
     <Grid RowDefinitions="Auto,Auto" MinimumWidthRequest="48">
+        <!-- Dropdown panel -->
+        <Border Grid.Row="0"
+                x:Name="DropdownPanel"
+                StrokeShape="RoundRectangle 16"
+                Background="White"
+                IsVisible="{Binding IsDropdownExpanded, Source={x:Reference This}}"
+                Margin="0,0,0,8"
+                Padding="8">
+            <Border.Shadow>
+                <Shadow Brush="#60000000" Offset="0,4" Radius="16" />
+            </Border.Shadow>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Map Style"
+                       FontSize="11"
+                       FontAttributes="Bold"
+                       TextColor="#888888"
+                       HorizontalOptions="Center"
+                       Margin="0,4,0,4" />
+
+                <VerticalStackLayout Spacing="2"
+                                     BindableLayout.ItemsSource="{Binding MapSchemes, Source={x:Reference This}}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="local:MapSchemeItem">
+                            <Grid Padding="8,8">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectSchemeCommand, Source={x:Reference This}}"
+                                                          CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <Grid ColumnDefinitions="28,*">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Icon}"
+                                           FontSize="16"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Label}"
+                                           FontSize="13"
+                                           TextColor="#333333"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
         <!-- Toggle button -->
-        <Button Grid.Row="0"
+        <Button Grid.Row="1"
                 x:Name="ToggleButton"
                 Text="🗺️"
                 WidthRequest="48"
@@ -39,66 +87,5 @@
                 </VisualStateGroupList>
             </VisualStateManager.VisualStateGroups>
         </Button>
-
-        <!-- Dropdown panel -->
-        <Border Grid.Row="1"
-                x:Name="DropdownPanel"
-                StrokeShape="RoundRectangle 16"
-                Background="White"
-                IsVisible="{Binding IsDropdownExpanded, Source={x:Reference This}}"
-                Margin="0,8,0,0"
-                Padding="8">
-            <Border.Shadow>
-                <Shadow Brush="#60000000" Offset="0,4" Radius="16" />
-            </Border.Shadow>
-
-            <VerticalStackLayout Spacing="4">
-                <Label Text="Map Style"
-                       FontSize="11"
-                       FontAttributes="Bold"
-                       TextColor="#888888"
-                       HorizontalOptions="Center"
-                       Margin="0,4,0,4" />
-
-                <CollectionView ItemsSource="{Binding MapSchemes, Source={x:Reference This}}"
-                               SelectionMode="None">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="local:MapSchemeItem">
-                            <Grid Padding="8,8" x:Name="SchemeItem">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroupList>
-                                        <VisualStateGroup x:Name="CommonStates">
-                                            <VisualState x:Name="Normal" />
-                                            <VisualState x:Name="Pressed">
-                                                <VisualState.Setters>
-                                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                                    <Setter Property="Scale" Value="0.98" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateGroupList>
-                                </VisualStateManager.VisualStateGroups>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectSchemeCommand, Source={x:Reference This}}"
-                                                          CommandParameter="{Binding .}" />
-                                </Grid.GestureRecognizers>
-                                <Grid ColumnDefinitions="28,*">
-                                    <Label Grid.Column="0"
-                                           Text="{Binding Icon}"
-                                           FontSize="16"
-                                           VerticalOptions="Center"
-                                           HorizontalOptions="Center" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Label}"
-                                           FontSize="13"
-                                           TextColor="#333333"
-                                           VerticalOptions="Center" />
-                                </Grid>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-        </Border>
     </Grid>
 </Border>

@@ -180,6 +180,18 @@ public partial class RoutingService
                     }
                 }
 
+                IReadOnlyList<GeoCoordinates>? geometry = null;
+                if (s.Geometry is not null && s.Geometry.Vertices is not null)
+                {
+                    var geoList = new List<GeoCoordinates>();
+                    foreach (var v in s.Geometry.Vertices)
+                    {
+                        if (v is Here.Explore.Core.GeoCoordinates coords)
+                            geoList.Add(new GeoCoordinates(coords.Latitude, coords.Longitude));
+                    }
+                    geometry = geoList;
+                }
+
                 sections.Add(new Section(
                     sectionIndex++,
                     departure,
@@ -187,7 +199,8 @@ public partial class RoutingService
                     maneuvers,
                     transportMode,
                     s.LengthInMeters,
-                    s.Duration?.Seconds ?? 0));
+                    s.Duration?.Seconds ?? 0,
+                    geometry));
             }
         }
 

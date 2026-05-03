@@ -206,6 +206,10 @@ namespace Here.Explore.iOS
 
         [Export("platformView")]
         UIKit.UIView? PlatformView { get; }
+
+        [Export("viewToGeoCoordinatesWithOriginX:originY:")]
+        [return: NullAllowed]
+        HereGeoCoordinates? ViewToGeoCoordinates(double originX, double originY);
     }
 
     [BaseType(typeof(NSObject))]
@@ -423,14 +427,14 @@ namespace Here.Explore.iOS
         [Export("initWithSdkEnginePointer:")]
         IntPtr Constructor(long sdkEnginePointer);
 
-        [Export("searchByTextWithQuery:latitude:longitude:completion:")]
-        void SearchByText(string query, double latitude, double longitude, Action<HerePlace[]?, string?> completion);
+        [Export("searchByTextWithQuery:latitude:longitude:maxItems:languageCode:completion:")]
+        void SearchByText(string query, double latitude, double longitude, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
 
-        [Export("searchByCategoryWithCategoryId:latitude:longitude:completion:")]
-        void SearchByCategory(string categoryId, double latitude, double longitude, Action<HerePlace[]?, string?> completion);
+        [Export("searchByCategoryWithCategoryId:latitude:longitude:maxItems:languageCode:completion:")]
+        void SearchByCategory(string categoryId, double latitude, double longitude, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
 
-        [Export("suggestWithQuery:latitude:longitude:completion:")]
-        void Suggest(string query, double latitude, double longitude, Action<HereSuggestion[]?, string?> completion);
+        [Export("suggestWithQuery:latitude:longitude:maxItems:languageCode:completion:")]
+        void Suggest(string query, double latitude, double longitude, int maxItems, nint languageCode, Action<HereSuggestion[]?, string?> completion);
 
         [Export("searchByPlaceIdWithPlaceId:completion:")]
         void SearchByPlaceId(string placeId, Action<HerePlace?, string?> completion);
@@ -470,14 +474,83 @@ namespace Here.Explore.iOS
     [DisableDefaultCtor]
     interface HereRoute
     {
-        [Export("initWithLengthInMeters:durationInSeconds:")]
-        IntPtr Constructor(int lengthInMeters, double durationInSeconds);
+        [Export("initWithLengthInMeters:durationInSeconds:routeHandle:sections:geometry:")]
+        IntPtr Constructor(int lengthInMeters, double durationInSeconds, [NullAllowed] string? routeHandle, [NullAllowed] HereSection[]? sections, [NullAllowed] HereGeoPolyline? geometry);
 
         [Export("lengthInMeters")]
         int LengthInMeters { get; set; }
 
         [Export("durationInSeconds")]
         double DurationInSeconds { get; set; }
+
+        [Export("routeHandle")]
+        string? RouteHandle { get; set; }
+
+        [Export("sections")]
+        [NullAllowed]
+        HereSection[]? Sections { get; set; }
+
+        [Export("geometry")]
+        [NullAllowed]
+        HereGeoPolyline? Geometry { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereSection
+    {
+        [Export("initWithDeparture:arrival:maneuvers:transportMode:lengthInMeters:durationInSeconds:geometry:")]
+        IntPtr Constructor(HereGeoCoordinates departure, HereGeoCoordinates arrival, [NullAllowed] HereManeuver[]? maneuvers, nint transportMode, int lengthInMeters, double durationInSeconds, [NullAllowed] HereGeoPolyline? geometry);
+
+        [Export("departure")]
+        HereGeoCoordinates Departure { get; set; }
+
+        [Export("arrival")]
+        HereGeoCoordinates Arrival { get; set; }
+
+        [Export("maneuvers")]
+        [NullAllowed]
+        HereManeuver[]? Maneuvers { get; set; }
+
+        [Export("transportMode")]
+        nint TransportMode { get; set; }
+
+        [Export("lengthInMeters")]
+        int LengthInMeters { get; set; }
+
+        [Export("durationInSeconds")]
+        double DurationInSeconds { get; set; }
+
+        [Export("geometry")]
+        [NullAllowed]
+        HereGeoPolyline? Geometry { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereManeuver
+    {
+        [Export("initWithCoordinates:action:text:lengthInMeters:durationInSeconds:turnAngleInDegrees:")]
+        IntPtr Constructor(HereGeoCoordinates coordinates, nint action, [NullAllowed] string? text, int lengthInMeters, double durationInSeconds, double turnAngleInDegrees);
+
+        [Export("coordinates")]
+        HereGeoCoordinates Coordinates { get; set; }
+
+        [Export("action")]
+        nint Action { get; set; }
+
+        [Export("text")]
+        [NullAllowed]
+        string? Text { get; set; }
+
+        [Export("lengthInMeters")]
+        int LengthInMeters { get; set; }
+
+        [Export("durationInSeconds")]
+        double DurationInSeconds { get; set; }
+
+        [Export("turnAngleInDegrees")]
+        double TurnAngleInDegrees { get; set; }
     }
 
     [BaseType(typeof(NSObject))]

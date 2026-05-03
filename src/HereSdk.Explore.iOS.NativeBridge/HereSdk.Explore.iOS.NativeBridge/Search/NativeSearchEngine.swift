@@ -21,6 +21,8 @@ public class HereSearchEngine: NSObject {
         query: String,
         latitude: Double,
         longitude: Double,
+        maxItems: Int32,
+        languageCode: Int, // -1 = none, otherwise SearchLanguage raw value
         completion: @escaping ([HerePlace]?, String?) -> Void
     ) {
         guard let engine = engine else {
@@ -31,7 +33,7 @@ public class HereSearchEngine: NSObject {
         let geoCoords = GeoCoordinates(latitude: latitude, longitude: longitude)
         let area = TextQuery.Area(areaCenter: geoCoords)
         let textQuery = TextQuery(query, area: area)
-        let options = SearchOptions()
+        let options = buildSearchOptions(maxItems: maxItems, languageRawValue: languageCode)
 
         engine.searchByText(textQuery, options: options) { searchError, places in
             if let searchError = searchError {
@@ -49,6 +51,8 @@ public class HereSearchEngine: NSObject {
         categoryId: String,
         latitude: Double,
         longitude: Double,
+        maxItems: Int32,
+        languageCode: Int,
         completion: @escaping ([HerePlace]?, String?) -> Void
     ) {
         guard let engine = engine else {
@@ -60,7 +64,7 @@ public class HereSearchEngine: NSObject {
         let category = PlaceCategory(id: categoryId)
         let area = CategoryQuery.Area(areaCenter: geoCoords)
         let categoryQuery = CategoryQuery(category, area: area)
-        let options = SearchOptions()
+        let options = buildSearchOptions(maxItems: maxItems, languageRawValue: languageCode)
 
         engine.searchByCategory(categoryQuery, options: options) { searchError, places in
             if let searchError = searchError {
@@ -78,6 +82,8 @@ public class HereSearchEngine: NSObject {
         query: String,
         latitude: Double,
         longitude: Double,
+        maxItems: Int32,
+        languageCode: Int,
         completion: @escaping ([HereSuggestion]?, String?) -> Void
     ) {
         guard let engine = engine else {
@@ -88,7 +94,7 @@ public class HereSearchEngine: NSObject {
         let geoCoords = GeoCoordinates(latitude: latitude, longitude: longitude)
         let area = TextQuery.Area(areaCenter: geoCoords)
         let textQuery = TextQuery(query, area: area)
-        let options = SearchOptions()
+        let options = buildSearchOptions(maxItems: maxItems, languageRawValue: languageCode)
 
         engine.suggestByText(textQuery, options: options) { searchError, suggestions in
             if let searchError = searchError {
@@ -125,6 +131,35 @@ public class HereSearchEngine: NSObject {
 
     var swiftEngine: SearchEngine? {
         return engine
+    }
+
+    private func buildSearchOptions(maxItems: Int32, languageRawValue: Int) -> SearchOptions {
+        var options = SearchOptions()
+        if maxItems > 0 {
+            options.maxItems = maxItems
+        }
+        if languageRawValue >= 0 {
+            options.languageCode = toLanguageCode(rawValue: languageRawValue)
+        }
+        return options
+    }
+
+    private func toLanguageCode(rawValue: Int) -> LanguageCode? {
+        switch rawValue {
+        case 0: return .enUs
+        case 1: return .deDe
+        case 2: return .frFr
+        case 3: return .esEs
+        case 4: return .itIt
+        case 5: return .ptBr
+        case 6: return .nlNl
+        case 7: return .plPl
+        case 8: return .ruRu
+        case 9: return .zhCn
+        case 10: return .jaJp
+        case 11: return .koKr
+        default: return nil
+        }
     }
 }
 
