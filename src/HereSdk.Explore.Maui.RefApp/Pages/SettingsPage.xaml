@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
+             x:Class="Here.Explore.Maui.RefApp.Pages.SettingsPage"
+             x:DataType="viewmodels:SettingsViewModel"
+             Title="Settings"
+             BackgroundColor="LightBlue">
+
+    <TableView Intent="Settings">
+        <TableRoot>
+            <TableSection Title="About">
+                <TextCell Text="App Name" Detail="{Binding AppName}" />
+                <TextCell Text="App Version" Detail="{Binding AppVersion}" />
+                <TextCell Text="HERE SDK Version" Detail="{Binding HereSdkVersion}" />
+            </TableSection>
+            <TableSection Title="Legal">
+                <TextCell Text="Terms of Use"
+                          Detail="View HERE SDK terms"
+                          Command="{Binding OpenTermsCommand}" />
+                <TextCell Text="Privacy Policy"
+                          Detail="View privacy policy"
+                          Command="{Binding OpenPrivacyCommand}" />
+            </TableSection>
+            <TableSection Title="Debug">
+                <TextCell Text="Clear Cache"
+                          Detail="Clear cached map data"
+                          Command="{Binding ClearCacheCommand}" />
+            </TableSection>
+        </TableRoot>
+    </TableView>
+</ContentPage>

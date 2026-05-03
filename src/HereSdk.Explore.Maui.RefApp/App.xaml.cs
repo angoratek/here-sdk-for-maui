@@ -1,4 +1,5 @@
 using Here.Explore.Maui.RefApp.Pages;
+using Here.Explore.Maui.RefApp.ViewModels;
 
 namespace Here.Explore.Maui.RefApp;
 
@@ -13,10 +14,12 @@ public partial class App : Application
     {
         // Resolve the main page from DI container
         var page = activationState?.Context?.Services?.GetService<ModernMainPage>()
-            ?? new ModernMainPage(new ViewModels.ModernMainViewModel(
-                new Services.SearchService(),
-                new Services.RoutingService(),
-                new Services.LocationService()));
+            ?? new ModernMainPage(
+                new ModernMainViewModel(
+                    new Services.SearchService(),
+                    new Services.RoutingService(),
+                    new Services.LocationService()),
+                new SettingsViewModel());
 
         return new Window(page);
     }
