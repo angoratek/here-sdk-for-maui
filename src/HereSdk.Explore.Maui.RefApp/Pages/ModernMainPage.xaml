@@ -14,7 +14,6 @@
         <ResourceDictionary>
             <converters:NullToBoolConverter x:Key="NullToBool" />
             <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBool" />
-            <converters:BoolToColorConverter x:Key="BoolToColor" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -135,7 +134,7 @@
                     Text="📍"
                     WidthRequest="52"
                     HeightRequest="52"
-                    BackgroundColor="{Binding IsTrackingLocation, Converter={StaticResource BoolToColorConverter}, FallbackValue=White}"
+                    BackgroundColor="White"
                     CornerRadius="26"
                     Command="{Binding CenterOnLocationCommand}"
                     FontSize="22"
