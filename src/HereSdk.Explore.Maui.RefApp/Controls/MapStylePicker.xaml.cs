@@ -36,10 +36,8 @@ public partial class MapStylePicker : Border
     public List<MapSchemeItem> MapSchemes { get; } = new()
     {
         new(MapScheme.NormalDay, "Normal Day", "☀️"),
-        new(MapScheme.NormalNight, "Normal Night", "🌙"),
         new(MapScheme.HybridDay, "Hybrid Day", "🛰️"),
         new(MapScheme.SatelliteDay, "Satellite Day", "🌍"),
-        new(MapScheme.TerrainDay, "Terrain Day", "⛰️"),
     };
 
     public ICommand ToggleDropdownCommand { get; }
