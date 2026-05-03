@@ -57,6 +57,7 @@
 
             <!-- Close button -->
             <Button Grid.Column="2"
+                    x:Name="CloseButton"
                     Text="✕"
                     WidthRequest="36"
                     HeightRequest="36"
@@ -67,7 +68,21 @@
                     Command="{Binding ClearRouteCommand}"
                     Opacity="0.8"
                     Padding="0"
-                    FontSize="18" />
+                    FontSize="18">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </Grid>
 
         <!-- Maneuver list with separator -->
@@ -128,7 +143,8 @@
                      BackgroundColor="#EEEEEE"
                      HorizontalOptions="FillAndExpand"
                      VerticalOptions="Center" />
-            <Button Text="Clear Route"
+            <Button x:Name="ClearRouteButton"
+                    Text="Clear Route"
                     Command="{Binding ClearRouteCommand}"
                     BackgroundColor="Transparent"
                     TextColor="#D32F2F"
@@ -137,7 +153,21 @@
                     CornerRadius="8"
                     Padding="20,10"
                     FontAttributes="Bold"
-                    HorizontalOptions="End" />
+                    HorizontalOptions="End">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </HorizontalStackLayout>
     </Grid>
 </Border>

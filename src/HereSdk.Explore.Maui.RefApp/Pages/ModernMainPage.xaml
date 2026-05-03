@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <converters:NullToBoolConverter x:Key="NullToBool" />
             <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBool" />
+            <converters:BoolToColorConverter x:Key="BoolToColor" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -44,7 +45,8 @@
             Margin="0,0,16,0"
             Spacing="10">
             <!-- Zoom In -->
-            <Button Text="+"
+            <Button x:Name="ZoomInButton"
+                    Text="+"
                     WidthRequest="44"
                     HeightRequest="44"
                     BackgroundColor="White"
@@ -57,9 +59,23 @@
                 <Button.Shadow>
                     <Shadow Brush="#40000000" Offset="0,2" Radius="8" />
                 </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
             </Button>
             <!-- Zoom Out -->
-            <Button Text="−"
+            <Button x:Name="ZoomOutButton"
+                    Text="−"
                     WidthRequest="44"
                     HeightRequest="44"
                     BackgroundColor="White"
@@ -72,9 +88,23 @@
                 <Button.Shadow>
                     <Shadow Brush="#40000000" Offset="0,2" Radius="8" />
                 </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
             </Button>
             <!-- Compass -->
-            <Button Text="🧭"
+            <Button x:Name="CompassButton"
+                    Text="🧭"
                     WidthRequest="44"
                     HeightRequest="44"
                     BackgroundColor="White"
@@ -86,12 +116,26 @@
                 <Button.Shadow>
                     <Shadow Brush="#40000000" Offset="0,2" Radius="8" />
                 </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
             </Button>
             <!-- Location -->
-            <Button Text="📍"
+            <Button x:Name="LocationButton"
+                    Text="📍"
                     WidthRequest="52"
                     HeightRequest="52"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding IsTrackingLocation, Converter={StaticResource BoolToColorConverter}, FallbackValue=White}"
                     CornerRadius="26"
                     Command="{Binding CenterOnLocationCommand}"
                     FontSize="22"
@@ -100,9 +144,23 @@
                 <Button.Shadow>
                     <Shadow Brush="#40000000" Offset="0,2" Radius="8" />
                 </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
             </Button>
             <!-- Map Objects Toggle -->
-            <Button Text="🔶"
+            <Button x:Name="MapObjectsButton"
+                    Text="🔶"
                     WidthRequest="48"
                     HeightRequest="48"
                     BackgroundColor="White"
@@ -114,6 +172,47 @@
                 <Button.Shadow>
                     <Shadow Brush="#40000000" Offset="0,2" Radius="8" />
                 </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <!-- Settings -->
+            <Button x:Name="SettingsButton"
+                    Text="⚙️"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="White"
+                    CornerRadius="22"
+                    Clicked="OnSettingsClicked"
+                    FontSize="20"
+                    Padding="0"
+                    Opacity="0.9">
+                <Button.Shadow>
+                    <Shadow Brush="#40000000" Offset="0,2" Radius="8" />
+                </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95" />
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
             </Button>
         </VerticalStackLayout>
 
@@ -137,21 +236,35 @@
             TogglePolygonsCommand="{Binding TogglePolygonsCommand}"
             ClearAllCommand="{Binding ClearMapObjectsCommand}" />
 
-        <!-- Calculate route button (bottom, when can calculate) -->
-        <Button Text="Calculate Route"
+        <!-- Calculate route button (prominent, below search panel) -->
+        <Button Grid.Row="0"
+                Text="Calculate Route"
                 Command="{Binding CalculateRouteCommand}"
                 BackgroundColor="#2196F3"
                 TextColor="White"
                 FontAttributes="Bold"
-                CornerRadius="24"
+                CornerRadius="8"
                 Padding="24,12"
                 HorizontalOptions="Center"
-                VerticalOptions="End"
-                Margin="0,0,0,100"
+                VerticalOptions="Start"
+                Margin="0,180,0,0"
                 IsVisible="{Binding CanCalculateRoute}">
             <Button.Shadow>
                 <Shadow Brush="#602196F3" Offset="0,4" Radius="12" />
             </Button.Shadow>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.95" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
         </Button>
 
         <!-- Route details panel (bottom, when route calculated) -->

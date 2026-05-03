@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using Here.Explore.Maui.RefApp.ViewModels;
 
 namespace Here.Explore.Maui.RefApp.Controls;
 
@@ -21,6 +22,12 @@ public partial class MapObjectsPanel : Border
 
     public static readonly BindableProperty PanelVisibleProperty =
         BindableProperty.Create(nameof(PanelVisible), typeof(bool), typeof(MapObjectsPanel), false, BindingMode.TwoWay);
+
+    public static readonly BindableProperty SetDrawingModeCommandProperty =
+        BindableProperty.Create(nameof(SetDrawingModeCommand), typeof(ICommand), typeof(MapObjectsPanel));
+
+    public static readonly BindableProperty CancelDrawingCommandProperty =
+        BindableProperty.Create(nameof(CancelDrawingCommand), typeof(ICommand), typeof(MapObjectsPanel));
 
     public ICommand? ToggleMarkersCommand
     {
@@ -58,8 +65,21 @@ public partial class MapObjectsPanel : Border
         set => SetValue(PanelVisibleProperty, value);
     }
 
+    public ICommand? SetDrawingModeCommand
+    {
+        get => (ICommand?)GetValue(SetDrawingModeCommandProperty);
+        set => SetValue(SetDrawingModeCommandProperty, value);
+    }
+
+    public ICommand? CancelDrawingCommand
+    {
+        get => (ICommand?)GetValue(CancelDrawingCommandProperty);
+        set => SetValue(CancelDrawingCommandProperty, value);
+    }
+
     public MapObjectsPanel()
     {
         InitializeComponent();
+        BindingContext = this;
     }
 }

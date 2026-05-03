@@ -25,6 +25,19 @@
             <Button.Shadow>
                 <Shadow Brush="#50000000" Offset="0,4" Radius="12" />
             </Button.Shadow>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.95" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
         </Button>
 
         <!-- Dropdown panel -->
@@ -51,7 +64,20 @@
                                SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="local:MapSchemeItem">
-                            <Grid Padding="8,8">
+                            <Grid Padding="8,8" x:Name="SchemeItem">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroupList>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="Pressed">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
+                                                    <Setter Property="Scale" Value="0.98" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateGroupList>
+                                </VisualStateManager.VisualStateGroups>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectSchemeCommand, Source={x:Reference This}}"
                                                           CommandParameter="{Binding .}" />

@@ -41,6 +41,7 @@
 
         <!-- Clear button -->
         <Button Grid.Row="0" Grid.Column="2"
+                x:Name="ClearButton"
                 Text="✕"
                 WidthRequest="28"
                 HeightRequest="28"
@@ -63,6 +64,19 @@
                     <Setter Property="IsVisible" Value="False" />
                 </DataTrigger>
             </Button.Triggers>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.9" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
         </Button>
 
         <!-- Suggestions dropdown -->
@@ -79,7 +93,21 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="searchmodels:Suggestion">
                         <Grid Padding="12,10" ColumnDefinitions="32,*"
-                              BackgroundColor="White">
+                              BackgroundColor="White"
+                              x:Name="SuggestionItem">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="#E3F2FD" />
+                                                <Setter Property="Scale" Value="0.98" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectSuggestionCommand, Source={x:Reference This}}"
                                                       CommandParameter="{Binding .}" />

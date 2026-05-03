@@ -28,6 +28,7 @@
 
         <!-- Swap button -->
         <Button Grid.Row="1" Grid.Column="1"
+                x:Name="SwapButton"
                 Text="⇅"
                 WidthRequest="40"
                 HeightRequest="40"
@@ -45,6 +46,19 @@
             <Button.Shadow>
                 <Shadow Brush="#30000000" Offset="0,2" Radius="6" />
             </Button.Shadow>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.95" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
         </Button>
 
         <!-- Destination -->
