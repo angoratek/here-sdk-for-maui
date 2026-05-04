@@ -213,25 +213,31 @@ namespace Here.Explore.iOS
     }
 
     [BaseType(typeof(NSObject))]
+    [Model]
     [Protocol]
     interface HereTapDelegate
     {
+        [Abstract]
         [Export("onTapWithOriginX:originY:")]
         void OnTap(double originX, double originY);
     }
 
     [BaseType(typeof(NSObject))]
+    [Model]
     [Protocol]
     interface HereLongPressDelegate
     {
+        [Abstract]
         [Export("onLongPressWithState:originX:originY:")]
         void OnLongPress(nint state, double originX, double originY);
     }
 
     [BaseType(typeof(NSObject))]
+    [Model]
     [Protocol]
     interface HereDoubleTapDelegate
     {
+        [Abstract]
         [Export("onDoubleTapWithOriginX:originY:")]
         void OnDoubleTap(double originX, double originY);
     }
@@ -254,12 +260,15 @@ namespace Here.Explore.iOS
     }
 
     [BaseType(typeof(NSObject))]
+    [Model]
     [Protocol]
     interface HereSceneLoadCallback
     {
+        [Abstract]
         [Export("onSceneLoaded:")]
         void OnSceneLoaded(HereMapScheme scheme);
 
+        [Abstract]
         [Export("onSceneLoadFailed:")]
         void OnSceneLoadFailed(string error);
     }

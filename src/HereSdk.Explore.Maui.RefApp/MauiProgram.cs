@@ -29,7 +29,6 @@ public static class MauiProgram
         try
         {
             System.Diagnostics.Debug.WriteLine("DEBUG: CreateMauiApp starting");
-            Android.Util.Log.Debug("REFAPP_DIAG", "CreateMauiApp starting");
 
             using var configStream = OpenAppSettingsStream();
             var config = new ConfigurationBuilder()
@@ -39,22 +38,22 @@ public static class MauiProgram
             var keyId = config["HereSdk:AccessKeyId"];
             var keySecret = config["HereSdk:AccessKeySecret"];
 
-            Android.Util.Log.Debug("REFAPP_DIAG", $"Credentials loaded: keyId={(string.IsNullOrEmpty(keyId) ? "MISSING" : "PRESENT")}, secret={(string.IsNullOrEmpty(keySecret) ? "MISSING" : "PRESENT")}");
+            System.Diagnostics.Debug.WriteLine($"Credentials loaded: keyId={(string.IsNullOrEmpty(keyId) ? "MISSING" : "PRESENT")}, secret={(string.IsNullOrEmpty(keySecret) ? "MISSING" : "PRESENT")}");
 
             if (string.IsNullOrWhiteSpace(keyId) || string.IsNullOrWhiteSpace(keySecret))
             {
                 InitError = "Credentials missing in appsettings.json";
-                Android.Util.Log.Error("REFAPP_DIAG", InitError);
+                System.Diagnostics.Debug.WriteLine($"INIT ERROR: {InitError}");
                 throw new InvalidOperationException(InitError);
             }
 
-            Android.Util.Log.Debug("REFAPP_DIAG", "Initializing HERE SDK...");
+            System.Diagnostics.Debug.WriteLine("Initializing HERE SDK...");
             HereSdk.Initialize(new HereSdkOptions
             {
                 AccessKeyId = keyId,
                 AccessKeySecret = keySecret
             });
-            Android.Util.Log.Debug("REFAPP_DIAG", "HERE SDK initialized successfully");
+            System.Diagnostics.Debug.WriteLine("HERE SDK initialized successfully");
 
             builder.Services.AddSingleton<IRoutingService, RoutingService>();
             builder.Services.AddSingleton<ISearchService, SearchService>();
@@ -64,7 +63,7 @@ public static class MauiProgram
         catch (Exception ex)
         {
             InitError ??= $"{ex.GetType().Name}: {ex.Message}";
-            Android.Util.Log.Error("REFAPP_DIAG", $"Init error: {InitError}");
+            System.Diagnostics.Debug.WriteLine($"Init error: {InitError}");
             System.Diagnostics.Debug.WriteLine($"INIT ERROR: {InitError}");
         }
 
@@ -85,7 +84,7 @@ public static class MauiProgram
         builder.Services.AddTransient<NullToBoolConverter>();
         builder.Services.AddTransient<BoolToColorConverter>();
 
-        Android.Util.Log.Debug("REFAPP_DIAG", "CreateMauiApp completed");
+        System.Diagnostics.Debug.WriteLine("CreateMauiApp completed");
         return builder.Build();
     }
 

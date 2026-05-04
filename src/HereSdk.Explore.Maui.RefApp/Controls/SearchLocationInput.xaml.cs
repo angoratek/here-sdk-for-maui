@@ -83,4 +83,17 @@ public partial class SearchLocationInput : Border
     {
         InitializeComponent();
     }
+
+    private void OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (SearchCommand?.CanExecute(null) == true)
+            SearchCommand.Execute(null);
+    }
+
+    protected override void OnPropertyChanged(string? propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(Suggestions))
+            OnPropertyChanged(nameof(HasSuggestions));
+    }
 }

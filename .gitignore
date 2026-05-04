@@ -47,6 +47,9 @@ DerivedData/
 *.aab
 local.properties
 
+#iOS
+Libs
+
 # Secrets
 *.env
 credentials.json

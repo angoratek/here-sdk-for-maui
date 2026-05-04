@@ -37,7 +37,8 @@
                VerticalOptions="Center"
                BackgroundColor="Transparent"
                ReturnType="Search"
-               ReturnCommand="{Binding SearchCommand, Source={x:Reference This}}" />
+               ReturnCommand="{Binding SearchCommand, Source={x:Reference This}}"
+               TextChanged="OnTextChanged" />
 
         <!-- Clear button -->
         <Button Grid.Row="0" Grid.Column="2"

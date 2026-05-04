@@ -12,7 +12,6 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        // Resolve the main page from DI container
         var page = activationState?.Context?.Services?.GetService<ModernMainPage>()
             ?? new ModernMainPage(
                 new ModernMainViewModel(

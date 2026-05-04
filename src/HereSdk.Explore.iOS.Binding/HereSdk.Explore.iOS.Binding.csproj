@@ -26,4 +26,11 @@
       <LinkerFlags>-L "$(XcodeDeveloperDirectory)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator" -L "$(XcodeDeveloperDirectory)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos" -Wl,-rpath -Wl,@executable_path/Frameworks</LinkerFlags>
     </NativeReference>
   </ItemGroup>
+  <ItemGroup Condition="Exists('Libs\heresdk.xcframework')">
+    <NativeReference Include="Libs\heresdk.xcframework">
+      <Kind>Framework</Kind>
+      <SmartLink>true</SmartLink>
+      <Frameworks>Foundation UIKit CoreLocation</Frameworks>
+    </NativeReference>
+  </ItemGroup>
 </Project>
