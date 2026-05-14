@@ -15,6 +15,7 @@
     <PackageReference Include="xunit" Version="2.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
     <PackageReference Include="NSubstitute" Version="5.*" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.*" />
   </ItemGroup>
   <!--
     Shared source from the MAUI library and RefApp (ViewModels, Models, Services).
@@ -37,8 +38,12 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\RoutingService.cs" Link="Shared\Services\RoutingService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\SearchService.cs" Link="Shared\Services\SearchService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Services\LocationService.cs" Link="Shared\Services\LocationService.cs" />
+    <!-- Controls interfaces -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\Controls\IHereMapView.cs" Link="Shared\Controls\IHereMapView.cs" />
     <!-- Helpers -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\**\*.cs" LinkBase="Shared\Helpers" />
+    <!-- RefApp Services -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\ThemeService.cs" Link="RefApp\Services\ThemeService.cs" />
     <!-- RefApp ViewModels -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\ViewModels\**\*.cs" LinkBase="RefApp\ViewModels" />
   </ItemGroup>

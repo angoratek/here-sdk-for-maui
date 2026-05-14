@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+             xmlns:models="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
+             xmlns:routing="clr-namespace:Here.Explore.Maui.Models.Routing;assembly=HereSdk.Explore.Maui"
+             xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
+             xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
+             x:Class="Here.Explore.Maui.RefApp.Pages.DirectionsPage"
+             x:DataType="viewmodels:DirectionsViewModel"
+             Shell.TabBarIsVisible="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBool" />
+            <converters:ManeuverActionToIconConverter x:Key="ManeuverIcon" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:Name="RootGrid" RowDefinitions="*">
+        <controls:HereMapView x:Name="MapView" Grid.Row="0"
+                               AutomationId="DirectionsMapView"
+                               SemanticProperties.Description="Map showing route and directions" />
+
+        <!-- Top input area -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
+                             VerticalOptions="Start">
+
+            <!-- Origin / Destination inputs -->
+            <Border Style="{StaticResource CardBorder}" Padding="8">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="0">
+
+                    <!-- Origin -->
+                    <Label Grid.Row="0" Grid.Column="0" Text="A" FontSize="16"
+                           FontAttributes="Bold" TextColor="#34C759"
+                           VerticalOptions="Center" HorizontalOptions="Center"
+                           WidthRequest="32" />
+                    <Entry Grid.Row="0" Grid.Column="1"
+                           Text="{Binding OriginQuery, Mode=TwoWay}"
+                           Placeholder="Origin"
+                           FontSize="15" BackgroundColor="Transparent" />
+                    <!-- Origin suggestions -->
+                    <CollectionView Grid.Row="1" Grid.Column="1"
+                                    ItemsSource="{Binding OriginSuggestions}"
+                                    IsVisible="{Binding HasOriginSuggestions}"
+                                    HeightRequest="120" SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Suggestion">
+                                <Grid Padding="8,6">
+                                    <Label Text="{Binding Title}" FontSize="14" />
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DirectionsViewModel}}, Path=SelectOriginSuggestionCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Divider -->
+                    <BoxView Grid.Row="2" Grid.ColumnSpan="2" HeightRequest="1"
+                             Color="{AppThemeBinding Light=#E5E5EA, Dark=#3A3A3C}" Margin="8,2" />
+
+                    <!-- Destination -->
+                    <Label Grid.Row="3" Grid.Column="0" Text="B" FontSize="16"
+                           FontAttributes="Bold" TextColor="#FF3B30"
+                           VerticalOptions="Center" HorizontalOptions="Center"
+                           WidthRequest="32" />
+                    <Entry Grid.Row="3" Grid.Column="1"
+                           Text="{Binding DestinationQuery, Mode=TwoWay}"
+                           Placeholder="Destination"
+                           FontSize="15" BackgroundColor="Transparent" />
+                </Grid>
+            </Border>
+
+            <!-- Destination suggestions -->
+            <Border Style="{StaticResource CardBorder}" Padding="0"
+                    IsVisible="{Binding HasDestinationSuggestions}">
+                <CollectionView ItemsSource="{Binding DestinationSuggestions}"
+                                HeightRequest="120" SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Suggestion">
+                            <Grid Padding="10,6">
+                                <Label Text="{Binding Title}" FontSize="14" />
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DirectionsViewModel}}, Path=SelectDestinationSuggestionCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+            <!-- Transport mode picker -->
+            <local:TransportModePicker x:Name="ModePicker" />
+        </VerticalStackLayout>
+
+        <!-- Floating buttons (right) -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8"
+                             VerticalOptions="Center" HorizontalOptions="End"
+                             Margin="0,0,12,0">
+            <Button Text="⇅" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding SwapLocationsCommand}"
+                    IsVisible="{Binding OriginPlace, Converter={StaticResource InverseBool}}" />
+            <Button Text="🚀" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding CalculateRouteCommand}"
+                    IsVisible="{Binding OriginPlace, Converter={StaticResource InverseBool}}" />
+
+            <!-- Isoline toggle -->
+            <Button Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding ToggleIsolineModeCommand}"
+                    Text="{Binding IsIsolineMode, Converter={StaticResource InverseBool}}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsIsolineMode}" Value="True">
+                        <Setter Property="Text" Value="📍" />
+                        <Setter Property="Style" Value="{StaticResource MapFloatingButton}" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsIsolineMode}" Value="False">
+                        <Setter Property="Text" Value="◎" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!-- Traffic on route -->
+            <Button Text="🚦" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding ToggleTrafficOnRouteCommand}"
+                    IsVisible="{Binding IsRouteVisible}" />
+        </VerticalStackLayout>
+
+        <!-- Bottom sheet with route details -->
+        <local:BottomSheet x:Name="RouteSheet" Grid.Row="0"
+                           CollapsedHeight="0"
+                           HalfExpandedHeight="200"
+                           CurrentState="Collapsed"
+                           IsVisible="{Binding IsRouteVisible}">
+            <local:BottomSheet.SheetContent>
+                <ScrollView Padding="16">
+                    <VerticalStackLayout Spacing="12">
+                        <!-- Route summary -->
+                        <Label Text="{Binding RouteSummary}" FontSize="18" FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+
+                        <!-- Route error -->
+                        <Label Text="{Binding RouteError}" FontSize="14" TextColor="{StaticResource ErrorRed}"
+                               IsVisible="{Binding RouteError.Length}" />
+
+                        <!-- Maneuvers -->
+                        <CollectionView ItemsSource="{Binding Maneuvers}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="routing:Section">
+                                    <VerticalStackLayout Padding="4,8">
+                                        <Label FontSize="13" FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} ({1})">
+                                                    <Binding Path="TransportMode" />
+                                                    <Binding Path="LengthInMeters" StringFormat="{}{0}m" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <CollectionView ItemsSource="{Binding Maneuvers}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="routing:Maneuver">
+                                                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="8,4" ColumnSpacing="10">
+                                                        <Label Grid.Column="0" FontSize="20"
+                                                               Text="{Binding Action, Converter={StaticResource ManeuverIcon}}"
+                                                               VerticalOptions="Center" />
+                                                        <Label Grid.Column="1" Text="{Binding Instruction}"
+                                                               FontSize="13" VerticalOptions="Center"
+                                                               TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                                        <Label Grid.Column="2" Text="{Binding DistanceText}"
+                                                               FontSize="12" VerticalOptions="Center"
+                                                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </local:BottomSheet.SheetContent>
+        </local:BottomSheet>
+
+        <!-- Loading overlay -->
+        <Grid Grid.Row="0" BackgroundColor="#80000000"
+              IsVisible="{Binding IsCalculating}">
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
+                <ActivityIndicator IsRunning="True" Color="White" />
+                <Label Text="Calculating route..." FontSize="16" TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

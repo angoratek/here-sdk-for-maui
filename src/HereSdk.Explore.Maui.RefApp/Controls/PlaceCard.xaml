@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
+             x:Class="Here.Explore.Maui.RefApp.Controls.PlaceCard">
+    <Border Style="{StaticResource CardBorder}" Padding="20">
+        <VerticalStackLayout Spacing="14">
+            <!-- Title row -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label x:Name="TitleLabel"
+                       FontSize="22" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}"
+                       LineBreakMode="TailTruncation" MaxLines="2" />
+                <!-- Open/closed indicator -->
+                <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center"
+                                       IsVisible="False" x:Name="OpenStatusRow">
+                    <BoxView x:Name="OpenDot" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
+                    <Label x:Name="OpenLabel" FontSize="13"
+                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- Category chip -->
+            <Border x:Name="CategoryChip" StrokeShape="RoundRectangle 8" Padding="8,4"
+                    StrokeThickness="0" IsVisible="False"
+                    HorizontalOptions="Start">
+                <Label x:Name="CategoryLabel" FontSize="12" TextColor="White" />
+            </Border>
+
+            <!-- Address -->
+            <Label x:Name="AddressLabel" FontSize="14" MaxLines="3"
+                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+
+            <!-- Distance -->
+            <Label x:Name="DistanceLabel" FontSize="13" IsVisible="False"
+                   TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource TextTertiaryDark}}" />
+
+            <!-- Contact buttons -->
+            <HorizontalStackLayout x:Name="ContactRow" Spacing="12" IsVisible="False">
+                <Button x:Name="PhoneButton" Text="Call"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource SurfaceTertiaryDark}}"
+                        TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
+                        CornerRadius="10" HeightRequest="40" FontSize="13"
+                        Clicked="OnPhoneClicked" />
+                <Button x:Name="WebsiteButton" Text="Website"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource SurfaceTertiaryDark}}"
+                        TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
+                        CornerRadius="10" HeightRequest="40" FontSize="13"
+                        Clicked="OnWebsiteClicked" />
+            </HorizontalStackLayout>
+
+            <!-- Directions CTA -->
+            <Button x:Name="DirectionsButton" Text="Get Directions"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="14" HeightRequest="48" FontSize="16" FontAttributes="Bold"
+                    Clicked="OnDirectionsClicked" />
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

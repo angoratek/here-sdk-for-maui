@@ -8,34 +8,37 @@
         HorizontalOptions="End"
         Margin="0,0,16,16"
         StrokeShape="RoundRectangle 16"
-        Background="Transparent">
+        Background="Transparent"
+        InputTransparent="false">
 
-    <Grid RowDefinitions="Auto,Auto" MinimumWidthRequest="48">
+    <Grid RowDefinitions="Auto,Auto" MinimumWidthRequest="48" InputTransparent="false">
         <!-- Dropdown panel -->
         <Border Grid.Row="0"
                 x:Name="DropdownPanel"
                 StrokeShape="RoundRectangle 16"
-                Background="White"
+                BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2E}"
                 IsVisible="{Binding IsDropdownExpanded, Source={x:Reference This}}"
                 Margin="0,0,0,8"
-                Padding="8">
+                Padding="8"
+                InputTransparent="false">
             <Border.Shadow>
-                <Shadow Brush="#60000000" Offset="0,4" Radius="16" />
+                <Shadow Brush="{AppThemeBinding Light=#60000000, Dark=#90000000}" Offset="0,4" Radius="16" />
             </Border.Shadow>
 
-            <VerticalStackLayout Spacing="4">
+            <VerticalStackLayout Spacing="4" InputTransparent="false">
                 <Label Text="Map Style"
                        FontSize="11"
                        FontAttributes="Bold"
-                       TextColor="#888888"
+                       TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
                        HorizontalOptions="Center"
                        Margin="0,4,0,4" />
 
                 <VerticalStackLayout Spacing="2"
-                                     BindableLayout.ItemsSource="{Binding MapSchemes, Source={x:Reference This}}">
+                                     BindableLayout.ItemsSource="{Binding MapSchemes, Source={x:Reference This}}"
+                                     InputTransparent="false">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="local:MapSchemeItem">
-                            <Grid Padding="8,8">
+                            <Grid Padding="8,8" InputTransparent="false">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectSchemeCommand, Source={x:Reference This}}"
                                                           CommandParameter="{Binding .}" />
@@ -49,7 +52,7 @@
                                     <Label Grid.Column="1"
                                            Text="{Binding Label}"
                                            FontSize="13"
-                                           TextColor="#333333"
+                                           TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}"
                                            VerticalOptions="Center" />
                                 </Grid>
                             </Grid>
@@ -65,13 +68,13 @@
                 Text="🗺️"
                 WidthRequest="48"
                 HeightRequest="48"
-                BackgroundColor="White"
                 CornerRadius="24"
                 Command="{Binding ToggleDropdownCommand}"
                 FontSize="20"
-                Padding="0">
+                Padding="0"
+                BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2E}">
             <Button.Shadow>
-                <Shadow Brush="#50000000" Offset="0,4" Radius="12" />
+                <Shadow Brush="{AppThemeBinding Light=#50000000, Dark=#90000000}" Offset="0,4" Radius="12" />
             </Button.Shadow>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>

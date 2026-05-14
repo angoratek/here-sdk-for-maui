@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Primary palette -->
+    <Color x:Key="Primary">#007AFF</Color>
+    <Color x:Key="PrimaryDark">#0A84FF</Color>
+    <Color x:Key="Secondary">#FF9500</Color>
+    <Color x:Key="SecondaryDark">#FF9F0A</Color>
+
+    <!-- Semantic colors -->
+    <Color x:Key="Surface">#FFFFFF</Color>
+    <Color x:Key="SurfaceDark">#1C1C1E</Color>
+    <Color x:Key="SurfaceSecondary">#F2F2F7</Color>
+    <Color x:Key="SurfaceSecondaryDark">#2C2C2E</Color>
+    <Color x:Key="SurfaceTertiary">#E5E5EA</Color>
+    <Color x:Key="SurfaceTertiaryDark">#3A3A3C</Color>
+
+    <Color x:Key="TextPrimary">#000000</Color>
+    <Color x:Key="TextPrimaryDark">#FFFFFF</Color>
+    <Color x:Key="TextSecondary">#6E6E73</Color>
+    <Color x:Key="TextSecondaryDark">#AEAEB2</Color>
+    <Color x:Key="TextTertiary">#C7C7CC</Color>
+    <Color x:Key="TextTertiaryDark">#48484A</Color>
+
+    <!-- Status colors -->
+    <Color x:Key="SuccessGreen">#34C759</Color>
+    <Color x:Key="ErrorRed">#FF3B30</Color>
+    <Color x:Key="WarningOrange">#FF9500</Color>
+    <Color x:Key="InfoBlue">#007AFF</Color>
+
+    <!-- Traffic jam factor colors -->
+    <Color x:Key="TrafficFreeFlow">#34C759</Color>
+    <Color x:Key="TrafficModerate">#FFCC02</Color>
+    <Color x:Key="TrafficHeavy">#FF3B30</Color>
+    <Color x:Key="TrafficClosed">#1C1C1E</Color>
+
+    <!-- Shadow -->
+    <Color x:Key="ShadowColor">#40000000</Color>
+    <Color x:Key="ShadowColorDark">#80000000</Color>
+
+    <!-- Handle -->
+    <Color x:Key="HandleColor">#D1D1D6</Color>
+    <Color x:Key="HandleColorDark">#48484A</Color>
+
+    <!-- Transport mode colors -->
+    <Color x:Key="TransportCar">#007AFF</Color>
+    <Color x:Key="TransportTruck">#FF9500</Color>
+    <Color x:Key="TransportPedestrian">#34C759</Color>
+    <Color x:Key="TransportBicycle">#AF52DE</Color>
+    <Color x:Key="TransportScooter">#FF3B30</Color>
+    <Color x:Key="TransportBus">#007AFF</Color>
+    <Color x:Key="TransportTaxi">#FFCC02</Color>
+    <Color x:Key="TransportTransit">#5AC8FA</Color>
+</ResourceDictionary>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+             xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
+             x:Class="Here.Explore.Maui.RefApp.Pages.ToolsPage"
+             x:DataType="viewmodels:ToolsViewModel"
+             Shell.TabBarIsVisible="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Button style for selected drawing tool -->
+            <Style x:Key="DrawingToolButton" TargetType="Button">
+                <Setter Property="CornerRadius" Value="16" />
+                <Setter Property="HeightRequest" Value="36" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="0,2,4,2" />
+                <Setter Property="Padding" Value="12,0" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#E5E5EA, Dark=#3A3A3C}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+            </Style>
+
+            <Style x:Key="SchemeChip" TargetType="Button">
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Margin" Value="0,2,4,2" />
+                <Setter Property="Padding" Value="10,0" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#E5E5EA, Dark=#3A3A3C}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:Name="RootGrid" RowDefinitions="*">
+        <controls:HereMapView x:Name="MapView" Grid.Row="0" />
+
+        <!-- Drawing mode banner -->
+        <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="12,60,12,0"
+                VerticalOptions="Start" Padding="10,8"
+                IsVisible="{Binding IsDrawingActive}">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                <Label Grid.Column="0" Text="✏" FontSize="16" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="{Binding DrawingHint}" FontSize="13"
+                       VerticalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                <Button Grid.Column="2" Text="Cancel" FontSize="12"
+                        HeightRequest="32" CornerRadius="14"
+                        BackgroundColor="{StaticResource ErrorRed}"
+                        TextColor="White"
+                        Command="{Binding CancelDrawingCommand}" />
+            </Grid>
+        </Border>
+
+        <!-- Clear All button -->
+        <Button Grid.Row="0" Text="Clear All" Style="{StaticResource MapFloatingButton}"
+                VerticalOptions="End" HorizontalOptions="End"
+                Margin="0,0,12,68" WidthRequest="72"
+                Command="{Binding ClearAllCommand}"
+                IsVisible="{Binding TotalObjectCount}" />
+
+        <!-- Object count badge -->
+        <Border Grid.Row="0" VerticalOptions="End" HorizontalOptions="Center"
+                Margin="0,0,0,68" Padding="10,5"
+                BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
+                StrokeShape="RoundRectangle 12"
+                IsVisible="{Binding TotalObjectCount}">
+            <Label Text="{Binding TotalObjectCount, StringFormat='{0} objects on map'}"
+                   FontSize="12"
+                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+        </Border>
+
+        <!-- Bottom sheet with tools -->
+        <local:BottomSheet x:Name="ToolsSheet" Grid.Row="0"
+                           CollapsedHeight="80"
+                           HalfExpandedHeight="340"
+                           CurrentState="HalfExpanded">
+            <local:BottomSheet.HeaderContent>
+                <Grid Padding="16,4" ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0" Text="Tools &amp; Settings" FontSize="16" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                    <Label Grid.Column="1" Text="{Binding TotalObjectCount, StringFormat='{0} objects'}"
+                           FontSize="12"
+                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
+                           VerticalOptions="Center" />
+                </Grid>
+            </local:BottomSheet.HeaderContent>
+
+            <local:BottomSheet.SheetContent>
+                <ScrollView Padding="16,0">
+                    <VerticalStackLayout Spacing="8" Padding="0,0,0,20">
+
+                        <!-- ================================================ -->
+                        <!-- DRAWING TOOLS                                    -->
+                        <!-- ================================================ -->
+                        <Border Style="{StaticResource CardBorder}" Padding="14">
+                            <VerticalStackLayout Spacing="10">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleDrawingExpandedCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label Grid.Column="0" Text="Drawing Tools" FontSize="15" FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                    <Label Grid.Column="1" FontSize="20" VerticalOptions="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsDrawingExpanded}" Value="True">
+                                                <Setter Property="Text" Value="▾" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsDrawingExpanded}" Value="False">
+                                                <Setter Property="Text" Value="▸" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+
+                                <VerticalStackLayout Spacing="8" IsVisible="{Binding IsDrawingExpanded}">
+                                    <Label Text="Select a tool, then tap the map to draw. Double-tap to finish lines &amp; polygons."
+                                           FontSize="11"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+
+                                    <FlexLayout Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
+                                        <Button Text="📍 Marker" Style="{StaticResource DrawingToolButton}"
+                                                Command="{Binding SetDrawingToolCommand}" CommandParameter="Marker">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
+                                                             Value="{x:Static viewmodels:DrawingTool.Marker}">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                        <Button Text="📏 Polyline" Style="{StaticResource DrawingToolButton}"
+                                                Command="{Binding SetDrawingToolCommand}" CommandParameter="Polyline">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
+                                                             Value="{x:Static viewmodels:DrawingTool.Polyline}">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                        <Button Text="⬡ Polygon" Style="{StaticResource DrawingToolButton}"
+                                                Command="{Binding SetDrawingToolCommand}" CommandParameter="Polygon">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
+                                                             Value="{x:Static viewmodels:DrawingTool.Polygon}">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                        <Button Text="◎ Circle" Style="{StaticResource DrawingToolButton}"
+                                                Command="{Binding SetDrawingToolCommand}" CommandParameter="Circle">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
+                                                             Value="{x:Static viewmodels:DrawingTool.Circle}">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                    </FlexLayout>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- ================================================ -->
+                        <!-- DEMO GALLERY                                     -->
+                        <!-- ================================================ -->
+                        <Border Style="{StaticResource CardBorder}" Padding="14">
+                            <VerticalStackLayout Spacing="10">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleGalleryExpandedCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label Grid.Column="0" Text="Demo Gallery" FontSize="15" FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                    <Label Grid.Column="1" FontSize="20" VerticalOptions="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsGalleryExpanded}" Value="True">
+                                                <Setter Property="Text" Value="▾" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsGalleryExpanded}" Value="False">
+                                                <Setter Property="Text" Value="▸" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+
+                                <VerticalStackLayout Spacing="6" IsVisible="{Binding IsGalleryExpanded}">
+                                    <Label Text="Pre-built demos that showcase SDK rendering capabilities."
+                                           FontSize="11"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+
+                                    <CollectionView ItemsSource="{Binding DemoPresets}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="viewmodels:DemoPreset">
+                                                <Border Style="{StaticResource CardBorder}" Margin="0,3" Padding="12,10">
+                                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                                            <Label Text="{Binding Name}" FontSize="14" FontAttributes="Bold"
+                                                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                                            <Label Text="{Binding Description}" FontSize="11"
+                                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                                        </VerticalStackLayout>
+                                                        <Button Grid.Column="1" Text="Add"
+                                                                FontSize="12" HeightRequest="32" CornerRadius="14"
+                                                                BackgroundColor="{StaticResource Primary}"
+                                                                TextColor="White"
+                                                                Command="{Binding ActivateCommand}" />
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- ================================================ -->
+                        <!-- SETTINGS                                         -->
+                        <!-- ================================================ -->
+                        <Border Style="{StaticResource CardBorder}" Padding="14">
+                            <VerticalStackLayout Spacing="10">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleSettingsExpandedCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label Grid.Column="0" Text="Settings" FontSize="15" FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                    <Label Grid.Column="1" FontSize="20" VerticalOptions="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsSettingsExpanded}" Value="True">
+                                                <Setter Property="Text" Value="▾" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsSettingsExpanded}" Value="False">
+                                                <Setter Property="Text" Value="▸" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+
+                                <VerticalStackLayout Spacing="12" IsVisible="{Binding IsSettingsExpanded}">
+
+                                    <!-- Map scheme picker -->
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="Map Style" FontSize="12" FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                        <FlexLayout Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
+                                            <Button Text="Normal Day" Style="{StaticResource SchemeChip}"
+                                                    Command="{Binding ChangeSchemeCommand}" CommandParameter="NormalDay">
+                                                <Button.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="NormalDay">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                        <Setter Property="TextColor" Value="White" />
+                                                    </DataTrigger>
+                                                </Button.Triggers>
+                                            </Button>
+                                            <Button Text="Night" Style="{StaticResource SchemeChip}"
+                                                    Command="{Binding ChangeSchemeCommand}" CommandParameter="NormalNight">
+                                                <Button.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="NormalNight">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                        <Setter Property="TextColor" Value="White" />
+                                                    </DataTrigger>
+                                                </Button.Triggers>
+                                            </Button>
+                                            <Button Text="Hybrid" Style="{StaticResource SchemeChip}"
+                                                    Command="{Binding ChangeSchemeCommand}" CommandParameter="HybridDay">
+                                                <Button.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="HybridDay">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                        <Setter Property="TextColor" Value="White" />
+                                                    </DataTrigger>
+                                                </Button.Triggers>
+                                            </Button>
+                                            <Button Text="Satellite" Style="{StaticResource SchemeChip}"
+                                                    Command="{Binding ChangeSchemeCommand}" CommandParameter="SatelliteDay">
+                                                <Button.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="SatelliteDay">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                        <Setter Property="TextColor" Value="White" />
+                                                    </DataTrigger>
+                                                </Button.Triggers>
+                                            </Button>
+                                            <Button Text="Terrain" Style="{StaticResource SchemeChip}"
+                                                    Command="{Binding ChangeSchemeCommand}" CommandParameter="TerrainDay">
+                                                <Button.Triggers>
+                                                    <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="TerrainDay">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                        <Setter Property="TextColor" Value="White" />
+                                                    </DataTrigger>
+                                                </Button.Triggers>
+                                            </Button>
+                                        </FlexLayout>
+                                    </VerticalStackLayout>
+
+                                    <!-- Dark mode toggle -->
+                                    <Grid ColumnDefinitions="*,Auto" Padding="0,4">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                            <Label Text="Dark Mode" FontSize="14"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                            <Label Text="Toggle between light and dark appearance"
+                                                   FontSize="11"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                        </VerticalStackLayout>
+                                        <Switch Grid.Column="1" IsToggled="{Binding IsDarkMode, Mode=TwoWay}"
+                                                OnColor="{StaticResource Primary}" />
+                                    </Grid>
+
+                                    <!-- SDK version -->
+                                    <Border BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
+                                            Padding="12" StrokeShape="RoundRectangle 10">
+                                        <VerticalStackLayout Spacing="2">
+                                            <Label Text="HERE SDK Version" FontSize="11"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                            <Label Text="{Binding SdkVersion}" FontSize="18" FontAttributes="Bold"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                            <Label Text="Explore Edition" FontSize="11"
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                        </VerticalStackLayout>
+                                    </Border>
+
+                                    <!-- Open full settings -->
+                                    <Button Text="More Settings →" FontSize="14"
+                                            HeightRequest="44" CornerRadius="12"
+                                            BackgroundColor="{StaticResource Primary}"
+                                            TextColor="White"
+                                            Clicked="OnOpenSettingsClicked" />
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </local:BottomSheet.SheetContent>
+        </local:BottomSheet>
+    </Grid>
+</ContentPage>

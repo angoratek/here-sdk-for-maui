@@ -4,10 +4,10 @@
              x:Class="Here.Explore.Maui.RefApp.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#2196F3</Color>
-            <Color x:Key="Secondary">#FFC107</Color>
-            <Color x:Key="Surface">#FFFFFF</Color>
-            <Color x:Key="OnSurface">#212121</Color>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

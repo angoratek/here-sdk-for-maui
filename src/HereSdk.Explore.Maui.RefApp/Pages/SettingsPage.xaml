@@ -5,21 +5,21 @@
              x:Class="Here.Explore.Maui.RefApp.Pages.SettingsPage"
              x:DataType="viewmodels:SettingsViewModel"
              Title="Settings"
-             BackgroundColor="LightBlue">
+             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}">
 
     <Grid RowDefinitions="Auto,*">
         <!-- Header -->
         <Grid Grid.Row="0"
               ColumnDefinitions="Auto,*"
               Padding="16,12"
-              BackgroundColor="White">
+              BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}">
             <Button Grid.Column="0"
                     x:Name="BackButton"
                     Text="←"
                     WidthRequest="40"
                     HeightRequest="40"
                     BackgroundColor="Transparent"
-                    TextColor="#333333"
+                    TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}"
                     FontSize="20"
                     Padding="0"
                     Clicked="OnBackClicked">
@@ -41,7 +41,7 @@
                    Text="Settings"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="#333333"
+                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}"
                    VerticalOptions="Center"
                    HorizontalOptions="Start"
                    Margin="8,0,0,0" />
@@ -52,7 +52,7 @@
             <VerticalStackLayout Padding="16" Spacing="16">
                 <!-- About Card -->
                 <Border StrokeShape="RoundRectangle 12"
-                        BackgroundColor="White"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
                         Padding="16">
                     <Border.Shadow>
                         <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
@@ -61,7 +61,7 @@
                         <Label Text="About"
                                FontSize="14"
                                FontAttributes="Bold"
-                               TextColor="#888888"
+                               TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
                                Margin="0,0,0,8" />
 
                         <Grid ColumnDefinitions="*,Auto"
@@ -69,14 +69,14 @@
                             <Label Grid.Column="0"
                                    Text="App Name"
                                    FontSize="14"
-                                   TextColor="#333333" />
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="{Binding AppName}"
                                    FontSize="14"
-                                   TextColor="#666666" />
+                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="#EEEEEE"
+                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
                                  HorizontalOptions="Fill" />
 
                         <Grid ColumnDefinitions="*,Auto"
@@ -84,14 +84,14 @@
                             <Label Grid.Column="0"
                                    Text="App Version"
                                    FontSize="14"
-                                   TextColor="#333333" />
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="{Binding AppVersion}"
                                    FontSize="14"
-                                   TextColor="#666666" />
+                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="#EEEEEE"
+                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
                                  HorizontalOptions="Fill" />
 
                         <Grid ColumnDefinitions="*,Auto"
@@ -99,18 +99,18 @@
                             <Label Grid.Column="0"
                                    Text="HERE SDK Version"
                                    FontSize="14"
-                                   TextColor="#333333" />
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="{Binding HereSdkVersion}"
                                    FontSize="14"
-                                   TextColor="#666666" />
+                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Legal Card -->
                 <Border StrokeShape="RoundRectangle 12"
-                        BackgroundColor="White"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
                         Padding="16">
                     <Border.Shadow>
                         <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
@@ -119,7 +119,7 @@
                         <Label Text="Legal"
                                FontSize="14"
                                FontAttributes="Bold"
-                               TextColor="#888888"
+                               TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
                                Margin="0,0,0,8" />
 
                         <Grid ColumnDefinitions="*,Auto"
@@ -130,14 +130,14 @@
                             <Label Grid.Column="0"
                                    Text="Terms of Use"
                                    FontSize="14"
-                                   TextColor="#333333" />
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="→"
                                    FontSize="14"
-                                   TextColor="#2196F3" />
+                                   TextColor="{StaticResource Primary}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="#EEEEEE"
+                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
                                  HorizontalOptions="Fill" />
 
                         <Grid ColumnDefinitions="*,Auto"
@@ -148,18 +148,18 @@
                             <Label Grid.Column="0"
                                    Text="Privacy Policy"
                                    FontSize="14"
-                                   TextColor="#333333" />
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="→"
                                    FontSize="14"
-                                   TextColor="#2196F3" />
+                                   TextColor="{StaticResource Primary}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Debug Card -->
                 <Border StrokeShape="RoundRectangle 12"
-                        BackgroundColor="White"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
                         Padding="16">
                     <Border.Shadow>
                         <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
@@ -168,7 +168,7 @@
                         <Label Text="Debug"
                                FontSize="14"
                                FontAttributes="Bold"
-                               TextColor="#888888"
+                               TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
                                Margin="0,0,0,8" />
 
                         <Grid ColumnDefinitions="*,Auto"
@@ -179,11 +179,11 @@
                             <Label Grid.Column="0"
                                    Text="Clear Cache"
                                    FontSize="14"
-                                   TextColor="#333333" />
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="→"
                                    FontSize="14"
-                                   TextColor="#D32F2F" />
+                                   TextColor="{StaticResource ErrorRed}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>

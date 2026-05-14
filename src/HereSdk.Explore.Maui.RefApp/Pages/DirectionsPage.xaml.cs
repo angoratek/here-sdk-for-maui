@@ -2,17 +2,22 @@ using Here.Explore.Maui.RefApp.ViewModels;
 
 namespace Here.Explore.Maui.RefApp.Pages;
 
-public partial class TrafficPage : ContentPage
+public partial class DirectionsPage : ContentPage
 {
-    private readonly TrafficViewModel _viewModel;
+    private readonly DirectionsViewModel _viewModel;
 
-    public TrafficPage(TrafficViewModel viewModel)
+    public DirectionsPage(DirectionsViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = viewModel;
 
         MapView.HandlerChanged += OnMapViewHandlerChanged;
+
+        ModePicker.ModeSelected += (_, mode) =>
+        {
+            _viewModel.SelectedTransportMode = mode;
+        };
     }
 
     private void OnMapViewHandlerChanged(object? sender, EventArgs e)

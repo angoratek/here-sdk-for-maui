@@ -2,11 +2,11 @@ using Here.Explore.Maui.RefApp.ViewModels;
 
 namespace Here.Explore.Maui.RefApp.Pages;
 
-public partial class TrafficPage : ContentPage
+public partial class ToolsPage : ContentPage
 {
-    private readonly TrafficViewModel _viewModel;
+    private readonly ToolsViewModel _viewModel;
 
-    public TrafficPage(TrafficViewModel viewModel)
+    public ToolsPage(ToolsViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
@@ -22,5 +22,12 @@ public partial class TrafficPage : ContentPage
             MapView.HandlerChanged -= OnMapViewHandlerChanged;
             _viewModel.SetMapService(MapView.Map);
         }
+    }
+
+    private async void OnOpenSettingsClicked(object? sender, EventArgs e)
+    {
+        var settingsPage = Handler?.MauiContext?.Services.GetService<SettingsPage>();
+        if (settingsPage is not null)
+            await Navigation.PushModalAsync(settingsPage);
     }
 }

@@ -13,7 +13,12 @@
     <SupportedOSPlatformVersion>33.0</SupportedOSPlatformVersion>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('ios'))">
+    <UseInterpreter>true</UseInterpreter>
+    <MtouchInterpreter>all,-Microsoft.Maui.Controls.Xaml</MtouchInterpreter>
+  </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.*" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.*" />
   </ItemGroup>
   <ItemGroup>

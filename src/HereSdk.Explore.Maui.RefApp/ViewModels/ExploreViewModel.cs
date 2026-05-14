@@ -1,0 +1,377 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Here.Explore.Maui.Models;
+using Here.Explore.Maui.Models.Maps;
+using Here.Explore.Maui.Models.Search;
+using Here.Explore.Maui.Services;
+
+namespace Here.Explore.Maui.RefApp.ViewModels;
+
+public partial class ExploreViewModel : ViewModelBase
+{
+    private readonly ISearchService _searchService;
+    private readonly ILocationService _locationService;
+    private IMapService? _mapService;
+
+    [ObservableProperty] private string _searchQuery = "";
+    [ObservableProperty] private IReadOnlyList<Suggestion> _suggestions = Array.Empty<Suggestion>();
+    [ObservableProperty] private bool _hasSuggestions;
+    [ObservableProperty] private bool _isSearching;
+    [ObservableProperty] private Place? _selectedPlace;
+    [ObservableProperty] private string? _placeDistance;
+    [ObservableProperty] private bool _isPlaceCardVisible;
+    [ObservableProperty] private MapScheme _currentScheme = MapScheme.NormalDay;
+    [ObservableProperty] private double _currentZoom = 14;
+    [ObservableProperty] private bool _isLocationTracking;
+
+    private CancellationTokenSource? _debounceCts;
+    private readonly List<MapMarker> _placeMarkers = new();
+    private MapMarker? _selectedMarker;
+    private MapMarker? _longPressMarker;
+    private const int DebounceMs = 300;
+    private const int MinQueryLength = 2;
+
+    public ExploreViewModel(ISearchService searchService, ILocationService locationService)
+    {
+        _searchService = searchService;
+        _locationService = locationService;
+    }
+
+    public void SetMapService(IMapService mapService)
+    {
+        _mapService = mapService;
+
+        _mapService.MapTapped += OnMapTapped;
+        _mapService.MapLongPressed += OnMapLongPressed;
+        _mapService.CameraStateChanged += OnCameraChanged;
+    }
+
+    partial void OnSearchQueryChanged(string value)
+    {
+        if (value.Length >= MinQueryLength)
+            _ = DebouncedSuggestAsync(value);
+        else
+        {
+            Suggestions = Array.Empty<Suggestion>();
+            HasSuggestions = false;
+        }
+    }
+
+    private async Task DebouncedSuggestAsync(string query)
+    {
+        _debounceCts?.Cancel();
+        _debounceCts = new CancellationTokenSource();
+        var token = _debounceCts.Token;
+
+        try
+        {
+            await Task.Delay(DebounceMs, token);
+            if (token.IsCancellationRequested) return;
+
+            IsSearching = true;
+            var area = await GetSearchCenter();
+            var result = await _searchService.SuggestAsync(
+                new TextQuery(query, area),
+                new SearchOptions { MaxItems = 6 });
+
+            if (!token.IsCancellationRequested)
+            {
+                Suggestions = result.Suggestions ?? Array.Empty<Suggestion>();
+                HasSuggestions = Suggestions.Count > 0;
+            }
+        }
+        catch (TaskCanceledException) { }
+        finally
+        {
+            if (!token.IsCancellationRequested)
+                IsSearching = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task SelectSuggestion(Suggestion suggestion)
+    {
+        if (_mapService is null) return;
+
+        SearchQuery = suggestion.Title;
+        Suggestions = Array.Empty<Suggestion>();
+        HasSuggestions = false;
+        IsSearching = true;
+
+        try
+        {
+            var place = await _searchService.GetPlaceByIdAsync(suggestion.Id);
+            if (place is null) return;
+
+            await ShowPlaceOnMap(place);
+        }
+        finally
+        {
+            IsSearching = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task SubmitSearch()
+    {
+        if (_mapService is null || string.IsNullOrWhiteSpace(SearchQuery) || SearchQuery.Length < 2) return;
+
+        Suggestions = Array.Empty<Suggestion>();
+        HasSuggestions = false;
+        IsSearching = true;
+        ClearPlaceMarkers();
+
+        try
+        {
+            var area = await GetSearchCenter();
+            var result = await _searchService.SearchAsync(
+                new TextQuery(SearchQuery, area),
+                new SearchOptions { MaxItems = 20 });
+
+            if (result.Places is { Count: > 0 })
+            {
+                foreach (var place in result.Places)
+                {
+                    var marker = new MapMarker(place.Coordinates);
+                    _mapService.AddMapMarker(marker);
+                    _placeMarkers.Add(marker);
+                }
+            }
+        }
+        finally
+        {
+            IsSearching = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task SearchCategory(string categoryId)
+    {
+        if (_mapService is null) return;
+
+        IsSearching = true;
+        ClearPlaceMarkers();
+
+        try
+        {
+            var area = await GetSearchCenter();
+            var result = await _searchService.SearchAsync(
+                new CategoryQuery(categoryId, area),
+                new SearchOptions { MaxItems = 20 });
+
+            if (result.Places is { Count: > 0 })
+            {
+                foreach (var place in result.Places)
+                {
+                    var marker = new MapMarker(place.Coordinates);
+                    _mapService.AddMapMarker(marker);
+                    _placeMarkers.Add(marker);
+                }
+
+                if (_placeMarkers.Count > 0)
+                {
+                    var coords = _placeMarkers.Select(m => m.Coordinates).ToList();
+                    await FitCameraToCoordinates(coords);
+                }
+            }
+        }
+        finally
+        {
+            IsSearching = false;
+        }
+    }
+
+    private async Task ShowPlaceOnMap(Place place)
+    {
+        if (_mapService is null) return;
+
+        if (_selectedMarker is not null)
+            _mapService.RemoveMapMarker(_selectedMarker);
+
+        ClearPlaceMarkers();
+
+        _selectedMarker = new MapMarker(place.Coordinates);
+        _mapService.AddMapMarker(_selectedMarker);
+
+        SelectedPlace = place;
+
+        // Calculate distance from map center
+        try
+        {
+            var center = await _mapService.GetCameraTargetAsync();
+            var distKm = ComputeDistanceKm(center, place.Coordinates);
+            PlaceDistance = distKm < 1 ? $"{distKm * 1000:F0}m away" : $"{distKm:F1}km away";
+        }
+        catch { PlaceDistance = null; }
+
+        IsPlaceCardVisible = true;
+        await _mapService.SetCameraTargetAsync(place.Coordinates, 15);
+    }
+
+    [RelayCommand]
+    private async Task ZoomIn()
+    {
+        if (_mapService is null) return;
+        var target = await _mapService.GetCameraTargetAsync();
+        await _mapService.AnimateCameraAsync(new CameraAnimation(target, ZoomLevel: CurrentZoom + 1, DurationInSeconds: 0.3));
+    }
+
+    [RelayCommand]
+    private async Task ZoomOut()
+    {
+        if (_mapService is null) return;
+        var target = await _mapService.GetCameraTargetAsync();
+        await _mapService.AnimateCameraAsync(new CameraAnimation(target, ZoomLevel: CurrentZoom - 1, DurationInSeconds: 0.3));
+    }
+
+    [RelayCommand]
+    private async Task CenterOnLocation()
+    {
+        if (_mapService is null) return;
+        IsLocationTracking = true;
+
+        try
+        {
+            var loc = await _locationService.GetCurrentLocationAsync();
+            if (loc is not null)
+            {
+                await _mapService.SetCameraTargetAsync(loc.Coordinates, 16);
+                _mapService.AddLocationIndicator(new LocationIndicator(loc.Coordinates, Bearing: loc.BearingInDegrees ?? 0));
+            }
+        }
+        catch { IsLocationTracking = false; }
+    }
+
+    [RelayCommand]
+    private async Task ChangeScheme(string schemeName)
+    {
+        if (_mapService is null) return;
+        var scheme = schemeName switch
+        {
+            "HybridDay" => MapScheme.HybridDay,
+            "SatelliteDay" => MapScheme.SatelliteDay,
+            "NormalNight" => MapScheme.NormalNight,
+            "TerrainDay" => MapScheme.TerrainDay,
+            _ => MapScheme.NormalDay
+        };
+        CurrentScheme = scheme;
+        await _mapService.LoadSceneAsync(scheme);
+    }
+
+    [RelayCommand]
+    private void ClearSearch()
+    {
+        SearchQuery = "";
+        Suggestions = Array.Empty<Suggestion>();
+        HasSuggestions = false;
+        SelectedPlace = null;
+        IsPlaceCardVisible = false;
+        ClearPlaceMarkers();
+        if (_selectedMarker is not null && _mapService is not null)
+        {
+            _mapService.RemoveMapMarker(_selectedMarker);
+            _selectedMarker = null;
+        }
+    }
+
+    [RelayCommand]
+    private void NavigateToDirections()
+    {
+        if (SelectedPlace is not null)
+            Shell.Current.GoToAsync(
+                $"//directions?placeId={SelectedPlace.Id}&placeName={Uri.EscapeDataString(SelectedPlace.Title)}&lat={SelectedPlace.Coordinates.Latitude}&lng={SelectedPlace.Coordinates.Longitude}");
+    }
+
+    private void OnMapTapped(object? sender, MapTappedEventArgs e)
+    {
+        // Tap on empty map while place card is not showing: clear
+        if (!IsPlaceCardVisible)
+            ClearSearchCommand.Execute(null);
+    }
+
+    private async void OnMapLongPressed(object? sender, MapLongPressedEventArgs e)
+    {
+        if (_mapService is null) return;
+
+        if (_longPressMarker is not null)
+            _mapService.RemoveMapMarker(_longPressMarker);
+
+        _longPressMarker = new MapMarker(e.Coordinates);
+        _mapService.AddMapMarker(_longPressMarker);
+
+        // Try to find nearby places
+        try
+        {
+            var result = await _searchService.SearchAsync(
+                new TextQuery("", e.Coordinates),
+                new SearchOptions { MaxItems = 1 });
+
+            if (result.Places is { Count: > 0 })
+                await ShowPlaceOnMap(result.Places[0]);
+        }
+        catch { /* ignore */ }
+    }
+
+    private void OnCameraChanged(object? sender, CameraStateChangedEventArgs e)
+    {
+        CurrentZoom = e.ZoomLevel;
+    }
+
+    private async Task<GeoCoordinates> GetSearchCenter()
+    {
+        if (_mapService is not null)
+            return await _mapService.GetCameraTargetAsync();
+        return new GeoCoordinates(37.7749, -122.4194);
+    }
+
+    private void ClearPlaceMarkers()
+    {
+        if (_mapService is null) return;
+        foreach (var m in _placeMarkers)
+            _mapService.RemoveMapMarker(m);
+        _placeMarkers.Clear();
+    }
+
+    private async Task FitCameraToCoordinates(List<GeoCoordinates> coordinates)
+    {
+        if (_mapService is null || coordinates.Count == 0) return;
+
+        var minLat = coordinates.Min(c => c.Latitude);
+        var maxLat = coordinates.Max(c => c.Latitude);
+        var minLng = coordinates.Min(c => c.Longitude);
+        var maxLng = coordinates.Max(c => c.Longitude);
+        var center = new GeoCoordinates((minLat + maxLat) / 2, (minLng + maxLng) / 2);
+
+        var latDiff = maxLat - minLat;
+        var lngDiff = maxLng - minLng;
+        var maxDiff = Math.Max(latDiff, lngDiff);
+        var zoom = maxDiff switch
+        {
+            > 1.0 => 10,
+            > 0.5 => 11,
+            > 0.1 => 12,
+            > 0.05 => 13,
+            > 0.01 => 14,
+            _ => 15
+        };
+
+        await _mapService.SetCameraTargetAsync(center, zoom);
+    }
+
+    private static double ComputeDistanceKm(GeoCoordinates a, GeoCoordinates b)
+    {
+        const double r = 6371.0;
+        var dLat = ToRad(b.Latitude - a.Latitude);
+        var dLon = ToRad(b.Longitude - a.Longitude);
+        var lat1 = ToRad(a.Latitude);
+        var lat2 = ToRad(b.Latitude);
+
+        var aa = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+               Math.Cos(lat1) * Math.Cos(lat2) *
+               Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+        var c = 2 * Math.Atan2(Math.Sqrt(aa), Math.Sqrt(1 - aa));
+        return r * c;
+    }
+
+    private static double ToRad(double deg) => deg * Math.PI / 180.0;
+}

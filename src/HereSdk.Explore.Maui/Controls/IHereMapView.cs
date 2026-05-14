@@ -18,5 +18,6 @@ public interface IHereMapView : IView
     MapScheme MapScheme { get; set; }
 
     /// <summary>Gets the map service for camera control, markers, scene management, and events.</summary>
-    IMapService Map { get; }
+    /// <remarks>Returns <c>null</c> until the view has been added to the visual tree and the handler is created.</remarks>
+    IMapService? Map { get; }
 }

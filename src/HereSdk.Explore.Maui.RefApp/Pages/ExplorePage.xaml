@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+             xmlns:models="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
+             xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
+             xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
+             xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
+             x:Class="Here.Explore.Maui.RefApp.Pages.ExplorePage"
+             x:DataType="viewmodels:ExploreViewModel"
+             Shell.TabBarIsVisible="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBool" />
+            <converters:BoolToOpenColorConverter x:Key="BoolToOpenColor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:Name="RootGrid" RowDefinitions="*">
+        <!-- Full-screen map -->
+        <controls:HereMapView x:Name="MapView" Grid.Row="0"
+                               AutomationId="ExploreMapView"
+                               SemanticProperties.Description="Interactive map for exploring places" />
+
+        <!-- Top search area -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
+                             VerticalOptions="Start">
+
+            <!-- Search bar -->
+            <Border Style="{StaticResource CardBorder}" Padding="4">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                    <Label Grid.Column="0" Text="🔍" FontSize="16"
+                           VerticalOptions="Center" Margin="8,0,0,0" />
+                    <Entry Grid.Column="1"
+                           x:Name="SearchEntry"
+                           AutomationId="ExploreSearchEntry"
+                           SemanticProperties.Hint="Enter a place name or address to search"
+                           Text="{Binding SearchQuery, Mode=TwoWay}"
+                           Placeholder="Search places, addresses..."
+                           FontSize="15"
+                           VerticalOptions="Center"
+                           BackgroundColor="Transparent"
+                           ReturnType="Search"
+                           ReturnCommand="{Binding SubmitSearchCommand}"
+                           ClearButtonVisibility="Never" />
+                    <Button Grid.Column="2"
+                            Text="✕" FontSize="14"
+                            Style="{StaticResource MapFloatingButton}"
+                            WidthRequest="32" HeightRequest="32" CornerRadius="16"
+                            IsVisible="{Binding SearchQuery.Length, Converter={StaticResource InverseBool}}"
+                            Command="{Binding ClearSearchCommand}"
+                            VerticalOptions="Center" Margin="0,0,4,0" />
+                </Grid>
+            </Border>
+
+            <!-- Suggestions dropdown -->
+            <Border Style="{StaticResource CardBorder}" Padding="0"
+                    IsVisible="{Binding HasSuggestions}">
+                <CollectionView ItemsSource="{Binding Suggestions}"
+                                SelectionMode="Single"
+                                HeightRequest="240">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Suggestion">
+                            <Grid Padding="14,10" ColumnDefinitions="Auto,*">
+                                <Label Grid.Column="0" Text="📍" FontSize="14"
+                                       VerticalOptions="Center" Margin="0,0,10,0" />
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                    <Label Text="{Binding Id}" FontSize="12"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
+                                           LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExploreViewModel}}, Path=SelectSuggestionCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+            <!-- Category chips (shown when not searching) -->
+            <local:CategoryChipBar x:Name="CategoryChips"
+                                   IsVisible="{Binding HasSuggestions, Converter={StaticResource InverseBool}}" />
+        </VerticalStackLayout>
+
+        <!-- Floating map buttons (right side) -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8"
+                             VerticalOptions="Center" HorizontalOptions="End"
+                             Margin="0,0,12,0">
+            <Button Text="＋" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding ZoomInCommand}" />
+            <Button Text="−" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding ZoomOutCommand}" />
+            <Button Text="🧭" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding CenterOnLocationCommand}" />
+            <Button Text="⊕" Style="{StaticResource MapFloatingButton}"
+                    Command="{Binding CenterOnLocationCommand}" />
+        </VerticalStackLayout>
+
+        <!-- Map style picker (bottom-right) -->
+        <local:MapStylePicker x:Name="StylePicker" Grid.Row="0"
+                              VerticalOptions="End" HorizontalOptions="End"
+                              Margin="0,0,12,12" />
+
+        <!-- Bottom sheet for place details -->
+        <local:BottomSheet x:Name="PlaceSheet"
+                           Grid.Row="0"
+                           CollapsedHeight="0"
+                           HalfExpandedHeight="320"
+                           CurrentState="Collapsed"
+                           IsVisible="{Binding IsPlaceCardVisible}">
+            <local:BottomSheet.SheetContent>
+                <ScrollView>
+                    <local:PlaceCard x:Name="PlaceCardView" />
+                </ScrollView>
+            </local:BottomSheet.SheetContent>
+        </local:BottomSheet>
+
+        <!-- Loading overlay -->
+        <Grid Grid.Row="0" BackgroundColor="#80000000"
+              IsVisible="{Binding IsSearching}">
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
+                <ActivityIndicator IsRunning="True" Color="White" />
+                <Label Text="Searching..." FontSize="16" TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

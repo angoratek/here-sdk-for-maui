@@ -3,6 +3,7 @@ using Here.Explore.Maui.Controls;
 using Here.Explore.Maui.Handlers;
 using Here.Explore.Maui.RefApp.Converters;
 using Here.Explore.Maui.RefApp.Pages;
+using Here.Explore.Maui.RefApp.Services;
 using Here.Explore.Maui.RefApp.ViewModels;
 using Here.Explore.Maui.Services;
 using Microsoft.Extensions.Configuration;
@@ -28,8 +29,6 @@ public static class MauiProgram
         InitError = null;
         try
         {
-            System.Diagnostics.Debug.WriteLine("DEBUG: CreateMauiApp starting");
-
             using var configStream = OpenAppSettingsStream();
             var config = new ConfigurationBuilder()
                 .AddJsonStream(configStream)
@@ -38,22 +37,17 @@ public static class MauiProgram
             var keyId = config["HereSdk:AccessKeyId"];
             var keySecret = config["HereSdk:AccessKeySecret"];
 
-            System.Diagnostics.Debug.WriteLine($"Credentials loaded: keyId={(string.IsNullOrEmpty(keyId) ? "MISSING" : "PRESENT")}, secret={(string.IsNullOrEmpty(keySecret) ? "MISSING" : "PRESENT")}");
-
             if (string.IsNullOrWhiteSpace(keyId) || string.IsNullOrWhiteSpace(keySecret))
             {
                 InitError = "Credentials missing in appsettings.json";
-                System.Diagnostics.Debug.WriteLine($"INIT ERROR: {InitError}");
                 throw new InvalidOperationException(InitError);
             }
 
-            System.Diagnostics.Debug.WriteLine("Initializing HERE SDK...");
             HereSdk.Initialize(new HereSdkOptions
             {
                 AccessKeyId = keyId,
                 AccessKeySecret = keySecret
             });
-            System.Diagnostics.Debug.WriteLine("HERE SDK initialized successfully");
 
             builder.Services.AddSingleton<IRoutingService, RoutingService>();
             builder.Services.AddSingleton<ISearchService, SearchService>();
@@ -63,34 +57,36 @@ public static class MauiProgram
         catch (Exception ex)
         {
             InitError ??= $"{ex.GetType().Name}: {ex.Message}";
-            System.Diagnostics.Debug.WriteLine($"Init error: {InitError}");
-            System.Diagnostics.Debug.WriteLine($"INIT ERROR: {InitError}");
         }
 
-        // Register ViewModels
-        builder.Services.AddTransient<MapViewModel>();
-        builder.Services.AddTransient<SearchViewModel>();
-        builder.Services.AddTransient<RoutingViewModel>();
+        // Theme service
+        builder.Services.AddSingleton<IThemeService, ThemeService>();
+
+        // ViewModels
+        builder.Services.AddTransient<ExploreViewModel>();
+        builder.Services.AddTransient<DirectionsViewModel>();
         builder.Services.AddTransient<TrafficViewModel>();
-        builder.Services.AddTransient<MapItemsViewModel>();
-        builder.Services.AddTransient<ModernMainViewModel>();
+        builder.Services.AddTransient<ToolsViewModel>();
         builder.Services.AddTransient<SettingsViewModel>();
 
-        // Register pages
-        builder.Services.AddTransient<ModernMainPage>();
+        // Pages
+        builder.Services.AddTransient<ExplorePage>();
+        builder.Services.AddTransient<DirectionsPage>();
+        builder.Services.AddTransient<TrafficPage>();
+        builder.Services.AddTransient<ToolsPage>();
         builder.Services.AddTransient<SettingsPage>();
 
-        // Register converters
-        builder.Services.AddTransient<NullToBoolConverter>();
-        builder.Services.AddTransient<BoolToColorConverter>();
+        // Converters
+        builder.Services.AddTransient<InverseBoolConverter>();
+        builder.Services.AddTransient<BoolToOpenColorConverter>();
+        builder.Services.AddTransient<JamFactorToColorConverter>();
+        builder.Services.AddTransient<ManeuverActionToIconConverter>();
 
-        System.Diagnostics.Debug.WriteLine("CreateMauiApp completed");
         return builder.Build();
     }
 
     private static Stream OpenAppSettingsStream()
     {
-        // Read from embedded resource — works without any Android/iOS context
         var assembly = typeof(MauiProgram).Assembly;
         var resourceNames = assembly.GetManifestResourceNames();
         var resourceName = resourceNames

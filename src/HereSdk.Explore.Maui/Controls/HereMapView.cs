@@ -34,20 +34,20 @@ public class HereMapView : View, IHereMapView
     }
 
     /// <summary>Gets the map service for camera control, markers, scene management, and events.</summary>
-    public IMapService Map => _mapService.Value;
+    /// <remarks>Returns <c>null</c> until the view has been added to the visual tree and the handler is created.</remarks>
+    public IMapService? Map => _mapService.Value;
 
-    private Lazy<IMapService> _mapService;
+    private readonly Lazy<IMapService?> _mapService;
 
     /// <summary>Initializes a new instance of the <see cref="HereMapView"/> class.</summary>
     public HereMapView()
     {
-        _mapService = new Lazy<IMapService>(() =>
+        _mapService = new Lazy<IMapService?>(() =>
         {
             if (Handler is Handlers.HereMapViewHandler h && h.MapService is not null)
                 return h.MapService;
 
-            throw new InvalidOperationException(
-                "MapService not available. Ensure the HereMapView has been added to the visual tree and HERE SDK is initialized.");
+            return null;
         });
     }
 }
