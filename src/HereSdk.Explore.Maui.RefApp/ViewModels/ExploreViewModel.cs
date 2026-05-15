@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Models.Search;
+using Here.Explore.Maui.RefApp.Services;
 using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
@@ -11,6 +12,8 @@ public partial class ExploreViewModel : ViewModelBase
 {
     private readonly ISearchService _searchService;
     private readonly ILocationService _locationService;
+    private readonly IConnectivityService _connectivityService;
+    private readonly IPermissionsService _permissionsService;
     private IMapService? _mapService;
 
     [ObservableProperty] private string _searchQuery = "";
@@ -23,6 +26,10 @@ public partial class ExploreViewModel : ViewModelBase
     [ObservableProperty] private MapScheme _currentScheme = MapScheme.NormalDay;
     [ObservableProperty] private double _currentZoom = 14;
     [ObservableProperty] private bool _isLocationTracking;
+    [ObservableProperty] private string? _searchErrorMessage;
+    [ObservableProperty] private string? _emptyStateTitle;
+    [ObservableProperty] private string? _emptyStateSubtitle;
+    [ObservableProperty] private bool _isOffline;
 
     private CancellationTokenSource? _debounceCts;
     private readonly List<MapMarker> _placeMarkers = new();
@@ -31,10 +38,24 @@ public partial class ExploreViewModel : ViewModelBase
     private const int DebounceMs = 300;
     private const int MinQueryLength = 2;
 
-    public ExploreViewModel(ISearchService searchService, ILocationService locationService)
+    public ExploreViewModel(ISearchService searchService, ILocationService locationService, IConnectivityService connectivityService, IPermissionsService permissionsService)
     {
         _searchService = searchService;
         _locationService = locationService;
+        _connectivityService = connectivityService;
+        _permissionsService = permissionsService;
+
+        _connectivityService.ConnectivityChanged += OnConnectivityChanged;
+        IsOffline = !_connectivityService.IsConnected;
+    }
+
+    private void OnConnectivityChanged(object? sender, bool connected)
+    {
+        IsOffline = !connected;
+        if (!connected)
+            SearchErrorMessage = "You are offline. Search results may be unavailable.";
+        else if (SearchErrorMessage is string msg && msg.StartsWith("You are offline"))
+            SearchErrorMessage = null;
     }
 
     public void SetMapService(IMapService mapService)
@@ -120,6 +141,8 @@ public partial class ExploreViewModel : ViewModelBase
         HasSuggestions = false;
         IsSearching = true;
         ClearPlaceMarkers();
+        SearchErrorMessage = null;
+        EmptyStateTitle = null;
 
         try
         {
@@ -127,6 +150,12 @@ public partial class ExploreViewModel : ViewModelBase
             var result = await _searchService.SearchAsync(
                 new TextQuery(SearchQuery, area),
                 new SearchOptions { MaxItems = 20 });
+
+            if (result.Error != SearchError.None)
+            {
+                SearchErrorMessage = $"Search failed: {result.Error}";
+                return;
+            }
 
             if (result.Places is { Count: > 0 })
             {
@@ -137,6 +166,15 @@ public partial class ExploreViewModel : ViewModelBase
                     _placeMarkers.Add(marker);
                 }
             }
+            else
+            {
+                EmptyStateTitle = "No places found";
+                EmptyStateSubtitle = "Try a different search term or area";
+            }
+        }
+        catch (Exception ex)
+        {
+            SearchErrorMessage = $"Search error: {ex.Message}";
         }
         finally
         {
@@ -151,6 +189,8 @@ public partial class ExploreViewModel : ViewModelBase
 
         IsSearching = true;
         ClearPlaceMarkers();
+        SearchErrorMessage = null;
+        EmptyStateTitle = null;
 
         try
         {
@@ -158,6 +198,12 @@ public partial class ExploreViewModel : ViewModelBase
             var result = await _searchService.SearchAsync(
                 new CategoryQuery(categoryId, area),
                 new SearchOptions { MaxItems = 20 });
+
+            if (result.Error != SearchError.None)
+            {
+                SearchErrorMessage = $"Category search failed: {result.Error}";
+                return;
+            }
 
             if (result.Places is { Count: > 0 })
             {
@@ -173,7 +219,17 @@ public partial class ExploreViewModel : ViewModelBase
                     var coords = _placeMarkers.Select(m => m.Coordinates).ToList();
                     await FitCameraToCoordinates(coords);
                 }
+                EmptyStateTitle = null;
             }
+            else
+            {
+                EmptyStateTitle = "No places found";
+                EmptyStateSubtitle = $"No results for category \"{categoryId}\" in this area";
+            }
+        }
+        catch (Exception ex)
+        {
+            SearchErrorMessage = $"Search error: {ex.Message}";
         }
         finally
         {
@@ -232,14 +288,30 @@ public partial class ExploreViewModel : ViewModelBase
 
         try
         {
+            var allowed = await _permissionsService.RequestLocationPermissionAsync();
+            if (!allowed)
+            {
+                SearchErrorMessage = "Location permission denied. Enable in Settings to use this feature.";
+                IsLocationTracking = false;
+                return;
+            }
+
             var loc = await _locationService.GetCurrentLocationAsync();
             if (loc is not null)
             {
                 await _mapService.SetCameraTargetAsync(loc.Coordinates, 16);
                 _mapService.AddLocationIndicator(new LocationIndicator(loc.Coordinates, Bearing: loc.BearingInDegrees ?? 0));
             }
+            else
+            {
+                SearchErrorMessage = "Could not determine your location. Check GPS signal.";
+            }
         }
-        catch { IsLocationTracking = false; }
+        catch (Exception ex)
+        {
+            SearchErrorMessage = $"Location error: {ex.Message}";
+            IsLocationTracking = false;
+        }
     }
 
     [RelayCommand]
@@ -266,6 +338,8 @@ public partial class ExploreViewModel : ViewModelBase
         HasSuggestions = false;
         SelectedPlace = null;
         IsPlaceCardVisible = false;
+        SearchErrorMessage = null;
+        EmptyStateTitle = null;
         ClearPlaceMarkers();
         if (_selectedMarker is not null && _mapService is not null)
         {

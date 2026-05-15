@@ -25,15 +25,17 @@ public static class MauiProgram
             handlers.AddHandler<IHereMapView, HereMapViewHandler>();
         });
 
+        // Load configuration
+        using var configStream = OpenAppSettingsStream();
+        var config = new ConfigurationBuilder()
+            .AddJsonStream(configStream)
+            .Build();
+        builder.Configuration.AddConfiguration(config);
+
         // Initialize HERE SDK — errors are captured in InitError for UI display
         InitError = null;
         try
         {
-            using var configStream = OpenAppSettingsStream();
-            var config = new ConfigurationBuilder()
-                .AddJsonStream(configStream)
-                .Build();
-
             var keyId = config["HereSdk:AccessKeyId"];
             var keySecret = config["HereSdk:AccessKeySecret"];
 
@@ -59,8 +61,17 @@ public static class MauiProgram
             InitError ??= $"{ex.GetType().Name}: {ex.Message}";
         }
 
+        // App config
+        builder.Services.AddSingleton<IMapDefaultsService, MapDefaultsService>();
+
         // Theme service
         builder.Services.AddSingleton<IThemeService, ThemeService>();
+
+        // Permissions
+        builder.Services.AddSingleton<IPermissionsService, PermissionsService>();
+
+        // Connectivity
+        builder.Services.AddSingleton<IConnectivityService, ConnectivityService>();
 
         // ViewModels
         builder.Services.AddTransient<ExploreViewModel>();

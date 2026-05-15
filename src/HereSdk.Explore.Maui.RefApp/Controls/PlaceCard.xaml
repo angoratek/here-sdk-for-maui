@@ -7,42 +7,42 @@
         <VerticalStackLayout Spacing="14">
             <!-- Title row -->
             <Grid ColumnDefinitions="*,Auto">
-                <Label x:Name="TitleLabel"
+                <Label x:Name="TitleLabel" x:FieldModifier="public"
                        FontSize="22" FontAttributes="Bold"
                        TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}"
                        LineBreakMode="TailTruncation" MaxLines="2" />
                 <!-- Open/closed indicator -->
                 <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center"
-                                       IsVisible="False" x:Name="OpenStatusRow">
-                    <BoxView x:Name="OpenDot" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
-                    <Label x:Name="OpenLabel" FontSize="13"
+                                       IsVisible="False" x:Name="OpenStatusRow" x:FieldModifier="public">
+                    <BoxView x:Name="OpenDot" x:FieldModifier="public" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
+                    <Label x:Name="OpenLabel" x:FieldModifier="public" FontSize="13"
                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                 </HorizontalStackLayout>
             </Grid>
 
             <!-- Category chip -->
-            <Border x:Name="CategoryChip" StrokeShape="RoundRectangle 8" Padding="8,4"
+            <Border x:Name="CategoryChip" x:FieldModifier="public" StrokeShape="RoundRectangle 8" Padding="8,4"
                     StrokeThickness="0" IsVisible="False"
                     HorizontalOptions="Start">
-                <Label x:Name="CategoryLabel" FontSize="12" TextColor="White" />
+                <Label x:Name="CategoryLabel" x:FieldModifier="public" FontSize="12" TextColor="White" />
             </Border>
 
             <!-- Address -->
-            <Label x:Name="AddressLabel" FontSize="14" MaxLines="3"
+            <Label x:Name="AddressLabel" x:FieldModifier="public" FontSize="14" MaxLines="3"
                    TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
             <!-- Distance -->
-            <Label x:Name="DistanceLabel" FontSize="13" IsVisible="False"
+            <Label x:Name="DistanceLabel" x:FieldModifier="public" FontSize="13" IsVisible="False"
                    TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource TextTertiaryDark}}" />
 
             <!-- Contact buttons -->
-            <HorizontalStackLayout x:Name="ContactRow" Spacing="12" IsVisible="False">
-                <Button x:Name="PhoneButton" Text="Call"
+            <HorizontalStackLayout x:Name="ContactRow" x:FieldModifier="public" Spacing="12" IsVisible="False">
+                <Button x:Name="PhoneButton" x:FieldModifier="public" Text="Call"
                         BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource SurfaceTertiaryDark}}"
                         TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
                         CornerRadius="10" HeightRequest="40" FontSize="13"
                         Clicked="OnPhoneClicked" />
-                <Button x:Name="WebsiteButton" Text="Website"
+                <Button x:Name="WebsiteButton" x:FieldModifier="public" Text="Website"
                         BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource SurfaceTertiaryDark}}"
                         TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
                         CornerRadius="10" HeightRequest="40" FontSize="13"
@@ -50,7 +50,7 @@
             </HorizontalStackLayout>
 
             <!-- Directions CTA -->
-            <Button x:Name="DirectionsButton" Text="Get Directions"
+            <Button x:Name="DirectionsButton" x:FieldModifier="public" Text="Get Directions"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="White"
                     CornerRadius="14" HeightRequest="48" FontSize="16" FontAttributes="Bold"

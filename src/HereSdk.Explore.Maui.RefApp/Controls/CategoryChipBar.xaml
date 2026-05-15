@@ -6,7 +6,7 @@
             BackgroundColor="{AppThemeBinding Light=#F2F2F7CC, Dark=#2C2C2ECC}"
             StrokeThickness="0" Padding="8,6">
         <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-            <HorizontalStackLayout x:Name="ChipsContainer" Spacing="8" />
+            <HorizontalStackLayout x:Name="ChipsContainer" x:FieldModifier="public" Spacing="8" />
         </ScrollView>
     </Border>
 </ContentView>

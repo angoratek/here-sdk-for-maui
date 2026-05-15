@@ -25,5 +25,9 @@
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>HERE SDK Explore Demo needs your location to show you on the map and search for nearby places.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>HERE SDK Explore Demo uses your location for navigation and route tracking.</string>
 </dict>
 </plist>

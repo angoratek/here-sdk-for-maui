@@ -71,7 +71,7 @@ public partial class ToolsViewModel : ViewModelBase
         _mapService.MapTapped += OnMapTapped;
         _mapService.MapDoubleTapped += OnMapDoubleTapped;
 
-        SdkVersion = "4.25.5.0";
+        SdkVersion = Here.Explore.Maui.SdkInfo.Version;
     }
 
     // =========================================================================

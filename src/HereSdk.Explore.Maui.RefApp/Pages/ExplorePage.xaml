@@ -27,6 +27,11 @@
         <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
                              VerticalOptions="Start">
 
+            <!-- Search error banner (also shows offline message) -->
+            <local:ErrorBanner ErrorMessage="{Binding SearchErrorMessage}"
+                               RetryCommand="{Binding SubmitSearchCommand}"
+                               RetryText="Retry" />
+
             <!-- Search bar -->
             <Border Style="{StaticResource CardBorder}" Padding="4">
                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
@@ -88,17 +93,21 @@
                                    IsVisible="{Binding HasSuggestions, Converter={StaticResource InverseBool}}" />
         </VerticalStackLayout>
 
-        <!-- Floating map buttons (right side) -->
+        <!-- Empty state (no results) -->
+        <local:EmptyStateView Grid.Row="0"
+                               Icon="🔍"
+                               Title="{Binding EmptyStateTitle}"
+                               Subtitle="{Binding EmptyStateSubtitle}" />
+
+        <!-- Floating map buttons (right side, vertically centered) -->
         <VerticalStackLayout Grid.Row="0" Spacing="8"
-                             VerticalOptions="Center" HorizontalOptions="End"
-                             Margin="0,0,12,0">
+                             VerticalOptions="End" HorizontalOptions="End"
+                             Margin="0,0,12,100">
             <Button Text="＋" Style="{StaticResource MapFloatingButton}"
                     Command="{Binding ZoomInCommand}" />
             <Button Text="−" Style="{StaticResource MapFloatingButton}"
                     Command="{Binding ZoomOutCommand}" />
             <Button Text="🧭" Style="{StaticResource MapFloatingButton}"
-                    Command="{Binding CenterOnLocationCommand}" />
-            <Button Text="⊕" Style="{StaticResource MapFloatingButton}"
                     Command="{Binding CenterOnLocationCommand}" />
         </VerticalStackLayout>
 

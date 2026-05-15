@@ -33,6 +33,8 @@ public partial class DirectionsViewModel : ViewModelBase
     [ObservableProperty] private bool _isIsolineMode;
     [ObservableProperty] private bool _hasTrafficOnRoute;
     [ObservableProperty] private string _routeError = "";
+    [ObservableProperty] private string? _emptyStateTitle;
+    [ObservableProperty] private string? _emptyStateSubtitle;
 
     private CancellationTokenSource? _originDebounce;
     private CancellationTokenSource? _destDebounce;
@@ -153,6 +155,7 @@ public partial class DirectionsViewModel : ViewModelBase
 
         IsCalculating = true;
         RouteError = "";
+        EmptyStateTitle = null;
         ClearRoute();
 
         try
@@ -183,7 +186,8 @@ public partial class DirectionsViewModel : ViewModelBase
             CurrentRoute = result.Routes?.FirstOrDefault();
             if (CurrentRoute is null)
             {
-                RouteError = "No route found";
+                EmptyStateTitle = "No route found";
+                EmptyStateSubtitle = "Try different locations or transport mode";
                 IsCalculating = false;
                 IsRouteVisible = false;
                 return;
@@ -271,7 +275,11 @@ public partial class DirectionsViewModel : ViewModelBase
                 }
             }
         }
-        catch { IsIsolineMode = false; }
+        catch (Exception ex)
+        {
+            RouteError = $"Isoline error: {ex.Message}";
+            IsIsolineMode = false;
+        }
     }
 
     [RelayCommand]
@@ -298,6 +306,7 @@ public partial class DirectionsViewModel : ViewModelBase
         CurrentRoute = null;
         AlternativeRoutes = Array.Empty<Route>();
         RouteError = "";
+        EmptyStateTitle = null;
     }
 
     private void ClearRouteInternal()

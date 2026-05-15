@@ -21,6 +21,8 @@ public partial class TrafficViewModel : ViewModelBase
     [ObservableProperty] private string _statusMessage = "";
     [ObservableProperty] private int _incidentCount;
     [ObservableProperty] private int _flowCount;
+    [ObservableProperty] private string? _emptyStateTitle;
+    [ObservableProperty] private string? _emptyStateSubtitle;
 
     private readonly List<MapPolyline> _flowPolylines = new();
     private readonly List<MapMarker> _incidentMarkers = new();
@@ -99,6 +101,7 @@ public partial class TrafficViewModel : ViewModelBase
     {
         IsLoading = true;
         ClearFlows();
+        EmptyStateTitle = null;
         try
         {
             var result = await _trafficService.QueryFlowAsync(_lastQueryArea, new TrafficFlowQueryOptions());
@@ -106,6 +109,14 @@ public partial class TrafficViewModel : ViewModelBase
             {
                 Flows = result.Flows;
                 FlowCount = result.Flows.Count;
+
+                if (FlowCount == 0)
+                {
+                    EmptyStateTitle = "No traffic flow data";
+                    EmptyStateSubtitle = "Try moving to a busier area";
+                    StatusMessage = "";
+                    return;
+                }
 
                 // Render flow as colored polylines
                 if (_mapService is not null)
@@ -136,6 +147,8 @@ public partial class TrafficViewModel : ViewModelBase
     {
         IsLoading = true;
         ClearIncidents();
+        if (EmptyStateTitle is not null && !IsFlowVisible)
+            EmptyStateTitle = null;
         try
         {
             var result = await _trafficService.QueryIncidentsAsync(_lastQueryArea, new TrafficIncidentsQueryOptions());
@@ -143,6 +156,14 @@ public partial class TrafficViewModel : ViewModelBase
             {
                 Incidents = result.Incidents;
                 IncidentCount = result.Incidents.Count;
+
+                if (IncidentCount == 0)
+                {
+                    EmptyStateTitle = "No traffic incidents";
+                    EmptyStateSubtitle = "No incidents reported in this area";
+                    StatusMessage = "";
+                    return;
+                }
 
                 // Render incident markers
                 if (_mapService is not null)

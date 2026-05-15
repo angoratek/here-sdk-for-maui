@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#0A1628"/>
+  <g transform="translate(400,320)">
+    <!-- Map pin -->
+    <path d="M0-160C-66-160-120-106-120-40c0 75 120 200 120 200s120-125 120-200C120-106 66-160 0-160z" fill="#00B0FF"/>
+    <circle cx="0" cy="-40" r="32" fill="#fff"/>
+  </g>
+  <!-- Text -->
+  <text x="400" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="60" font-weight="bold" fill="#FFFFFF">HERE SDK</text>
+  <text x="400" y="630" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" fill="#8899AA">for .NET MAUI</text>
+</svg>

@@ -27,6 +27,11 @@
         <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
                              VerticalOptions="Start">
 
+            <!-- Error banner -->
+            <local:ErrorBanner ErrorMessage="{Binding RouteError}"
+                               RetryCommand="{Binding CalculateRouteCommand}"
+                               RetryText="Retry" />
+
             <!-- Origin / Destination inputs -->
             <Border Style="{StaticResource CardBorder}" Padding="8">
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="0">
@@ -187,6 +192,12 @@
                 </ScrollView>
             </local:BottomSheet.SheetContent>
         </local:BottomSheet>
+
+        <!-- Empty state -->
+        <local:EmptyStateView Grid.Row="0"
+                               Icon="🛣"
+                               Title="{Binding EmptyStateTitle}"
+                               Subtitle="{Binding EmptyStateSubtitle}" />
 
         <!-- Loading overlay -->
         <Grid Grid.Row="0" BackgroundColor="#80000000"

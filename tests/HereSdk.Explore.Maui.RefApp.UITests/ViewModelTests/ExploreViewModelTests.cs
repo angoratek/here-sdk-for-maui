@@ -2,6 +2,7 @@ using Xunit;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Models.Search;
+using Here.Explore.Maui.RefApp.Services;
 using Here.Explore.Maui.Services;
 using Here.Explore.Maui.RefApp.ViewModels;
 using NSubstitute;
@@ -12,13 +13,19 @@ public class ExploreViewModelTests
 {
     private readonly ISearchService _searchService;
     private readonly ILocationService _locationService;
+    private readonly IConnectivityService _connectivityService;
+    private readonly IPermissionsService _permissionsService;
     private readonly ExploreViewModel _viewModel;
 
     public ExploreViewModelTests()
     {
         _searchService = Substitute.For<ISearchService>();
         _locationService = Substitute.For<ILocationService>();
-        _viewModel = new ExploreViewModel(_searchService, _locationService);
+        _connectivityService = Substitute.For<IConnectivityService>();
+        _permissionsService = Substitute.For<IPermissionsService>();
+        _connectivityService.IsConnected.Returns(true);
+        _permissionsService.RequestLocationPermissionAsync().Returns(true);
+        _viewModel = new ExploreViewModel(_searchService, _locationService, _connectivityService, _permissionsService);
     }
 
     #region Initial State

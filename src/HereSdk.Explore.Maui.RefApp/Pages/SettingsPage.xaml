@@ -105,6 +105,36 @@
                                    FontSize="14"
                                    TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
                         </Grid>
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 HorizontalOptions="Fill" />
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              Padding="0,8">
+                            <Label Grid.Column="0"
+                                   Text="Build Configuration"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding BuildConfig}"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        </Grid>
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 HorizontalOptions="Fill" />
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              Padding="0,8">
+                            <Label Grid.Column="0"
+                                   Text="Platform"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding Platform}"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        </Grid>
                     </VerticalStackLayout>
                 </Border>
 
@@ -151,6 +181,24 @@
                                    TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
                             <Label Grid.Column="1"
                                    Text="→"
+                                   FontSize="14"
+                                   TextColor="{StaticResource Primary}" />
+                        </Grid>
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 HorizontalOptions="Fill" />
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              Padding="0,8">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SendFeedbackCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Label Grid.Column="0"
+                                   Text="Send Feedback"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
+                            <Label Grid.Column="1"
+                                   Text="✉"
                                    FontSize="14"
                                    TextColor="{StaticResource Primary}" />
                         </Grid>

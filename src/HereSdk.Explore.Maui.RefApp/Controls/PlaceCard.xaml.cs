@@ -123,10 +123,10 @@ public partial class PlaceCard : ContentView
             return Color.FromArgb("#007AFF");
         if (categoryId.Contains("hospital", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("medical", StringComparison.OrdinalIgnoreCase))
             return Color.FromArgb("#FF3B30");
-        if (categoryId.Contains("park", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("museum", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("attraction", StringComparison.OrdinalIgnoreCase))
-            return Color.FromArgb("#34C759");
         if (categoryId.Contains("parking", StringComparison.OrdinalIgnoreCase))
             return Color.FromArgb("#8E8E93");
+        if (categoryId.Contains("park", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("museum", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("attraction", StringComparison.OrdinalIgnoreCase))
+            return Color.FromArgb("#34C759");
         if (categoryId.Contains("bank", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("atm", StringComparison.OrdinalIgnoreCase))
             return Color.FromArgb("#34A853");
         return Color.FromArgb("#5AC8FA");

@@ -25,6 +25,7 @@
   <ItemGroup>
     <!-- Core -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui\HereSdk.cs" Link="Shared\HereSdk.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui\SdkInfo.cs" Link="Shared\SdkInfo.cs" />
     <!-- Models -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Models\**\*.cs" LinkBase="Shared\Models" />
     <!-- Services interfaces and stubs -->
@@ -44,7 +45,14 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui\Helpers\**\*.cs" LinkBase="Shared\Helpers" />
     <!-- RefApp Services -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\ThemeService.cs" Link="RefApp\Services\ThemeService.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\ConnectivityService.cs" Link="RefApp\Services\ConnectivityService.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\PermissionsService.cs" Link="RefApp\Services\PermissionsService.cs" />
     <!-- RefApp ViewModels -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\ViewModels\**\*.cs" LinkBase="RefApp\ViewModels" />
+    <!-- RefApp Controls -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Controls\**\*.cs" LinkBase="RefApp\Controls" />
+    <MauiXaml Include="..\..\src\HereSdk.Explore.Maui.RefApp\Controls\**\*.xaml" LinkBase="RefApp\Controls" />
+    <!-- RefApp Converters -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Converters\**\*.cs" LinkBase="RefApp\Converters" />
   </ItemGroup>
 </Project>
