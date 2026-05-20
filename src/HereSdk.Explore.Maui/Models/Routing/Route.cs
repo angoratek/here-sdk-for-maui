@@ -10,7 +10,15 @@ public record Route(
     IReadOnlyList<Section> Sections,
     double LengthInMeters,
     long DurationInSeconds
-);
+)
+{
+    public string DurationText => DurationInSeconds switch
+    {
+        >= 3600 => $"{DurationInSeconds / 3600}h {DurationInSeconds % 3600 / 60}m",
+        >= 60 => $"{DurationInSeconds / 60}m {DurationInSeconds % 60}s",
+        _ => $"{DurationInSeconds}s"
+    };
+}
 
 /// <summary>
 /// A section of a route between two waypoints.

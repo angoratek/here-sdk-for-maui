@@ -5,21 +5,21 @@
              x:Class="Here.Explore.Maui.RefApp.Pages.SettingsPage"
              x:DataType="viewmodels:SettingsViewModel"
              Title="Settings"
-             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}">
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource BackgroundDark}}">
 
     <Grid RowDefinitions="Auto,*">
         <!-- Header -->
         <Grid Grid.Row="0"
               ColumnDefinitions="Auto,*"
               Padding="16,12"
-              BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}">
+              BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}">
             <Button Grid.Column="0"
                     x:Name="BackButton"
                     Text="←"
                     WidthRequest="40"
                     HeightRequest="40"
                     BackgroundColor="Transparent"
-                    TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}"
+                    TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}"
                     FontSize="20"
                     Padding="0"
                     Clicked="OnBackClicked">
@@ -41,7 +41,7 @@
                    Text="Settings"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}"
+                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}"
                    VerticalOptions="Center"
                    HorizontalOptions="Start"
                    Margin="8,0,0,0" />
@@ -51,187 +51,108 @@
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="16" Spacing="16">
                 <!-- About Card -->
-                <Border StrokeShape="RoundRectangle 12"
-                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
-                        Padding="16">
-                    <Border.Shadow>
-                        <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
-                    </Border.Shadow>
+                <Border Style="{StaticResource CardBorder}">
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="About"
-                               FontSize="14"
-                               FontAttributes="Bold"
-                               TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
+                        <Label Text="About" FontSize="13" FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
                                Margin="0,0,0,8" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
-                            <Label Grid.Column="0"
-                                   Text="App Name"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding AppName}"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                            <Label Text="App Name" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="{Binding AppName}" Style="{StaticResource Body}"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
-                            <Label Grid.Column="0"
-                                   Text="App Version"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding AppVersion}"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                            <Label Text="App Version" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="{Binding AppVersion}" Style="{StaticResource Body}"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
-                            <Label Grid.Column="0"
-                                   Text="HERE SDK Version"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding HereSdkVersion}"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                            <Label Text="HERE SDK Version" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="{Binding HereSdkVersion}" Style="{StaticResource Body}"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
-                            <Label Grid.Column="0"
-                                   Text="Build Configuration"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding BuildConfig}"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                            <Label Text="Build Configuration" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="{Binding BuildConfig}" Style="{StaticResource Body}"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
-                            <Label Grid.Column="0"
-                                   Text="Platform"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding Platform}"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#666666, Dark=#AEAEB2}" />
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                            <Label Text="Platform" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="{Binding Platform}" Style="{StaticResource Body}"
+                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Legal Card -->
-                <Border StrokeShape="RoundRectangle 12"
-                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
-                        Padding="16">
-                    <Border.Shadow>
-                        <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
-                    </Border.Shadow>
+                <Border Style="{StaticResource CardBorder}">
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="Legal"
-                               FontSize="14"
-                               FontAttributes="Bold"
-                               TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
+                        <Label Text="Legal" FontSize="13" FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
                                Margin="0,0,0,8" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenTermsCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Grid.Column="0"
-                                   Text="Terms of Use"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="→"
-                                   FontSize="14"
-                                   TextColor="{StaticResource Primary}" />
+                            <Label Text="Terms of Use" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="→" Style="{StaticResource Body}" TextColor="{StaticResource Primary}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenPrivacyCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Grid.Column="0"
-                                   Text="Privacy Policy"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="→"
-                                   FontSize="14"
-                                   TextColor="{StaticResource Primary}" />
+                            <Label Text="Privacy Policy" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="→" Style="{StaticResource Body}" TextColor="{StaticResource Primary}" />
                         </Grid>
                         <BoxView HeightRequest="1"
-                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#3A3A3C}"
+                                 Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendFeedbackCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Grid.Column="0"
-                                   Text="Send Feedback"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="✉"
-                                   FontSize="14"
-                                   TextColor="{StaticResource Primary}" />
+                            <Label Text="Send Feedback" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="✉" Style="{StaticResource Body}" TextColor="{StaticResource Primary}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Debug Card -->
-                <Border StrokeShape="RoundRectangle 12"
-                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1C1C1E}"
-                        Padding="16">
-                    <Border.Shadow>
-                        <Shadow Brush="#20000000" Offset="0,2" Radius="8" />
-                    </Border.Shadow>
+                <Border Style="{StaticResource CardBorder}">
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="Debug"
-                               FontSize="14"
-                               FontAttributes="Bold"
-                               TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
+                        <Label Text="Debug" FontSize="13" FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
                                Margin="0,0,0,8" />
 
-                        <Grid ColumnDefinitions="*,Auto"
-                              Padding="0,8">
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ClearCacheCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Grid.Column="0"
-                                   Text="Clear Cache"
-                                   FontSize="14"
-                                   TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}" />
-                            <Label Grid.Column="1"
-                                   Text="→"
-                                   FontSize="14"
-                                   TextColor="{StaticResource ErrorRed}" />
+                            <Label Text="Clear Cache" Style="{StaticResource Body}" />
+                            <Label Grid.Column="1" Text="→" Style="{StaticResource Body}" TextColor="{StaticResource ErrorRed}" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>

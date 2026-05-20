@@ -16,24 +16,24 @@ else
 fi
 
 echo "=== Building iOS Binding ==="
-if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdk.Explore.iOS.NativeBridge.xcframework" ]; then
+if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
     dotnet build src/HereSdk.Explore.iOS.Binding -c Release
 else
     echo "Skipping iOS binding — xcframework not found. Run scripts/build-ios-native.sh first."
 fi
 
 echo "=== Building MAUI Library (Android) ==="
-dotnet build src/HereSdk.Explore.Maui -f net9.0-android -c Release
+dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
 
 echo "=== Building MAUI Library (iOS) ==="
-if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdk.Explore.iOS.NativeBridge.xcframework" ]; then
-    dotnet build src/HereSdk.Explore.Maui -f net9.0-ios -c Release
+if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
+    dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 else
     echo "Skipping iOS MAUI build — iOS binding not available."
 fi
 
 echo "=== Building Ref App (Android) ==="
-dotnet build src/HereSdk.Explore.Maui.RefApp -f net9.0-android -c Release
+dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-android -c Release
 
 echo "=== Running Unit Tests ==="
 dotnet test tests/HereSdk.Explore.Maui.Tests -c Release

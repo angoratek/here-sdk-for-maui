@@ -41,14 +41,10 @@
                            x:Name="SearchEntry"
                            AutomationId="ExploreSearchEntry"
                            SemanticProperties.Hint="Enter a place name or address to search"
+                           Style="{StaticResource SearchEntry}"
                            Text="{Binding SearchQuery, Mode=TwoWay}"
-                           Placeholder="Search places, addresses..."
-                           FontSize="15"
                            VerticalOptions="Center"
-                           BackgroundColor="Transparent"
-                           ReturnType="Search"
-                           ReturnCommand="{Binding SubmitSearchCommand}"
-                           ClearButtonVisibility="Never" />
+                           ReturnCommand="{Binding SubmitSearchCommand}" />
                     <Button Grid.Column="2"
                             Text="✕" FontSize="14"
                             Style="{StaticResource MapFloatingButton}"

@@ -14,7 +14,12 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS0108;CS0618;CS8766;CS0535;BG8A00</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/angoratek/here-sdk-for-maui/blob/main/CHANGELOG.md</PackageReleaseNotes>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidLibrary Include="Jars\heresdk-explore-android-$(HereSdkArtifactVersion).aar" />
   </ItemGroup>

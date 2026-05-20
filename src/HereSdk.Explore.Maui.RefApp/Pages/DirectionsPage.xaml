@@ -42,9 +42,9 @@
                            VerticalOptions="Center" HorizontalOptions="Center"
                            WidthRequest="32" />
                     <Entry Grid.Row="0" Grid.Column="1"
+                           Style="{StaticResource EntryField}"
                            Text="{Binding OriginQuery, Mode=TwoWay}"
-                           Placeholder="Origin"
-                           FontSize="15" BackgroundColor="Transparent" />
+                           Placeholder="Origin" />
                     <!-- Origin suggestions -->
                     <CollectionView Grid.Row="1" Grid.Column="1"
                                     ItemsSource="{Binding OriginSuggestions}"
@@ -74,9 +74,9 @@
                            VerticalOptions="Center" HorizontalOptions="Center"
                            WidthRequest="32" />
                     <Entry Grid.Row="3" Grid.Column="1"
+                           Style="{StaticResource EntryField}"
                            Text="{Binding DestinationQuery, Mode=TwoWay}"
-                           Placeholder="Destination"
-                           FontSize="15" BackgroundColor="Transparent" />
+                           Placeholder="Destination" />
                 </Grid>
             </Border>
 

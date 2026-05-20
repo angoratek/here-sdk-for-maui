@@ -31,12 +31,24 @@
         <Border Style="{StaticResource CardBorder}"
                 VerticalOptions="Start" Padding="8">
             <HorizontalStackLayout Spacing="6">
-                <Button Text="Flow" CornerRadius="16" HeightRequest="36" FontSize="13"
-                        BackgroundColor="{Binding IsFlowVisible, Converter={StaticResource InverseBool}}"
-                        Command="{Binding ToggleFlowCommand}" />
-                <Button Text="Incidents" CornerRadius="16" HeightRequest="36" FontSize="13"
-                        BackgroundColor="{Binding IsIncidentsVisible, Converter={StaticResource InverseBool}}"
-                        Command="{Binding ToggleIncidentsCommand}" />
+                <Button Text="Flow" Style="{StaticResource ChipButton}"
+                        Command="{Binding ToggleFlowCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsFlowVisible}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Incidents" Style="{StaticResource ChipButton}"
+                        Command="{Binding ToggleIncidentsCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsIncidentsVisible}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
                 <Button Text="↻" Style="{StaticResource MapFloatingButton}"
                         WidthRequest="36" HeightRequest="36" CornerRadius="18"
                         Command="{Binding RefreshTrafficCommand}" />

@@ -16,6 +16,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/angoratek/here-sdk-for-maui/blob/main/CHANGELOG.md</PackageReleaseNotes>
     <Version>$(PackageVersion)</Version>
   </PropertyGroup>
   <ItemGroup>

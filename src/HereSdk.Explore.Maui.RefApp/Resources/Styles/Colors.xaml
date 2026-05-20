@@ -9,7 +9,13 @@
     <Color x:Key="Secondary">#FF9500</Color>
     <Color x:Key="SecondaryDark">#FF9F0A</Color>
 
-    <!-- Semantic colors -->
+    <!-- Accent palette -->
+    <Color x:Key="AccentPurple">#5856D6</Color>
+    <Color x:Key="AccentPink">#FF2D55</Color>
+    <Color x:Key="AccentTeal">#5AC8FA</Color>
+    <Color x:Key="AccentGreen">#34C759</Color>
+
+    <!-- Surface hierarchy -->
     <Color x:Key="Surface">#FFFFFF</Color>
     <Color x:Key="SurfaceDark">#1C1C1E</Color>
     <Color x:Key="SurfaceSecondary">#F2F2F7</Color>
@@ -17,6 +23,11 @@
     <Color x:Key="SurfaceTertiary">#E5E5EA</Color>
     <Color x:Key="SurfaceTertiaryDark">#3A3A3C</Color>
 
+    <!-- Background -->
+    <Color x:Key="Background">#F2F2F7</Color>
+    <Color x:Key="BackgroundDark">#000000</Color>
+
+    <!-- Text hierarchy -->
     <Color x:Key="TextPrimary">#000000</Color>
     <Color x:Key="TextPrimaryDark">#FFFFFF</Color>
     <Color x:Key="TextSecondary">#6E6E73</Color>
@@ -30,19 +41,21 @@
     <Color x:Key="WarningOrange">#FF9500</Color>
     <Color x:Key="InfoBlue">#007AFF</Color>
 
+    <!-- Place category colors -->
+    <Color x:Key="CategoryRestaurant">#FF9500</Color>
+    <Color x:Key="CategoryHotel">#5856D6</Color>
+    <Color x:Key="CategoryParking">#8E8E93</Color>
+    <Color x:Key="CategoryFuel">#007AFF</Color>
+    <Color x:Key="CategoryHospital">#FF3B30</Color>
+    <Color x:Key="CategoryAttraction">#34C759</Color>
+    <Color x:Key="CategoryShopping">#FF2D55</Color>
+    <Color x:Key="CategoryBank">#34A853</Color>
+
     <!-- Traffic jam factor colors -->
     <Color x:Key="TrafficFreeFlow">#34C759</Color>
     <Color x:Key="TrafficModerate">#FFCC02</Color>
     <Color x:Key="TrafficHeavy">#FF3B30</Color>
     <Color x:Key="TrafficClosed">#1C1C1E</Color>
-
-    <!-- Shadow -->
-    <Color x:Key="ShadowColor">#40000000</Color>
-    <Color x:Key="ShadowColorDark">#80000000</Color>
-
-    <!-- Handle -->
-    <Color x:Key="HandleColor">#D1D1D6</Color>
-    <Color x:Key="HandleColorDark">#48484A</Color>
 
     <!-- Transport mode colors -->
     <Color x:Key="TransportCar">#007AFF</Color>
@@ -53,4 +66,22 @@
     <Color x:Key="TransportBus">#007AFF</Color>
     <Color x:Key="TransportTaxi">#FFCC02</Color>
     <Color x:Key="TransportTransit">#5AC8FA</Color>
+
+    <!-- Shadow token -->
+    <Color x:Key="ShadowColor">#40000000</Color>
+    <Color x:Key="ShadowColorDark">#80000000</Color>
+
+    <!-- Handle / separator -->
+    <Color x:Key="HandleColor">#D1D1D6</Color>
+    <Color x:Key="HandleColorDark">#48484A</Color>
+
+    <!-- Overlay -->
+    <Color x:Key="OverlayDark">#80000000</Color>
+    <Color x:Key="OverlayLight">#40FFFFFF</Color>
+
+    <!-- Opacity variants (for layered effects) -->
+    <Color x:Key="Primary10">#1A007AFF</Color>
+    <Color x:Key="Primary30">#4D007AFF</Color>
+    <Color x:Key="ErrorRed10">#1AFF3B30</Color>
+    <Color x:Key="SurfaceWhite50">#80FFFFFF</Color>
 </ResourceDictionary>
