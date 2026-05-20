@@ -1,3 +1,4 @@
+#pragma warning disable CS1591
 #if ANDROID
 namespace Here.Explore.Maui.PlatformConverters;
 

@@ -12,13 +12,20 @@ public partial class MapService : IMapService
 {
     private bool _disposed;
 
+    /// <summary>Raised when map camera state changes (position, zoom, tilt, bearing).</summary>
     public event EventHandler<CameraStateChangedEventArgs>? CameraStateChanged;
+    /// <summary>Raised when the map becomes idle after user interaction.</summary>
     public event EventHandler? MapIdle;
+    /// <summary>Raised when the user taps on the map.</summary>
     public event EventHandler<MapTappedEventArgs>? MapTapped;
+    /// <summary>Raised when the user long-presses on the map.</summary>
     public event EventHandler<MapLongPressedEventArgs>? MapLongPressed;
+    /// <summary>Raised when the user double-taps on the map.</summary>
     public event EventHandler<MapTappedEventArgs>? MapDoubleTapped;
+    /// <summary>Raised when the user performs a pinch gesture on the map.</summary>
     public event EventHandler<MapPinchedEventArgs>? MapPinched;
 
+    /// <summary>Gets the current map display scheme.</summary>
     public MapScheme CurrentScheme { get; protected set; } = MapScheme.NormalDay;
 
 #if !ANDROID && !IOS
@@ -59,6 +66,7 @@ public partial class MapService : IMapService
     internal void RaiseMapDoubleTapped(MapTappedEventArgs e) => MapDoubleTapped?.Invoke(this, e);
     internal void RaiseMapPinched(MapPinchedEventArgs e) => MapPinched?.Invoke(this, e);
 
+    /// <inheritdoc />
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -71,6 +79,7 @@ public partial class MapService : IMapService
         }
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(disposing: true);

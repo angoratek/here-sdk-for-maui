@@ -1,0 +1,25 @@
+- name: Getting Started
+  href: getting-started.md
+- name: Initialization
+  href: initialization.md
+- name: Architecture
+  href: architecture.md
+- name: Services
+  href: services.md
+- name: Map Objects
+  href: map-objects.md
+- name: Platform Differences
+  href: platform-differences.md
+- name: How-To Guides
+  items:
+    - name: Search
+      href: how-to-search.md
+    - name: Routing
+      href: how-to-route.md
+    - name: Traffic
+      href: how-to-traffic.md
+    - name: Drawing
+      href: how-to-draw.md
+- name: API Reference
+  href: ../artifacts/docs/api/
+  homepage: ../artifacts/docs/api/index.md

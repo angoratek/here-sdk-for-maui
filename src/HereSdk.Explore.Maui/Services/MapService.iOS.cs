@@ -1,3 +1,4 @@
+#pragma warning disable CS1591
 #if IOS
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;

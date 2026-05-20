@@ -1,3 +1,4 @@
+#pragma warning disable CS1591
 #if ANDROID
 using Here.Explore.Maui.Models;
 using HereLocation = Here.Explore.Maui.Models.Location;

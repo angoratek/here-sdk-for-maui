@@ -1,3 +1,4 @@
+#pragma warning disable CS1591
 #if ANDROID
 using Android.Runtime;
 using Here.Explore.Maui.Models;

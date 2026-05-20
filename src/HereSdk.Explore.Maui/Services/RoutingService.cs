@@ -20,6 +20,7 @@ public partial class RoutingService : IRoutingService
         throw new NotImplementedException("Platform-specific implementation required.");
 #endif
 
+    /// <inheritdoc />
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -32,6 +33,7 @@ public partial class RoutingService : IRoutingService
         }
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(disposing: true);

@@ -22,6 +22,7 @@ public partial class SearchService : ISearchService
         throw new NotImplementedException("Platform-specific implementation required.");
 #endif
 
+    /// <inheritdoc />
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -34,6 +35,7 @@ public partial class SearchService : ISearchService
         }
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(disposing: true);

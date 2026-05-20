@@ -60,10 +60,15 @@ public record ClusterStyle(
 /// </summary>
 public enum ClusterTextAnchor
 {
+    /// <summary>Center-anchored cluster text.</summary>
     Center,
+    /// <summary>Left-anchored cluster text.</summary>
     Left,
+    /// <summary>Right-anchored cluster text.</summary>
     Right,
+    /// <summary>Top-anchored cluster text.</summary>
     Top,
+    /// <summary>Bottom-anchored cluster text.</summary>
     Bottom
 }
 
@@ -82,7 +87,9 @@ public record LocationIndicator(
 /// </summary>
 public enum LocationIndicatorStyle
 {
+    /// <summary>Pedestrian location puck (dot with accuracy ring).</summary>
     Pedestrian,
+    /// <summary>Navigation location puck (arrow with heading).</summary>
     Navigation
 }
 

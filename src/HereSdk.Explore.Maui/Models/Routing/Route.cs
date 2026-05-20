@@ -12,6 +12,7 @@ public record Route(
     long DurationInSeconds
 )
 {
+    /// <summary>Human-readable route duration (e.g., "1h 2m", "45s").</summary>
     public string DurationText => DurationInSeconds switch
     {
         >= 3600 => $"{DurationInSeconds / 3600}h {DurationInSeconds % 3600 / 60}m",
@@ -49,6 +50,7 @@ public record Maneuver(
     long? DurationInSeconds = null
 )
 {
+    /// <summary>Human-readable maneuver distance (e.g., "250 m").</summary>
     public string DistanceText => LengthInMeters.HasValue ? $"{LengthInMeters.Value:F0} m" : "";
 }
 

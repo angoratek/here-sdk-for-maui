@@ -9,8 +9,10 @@ public partial class LocationService : ILocationService
 {
     private bool _disposed;
 
+    /// <summary>Whether the location service is actively listening for updates.</summary>
     public bool IsListening { get; protected set; }
 
+    /// <summary>Raised when a new device location is available.</summary>
     public event EventHandler<HereLocation>? LocationChanged;
 
 #if !ANDROID && !IOS
@@ -24,9 +26,11 @@ public partial class LocationService : ILocationService
         => throw new NotImplementedException("Platform-specific implementation required.");
 #endif
 
+    /// <summary>Raises the LocationChanged event with the provided location.</summary>
     protected internal void RaiseLocationChanged(HereLocation location)
         => LocationChanged?.Invoke(this, location);
 
+    /// <inheritdoc />
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -39,6 +43,7 @@ public partial class LocationService : ILocationService
         }
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(disposing: true);

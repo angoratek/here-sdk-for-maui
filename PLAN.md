@@ -152,26 +152,26 @@
 ## Phase 5: API Documentation Generation → rc1
 
 ### 5.1 XML Doc Audit & Fix
-- [ ] Remove `<NoWarn>CS1591</NoWarn>` from MAUI library csproj
-- [ ] Fix all missing XML doc warnings — every public type, method, property, event
-- [ ] Add `<exception>` docs to all async methods
-- [ ] Add `<remarks>` with code snippets to key service methods (`SearchAsync`, `CalculateRouteAsync`, `QueryFlowAsync`)
-- [ ] Verify XML doc file is produced in all package output directories
+- [x] Remove `<NoWarn>CS1591</NoWarn>` from MAUI library csproj
+- [x] Fix all missing XML doc warnings — every public type, method, property, event
+- [x] Add `<exception>` docs to all async methods
+- [x] Add `<remarks>` with code snippets to key service methods (`SearchAsync`, `CalculateRouteAsync`, `QueryFlowAsync`)
+- [x] Verify XML doc file is produced in all package output directories
 
 ### 5.2 DocFX Pipeline
-- [ ] Add `docfx.json` at repo root — source the 3 csproj XML doc outputs + conceptual markdown
-- [ ] Create `docs/toc.yml` — structured navigation: Getting Started → Architecture → Services → Map Objects → API Reference
-- [ ] Create conceptual docs:
+- [x] Add `docfx.json` at repo root — source the 3 csproj XML doc outputs + conceptual markdown
+- [x] Create `docs/toc.yml` — structured navigation: Getting Started → Architecture → Services → Map Objects → API Reference
+- [x] Create conceptual docs:
   - `docs/architecture.md` — handler pattern, service pattern, platform converters, memory model
   - `docs/services.md` — IMapService, IRoutingService, ISearchService, ITrafficService, ILocationService
   - `docs/map-objects.md` — markers, polylines, polygons, circles, arrows, 3D markers, clusters, location indicator
   - `docs/platform-differences.md` — Android-only vs iOS-only features, workaround guidance
   - `docs/initialization.md` — HereSdk.Initialize(), credentials, logging, options
-- [ ] Create `scripts/generate-docs.sh` — runs DocFX build, outputs to `artifacts/docs/`
+- [x] Create `scripts/generate-docs.sh` — runs DocFX build, outputs to `artifacts/docs/`
 - [ ] Add GitHub Actions step to publish docs to GitHub Pages on release
 
 ### 5.3 Living Ref App Documentation
-- [ ] Create how-to guides extracted from ref app patterns:
+- [x] Create how-to guides extracted from ref app patterns:
   - `docs/how-to-search.md` — from ExplorePage flow
   - `docs/how-to-route.md` — from DirectionsPage flow
   - `docs/how-to-traffic.md` — from TrafficPage flow
@@ -179,10 +179,10 @@
 - [ ] Add inline comments in ref app XAML highlighting key SDK integration points
 
 ### 5.4 API Reference Structure
-- [ ] Namespace index pages: `Here.Explore.Maui`, `Here.Explore.Maui.Models`, `Here.Explore.Maui.Models.Maps`, `.Routing`, `.Search`, `.Traffic`, `Here.Explore.Maui.Services`, `Here.Explore.Maui.Controls`
-- [ ] Per-type pages — inheritance, properties, methods, events, remarks
-- [ ] Platform compatibility badges: Both / Android-only / iOS-only
-- [ ] Cross-reference links between interfaces and implementations
+- [x] Namespace index pages: `Here.Explore.Maui`, `Here.Explore.Maui.Models`, `Here.Explore.Maui.Models.Maps`, `.Routing`, `.Search`, `.Traffic`, `Here.Explore.Maui.Services`, `Here.Explore.Maui.Controls`
+- [x] Per-type pages — inheritance, properties, methods, events, remarks
+- [x] Platform compatibility badges: Both / Android-only / iOS-only
+- [x] Cross-reference links between interfaces and implementations
 
 ---
 

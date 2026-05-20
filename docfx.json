@@ -1,0 +1,58 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/HereSdk.Explore.Maui/HereSdk.Explore.Maui.csproj"
+          ]
+        }
+      ],
+      "dest": "artifacts/docs/api",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/**.md"
+        ],
+        "src": "artifacts/docs"
+      },
+      {
+        "files": [
+          "docs/**/*.md",
+          "README.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "docs/images/**"
+        ]
+      }
+    ],
+    "dest": "artifacts/docs/_site",
+    "globalMetadata": {
+      "_appTitle": "HERE SDK for MAUI",
+      "_appFooter": "HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic",
+      "_enableSearch": true,
+      "_disableContribution": false,
+      "pdf": false
+    },
+    "template": [
+      "default",
+      "modern"
+    ],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}
