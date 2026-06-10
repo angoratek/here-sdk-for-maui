@@ -189,14 +189,14 @@
 ## Phase 6: Final Release → 4.25.5.0 GA
 
 ### 6.1 Pre-Release Gate
-- [ ] All tests green: 225+ unit, 80+ UI, 30+ device
-- [ ] Zero-error build on clean checkout for all platforms
+- [x] All tests green: 225+ unit, 80+ UI, 30+ device
+- [x] Zero-error build on clean checkout for all platforms
 - [ ] Smoke test ref app on Android emulator + iOS simulator — all 4 tabs functional
 - [ ] Smoke test on physical Android device + iPhone if available
 - [ ] API surface diff vs HERE SDK 4.25.5.0 official docs — no missing documented types
-- [ ] All breaking changes documented in CHANGELOG.md
-- [ ] README.md reviewed end-to-end for accuracy
-- [ ] docs/ fully built and browsable locally
+- [x] All breaking changes documented in CHANGELOG.md
+- [x] README.md reviewed end-to-end for accuracy
+- [x] docs/ fully built and browsable locally
 
 ### 6.2 Release Artifacts
 - [ ] `HereSdk.Explore.Android.Binding.4.25.5.0.nupkg`

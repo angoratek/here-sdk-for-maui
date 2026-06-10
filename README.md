@@ -77,12 +77,10 @@ var location = await locationService.GetCurrentLocationAsync();
 
 The included reference app (`HereSdk.Explore.Maui.RefApp`) demonstrates:
 
-- **Dual-input search** — Origin and destination search with autocomplete
-- **Route calculation** — Visual route display with distance/duration and maneuver list
-- **Map style picker** — Toggle between Normal Day, Night, Hybrid, Satellite, Terrain
-- **Location button** — Centers map on device location via `ILocationService`
-- **Map objects panel** — Toggle markers, circles, polylines, and polygons on the map
-- **Zoom & compass controls** — Floating map controls
+- **Explore** — Text and category search with autocomplete suggestions, place details card
+- **Directions** — Dual-input origin/destination routing with transport mode picker (car, truck, pedestrian, etc.), maneuver list, and isoline mode
+- **Traffic** — Real-time traffic flow overlay with jam-factor color legend, incident list with severity indicators
+- **Tools** — Drawing tools (Marker, Polyline, Polygon, Circle) added via tap gestures on the map, demo gallery presets, map style switching (5 schemes), dark mode toggle
 
 ## Architecture
 
@@ -222,7 +220,9 @@ here-sdk-for-maui/
 | 1 | MapView + SDK Init: map display, camera, gestures, markers | Complete |
 | 2 | Search + Routing: full search & routing on both platforms | Complete |
 | 3 | Traffic + Advanced: traffic, map items, advanced features | Complete |
-| 4 | Polish + NuGet: coverage, packaging, CI/CD, docs | In Progress |
+| 4 | Polish + NuGet: coverage, packaging, CI/CD, ref app UX | Complete |
+| 5 | Documentation: XML docs, DocFX pipeline, how-to guides | Complete |
+| 6 | Final Release: pre-release gate, artifacts, GA publish | In Progress |
 
 See [plan/06-phased-delivery.md](plan/06-phased-delivery.md) for detailed task breakdowns.
 
