@@ -19,6 +19,8 @@
     </ContentPage.Resources>
 
     <Grid x:Name="RootGrid" RowDefinitions="*">
+        <!-- HERE SDK: HereMapView renders the calculated route as a polyline + maneuver markers.
+             Access via MapView.Map to add/remove route geometry programmatically. -->
         <controls:HereMapView x:Name="MapView" Grid.Row="0"
                                AutomationId="DirectionsMapView"
                                SemanticProperties.Description="Map showing route and directions" />
@@ -32,7 +34,8 @@
                                RetryCommand="{Binding CalculateRouteCommand}"
                                RetryText="Retry" />
 
-            <!-- Origin / Destination inputs -->
+            <!-- HERE SDK: Origin/Destination entries feed IRoutingService.CalculateRouteAsync().
+                 Suggestions come from ISearchService.SuggestAsync() for each input field independently. -->
             <Border Style="{StaticResource CardBorder}" Padding="8">
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="0">
 
@@ -100,7 +103,8 @@
                 </CollectionView>
             </Border>
 
-            <!-- Transport mode picker -->
+            <!-- HERE SDK: TransportModePicker sets RoutingOptions.TransportMode (car, truck, pedestrian, etc.)
+                 before calling IRoutingService.CalculateRouteAsync(). -->
             <local:TransportModePicker x:Name="ModePicker" />
         </VerticalStackLayout>
 
@@ -136,7 +140,8 @@
                     IsVisible="{Binding IsRouteVisible}" />
         </VerticalStackLayout>
 
-        <!-- Bottom sheet with route details -->
+        <!-- HERE SDK: Route sheet displays the calculated Route with Sections and Maneuvers.
+             Each Maneuver maps to a routing instruction (turn left, continue, etc.) from IRoutingService. -->
         <local:BottomSheet x:Name="RouteSheet" Grid.Row="0"
                            CollapsedHeight="0"
                            HalfExpandedHeight="200"

@@ -72,24 +72,24 @@
 ## Phase 2: UI Test Coverage Expansion → beta1
 
 ### 2.1 Control Tests (new files)
-- [ ] `BottomSheetTests` — Collapsed→HalfExpanded→FullyExpanded transitions, snap thresholds, drag gesture
-- [ ] `CategoryChipBarTests` — chip selection fires event, scrollable layout
-- [ ] `TransportModePickerTests` — mode selection, default state, all 8 modes present
-- [ ] `PlaceCardTests` — title/address/phone/web visibility, open/closed color, distance formatting
-- [ ] `MapStylePickerTests` — scheme change fires event, dropdown open/close toggle
+- [x] `BottomSheetTests` — Collapsed→HalfExpanded→FullyExpanded transitions, snap thresholds, drag gesture
+- [x] `CategoryChipBarTests` — chip selection fires event, scrollable layout
+- [x] `TransportModePickerTests` — mode selection, default state, all 8 modes present
+- [x] `PlaceCardTests` — title/address/phone/web visibility, open/closed color, distance formatting
+- [x] `MapStylePickerTests` — scheme change fires event, dropdown open/close toggle
 
 ### 2.2 Integration Flow Tests (new files)
-- [ ] `ExploreFlowTests` — SearchQuery → suggestions populate → SelectSuggestion → PlaceCard visible → NavigateToDirections
-- [ ] `DirectionsFlowTests` — Origin/Destination set → CalculateRoute → Route sheet populated with maneuvers
-- [ ] `TrafficFlowTests` — ToggleFlow → polylines rendered → ToggleIncidents → markers placed → SelectIncident → detail shown
-- [ ] `ToolsFlowTests` — SetDrawingTool(Marker) → tap → marker placed → ClearAll → count zero
+- [x] `ExploreFlowTests` — SearchQuery → suggestions populate → SelectSuggestion → PlaceCard visible → NavigateToDirections
+- [x] `DirectionsFlowTests` — Origin/Destination set → CalculateRoute → Route sheet populated with maneuvers
+- [x] `TrafficFlowTests` — ToggleFlow → polylines rendered → ToggleIncidents → markers placed → SelectIncident → detail shown
+- [x] `ToolsFlowTests` — SetDrawingTool(Marker) → tap → marker placed → ClearAll → count zero
 
 ### 2.3 Edge Case Tests
-- [ ] Rapid search input — debounce cancellation, only last query executes
-- [ ] Route calculation with zero results — error message set, no crash
-- [ ] Traffic query with empty response — empty state visible
-- [ ] Map service null during command — command handles gracefully, no NRE
-- [ ] Concurrent SubmitSearch calls — only latest result displayed
+- [x] Rapid search input — debounce cancellation, only last query executes
+- [x] Route calculation with zero results — error message set, no crash
+- [x] Traffic query with empty response — empty state visible
+- [x] Map service null during command — command handles gracefully, no NRE
+- [x] Concurrent SubmitSearch calls — only latest result displayed
 
 ---
 
@@ -123,7 +123,7 @@
 
 ### 4.2 Package Metadata
 - [x] Add `PackageLicenseExpression` — `MIT` — to all 3 library csprojs
-- [ ] Add 128×128 `PackageIcon` PNG to each project
+- [x] Add 128×128 `PackageIcon` PNG to each project
 - [x] Add `<Description>` taglines: "HERE SDK Explore v4.25.5.0 — Android Binding / iOS Binding / Cross-Platform MAUI API"
 - [x] Add `<PackageReleaseNotes>` with link to CHANGELOG.md
 - [x] Verify `PackageReadmeFile` = `README.md` in all packages
@@ -139,7 +139,7 @@
 ### 4.4 CI/CD
 - [x] Create `.github/workflows/ci.yml` — build + test on push/PR (ubuntu + macOS runners)
 - [x] Create `.github/workflows/release.yml` — pack + publish on version tag
-- [ ] Create `NuGet.config` with source feeds
+- [x] Create `NuGet.config` with source feeds
 - [x] Add CI/CD status badges to README.md
 
 ### 4.5 CHANGELOG
@@ -168,7 +168,7 @@
   - `docs/platform-differences.md` — Android-only vs iOS-only features, workaround guidance
   - `docs/initialization.md` — HereSdk.Initialize(), credentials, logging, options
 - [x] Create `scripts/generate-docs.sh` — runs DocFX build, outputs to `artifacts/docs/`
-- [ ] Add GitHub Actions step to publish docs to GitHub Pages on release
+- [x] Add GitHub Actions step to publish docs to GitHub Pages on release
 
 ### 5.3 Living Ref App Documentation
 - [x] Create how-to guides extracted from ref app patterns:
@@ -176,7 +176,7 @@
   - `docs/how-to-route.md` — from DirectionsPage flow
   - `docs/how-to-traffic.md` — from TrafficPage flow
   - `docs/how-to-draw.md` — from ToolsPage drawing tools
-- [ ] Add inline comments in ref app XAML highlighting key SDK integration points
+- [x] Add inline comments in ref app XAML highlighting key SDK integration points
 
 ### 5.4 API Reference Structure
 - [x] Namespace index pages: `Here.Explore.Maui`, `Here.Explore.Maui.Models`, `Here.Explore.Maui.Models.Maps`, `.Routing`, `.Search`, `.Traffic`, `Here.Explore.Maui.Services`, `Here.Explore.Maui.Controls`

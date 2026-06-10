@@ -18,6 +18,8 @@
     </ContentPage.Resources>
 
     <Grid x:Name="RootGrid" RowDefinitions="*">
+        <!-- HERE SDK: HereMapView renders traffic flow polylines and incident markers.
+             Toggle flow/incidents via ITrafficService.QueryFlowAsync() and QueryIncidentsAsync(). -->
         <controls:HereMapView x:Name="MapView" Grid.Row="0"
                                AutomationId="TrafficMapView"
                                SemanticProperties.Description="Map showing traffic flow and incidents" />
@@ -56,7 +58,8 @@
         </Border>
         </VerticalStackLayout>
 
-        <!-- Traffic legend -->
+        <!-- HERE SDK: Traffic flow legend — colors map to JamFactor values returned by ITrafficService.
+             Free (green), Moderate (yellow), Heavy (red) as rendered by JamFactorToColorConverter. -->
         <Border Grid.Row="0" Style="{StaticResource CardBorder}" Padding="10"
                 VerticalOptions="End" HorizontalOptions="Start"
                 Margin="12,0,0,12"
@@ -85,7 +88,8 @@
                Margin="0,0,0,160"
                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
-        <!-- Bottom sheet with incidents -->
+        <!-- HERE SDK: Incident list populated from ITrafficService.QueryIncidentsAsync().
+             Each TrafficIncident has Type, Impact, Description — rendered as cards with tap-to-select. -->
         <local:BottomSheet x:Name="IncidentSheet" Grid.Row="0"
                            CollapsedHeight="80"
                            HalfExpandedHeight="300"

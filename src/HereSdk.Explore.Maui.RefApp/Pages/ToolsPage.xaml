@@ -34,6 +34,8 @@
     </ContentPage.Resources>
 
     <Grid x:Name="RootGrid" RowDefinitions="*">
+        <!-- HERE SDK: HereMapView is the target for drawing tools — markers, polylines, polygons, circles
+             are added via IMapService.AddMarker(), AddPolyline(), AddPolygon(), AddCircle(). -->
         <controls:HereMapView x:Name="MapView" Grid.Row="0" />
 
         <!-- Drawing mode banner -->
@@ -92,7 +94,7 @@
                     <VerticalStackLayout Spacing="8" Padding="0,0,0,20">
 
                         <!-- ================================================ -->
-                        <!-- DRAWING TOOLS                                    -->
+                        <!-- DRAWING TOOLS — IMapService.AddMarker/AddPolyline/AddPolygon/AddCircle -->
                         <!-- ================================================ -->
                         <Border Style="{StaticResource CardBorder}" Padding="14">
                             <VerticalStackLayout Spacing="10">
@@ -246,7 +248,7 @@
 
                                 <VerticalStackLayout Spacing="12" IsVisible="{Binding IsSettingsExpanded}">
 
-                                    <!-- Map scheme picker -->
+                                    <!-- HERE SDK: Map scheme picker — calls IMapService.SetScheme() to switch map style at runtime. -->
                                     <VerticalStackLayout Spacing="6">
                                         <Label Text="Map Style" FontSize="12" FontAttributes="Bold"
                                                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />

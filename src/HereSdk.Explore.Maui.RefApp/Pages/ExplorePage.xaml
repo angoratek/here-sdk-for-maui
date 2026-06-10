@@ -18,7 +18,8 @@
     </ContentPage.Resources>
 
     <Grid x:Name="RootGrid" RowDefinitions="*">
-        <!-- Full-screen map -->
+        <!-- HERE SDK: HereMapView is the core map control — renders tiles, markers, routes, and traffic.
+             The handler creates an IMapService instance accessible via MapView.Map for camera, markers, etc. -->
         <controls:HereMapView x:Name="MapView" Grid.Row="0"
                                AutomationId="ExploreMapView"
                                SemanticProperties.Description="Interactive map for exploring places" />
@@ -32,7 +33,8 @@
                                RetryCommand="{Binding SubmitSearchCommand}"
                                RetryText="Retry" />
 
-            <!-- Search bar -->
+            <!-- HERE SDK: SearchEntry binds to ExploreViewModel.SubmitSearchCommand → ISearchService.SearchAsync().
+                 Suggestions populate from SearchEngine.suggest() results bound via ExploreViewModel.Suggestions. -->
             <Border Style="{StaticResource CardBorder}" Padding="4">
                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
                     <Label Grid.Column="0" Text="🔍" FontSize="16"
@@ -112,7 +114,8 @@
                               VerticalOptions="End" HorizontalOptions="End"
                               Margin="0,0,12,12" />
 
-        <!-- Bottom sheet for place details -->
+        <!-- HERE SDK: PlaceCard displays a SearchResult Place (title, address, contact, opening hours).
+             Populated after ISearchService.SearchAsync() returns and user taps a suggestion or map marker. -->
         <local:BottomSheet x:Name="PlaceSheet"
                            Grid.Row="0"
                            CollapsedHeight="0"
