@@ -138,3 +138,108 @@ This is ~10x more labor-intensive than Android (where the binding generator auto
 6. `com.here.sdk.core.utilities` — empty package on Android
 7. `MapCircles` — no native circle primitive; polygon approximation via `CircleGeometryHelper`
 8. iOS NativeBridge lacks positioning types — `ILocationService` falls back to MAUI Geolocation
+
+---
+
+## Appendix A — Per-Package Coverage Snapshot (HERE SDK 4.25.5.0)
+
+Generated 2026-06-11 from `tmp/android-inspect/api-reference/` and
+`tmp/ios-inspect/api-reference/`. Baseline: the gap-analysis above says
+~58 cross-platform types implemented at `4.25.5.0-beta1` (~16% of ~361
+documented types). This appendix does not change that baseline — it
+enumerates *where* the gap sits on each platform.
+
+### Android SDK package breakdown (584 documented types)
+
+Counted via `grep -oP 'href="\K[^"]+(?=\.html")' .../allclasses-index.html`
+grouped by `com.here.sdk.<package>`.
+
+| Top-level package | Android types | Notable sub-packages |
+|---|---|---|
+| `com.here.sdk.mapview` | 192 | `mapview.datasource` (52) |
+| `com.here.sdk.routing` | 130 | — |
+| `com.here.sdk.core` | 95 | `core.engine` (34), `core.threading` (6), `core.errors` (2) |
+| `com.here.sdk.search` | 69 | — |
+| `com.here.sdk.transport` | 36 | — |
+| `com.here.sdk.animation` | 21 | — |
+| `com.here.sdk.traffic` | 20 | — |
+| `com.here.sdk.gestures` | 13 | — |
+| `com.here.sdk.engine` | 1 | (top-level wrapper class) |
+| **Total** | **577** | (discrepancy with 584 = 7 top-level index/overview pages in `allclasses-index.html`) |
+
+### iOS SDK module breakdown (471 documented types)
+
+Counted via `ls tmp/ios-inspect/api-reference/{Classes,Enums,Protocols,Extensions,Structs}/ | wc -l`.
+The iOS api-reference is organized by type kind (Classes/Enums/Protocols/
+Extensions/Structs) rather than by sub-package; module membership is in
+the top-level index pages `Core.html`, `Maps.html`, `Routing.html`, etc.
+
+| Type kind | iOS count |
+|---|---|
+| Classes | 127 |
+| Enums | 104 |
+| Protocols | 35 |
+| Extensions | 1 |
+| Structs | 204 |
+| **Total** | **471** |
+
+### MAUI wrapper type count (104 types)
+
+Counted via `grep -hE "public (class|record|interface|enum) ..."` over
+`src/HereSdk.Explore.Maui/Models/**/*.cs` and `Services/*.cs`.
+
+| Wrapper kind | Count | Notes |
+|---|---|---|
+| Records (Models) | 72 | Geo*, Map*, Route*, Search*, Traffic*, Transport* |
+| Enums (Models) | 26 | AvoidType, ManeuverAction, MapScheme, RoutingError, SearchError, etc. |
+| Service interfaces | 6 | `IHereSdkService`, `IMapService`, `IRoutingService`, `ISearchService`, `ITrafficService`, `ILocationService` |
+| **Total** | **104** | Of which ~58 are cross-platform (i.e. exist on both Android and iOS) |
+
+### Cross-platform coverage (Android × iOS × MAUI wrapper)
+
+The "implemented" cell counts a MAUI wrapper type whose equivalent exists
+on BOTH the Android Javadoc and the iOS api-reference. Numbers below are
+floor estimates based on the gap-analysis P0/P1/P2 priorities and the
+implementation status of each service.
+
+| Capability | Android types | iOS types | MAUI wrapper types | Status |
+|---|---|---|---|---|
+| Geo primitives (GeoCoordinates, GeoBox, etc.) | ~10 | ~10 | 8 | Implemented |
+| SDK init + options | ~5 | ~3 | 2 | Implemented |
+| Map view, camera, gestures, markers, polylines, polygons, circles, location indicator | ~80 | ~60 | 18 | Implemented (with caveat: circles approximated as polygons) |
+| Search (text, category, suggest, place-by-id) | ~30 | ~20 | 4 methods + 6 models | Partial (P0/P1: no geocoding, no reverse geocoding on iOS) |
+| Routing (calculate, maneuvers, sections, route handle) | ~50 | ~30 | 6 methods + 12 models | Partial (P1: no isoline, no transit, no traffic-on-route on iOS) |
+| Traffic (flow, incidents) | ~15 | ~8 | 2 methods + 5 models | Partial (P1: no traffic-on-route) |
+| Location | ~10 | ~5 | 1 service | Implemented via MAUI `Geolocation` (iOS NativeBridge lacks positioning types) |
+| Animation (3D markers, keyframes, camera animations) | ~21 | ~10 | 0 | Not implemented (P2) |
+| Custom data sources, mesh builders, assets | ~30 | ~10 | 0 | Not implemented (P2) |
+| Address structured fields, EV/fuel, web details, search extensions | ~30+ | ~20+ | 0–3 | Mostly not implemented (P1) |
+
+### Reading this report
+
+- "Android types" = every public class/enum/interface/struct in the Javadoc
+  HTML, including nested types (`Easing.InstantiationErrorCode`,
+  `VehicleSpecification.CarBuilder`, etc.).
+- "iOS types" = every public class/enum/protocol/struct in the Swift
+  api-reference HTML; includes nested types and builders.
+- "MAUI wrapper types" = records, enums, and interfaces defined in
+  `src/HereSdk.Explore.Maui/Models/` and `Services/`. Does not include the
+  ~600 auto-generated Android binding types or ~37 auto-generated iOS
+  binding types — those are one-to-one with the platform SDK and are not
+  the limiting factor.
+- The 16% headline number is `cross-platform MAUI types / max(Android types, iOS types)`
+  ≈ 58 / max(577, 471) ≈ 10–12%. The 16% figure in the main report uses a
+  smaller denominator (~361) that counts only *non-nested, non-builder* types
+  in both APIs.
+
+### Next steps to grow coverage
+
+1. **P0 (blocking):** Add `searchByAddress` + `searchByCoordinates` to
+   iOS NativeBridge. 2 methods, ~50 lines of Swift.
+2. **P1 (high-value):** Add `searchByPickedPlace`, EV/fuel models, full
+   `Place`/`Suggestion` enrichment on iOS. ~15 types, ~500 lines Swift.
+3. **P1 (high-value):** Add `IsolineRoutingEngine` and route
+   serialization to iOS NativeBridge. ~10 types.
+4. **P2 (long tail):** Animation, custom data sources, mesh builders,
+   address structured fields, web details. ~250+ types.
+
