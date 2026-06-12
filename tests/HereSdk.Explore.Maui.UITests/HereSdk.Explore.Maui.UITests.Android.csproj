@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <RootNamespace>Here.Explore.Maui.UITests</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+    <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <ApplicationId>com.here.explore.maui.uitests</ApplicationId>
+    <ApplicationTitle>HERE SDK UI Tests</ApplicationTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Appium.WebDriver" Version="5.0.0-rc.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="NUnit" Version="4.0.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+  </ItemGroup>
+
+  <!--
+    The RefApp project is not referenced via <ProjectReference> because
+    that would re-introduce the RefApp's MauiIcon / MauiSplashScreen /
+    appsettings assets and trigger a Resizetizer duplicate-name error
+    when two MAUI projects are linked from the same source root.
+
+    The tests drive the running APK via Appium's UIAutomator2 driver, so
+    the test project does not need to compile the RefApp's source.
+  -->
+
+</Project>

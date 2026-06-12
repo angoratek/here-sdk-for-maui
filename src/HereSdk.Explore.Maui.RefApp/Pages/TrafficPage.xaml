@@ -34,6 +34,7 @@
                 VerticalOptions="Start" Padding="8">
             <HorizontalStackLayout Spacing="6">
                 <Button Text="Flow" Style="{StaticResource ChipButton}"
+                        AutomationId="TrafficFlowButton"
                         Command="{Binding ToggleFlowCommand}">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsFlowVisible}" Value="True">
@@ -43,6 +44,7 @@
                     </Button.Triggers>
                 </Button>
                 <Button Text="Incidents" Style="{StaticResource ChipButton}"
+                        AutomationId="TrafficIncidentsButton"
                         Command="{Binding ToggleIncidentsCommand}">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsIncidentsVisible}" Value="True">

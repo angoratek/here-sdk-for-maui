@@ -124,6 +124,7 @@
 
                                     <FlexLayout Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
                                         <Button Text="📍 Marker" Style="{StaticResource DrawingToolButton}"
+                                                AutomationId="ToolsMarkerButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Marker">
                                             <Button.Triggers>
                                                 <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
@@ -311,6 +312,7 @@
                                                    TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                                         </VerticalStackLayout>
                                         <Switch Grid.Column="1" IsToggled="{Binding IsDarkMode, Mode=TwoWay}"
+                                                AutomationId="ToolsDarkModeToggle"
                                                 OnColor="{StaticResource Primary}" />
                                     </Grid>
 

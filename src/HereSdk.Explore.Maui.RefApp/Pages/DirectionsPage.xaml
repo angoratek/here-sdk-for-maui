@@ -45,6 +45,8 @@
                            VerticalOptions="Center" HorizontalOptions="Center"
                            WidthRequest="32" />
                     <Entry Grid.Row="0" Grid.Column="1"
+                           x:Name="OriginEntry"
+                           AutomationId="DirectionsFromEntry"
                            Style="{StaticResource EntryField}"
                            Text="{Binding OriginQuery, Mode=TwoWay}"
                            Placeholder="Origin" />
@@ -77,6 +79,8 @@
                            VerticalOptions="Center" HorizontalOptions="Center"
                            WidthRequest="32" />
                     <Entry Grid.Row="3" Grid.Column="1"
+                           x:Name="DestinationEntry"
+                           AutomationId="DirectionsToEntry"
                            Style="{StaticResource EntryField}"
                            Text="{Binding DestinationQuery, Mode=TwoWay}"
                            Placeholder="Destination" />
@@ -116,6 +120,7 @@
                     Command="{Binding SwapLocationsCommand}"
                     IsVisible="{Binding OriginPlace, Converter={StaticResource InverseBool}}" />
             <Button Text="🚀" Style="{StaticResource MapFloatingButton}"
+                    AutomationId="DirectionsCalculateButton"
                     Command="{Binding CalculateRouteCommand}"
                     IsVisible="{Binding OriginPlace, Converter={StaticResource InverseBool}}" />
 
