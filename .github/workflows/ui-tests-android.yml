@@ -1,0 +1,134 @@
+name: UI Tests (Android Emulator)
+
+# Runs the Appium-based UI smoke tests in tests/HereSdk.Explore.Maui.UITests
+# against a headless Android emulator. Boots an AVD, builds the ref app in
+# Debug, installs the APK, starts an Appium 2.x server, and runs dotnet test.
+# Pattern adapted from dotnet/maui-samples/10.0/UITesting.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ui-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install MAUI Android workload
+        run: dotnet workload install maui-android
+
+      - name: Setup Android SDK (cached)
+        uses: android-actions/setup-android@v3
+        with:
+          # Cache is on by default; packages are restored on subsequent runs.
+          packages: |
+            cmdline-tools;latest
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            system-images;android-34;google_apis;x86_64
+
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Create AVD
+        run: |
+          echo no | avdmanager create avd \
+            -n testavd \
+            -k "system-images;android-34;google_apis;x86_64" \
+            -d pixel_5 \
+            --force
+
+      - name: Boot emulator (headless, swiftshader)
+        # `-no-snapshot` forces a clean boot from poweroff; `-gpu swiftshader_indirect`
+        # uses the CPU software renderer (no hardware GPU on CI runners).
+        run: |
+          nohup emulator -avd testavd \
+            -no-window -no-audio -no-snapshot -no-boot-anim \
+            -gpu swiftshader_indirect \
+            > "$GITHUB_WORKSPACE/emulator.log" 2>&1 &
+          # Wait for the device to finish booting.
+          adb wait-for-device
+          adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
+          echo "Emulator boot complete."
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Appium + UIAutomator2 driver
+        # Pin Appium 2.x for reproducibility.
+        run: |
+          npm i -g appium@2.5.0
+          appium driver install uiautomator2
+
+      - name: Build ref app (Debug, no signing required)
+        run: |
+          dotnet build src/HereSdk.Explore.Maui.RefApp \
+            -f net10.0-android -c Debug
+
+      - name: Install APK on emulator
+        run: |
+          # The Debug build of a MAUI Android project produces a *-Signed.apk
+          # using the auto-generated debug keystore, so no signing config
+          # is required in CI.
+          APK=$(find src/HereSdk.Explore.Maui.RefApp/bin/Debug/net10.0-android \
+            -maxdepth 1 -name "com.here.explore.maui.refapp-Signed.apk" | head -1)
+          test -n "$APK" || { echo "APK not found"; exit 1; }
+          adb install -r "$APK"
+
+      - name: Start Appium server (background)
+        run: |
+          nohup appium --port 4723 --base-path / \
+            > "$GITHUB_WORKSPACE/appium.log" 2>&1 &
+          # Give Appium a moment to bind the port.
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -s http://127.0.0.1:4723/status >/dev/null 2>&1; then
+              echo "Appium ready."
+              break
+            fi
+            sleep 2
+          done
+
+      - name: Run Appium UI tests
+        env:
+          APPIUM_HOME: ${{ runner.temp }}/.appium
+        run: |
+          dotnet test tests/HereSdk.Explore.Maui.UITests \
+            -c Release \
+            --logger "trx;LogFileName=ui-android.trx"
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-android-screenshots
+          path: |
+            tests/HereSdk.Explore.Maui.UITests/screenshots/
+            **/*.trx
+
+      - name: Upload emulator + appium logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-android-logs
+          path: |
+            emulator.log
+            appium.log
+
+      - name: Tear down emulator
+        if: always()
+        run: |
+          adb emu kill 2>/dev/null || true
