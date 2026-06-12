@@ -6,7 +6,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$ROOT_DIR"
 
 # Read version from Version.props
-VERSION=$(grep -oP '<PackageVersion>\K[^<]+' "$ROOT_DIR/Version.props")
+VERSION=$(sed -n 's/.*<PackageVersion>\([^<]*\)<\/PackageVersion>.*/\1/p' "$ROOT_DIR/Version.props")
 SUFFIX=""
 
 while [[ $# -gt 0 ]]; do

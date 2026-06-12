@@ -2,6 +2,9 @@
   <PropertyGroup>
     <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
     <OutputType>Exe</OutputType>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
@@ -10,6 +13,10 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <ApplicationId>com.here.explore.maui.devicetests</ApplicationId>
     <ApplicationTitle>HERE SDK Device Tests</ApplicationTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('android'))">
+    <!-- HERE SDK AAR requires minSdkVersion 24; default MAUI template ships 21. -->
+    <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />

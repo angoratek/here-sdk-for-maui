@@ -1,6 +1,7 @@
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Search;
 using Here.Explore.Maui.Services;
+using Contact = Here.Explore.Maui.Models.Search.Contact;
 
 namespace Here.Explore.Maui.DeviceTests.Android;
 
