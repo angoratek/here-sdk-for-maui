@@ -17,9 +17,6 @@
     <HereSdkArtifactVersion>$(HereSdkVersion).$(HereSdkBuildNumber)</HereSdkArtifactVersion>
 
     <!-- NuGet package version (follows SDK version with pre-release suffix) -->
-    <PackageVersion>4.25.5.0-beta1</PackageVersion>
-
-    <!-- CI-injected pre-release suffix (e.g., "beta1", "rc1", "" for GA) -->
-    <VersionSuffix Condition="'$(VersionSuffix)' == ''">beta1</VersionSuffix>
+    <PackageVersion>4.25.5.0</PackageVersion>
   </PropertyGroup>
 </Project>

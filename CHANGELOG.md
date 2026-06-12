@@ -2,6 +2,26 @@
 
 All notable changes to the HERE SDK for MAUI project.
 
+## [4.25.5.0] — 2026-06-11
+
+### Added
+- Automated Android-emulator UI tests (Appium + UIAutomator2) covering the 4
+  ref-app tabs (Explore, Directions, Traffic, Tools). Runs in CI on
+  `ubuntu-latest` with the Android SDK.
+- Per-package API coverage report (see `plan/gap-analysis.md` Appendix A).
+
+### Changed
+- Version bump to `4.25.5.0` (GA). `VersionSuffix` removed.
+
+### Fixed
+- `scripts/pack.sh`: replace non-portable `grep -oP` with portable `sed -n`
+  so the script works on macOS without GNU grep.
+- `DeviceTests` csproj: enable `<UseMaui>` / `<SingleProject>` and set
+  `SupportedOSPlatformVersion=24.0` on Android so the test project links
+  the MAUI wrapper assembly and matches the HERE SDK AAR's `minSdkVersion 24`.
+- `DeviceTests`: add type-alias `using` directives to disambiguate the
+  MAUI `Location`/`Contact` records from the generated binding types.
+
 ## [4.25.5.0-beta1] — 2026-05-20
 
 ### Added
