@@ -9,6 +9,9 @@ namespace Here.Explore.Maui.UITests.PageObjects;
 /// </summary>
 public class TrafficPageTests : BaseTest
 {
+    [SetUp]
+    public void NavigateToTraffic() => NavigateToTab("Traffic");
+
     [Test]
     public void TrafficMapView_IsPresent()
     {

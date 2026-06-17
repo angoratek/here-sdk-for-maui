@@ -12,6 +12,9 @@ namespace Here.Explore.Maui.UITests.PageObjects;
 /// </summary>
 public class ExplorePageTests : BaseTest
 {
+    [SetUp]
+    public void NavigateToExplore() => NavigateToTab("Explore");
+
     [Test]
     public void AppLaunches_ShowsExploreMapView()
     {

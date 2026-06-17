@@ -18,6 +18,9 @@ public class AppiumSetup
 {
     private static AppiumDriver? _driver;
 
+    public const string AppPackage = "com.here.explore.maui.refapp";
+    public const string AppActivity = "crc6416fb3a76ff63a6fe.MainActivity";
+
     public static AppiumDriver App =>
         _driver ?? throw new InvalidOperationException("AppiumDriver is null — was OneTimeSetUp skipped?");
 
@@ -28,10 +31,10 @@ public class AppiumSetup
         AppiumServerHelper.StartAppiumLocalServer();
 
         // The app's Android package name is set on the RefApp's csproj
-        // (ApplicationId = com.here.explore.maui.refapp). Adjust here if you
-        // rename the package.
-        const string AppPackage = "com.here.explore.maui.refapp";
-        const string AppActivity = "com.here.explore.maui.refapp.MainActivity";
+        // (ApplicationId = com.here.explore.maui.refapp). MAUI's Android
+        // templates emit an AOT'd MainActivity whose full type name is
+        // `crc6416fb3a76ff63a6fe.MainActivity` — discovered via
+        // `adb shell cmd package resolve-activity --brief <pkg>`.
 
         var androidOptions = new AppiumOptions
         {

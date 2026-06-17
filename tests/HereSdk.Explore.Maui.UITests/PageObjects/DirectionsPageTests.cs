@@ -9,6 +9,9 @@ namespace Here.Explore.Maui.UITests.PageObjects;
 /// </summary>
 public class DirectionsPageTests : BaseTest
 {
+    [SetUp]
+    public void NavigateToDirections() => NavigateToTab("Directions");
+
     [Test]
     public void DirectionsMapView_IsPresent()
     {

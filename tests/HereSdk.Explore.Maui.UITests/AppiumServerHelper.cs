@@ -22,6 +22,15 @@ public static class AppiumServerHelper
             return;
         }
 
+        // If an external Appium server is already listening (e.g. one
+        // started by `nohup appium` in a parent shell or a CI runner),
+        // skip starting our own. The local service would fail with
+        // EADDRINUSE because it tries to bind the same port.
+        if (IsServerAlreadyRunning(host, port))
+        {
+            return;
+        }
+
         var builder = new AppiumServiceBuilder()
             .WithIPAddress(host)
             .UsingPort(port);
@@ -34,5 +43,19 @@ public static class AppiumServerHelper
     {
         _service?.Dispose();
         _service = null;
+    }
+
+    private static bool IsServerAlreadyRunning(string host, int port)
+    {
+        try
+        {
+            using var client = new System.Net.Sockets.TcpClient();
+            var task = client.ConnectAsync(host, port);
+            return task.Wait(System.TimeSpan.FromMilliseconds(500)) && client.Connected;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

@@ -32,6 +32,10 @@ artifacts/
 # SDK archives (too large for git)
 tmp/
 
+# Test artifacts (TRX logs, captured screenshots)
+**/TestResults/
+**/screenshots/
+
 # HERE SDK binaries (AAR ~61MB, JARs) — restore from tmp/ or download
 *.aar
 *.jar

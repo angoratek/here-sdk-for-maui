@@ -1,24 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0-android</TargetFramework>
+    <!--
+      The test runner drives the *RefApp* APK already installed on the
+      emulator via Appium + UIAutomator2. It does not need to be a MAUI
+      app itself — it just hosts an NUnit + Appium client. Targeting
+      net10.0-android here would force the testhost to resolve
+      `Microsoft.Android` (with the literal version `**FromWorkload**`),
+      which fails on the desktop testhost. Targeting plain net10.0 lets
+      dotnet test launch the regular desktop testhost.
+    -->
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Here.Explore.Maui.UITests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
-    <UseMaui>true</UseMaui>
-    <SingleProject>true</SingleProject>
-    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
-    <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
-    <ApplicationId>com.here.explore.maui.uitests</ApplicationId>
-    <ApplicationTitle>HERE SDK UI Tests</ApplicationTitle>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="5.0.0-rc.5" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="NUnit" Version="4.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
