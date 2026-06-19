@@ -54,7 +54,16 @@ public class AppiumSetup
         // comment this out.
         // androidOptions.AddAdditionalAppiumOption("avd", "testavd");
 
-        _driver = new AndroidDriver(androidOptions);
+        // Pass an explicit Uri so the driver connects to the Appium server
+        // started by AppiumServerHelper (or one already running externally)
+        // instead of spawning its own. Appium.WebDriver 5.x defaults to
+        // auto-starting an embedded Appium process when constructed without
+        // a Uri, which then fails with EADDRINUSE because the port is
+        // already held by the AppiumServerHelper-managed instance.
+        _driver = new AndroidDriver(
+            new Uri($"http://{AppiumServerHelper.DefaultHostAddress}:{AppiumServerHelper.DefaultHostPort}"),
+            androidOptions,
+            TimeSpan.FromSeconds(180));
     }
 
     [OneTimeTearDown]

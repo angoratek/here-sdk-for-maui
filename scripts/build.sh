@@ -16,7 +16,7 @@ else
 fi
 
 echo "=== Building iOS Binding ==="
-if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
+if [ -d "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
     dotnet build src/HereSdk.Explore.iOS.Binding -c Release
 else
     echo "Skipping iOS binding — xcframework not found. Run scripts/build-ios-native.sh first."
@@ -26,7 +26,7 @@ echo "=== Building MAUI Library (Android) ==="
 dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
 
 echo "=== Building MAUI Library (iOS) ==="
-if [ -f "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
+if [ -d "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
     dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 else
     echo "Skipping iOS MAUI build — iOS binding not available."
