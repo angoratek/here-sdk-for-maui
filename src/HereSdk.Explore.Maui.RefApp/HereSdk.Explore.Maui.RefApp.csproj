@@ -15,6 +15,7 @@
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition="$(TargetFramework.Contains('ios'))">
+    <SupportedOSPlatformVersion>15.2</SupportedOSPlatformVersion>
     <UseInterpreter>true</UseInterpreter>
     <MtouchInterpreter>all,-Microsoft.Maui.Controls.Xaml</MtouchInterpreter>
   </PropertyGroup>
