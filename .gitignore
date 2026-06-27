@@ -2,6 +2,8 @@
 bin/
 obj/
 artifacts/
+# MSBuild binary logs (re-generate with `dotnet build -bl`)
+*.binlog
 
 # IDE
 .vs/
