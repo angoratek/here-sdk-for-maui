@@ -41,9 +41,7 @@ jobs:
           dotnet-version: '10.0.x'
       - run: dotnet workload install maui-ios
       - name: Build iOS NativeBridge
-        run: |
-          cd src/HereSdk.Explore.iOS.NativeBridge
-          ./build-xcframework.sh
+        run: ./scripts/build-ios-native.sh
       - name: Run Sharpie + fix bindings
         run: ./scripts/bind-ios.sh
       - name: Build iOS binding
