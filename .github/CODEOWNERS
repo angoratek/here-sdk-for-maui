@@ -1,0 +1,20 @@
+# CODEOWNERS — default reviewers for paths in this repo.
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# Replace `@angoratek/maintainers` with the real GitHub team before enabling branch protection.
+
+# Default owner for everything in the repo.
+/                                          @angoratek/maintainers
+
+# Bindings — anyone touching the iOS NativeBridge / Sharpie output / Android
+# Transforms/Metadata.xml should know the corresponding SDK gotchas.
+/src/HereSdk.Explore.Android.Binding/       @angoratek/maintainers
+/src/HereSdk.Explore.iOS.NativeBridge/     @angoratek/maintainers
+/src/HereSdk.Explore.iOS.Binding/           @angoratek/maintainers
+
+# CI workflows — only maintainers should change release pipelines.
+/.github/workflows/                        @angoratek/maintainers
+/scripts/                                   @angoratek/maintainers
+
+# NuGet packaging metadata and version files.
+/Version.props                              @angoratek/maintainers
+/NuGet.config                               @angoratek/maintainers

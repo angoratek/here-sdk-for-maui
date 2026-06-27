@@ -1,0 +1,33 @@
+# EditorConfig is awesome: https://EditorConfig.org
+# Top-level EditorConfig for the HERE SDK for MAUI repo.
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+
+[*.{yml,yaml,md,json,sh,csproj,props,targets,toc,xml,plist,html}]
+indent_size = 2
+
+[*.{sh,bash}]
+end_of_line = lf
+
+[*.cs]
+# C# 13+ idioms; project targets LangVersion=latest with Nullable=enable.
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_using_directive_placement = outside_namespace:warning
+csharp_prefer_simple_using_statement = true:warning
+csharp_style_namespace_match_class = false:warning
+dotnet_sort_system_directives_first = true
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_qualification_for_property = false:warning
+dotnet_style_qualification_for_method = false:warning
+
+[*.{md,markdown}]
+trim_trailing_whitespace = false
