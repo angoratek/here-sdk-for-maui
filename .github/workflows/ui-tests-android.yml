@@ -48,7 +48,8 @@ jobs:
             -n testavd \
             -k "system-images;android-34;google_apis;x86_64" \
             -d pixel_5 \
-            --force
+            --force \
+            --skin "1080x2340"
 
       - name: Boot emulator (headless, swiftshader)
         # `-no-snapshot` forces a clean boot from poweroff; `-gpu swiftshader_indirect`
