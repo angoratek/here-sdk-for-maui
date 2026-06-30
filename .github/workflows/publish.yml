@@ -52,7 +52,7 @@ jobs:
             --api-key ${{ secrets.NUGET_API_KEY }}
       - name: Generate API documentation
         run: |
-          dotnet tool install -g docfx
+          dotnet tool install -g docfx --version 2.78.3
           docfx docfx.json
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
