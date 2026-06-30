@@ -6,13 +6,15 @@ namespace Here.Explore.Maui.Tests;
 public class ConfigLoadingTests
 {
     /// <summary>
-    /// Tests that appsettings.json can be loaded and parsed the same way
-    /// MauiProgram does it (via AddJsonStream), and that credentials are present.
+    /// The committed appsettings.json ships with placeholder credentials so
+    /// a fresh clone builds without exposing real secrets. Real credentials
+    /// are expected to come from a gitignored appsettings.Local.json at
+    /// runtime, loaded as an override by MauiProgram.
     /// </summary>
     [Fact]
-    public void AppSettings_HasNonPlaceholderCredentials()
+    public void AppSettings_Default_HasPlaceholderCredentials()
     {
-        // Arrange: locate appsettings.json relative to test assembly
+        // Arrange: locate the committed appsettings.json
         var appsettingsPath = FindAppSettings();
 
         // Act: load the same way MauiProgram does
@@ -24,23 +26,19 @@ public class ConfigLoadingTests
         var keyId = config["HereSdk:AccessKeyId"];
         var keySecret = config["HereSdk:AccessKeySecret"];
 
-        // Assert: credentials exist
-        Assert.False(string.IsNullOrWhiteSpace(keyId), "HereSdk:AccessKeyId is missing or empty in appsettings.json");
-        Assert.False(string.IsNullOrWhiteSpace(keySecret), "HereSdk:AccessKeySecret is missing or empty in appsettings.json");
+        // Assert: keys are present
+        Assert.False(string.IsNullOrWhiteSpace(keyId), "HereSdk:AccessKeyId is missing in appsettings.json");
+        Assert.False(string.IsNullOrWhiteSpace(keySecret), "HereSdk:AccessKeySecret is missing in appsettings.json");
 
-        // Assert: credentials are not placeholder values
-        Assert.NotEqual("YOUR_ACCESS_KEY_ID", keyId);
-        Assert.NotEqual("YOUR_ACCESS_KEY_SECRET", keySecret);
-
-        // Assert: key format looks valid (HERE keys are typically base64-ish, 20+ chars)
-        Assert.True(keyId.Length >= 10, $"AccessKeyId seems too short ({keyId.Length} chars). Expected 10+ chars.");
-        Assert.True(keySecret.Length >= 20, $"AccessKeySecret seems too short ({keySecret.Length} chars). Expected 20+ chars.");
+        // Assert: keys are placeholder values, not real secrets
+        Assert.Equal("YOUR_ACCESS_KEY_ID", keyId);
+        Assert.Equal("YOUR_ACCESS_KEY_SECRET", keySecret);
     }
 
     [Fact]
     public void AppSettings_Development_HasPlaceholderCredentials()
     {
-        // The Development variant should contain placeholders
+        // The Development variant should also contain placeholders
         var appsettingsDevPath = FindAppSettings("appsettings.Development.json");
 
         using var stream = File.OpenRead(appsettingsDevPath);
@@ -55,9 +53,12 @@ public class ConfigLoadingTests
     }
 
     [Fact]
-    public void HereSdkOptions_CreatedFromConfig_HasValidCredentials()
+    public void HereSdkOptions_CreatedFromConfig_HasValidShape()
     {
-        // Simulates MauiProgram's exact flow: read config → create HereSdkOptions
+        // Simulates MauiProgram's flow: read config → create HereSdkOptions.
+        // The committed appsettings.json has placeholders; MauiProgram.cs also
+        // reads appsettings.Local.json from AppDataDirectory as an override,
+        // but this test runs in-process against the committed file only.
         var appsettingsPath = FindAppSettings();
 
         using var stream = File.OpenRead(appsettingsPath);
@@ -68,7 +69,6 @@ public class ConfigLoadingTests
         var keyId = config["HereSdk:AccessKeyId"];
         var keySecret = config["HereSdk:AccessKeySecret"];
 
-        // This is the same code path as MauiProgram.CreateMauiApp()
         Assert.False(string.IsNullOrWhiteSpace(keyId) || string.IsNullOrWhiteSpace(keySecret),
             "HereSdk:AccessKeyId or AccessKeySecret is missing/empty in appsettings.json");
 
