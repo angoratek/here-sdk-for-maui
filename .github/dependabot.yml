@@ -1,0 +1,52 @@
+# Dependabot configuration for HERE SDK for .NET MAUI.
+# Keeps NuGet dependencies, GitHub Actions versions, and the HERE SDK
+# version reference up to date. See https://docs.github.com/en/code-security/dependabot
+
+version: 2
+
+updates:
+  # NuGet package updates
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+    open-pull-requests-limit: 10
+    # Group patch + minor updates so Dependabot opens one PR for the lot,
+    # not one per package. Major updates still get individual PRs for review.
+    groups:
+      patch-and-minor:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+      microsoft-maui:
+        applies-to: version-updates
+        patterns:
+          - "Microsoft.Maui*"
+          - "Microsoft.Extensions*"
+      here-sdk:
+        applies-to: version-updates
+        patterns:
+          - "HereSdk.*"
+    # Ignore pre-release versions for stable-track bindings.
+    ignore:
+      - dependency-name: "Microsoft.Maui.*"
+        versions:
+          - "*-*"
+          - "*-rc.*"
+          - "*-preview.*"
+
+  # GitHub Actions version updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        applies-to: version-updates
+        patterns:
+          - "*"

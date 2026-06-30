@@ -1,0 +1,50 @@
+# Line-ending normalization for cross-platform contributors.
+# See https://git-scm.com/docs/gitattributes
+
+# Default: LF on checkout, LF on commit.
+* text=auto eol=lf
+
+# Shell scripts — must be LF, not CRLF.
+*.sh   text eol=lf
+*.bash text eol=lf
+
+# Windows batch — must be CRLF.
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# C# / .NET — LF, diff-friendly.
+*.cs    text eol=lf
+*.csproj text eol=lf
+*.props text eol=lf
+*.targets text eol=lf
+*.sln   text eol=lf
+
+# Documentation.
+*.md   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.xml  text eol=lf
+
+# Images / binaries — keep as-is.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.svg  binary
+*.aar  binary
+*.jar  binary
+*.nupkg binary
+*.snupkg binary
+*.dll binary
+*.so  binary
+*.dylib binary
+
+# NuGet — exclude from language stats (cgit/tree-style).
+*.nupkg linguist-generated=true
+*.snupkg linguist-generated=true
+artifacts/** linguist-generated=true
+bin/** linguist-generated=true
+obj/** linguist-generated=true
