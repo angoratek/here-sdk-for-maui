@@ -6,8 +6,18 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$ROOT_DIR"
 
 echo "=== Extracting AAR (if needed) ==="
-AAR_SOURCE="tmp/heresdk-explore-android-4.25.5.0.274356.zip"
-AAR_DEST="src/HereSdk.Explore.Android.Binding/Jars/heresdk-explore-android-4.25.5.0.274356.aar"
+SDK_VERSION="4.25.5.0"
+SDK_BUILD="274356"
+AAR_FILENAME="heresdk-explore-android-${SDK_VERSION}.${SDK_BUILD}.zip"
+AAR_CACHE="${HERE_SDK_CACHE:-$HOME/.cache/heredl}/$AAR_FILENAME"
+AAR_SOURCE="tmp/$AAR_FILENAME"
+AAR_DEST="src/HereSdk.Explore.Android.Binding/Jars/heresdk-explore-android-${SDK_VERSION}.${SDK_BUILD}.aar"
+
+# Prefer the SDK cache over the in-repo tmp/ archive.
+if [ -f "$AAR_CACHE" ]; then
+    AAR_SOURCE="$AAR_CACHE"
+    echo "Using cached AAR: $AAR_CACHE"
+fi
 
 if [ ! -f "$AAR_DEST" ]; then
     if [ -f "$AAR_SOURCE" ]; then
@@ -23,8 +33,10 @@ if [ ! -f "$AAR_DEST" ]; then
             exit 1
         fi
     else
-        echo "ERROR: SDK archive not found at $AAR_SOURCE"
-        echo "Download the HERE Explore SDK for Android and place it in tmp/"
+        echo "ERROR: SDK archive not found in cache or tmp/"
+        echo "  Cache: $AAR_CACHE"
+        echo "  tmp/:  $AAR_SOURCE"
+        echo "Run ./scripts/download-sdk.sh or place the archive in tmp/."
         exit 1
     fi
 else

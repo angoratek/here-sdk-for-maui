@@ -16,11 +16,31 @@ if ! command -v xcodebuild &> /dev/null; then
     exit 1
 fi
 
-# Check for HERE SDK
-HERE_SDK_XCFRAMEWORK="tmp/ios-inspect/heresdk-explore-ios-4.25.5.0.274356/heresdk/frameworks/heresdk.xcframework"
-if [ ! -d "$HERE_SDK_XCFRAMEWORK" ]; then
-    echo "ERROR: HERE SDK xcframework not found at $HERE_SDK_XCFRAMEWORK"
-    echo "Extract the iOS SDK first."
+# Check for HERE SDK — prefer the extracted cache over the in-repo tmp/.
+SDK_VERSION="4.25.5.0"
+SDK_BUILD="274356"
+CACHE_DIR="${HERE_SDK_CACHE:-$HOME/.cache/heredl}"
+CACHE_XCFRAMEWORK="$CACHE_DIR/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}/heresdk/frameworks/heresdk.xcframework"
+CACHE_ZIP="$CACHE_DIR/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}.zip"
+LEGACY_XCFRAMEWORK="tmp/ios-inspect/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}/heresdk/frameworks/heresdk.xcframework"
+
+# Auto-extract cached zip if the xcframework isn't already there.
+if [ ! -d "$CACHE_XCFRAMEWORK" ] && [ -f "$CACHE_ZIP" ]; then
+    echo "Extracting cached iOS SDK to $CACHE_DIR/..."
+    mkdir -p "$CACHE_DIR"
+    unzip -q -o "$CACHE_ZIP" -d "$CACHE_DIR/"
+fi
+
+if [ -d "$CACHE_XCFRAMEWORK" ]; then
+    HERE_SDK_XCFRAMEWORK="$CACHE_XCFRAMEWORK"
+elif [ -d "$LEGACY_XCFRAMEWORK" ]; then
+    HERE_SDK_XCFRAMEWORK="$LEGACY_XCFRAMEWORK"
+else
+    HERE_SDK_XCFRAMEWORK="$LEGACY_XCFRAMEWORK"
+    echo "ERROR: HERE SDK xcframework not found."
+    echo "  Cache: $CACHE_XCFRAMEWORK"
+    echo "  tmp/:  $LEGACY_XCFRAMEWORK"
+    echo "Run ./scripts/download-sdk.sh to populate the cache, or extract the iOS SDK into tmp/ios-inspect/."
     exit 1
 fi
 
