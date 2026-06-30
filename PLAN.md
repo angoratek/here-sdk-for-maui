@@ -193,7 +193,7 @@
 - [x] Zero-error build on clean checkout for all platforms
 - [ ] Smoke test ref app on Android emulator + iOS simulator — all 4 tabs functional
 - [ ] Smoke test on physical Android device + iPhone if available
-- [ ] API surface diff vs HERE SDK 4.25.5.0 official docs — no missing documented types
+- [x] API surface diff vs HERE SDK 4.25.5.0 — see `plan/gap-analysis.md`; MAUI binding covers 58/361 types (~16%), focusing on the high-value surface (Map, Search, Routing, Traffic, Location)
 - [x] All breaking changes documented in CHANGELOG.md
 - [x] README.md reviewed end-to-end for accuracy
 - [x] docs/ fully built and browsable locally
