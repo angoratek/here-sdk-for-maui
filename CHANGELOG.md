@@ -23,6 +23,7 @@ All notable changes to the HERE SDK for MAUI project.
 - Appium UI tests connect to the helper server and detect the xcframework as a directory.
 - Android UI tests now run green against a local emulator (9/9 passing).
 - `scripts/release.sh` no longer silently swallows the `clean.sh` failure with `2>/dev/null`; the script now reports if `clean.sh` is missing instead of masking its real exit code.
+- `ConfigLoadingTests` updated: the committed `appsettings.json` ships with placeholder credentials, so the test now asserts the placeholder values are present (previously asserted they were *not* present, which contradicted the security fix in `6d9398b`).
 
 ## [4.25.5.0] — 2026-06-11
 
