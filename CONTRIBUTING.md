@@ -23,9 +23,15 @@ Prerequisites:
 Build everything:
 
 ```bash
+./scripts/download-sdk.sh   # one-time: download HERE SDK archives to ~/.cache/heredl
 ./scripts/build.sh          # builds all bindings + MAUI library + RefApp, runs unit tests
 ./scripts/test.sh           # runs all 4 test suites
 ```
+
+> If you already have the HERE SDK archives in `tmp/`, the build scripts will
+> fall back to that path. `download-sdk.sh` is the preferred setup because it
+> keeps the ~420 MB of SDK archives out of the repo working tree. Override the
+> cache location with `export HERE_SDK_CACHE=/path/to/cache`.
 
 ## Repository Layout
 
