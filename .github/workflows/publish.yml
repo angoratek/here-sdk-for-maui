@@ -23,13 +23,33 @@ jobs:
         run: ./scripts/build-ios-native.sh
       - name: Run Sharpie + fix bindings
         run: ./scripts/bind-ios.sh
-      - name: Pack NuGet packages
+      - name: Pack NuGet packages (with symbol packages)
         run: |
-          dotnet pack src/HereSdk.Explore.Android.Binding -c Release -p:PackageVersion=${{ github.ref_name }}
-          dotnet pack src/HereSdk.Explore.iOS.Binding -c Release -p:PackageVersion=${{ github.ref_name }}
-          dotnet pack src/HereSdk.Explore.Maui -c Release -p:PackageVersion=${{ github.ref_name }}
-      - name: Publish to NuGet.org
-        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet pack src/HereSdk.Explore.Android.Binding \
+            -c Release \
+            -p:PackageVersion=${{ github.ref_name }} \
+            -p:SymbolPackageFormat=snupkg \
+            -p:IncludeSymbols=true
+          dotnet pack src/HereSdk.Explore.iOS.Binding \
+            -c Release \
+            -p:PackageVersion=${{ github.ref_name }} \
+            -p:SymbolPackageFormat=snupkg \
+            -p:IncludeSymbols=true
+          dotnet pack src/HereSdk.Explore.Maui \
+            -c Release \
+            -p:PackageVersion=${{ github.ref_name }} \
+            -p:SymbolPackageFormat=snupkg \
+            -p:IncludeSymbols=true
+      - name: Publish packages to NuGet.org
+        run: |
+          dotnet nuget push "**/*.nupkg" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate \
+            --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push "**/*.snupkg" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate \
+            --api-key ${{ secrets.NUGET_API_KEY }}
       - name: Generate API documentation
         run: |
           dotnet tool install -g docfx
