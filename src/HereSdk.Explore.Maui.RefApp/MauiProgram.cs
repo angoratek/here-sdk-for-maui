@@ -25,11 +25,22 @@ public static class MauiProgram
             handlers.AddHandler<IHereMapView, HereMapViewHandler>();
         });
 
-        // Load configuration
-        using var configStream = OpenAppSettingsStream();
-        var config = new ConfigurationBuilder()
-            .AddJsonStream(configStream)
-            .Build();
+        // Load configuration — embedded appsettings.json is the base;
+        // an optional appsettings.Local.json in AppDataDirectory overrides
+        // any keys (intended for dev machines with real HERE SDK credentials).
+        var configBuilder = new ConfigurationBuilder();
+        using (var baseStream = OpenAppSettingsStream())
+        {
+            configBuilder.AddJsonStream(baseStream);
+        }
+
+        var localPath = Path.Combine(FileSystem.AppDataDirectory, "appsettings.Local.json");
+        if (File.Exists(localPath))
+        {
+            configBuilder.AddJsonFile(localPath, optional: false, reloadOnChange: false);
+        }
+
+        var config = configBuilder.Build();
         builder.Configuration.AddConfiguration(config);
 
         // Initialize HERE SDK — errors are captured in InitError for UI display

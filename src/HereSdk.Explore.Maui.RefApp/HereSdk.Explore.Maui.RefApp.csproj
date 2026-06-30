@@ -6,6 +6,7 @@
     <RootNamespace>Here.Explore.Maui.RefApp</RootNamespace>
     <ApplicationId>com.here.explore.maui.refapp</ApplicationId>
     <ApplicationTitle>HERE SDK Explore Demo</ApplicationTitle>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
     <SingleProject>true</SingleProject>
     <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
