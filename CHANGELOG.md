@@ -2,6 +2,28 @@
 
 All notable changes to the HERE SDK for MAUI project.
 
+## [Unreleased]
+
+### Added
+- `LICENSE` (MIT) at repo root so the GitHub license detector and NuGet packages resolve `<PackageLicenseExpression>MIT</PackageLicenseExpression>`.
+- `SECURITY.md` with responsible-disclosure process (`security@angoratek.com`, 5-day acknowledgement, 90-day disclosure window).
+- `CONTRIBUTING.md` covering setup, test matrix, commit style, PR workflow.
+- `.editorconfig` enforcing 4-space indent, 120-char line length, file-scoped C# namespaces.
+- `.github/CODEOWNERS` auto-assigning review to `@angoratek/maintainers`.
+
+### Changed
+- README NuGet badge bumped from `4.25.5.0-beta1` to `4.25.5.0` (GA).
+
+### Fixed
+- iOS RefApp `SupportedOSPlatformVersion` aligned with `Info.plist` `MinimumOSVersion=15.2` (was implicitly inheriting 24, causing `MT5210` warnings).
+- `src/HereSdk.Explore.Maui.RefApp/appsettings.json` now committed with placeholder credentials; real credentials live only in gitignored `appsettings.Local.json`.
+- `HereSdk.Explore.Maui.sln`: removed orphaned `UITests.Android.csproj` reference; added the actual `HereSdk.Explore.Maui.UITests.csproj`.
+- `build.yml` MAUI Android job moved from `windows-latest` to `ubuntu-latest` (Windows runners cannot install the `maui-android` workload).
+- `build.yml` and `publish.yml` now invoke `./scripts/build-ios-native.sh` instead of the non-existent `src/HereSdk.Explore.iOS.NativeBridge/build-xcframework.sh`.
+- Appium UI tests connect to the helper server and detect the xcframework as a directory.
+- Android UI tests now run green against a local emulator (9/9 passing).
+- `scripts/release.sh` no longer silently swallows the `clean.sh` failure with `2>/dev/null`; the script now reports if `clean.sh` is missing instead of masking its real exit code.
+
 ## [4.25.5.0] — 2026-06-11
 
 ### Added
