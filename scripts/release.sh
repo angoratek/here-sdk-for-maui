@@ -14,9 +14,11 @@ SUFFIX="${1:-}"
 # Step 1: Clean
 echo ""
 echo "=== Step 1/5: Clean ==="
-./scripts/clean.sh 2>/dev/null || {
-    echo "Clean script not found, skipping."
-}
+if [ -f ./scripts/clean.sh ]; then
+    ./scripts/clean.sh
+else
+    echo "Clean script not found at scripts/clean.sh, skipping."
+fi
 dotnet clean -c Release
 
 # Step 2: Build
