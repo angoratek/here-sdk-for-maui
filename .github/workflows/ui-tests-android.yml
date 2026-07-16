@@ -18,10 +18,10 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
@@ -29,7 +29,7 @@ jobs:
         run: dotnet workload install maui-android
 
       - name: Setup Android SDK (cached)
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
           # Cache is on by default; packages are restored on subsequent runs.
           packages: |
@@ -65,7 +65,7 @@ jobs:
           echo "Emulator boot complete."
 
       - name: Setup Node 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20'
 
@@ -113,7 +113,7 @@ jobs:
 
       - name: Upload screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ui-android-screenshots
           path: |
@@ -122,7 +122,7 @@ jobs:
 
       - name: Upload emulator + appium logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ui-android-logs
           path: |
