@@ -28,6 +28,28 @@ public abstract class BaseTest
         App.FindElement(MobileBy.Id($"{AppiumSetup.AppPackage}:id/{automationId}"));
 
     /// <summary>
+    /// Like <see cref="FindUIElement"/> but returns null instead of
+    /// throwing when the element is not present. Use for conditionally
+    /// visible elements (e.g. the place card's CTA, which is only in
+    /// the tree when a search has returned results).
+    /// </summary>
+    protected IWebElement? TryFindUIElement(string automationId)
+    {
+        try
+        {
+            return App.FindElement(MobileBy.Id($"{AppiumSetup.AppPackage}:id/{automationId}"));
+        }
+        catch (OpenQA.Selenium.NoSuchElementException)
+        {
+            return null;
+        }
+        catch (OpenQA.Selenium.WebDriverTimeoutException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Locates a UI element by its visible text. Used for elements that
     /// have no <c>AutomationId</c> (e.g. header <c>Label</c>s in
     /// collapsible cards).
