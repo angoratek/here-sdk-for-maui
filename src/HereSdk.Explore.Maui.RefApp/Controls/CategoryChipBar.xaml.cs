@@ -11,14 +11,19 @@ public partial class CategoryChipBar : ContentView
 
     public static readonly CategoryChip[] DefaultCategories =
     {
-        new("restaurant", "Restaurants", "🍽"),
-        new("hotel", "Hotels", "🏨"),
-        new("fuel-station", "Gas Stations", "⛽"),
-        new("parking", "Parking", "🅿"),
-        new("atm", "ATMs", "🏧"),
-        new("hospital", "Hospitals", "🏥"),
-        new("shopping", "Shopping", "🛍"),
-        new("attraction", "Attractions", "🎯"),
+        // HERE Place Category IDs from the HERE Places Category System
+        // (https://developer.here.com/documentation places API). The IDs are
+        // taxonomy codes such as "100-1000" for restaurants; the previous
+        // values ("restaurant", "hotel", …) were placeholders and caused
+        // the API to return 400 Illegal input for parameter 'categories'.
+        new("100-1000", "Restaurants", "🍽"),
+        new("500-5000", "Hotels", "🏨"),
+        new("700-7600-0116", "Gas Stations", "⛽"),
+        new("800-8500", "Parking", "🅿"),
+        new("700-7010", "ATMs", "🏧"),
+        new("800-8000", "Hospitals", "🏥"),
+        new("600", "Shopping", "🛍"),
+        new("300", "Attractions", "🎯"),
     };
 
     public CategoryChipBar()

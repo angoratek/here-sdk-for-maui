@@ -10,9 +10,17 @@ All notable changes to the HERE SDK for MAUI project.
 - `CONTRIBUTING.md` covering setup, test matrix, commit style, PR workflow.
 - `.editorconfig` enforcing 4-space indent, 120-char line length, file-scoped C# namespaces.
 - `.github/CODEOWNERS` auto-assigning review to `@angoratek/maintainers`.
+- `.github/workflows/changelog.yml` + `scripts/update-changelog.js` — auto-update `## [Unreleased]` on merged PRs by parsing conventional-commit prefixes.
+- `.github/workflows/release-changelog.yml` + `scripts/release-changelog.js` — promote `## [Unreleased]` to a dated release entry on `v*` tag push.
+- `bool IsInitialized` property on `SearchService`, `RoutingService`, `TrafficService` (read by integration tests to assert the DI factory wired the native engine).
+- `tests/HereSdk.Explore.Maui.Tests/Services/SearchServiceLifecycleTests.cs` — locks the "not initialized" error message and idempotent disposal contract on the no-device stub.
+- `tests/HereSdk.Explore.Maui.Tests/Services/SearchServiceIntegrationTests.cs` + `RoutingServiceIntegrationTests.cs` + `TrafficServiceIntegrationTests.cs` — verify `UseHereSdkExplore` registers initialized services as singletons.
+- `tests/HereSdk.Explore.Maui.UITests/PageObjects/ExplorePageSearchTests.cs` (4 tests), `DirectionsPageRouteTests.cs` (1), `TrafficPageFlowTests.cs` (1) — end-to-end Appium regression net for the "service not initialized" bug on the real RefApp.
 
 ### Changed
 - README NuGet badge bumped from `4.25.5.0-beta1` to `4.25.5.0` (GA).
+- `UseHereSdkExplore` now registers `IRoutingService`, `ISearchService`, `ITrafficService` via a `Func<IServiceProvider, TService>` factory lambda that calls the partial `Initialize()` at first resolution; the previous direct `AddSingleton<I, T>()` left the native engine field null and every operation threw `InvalidOperationException("XxxService not initialized.")`.
+- RefApp `MauiProgram.cs` no longer re-registers the three services with `AddSingleton<I, T>()` (which would have overridden the SDK's factory with one that skipped `Initialize()`).
 
 ### Fixed
 - iOS RefApp `SupportedOSPlatformVersion` aligned with `Info.plist` `MinimumOSVersion=15.2` (was implicitly inheriting 24, causing `MT5210` warnings).
@@ -24,6 +32,7 @@ All notable changes to the HERE SDK for MAUI project.
 - Android UI tests now run green against a local emulator (9/9 passing).
 - `scripts/release.sh` no longer silently swallows the `clean.sh` failure with `2>/dev/null`; the script now reports if `clean.sh` is missing instead of masking its real exit code.
 - `ConfigLoadingTests` updated: the committed `appsettings.json` ships with placeholder credentials, so the test now asserts the placeholder values are present (previously asserted they were *not* present, which contradicted the security fix in `6d9398b`).
+- `Controls/CategoryChipBar.xaml.cs` — replaced placeholder category IDs (`"restaurant"`, `"hotel"`, …) with real HERE Place Category taxonomy codes (`"100-1000"`, `"500-5000"`, …). The HERE Places API rejected the friendly names with `400 Illegal input for parameter 'categories'`, causing all category chip searches to fail with empty results even after the "not initialized" fix.
 
 ## [4.25.5.0] — 2026-06-11
 

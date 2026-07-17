@@ -1,0 +1,83 @@
+name: Release Changelog
+
+# On a `v*` tag push, promote the `## [Unreleased]` section of CHANGELOG.md
+# to a dated versioned entry. The version comes from the tag (e.g. v4.25.5.0
+# -> "4.25.5.0"); the date is the current UTC date in ISO-8601 form.
+#
+# The change is committed back to main via a follow-up PR so the history
+# stays linear (no force-pushes to the tag). The versioned CHANGELOG entry
+# is what `publish.yml` reads via `<PackageReleaseNotes>` to populate
+# NuGet release notes on the matching tag.
+#
+# Manual trigger (workflow_dispatch) lets you re-run a release if a previous
+# attempt failed mid-way.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (without leading v), e.g. 4.25.6.0'
+        required: true
+        type: string
+
+# One release at a time per tag.
+concurrency:
+  group: release-changelog-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  cut-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Determine version + date
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION="${{ github.ref_name }}"
+          else
+            VERSION="v${{ inputs.version }}"
+          fi
+          VERSION="${VERSION#v}"
+          DATE="$(date -u +%Y-%m-%d)"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Promote Unreleased to versioned entry
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+          DATE: ${{ steps.meta.outputs.date }}
+        run: |
+          node scripts/release-changelog.js \
+            --version "$VERSION" \
+            --date "$DATE"
+
+      - name: Open PR with versioned entry
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: release/changelog-${{ steps.meta.outputs.version }}
+          title: 'docs(changelog): cut ${{ steps.meta.outputs.version }}'
+          commit-message: 'docs(changelog): cut ${{ steps.meta.outputs.version }}'
+          add-paths: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Automated release cut for ${{ steps.meta.outputs.version }}.
+
+            Promotes the `## [Unreleased]` section of `CHANGELOG.md` to
+            `## [${{ steps.meta.outputs.version }}] — ${{ steps.meta.outputs.date }}`
+            and seeds a fresh empty `## [Unreleased]` block above it.

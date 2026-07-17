@@ -98,12 +98,16 @@ src/
   HereSdk.Explore.Maui/               # Cross-platform MAUI class library
   HereSdk.Explore.Maui.RefApp/        # Demo/reference app
 tests/
-  HereSdk.Explore.Maui.Tests/         # xUnit unit tests (net10.0, no device needed)
-  HereSdk.Explore.Maui.DeviceTests/   # Platform device tests (net10.0-android;net10.0-ios)
+  HereSdk.Explore.Maui.Tests/           # xUnit unit tests (net10.0, no device)
+  HereSdk.Explore.Maui.RefApp.UITests/  # In-process VM/control/flow tests (net10.0, no device)
+  HereSdk.Explore.Maui.UITests/         # Appium Android smoke (NUnit, runs in CI)
+  HereSdk.Explore.Maui.DeviceTests/     # Platform device tests (net10.0-android;net10.0-ios)
 scripts/
-  build.sh, build-android.sh, build-ios-native.sh, bind-ios.sh, test.sh, pack.sh, clean.sh
-plan/                                  # Design documents (this plan)
-tmp/                                   # SDK archives (gitignored)
+  build.sh, build-android.sh, build-ios-native.sh, bind-ios.sh, test.sh, pack.sh,
+  clean.sh, release.sh, validate-nupkg.sh, generate-docs.sh, download-sdk.sh
+plan/                                  # Design documents (gap-analysis.md, 07-public-release-gaps.md)
+docs/                                  # DocFX site (architecture.md, services.md, how-to-*.md)
+tmp/                                   # SDK archives (gitignored; use HERE_SDK_CACHE instead)
 Version.props                          # Centralized version numbers (HereSdkVersion, PackageVersion)
 ```
 
@@ -180,7 +184,7 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 9. **TransportSpecification uses builder pattern**: `TransportSpecification.CarBuilder().build()`, NOT `CarSpecifications().transportSpecification`
 10. **MapView is ObjC-visible** as `HereMapView` (UIView subclass) — wrapped via `HereMapBridgeView.Create()` + `.PlatformView`
 11. **MapScene manages markers** via `addMapMarker()`/`removeMapMarker()`, not MapBridgeView
-12. **MapService is NOT in DI** — it's created by the handler and accessed via `HereMapView.Map`. Other services (IRoutingService, ISearchService, ITrafficService, ILocationService) are DI singletons.
+12. **MapService is NOT in DI** — it's created by the handler and accessed via `HereMapView.Map`. `IRoutingService`/`ISearchService`/`ITrafficService` are DI singletons registered via a factory lambda in `UseHereSdkExplore` that calls the partial `Initialize()` at first resolution (without it, `_engine` stays null and every operation throws `InvalidOperationException("XxxService not initialized.")` — see `HereSdkExtensions.cs`). `ILocationService` is a plain singleton — it has no native engine to initialize.
 13. **Map events are on IMapService only** — `HereMapView` does NOT have its own events; subscribe to `mapView.Map.CameraStateChanged`, `mapView.Map.MapTapped`, etc.
 14. **iOS gesture delegates** are bound as concrete classes (`HereTapDelegate`, `HereLongPressDelegate`, `HereDoubleTapDelegate`) — subclass them, don't implement the `IHereTapDelegate` interface
 15. **iOS xcframework filename** is `HereSdkExploreNativeBridge.xcframework` (no dots), not `HereSdk.Explore.iOS.NativeBridge.xcframework`
@@ -208,13 +212,15 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 2. **Test cadence**: Every feature change must include:
    - Unit test in `tests/HereSdk.Explore.Maui.Tests` for models, converters, and service logic.
    - UI test in `tests/HereSdk.Explore.Maui.RefApp.UITests` for ViewModel commands and state changes.
+   - Appium smoke test in `tests/HereSdk.Explore.Maui.UITests` when the change is user-visible in the ref app.
    - Device test in `tests/HereSdk.Explore.Maui.DeviceTests` when native bindings or platform handlers are touched.
-3. **CI gate**: All three test projects must pass before a PR is considered merge-ready:
+3. **CI gate**: All test projects must build/pass before a PR is considered merge-ready:
    ```bash
    dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
    dotnet test tests/HereSdk.Explore.Maui.RefApp.UITests -c Release
-   dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
-   dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
+   dotnet build tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
+   dotnet build tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
+   # Appium Android smoke runs separately in ui-tests-android.yml.
    ```
 4. **Common emulator gotchas**:
    - Android: `MapView` requires hardware acceleration; enable it in `AndroidManifest.xml` (`android:hardwareAccelerated="true"`).
@@ -236,12 +242,15 @@ Validation checklist per type:
 4. Error/exception types are handled consistently
 5. Async patterns map correctly (Java callbacks → C# Tasks, Swift closures → C# Tasks)
 
-If a type exists on only one platform, document it as platform-specific in `plan/05-api-surface-catalog.md`.
+If a type exists on only one platform, document it as platform-specific in
+`plan/gap-analysis.md` (see the per-gap `Platforms` column).
 
 ## Testing
 
-- **Unit tests** (`tests/HereSdk.Explore.Maui.Tests`): net10.0, no device needed. Test models, converters, service logic with mocks.
-- **Device tests** (`tests/HereSdk.Explore.Maui.DeviceTests`): net10.0-android;net10.0-ios. Require emulator/simulator. Test actual SDK initialization, binding type access, platform converters.
+- **Unit tests** (`tests/HereSdk.Explore.Maui.Tests`): xUnit, net10.0, no device needed. Test models, converters, service logic with mocks.
+- **RefApp UI tests** (`tests/HereSdk.Explore.Maui.RefApp.UITests`): xUnit, net10.0, in-process. Test ViewModel commands, control behavior, integration flows against the ref app without a device.
+- **Appium UI tests** (`tests/HereSdk.Explore.Maui.UITests`): NUnit, net10.0-android. Drive the ref app on a real Android emulator via Appium + UIAutomator2.
+- **Device tests** (`tests/HereSdk.Explore.Maui.DeviceTests`): xUnit, net10.0-android;net10.0-ios. Require emulator/simulator. Test actual SDK initialization, binding type access, platform converters.
 - **Mock framework**: NSubstitute for C# interfaces; Android mock JAR for Android device tests.
 - **Naming**: `{MethodName}_{Scenario}_{Expected}`
 - **Target**: 80%+ coverage on shared logic (models, converters, services)
@@ -254,7 +263,12 @@ If a type exists on only one platform, document it as platform-specific in `plan
 | 1 | MapView + SDK Init: map display, camera, gestures, markers | Complete (Android + iOS xcframework built) |
 | 2 | Search + Routing: full search & routing across both platforms | Complete (Android + iOS NativeBridge functional) |
 | 3 | Traffic + Advanced: traffic, map items, advanced features | Complete (Android + iOS NativeBridge functional) |
-| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs, ref app UX | In Progress (4.1-4.8 done, 4.9 remaining) |
+| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs, ref app UX | Complete |
+| 5 | Documentation: XML docs, DocFX pipeline, how-to guides | Complete |
+| 6 | Final Release: pre-release gate, artifacts, GA publish | In Progress |
+
+For per-phase task breakdowns see [PLAN.md](PLAN.md). The operational backlog
+captured in `plan/07-public-release-gaps.md` is the active to-do list.
 
 ## Key Discrepancies Found (from verification)
 

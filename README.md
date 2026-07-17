@@ -176,10 +176,18 @@ dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-ios -c Debug
 # Unit tests (no device needed)
 dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
 
+# RefApp in-process UI tests (ViewModel commands, control behavior, flows)
+dotnet test tests/HereSdk.Explore.Maui.RefApp.UITests -c Release
+
+# Appium Android smoke tests (requires emulator; runs in ui-tests-android.yml)
+dotnet test tests/HereSdk.Explore.Maui.UITests -c Release
+
 # Device tests (requires emulator/simulator)
 dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
 dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 ```
+
+`scripts/test.sh` runs all four test suites end-to-end.
 
 ### Packaging
 
@@ -204,12 +212,15 @@ here-sdk-for-maui/
 │   ├── HereSdk.Explore.Maui/                  # Cross-platform MAUI library
 │   └── HereSdk.Explore.Maui.RefApp/           # Demo/reference app
 ├── tests/
-│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests (225 tests)
+│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests (no device)
+│   ├── HereSdk.Explore.Maui.RefApp.UITests/   # xUnit in-process VM/control/flow tests
+│   ├── HereSdk.Explore.Maui.UITests/          # NUnit Appium Android smoke tests
 │   └── HereSdk.Explore.Maui.DeviceTests/      # Platform device tests
-├── scripts/                                    # Build, test, pack scripts
+├── scripts/                                    # Build, test, pack, docs scripts
 ├── plan/                                       # Design documents
+├── docs/                                       # DocFX site (rendered to /site by DocFX)
 ├── Version.props                               # Centralized version numbers
-└── tmp/                                        # SDK archives (gitignored)
+└── tmp/                                        # SDK archives (gitignored; use HERE_SDK_CACHE)
 ```
 
 ## Roadmap
@@ -224,7 +235,8 @@ here-sdk-for-maui/
 | 5 | Documentation: XML docs, DocFX pipeline, how-to guides | Complete |
 | 6 | Final Release: pre-release gate, artifacts, GA publish | In Progress |
 
-See [plan/06-phased-delivery.md](plan/06-phased-delivery.md) for detailed task breakdowns.
+For per-phase task breakdowns see [PLAN.md](PLAN.md). The live operational
+backlog is captured in [`plan/07-public-release-gaps.md`](plan/07-public-release-gaps.md).
 
 ## Key Design Decisions
 

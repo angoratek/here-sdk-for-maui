@@ -1,0 +1,70 @@
+name: Update Changelog
+
+# When a PR is merged to main, append a bullet to the "## [Unreleased]"
+# section of CHANGELOG.md, grouped by conventional-commit type, and open
+# a follow-up PR with the change. Idempotent on the source PR: re-running
+# will fail (CHANGELOG already contains the entry) instead of duplicating.
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+# Avoid two concurrent CHANGELOG updates racing.
+concurrency:
+  group: changelog-${{ github.event.pull_request.base.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update-unreleased:
+    # Only run when the PR was actually merged (not closed unmerged).
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Append entry to Unreleased section
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          node scripts/update-changelog.js \
+            --title "$TITLE" \
+            --pr "$PR_NUMBER" \
+            --author "$AUTHOR" \
+            --sha "$SHA"
+
+      - name: Open PR with changelog update
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/changelog-${{ github.event.pull_request.number }}
+          title: 'docs(changelog): ${{ github.event.pull_request.title }}'
+          commit-message: 'docs(changelog): note ${{ github.event.pull_request.title }}'
+          # Restrict the diff to the CHANGELOG so reviewers see a one-file PR.
+          add-paths: CHANGELOG.md
+          # Conventional-commit bot pattern: open from the maintainer
+          # account that owns the workflow run, not from a bot identity.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Automated CHANGELOG update for #${{ github.event.pull_request.number }}.
+
+            - PR: #${{ github.event.pull_request.number }}
+            - Title: ${{ github.event.pull_request.title }}
+            - Author: @${{ github.event.pull_request.user.login }}
+            - Merge SHA: ${{ github.event.pull_request.merge_commit_sha }}
+
+            Triggered by the merged-PR event in this workflow.

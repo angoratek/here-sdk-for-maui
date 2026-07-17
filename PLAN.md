@@ -2,6 +2,8 @@
 
 > Generated 2026-05-13 from full codebase audit.
 > Previous plan archived as historical reference; this is the active release plan.
+> Last refreshed 2026-07-16 against `main @ 5581ba4`; numeric claims (test counts,
+> type counts, ref-app layout) reconciled with the current tree.
 
 ## Current State
 
@@ -9,15 +11,16 @@
 |------|--------|
 | Android binding | Full AAR binding, all services functional |
 | iOS NativeBridge | xcframework built, 4 engines exposed (Map, Search, Routing, Traffic) |
-| MAUI library | 58 of 361 API types (~16%), core services complete |
-| Ref app | 5 pages, 6 VMs, 7 controls, 7 converters — functional, error/empty states wired with design system |
-| Unit tests | 225 passing |
+| MAUI library | 58 of 361 cross-platform API types (~16%), core services complete |
+| Ref app | 5 pages, 5 VMs (+ViewModelBase), 7 controls, 7 converters — functional, error/empty states wired with design system |
+| Unit tests | 253 passing |
 | UI tests | 201 passing (ViewModel commands + state transitions + error/empty states) |
+| Appium smoke | 15 NUnit tests on Android emulator (in `HereSdk.Explore.Maui.UITests`) |
 | Device tests | ~180 tests across 10 files (Android builds clean, iOS blocked by AOT/env) |
-| Version | 4.25.5.0-beta1 (generated nuspecs consistent) |
-| Docs | README.md, docs/getting-started.md, CHANGELOG.md, XML doc comments on public API |
-| CI/CD | build.yml (push/PR), publish.yml (version tag) |
-| Build scripts | build.sh/test.sh/pack.sh target net10.0; release.sh + validate-nupkg.sh added |
+| Version | 4.25.5.0 GA (generated nuspecs consistent) |
+| Docs | README.md, docs/getting-started.md, CHANGELOG.md, XML doc comments on public API, DocFX site |
+| CI/CD | build.yml (push/PR), publish.yml (version tag), ui-tests-android.yml (Appium) |
+| Build scripts | build.sh/test.sh/pack.sh target net10.0; release.sh + validate-nupkg.sh + download-sdk.sh added |
 
 ---
 
@@ -189,7 +192,7 @@
 ## Phase 6: Final Release → 4.25.5.0 GA
 
 ### 6.1 Pre-Release Gate
-- [x] All tests green: 225+ unit, 80+ UI, 30+ device
+- [x] All tests green: 250+ unit, 201 UI, 180 device (+ 15 Appium Android smoke)
 - [x] Zero-error build on clean checkout for all platforms
 - [ ] Smoke test ref app on Android emulator + iOS simulator — all 4 tabs functional
 - [ ] Smoke test on physical Android device + iPhone if available
