@@ -19,9 +19,35 @@ public static class HereSdkExtensions
     {
         HereSdk.Initialize(options);
 
-        builder.Services.AddSingleton<IRoutingService, RoutingService>();
-        builder.Services.AddSingleton<ISearchService, SearchService>();
-        builder.Services.AddSingleton<ITrafficService, TrafficService>();
+        // SearchService, RoutingService, and TrafficService each define a
+        // platform-specific `internal void Initialize()` that constructs the
+        // native engine. The previous version of this method registered them
+        // with `AddSingleton<I, T>()` and never called Initialize, so every
+        // operation threw "XxxService not initialized." — the user-visible
+        // bug that prompted this fix. Use a factory lambda so Initialize
+        // runs once at first resolution.
+        //
+        // MapService is not registered here: it depends on the MapView and
+        // is created and initialized by the HereMapViewHandler.
+        // LocationService has no native engine and needs no initialization.
+        builder.Services.AddSingleton<IRoutingService>(_ =>
+        {
+            var s = new RoutingService();
+            s.Initialize();
+            return s;
+        });
+        builder.Services.AddSingleton<ISearchService>(_ =>
+        {
+            var s = new SearchService();
+            s.Initialize();
+            return s;
+        });
+        builder.Services.AddSingleton<ITrafficService>(_ =>
+        {
+            var s = new TrafficService();
+            s.Initialize();
+            return s;
+        });
         builder.Services.AddSingleton<ILocationService, LocationService>();
 
         builder.ConfigureMauiHandlers(handlers =>

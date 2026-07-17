@@ -20,6 +20,12 @@ public class RoutingServiceAndroidTests
     [Fact]
     public void RoutingService_CalculateRoute_ThrowsWhenNotInitialized()
     {
+        // Documents the failure mode of an uninitialized service. After
+        // the Initialize()-wiring fix in HereSdkExtensions.UseHereSdkExplore,
+        // this scenario should never occur in production — the factory
+        // lambda always calls Initialize() before the singleton is returned.
+        // This test stays as a guard against the factory regression that
+        // produced the "RoutingService not initialized" bug.
         var service = new RoutingService();
         var waypoints = new[] {
             new Waypoint(new GeoCoordinates(52.5, 13.4)),
@@ -36,6 +42,19 @@ public class RoutingServiceAndroidTests
         var options = new IsolineOptions(SectionTransportMode.Car, 5000);
         Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.CalculateIsolineAsync(new GeoCoordinates(52.5, 13.4), options));
+    }
+
+    [Fact]
+    public void RoutingService_AfterInitialize_IsInitializedIsTrue()
+    {
+        // Companion test to the lifecycle tests in
+        // HereSdk.Explore.Maui.Tests.Services.RoutingServiceLifecycleTests.
+        // On a real device, Initialize() constructs the native engine
+        // and IsInitialized flips to true. If the factory regression
+        // returns, this fails before any UI test does.
+        var service = new RoutingService();
+        service.Initialize();
+        Assert.True(service.IsInitialized);
     }
 
     // ================================================================

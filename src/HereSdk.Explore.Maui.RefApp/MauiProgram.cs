@@ -65,9 +65,30 @@ public static class MauiProgram
                 AccessKeySecret = keySecret
             });
 
-            builder.Services.AddSingleton<IRoutingService, RoutingService>();
-            builder.Services.AddSingleton<ISearchService, SearchService>();
-            builder.Services.AddSingleton<ITrafficService, TrafficService>();
+            // SearchService, RoutingService, and TrafficService each have a
+            // platform-specific Initialize() that constructs the native
+            // engine. The previous AddSingleton<I, T>() registrations
+            // skipped that call, so every operation threw
+            // "XxxService not initialized." — the user-visible bug this
+            // factory pattern fixes. LocationService has no native engine.
+            builder.Services.AddSingleton<IRoutingService>(_ =>
+            {
+                var s = new RoutingService();
+                s.Initialize();
+                return s;
+            });
+            builder.Services.AddSingleton<ISearchService>(_ =>
+            {
+                var s = new SearchService();
+                s.Initialize();
+                return s;
+            });
+            builder.Services.AddSingleton<ITrafficService>(_ =>
+            {
+                var s = new TrafficService();
+                s.Initialize();
+                return s;
+            });
             builder.Services.AddSingleton<ILocationService, LocationService>();
         }
         catch (Exception ex)

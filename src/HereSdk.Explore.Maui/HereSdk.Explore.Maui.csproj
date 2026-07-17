@@ -21,6 +21,8 @@
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="HereSdk.Explore.Maui.Tests" />
+    <InternalsVisibleTo Include="HereSdk.Explore.Maui.RefApp" />
+    <InternalsVisibleTo Include="HereSdk.Explore.Maui.DeviceTests" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
