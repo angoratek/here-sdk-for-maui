@@ -25,16 +25,17 @@ public static class MauiProgram
             handlers.AddHandler<IHereMapView, HereMapViewHandler>();
         });
 
-        // Load configuration — embedded appsettings.json is the base;
-        // an optional appsettings.Local.json in AppDataDirectory overrides
-        // any keys (intended for dev machines with real HERE SDK credentials).
+        // Load configuration — embedded appsettings.json is the base.
+        // Overrides (later wins):
+        //   1. appsettings.Local.json bundled as a MauiAsset (dev machines that
+        //      ship real HERE SDK credentials via a gitignored local file).
+        //   2. appsettings.Local.json in AppDataDirectory (runtime override;
+        //      copied to the device's writable storage).
         var configBuilder = new ConfigurationBuilder();
-        using (var baseStream = OpenAppSettingsStream())
-        {
-            configBuilder.AddJsonStream(baseStream);
-        }
+        configBuilder.AddJsonStream(OpenAppSettingsStream());
 
         var localPath = Path.Combine(FileSystem.AppDataDirectory, "appsettings.Local.json");
+        TrySeedLocalAppSettings(localPath);
         if (File.Exists(localPath))
         {
             configBuilder.AddJsonFile(localPath, optional: false, reloadOnChange: false);
@@ -120,5 +121,38 @@ public static class MauiProgram
 
         return assembly.GetManifestResourceStream(resourceName)
             ?? throw new InvalidOperationException($"Failed to load embedded resource: {resourceName}");
+    }
+
+    private static void TrySeedLocalAppSettings(string targetPath)
+    {
+        // If a developer added appsettings.Local.json as a MauiAsset (the
+        // csproj does this only when the file exists on the build machine),
+        // copy it to the device's AppDataDirectory on first run. Subsequent
+        // runs find the file already in place and skip the copy. The runtime
+        // file always wins over any later bundle changes until the user
+        // deletes it.
+        if (File.Exists(targetPath))
+        {
+            return;
+        }
+
+        try
+        {
+            using var bundled = FileSystem.OpenAppPackageFileAsync("appsettings.Local.json")
+                .GetAwaiter()
+                .GetResult();
+            using var output = File.Create(targetPath);
+            bundled.CopyTo(output);
+        }
+        catch (FileNotFoundException)
+        {
+            // No bundled override — leave targetPath non-existent so the
+            // next config source is skipped.
+        }
+        catch
+        {
+            // Other failures (e.g. missing AssetManager entry) are non-fatal;
+            // we still want the app to start with the base appsettings.json.
+        }
     }
 }
