@@ -46,10 +46,12 @@ public static class MauiProgram
 
         // Initialize HERE SDK — errors are captured in InitError for UI display
         InitError = null;
+        string? keyId = null;
+        string? keySecret = null;
         try
         {
-            var keyId = config["HereSdk:AccessKeyId"];
-            var keySecret = config["HereSdk:AccessKeySecret"];
+            keyId = config["HereSdk:AccessKeyId"];
+            keySecret = config["HereSdk:AccessKeySecret"];
 
             if (string.IsNullOrWhiteSpace(keyId) || string.IsNullOrWhiteSpace(keySecret))
             {
@@ -71,6 +73,25 @@ public static class MauiProgram
         catch (Exception ex)
         {
             InitError ??= $"{ex.GetType().Name}: {ex.Message}";
+        }
+
+        // Diagnostic: surface init status so the user can see why the map is
+        // blank (e.g. invalid credentials, network blocked). Goes to both
+        // Console.WriteLine (Android logcat, iOS Console) and a file in
+        // AppDataDirectory that survives across launches.
+        Console.WriteLine($"[REFAPP_INIT] {(InitError is null ? "OK" : $"FAIL: {InitError}")}");
+        try
+        {
+            var diagPath = Path.Combine(FileSystem.AppDataDirectory, "refapp-init.log");
+            File.WriteAllText(diagPath,
+                $"[{DateTime.UtcNow:O}] InitError={(InitError ?? "<none>")}\n" +
+                $"keyIdLen={keyId?.Length ?? 0}\n" +
+                $"keySecretLen={keySecret?.Length ?? 0}\n" +
+                $"configKeys={string.Join(",", config.AsEnumerable().Select(kv => kv.Key))}\n");
+        }
+        catch
+        {
+            // best-effort diagnostic; never fail app startup over a log write
         }
 
         // App config
