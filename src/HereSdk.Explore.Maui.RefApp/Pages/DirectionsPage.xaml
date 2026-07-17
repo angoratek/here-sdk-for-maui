@@ -26,7 +26,7 @@
                                SemanticProperties.Description="Map showing route and directions" />
 
         <!-- Top input area -->
-        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
+        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
 
             <!-- Error banner -->

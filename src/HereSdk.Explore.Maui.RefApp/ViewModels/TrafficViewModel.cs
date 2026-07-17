@@ -170,12 +170,14 @@ public partial class TrafficViewModel : ViewModelBase
                 {
                     foreach (var incident in result.Incidents)
                     {
-                        var center = _lastQueryArea.Center;
-                        // Place markers around the query center for visual effect
-                        var offset = Math.Abs(incident.Description?.GetHashCode() ?? 0) % 100 / 10000.0;
-                        var marker = new MapMarker(new GeoCoordinates(
-                            center.Latitude + offset,
-                            center.Longitude + offset));
+                        // Each incident has a Location (first vertex of its
+                        // road polyline) populated by the service layer.
+                        // The previous implementation used a hash-derived
+                        // offset at the query center, so all incident
+                        // markers stacked on the same spot and were not
+                        // distinguishable from each other on the map.
+                        var position = incident.Location ?? _lastQueryArea.Center;
+                        var marker = new MapMarker(position);
                         _mapService.AddMapMarker(marker);
                         _incidentMarkers.Add(marker);
                     }

@@ -16,12 +16,27 @@ public record TrafficFlow(
 /// <summary>
 /// A traffic incident.
 /// </summary>
+/// <param name="Id">Stable identifier of the incident from the HERE traffic feed.</param>
+/// <param name="Description">Human-readable description (typically a localized road name + cause).</param>
+/// <param name="Type">High-level category (accident, congestion, …).</param>
+/// <param name="Impact">Severity of the delay (minor, major, closed, …).</param>
+/// <param name="Geometry">Optional road polyline covered by the incident.</param>
+/// <param name="Location">
+/// First coordinate of the incident's polyline (the point on the road where
+/// the incident starts). Used by the RefApp to drop a marker on the map.
+/// On iOS this is read from <c>TrafficIncident.location.polyline.vertices.first</c>;
+/// on Android from <c>TrafficIncident.getLocation().getPolyline().getVertices().get(0)</c>.
+/// </param>
+/// <param name="StartTime">Optional start time as Unix epoch milliseconds.</param>
+/// <param name="EndTime">Optional end time as Unix epoch milliseconds.</param>
+/// <param name="RoadClosed">True if the incident reports the road as fully closed.</param>
 public record TrafficIncident(
     string Id,
     string Description,
     TrafficIncidentType Type,
     TrafficIncidentImpact Impact,
     GeoPolyline? Geometry = null,
+    GeoCoordinates? Location = null,
     long? StartTime = null,
     long? EndTime = null,
     bool? RoadClosed = null

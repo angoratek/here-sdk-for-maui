@@ -20,11 +20,19 @@
                 </HorizontalStackLayout>
             </Grid>
 
-            <!-- Category chip -->
-            <Border x:Name="CategoryChip" x:FieldModifier="public" StrokeShape="RoundRectangle 8" Padding="8,4"
+            <!-- Category chip: icon glyph + name. The icon makes the
+                 place's category recognizable at a glance; the colour
+                 background reinforces the category. -->
+            <Border x:Name="CategoryChip" x:FieldModifier="public"
+                    StrokeShape="RoundRectangle 8" Padding="10,5"
                     StrokeThickness="0" IsVisible="False"
                     HorizontalOptions="Start">
-                <Label x:Name="CategoryLabel" x:FieldModifier="public" FontSize="12" TextColor="White" />
+                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                    <Label x:Name="CategoryIconLabel" x:FieldModifier="public"
+                           FontSize="13" TextColor="White" />
+                    <Label x:Name="CategoryLabel" x:FieldModifier="public"
+                           FontSize="12" TextColor="White" />
+                </HorizontalStackLayout>
             </Border>
 
             <!-- Address -->
@@ -51,6 +59,7 @@
 
             <!-- Directions CTA -->
             <Button x:Name="DirectionsButton" x:FieldModifier="public" Text="Get Directions"
+                    AutomationId="PlaceCardDirectionsButton"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="White"
                     CornerRadius="14" HeightRequest="48" FontSize="16" FontAttributes="Bold"

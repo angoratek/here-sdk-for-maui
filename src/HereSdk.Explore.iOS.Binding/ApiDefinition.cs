@@ -607,8 +607,8 @@ namespace Here.Explore.iOS
     [DisableDefaultCtor]
     interface HereTrafficFlow
     {
-        [Export("initWithJamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:")]
-        IntPtr Constructor(double jamFactor, double speedInMetersPerSecond, double freeFlowSpeedInMetersPerSecond);
+        [Export("initWithJamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:location:")]
+        IntPtr Constructor(double jamFactor, double speedInMetersPerSecond, double freeFlowSpeedInMetersPerSecond, [NullAllowed] HereGeoPolyline? location);
 
         [Export("jamFactor")]
         double JamFactor { get; set; }
@@ -618,14 +618,18 @@ namespace Here.Explore.iOS
 
         [Export("freeFlowSpeedInMetersPerSecond")]
         double FreeFlowSpeedInMetersPerSecond { get; set; }
+
+        [Export("location")]
+        [NullAllowed]
+        HereGeoPolyline? Location { get; set; }
     }
 
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
     interface HereTrafficIncident
     {
-        [Export("initWithId:descriptionText:typeRawValue:impactRawValue:isRoadClosed:")]
-        IntPtr Constructor(string id, string descriptionText, nint typeRawValue, nint impactRawValue, bool isRoadClosed);
+        [Export("initWithId:descriptionText:typeRawValue:impactRawValue:isRoadClosed:location:")]
+        IntPtr Constructor(string id, string descriptionText, nint typeRawValue, nint impactRawValue, bool isRoadClosed, [NullAllowed] HereGeoPolyline? location);
 
         [Export("id")]
         string Id { get; set; }
@@ -641,5 +645,9 @@ namespace Here.Explore.iOS
 
         [Export("isRoadClosed")]
         bool IsRoadClosed { get; set; }
+
+        [Export("location")]
+        [NullAllowed]
+        HereGeoPolyline? Location { get; set; }
     }
 }

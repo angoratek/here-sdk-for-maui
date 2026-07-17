@@ -19,8 +19,10 @@ public partial class PlaceCard : ContentView
         if (cat is not null)
         {
             CategoryChip.IsVisible = true;
+            var categoryId = cat.Id ?? cat.Name ?? "";
+            CategoryIconLabel.Text = CategoryIconFor(categoryId);
             CategoryLabel.Text = cat.Name;
-            CategoryChip.BackgroundColor = CategoryColorFor(cat.Id ?? cat.Name ?? "");
+            CategoryChip.BackgroundColor = CategoryColorFor(categoryId);
         }
         else
         {
@@ -130,5 +132,31 @@ public partial class PlaceCard : ContentView
         if (categoryId.Contains("bank", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("atm", StringComparison.OrdinalIgnoreCase))
             return Color.FromArgb("#34A853");
         return Color.FromArgb("#5AC8FA");
+    }
+
+    /// <summary>
+    /// Maps a HERE Place Category id (or display name) to an emoji glyph
+    /// shown in the category chip. Mirrors <see cref="CategoryColorFor"/>
+    /// so the icon and colour are consistent.
+    /// </summary>
+    private static string CategoryIconFor(string categoryId)
+    {
+        if (categoryId.Contains("restaurant", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("food", StringComparison.OrdinalIgnoreCase))
+            return "🍽";
+        if (categoryId.Contains("hotel", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("lodging", StringComparison.OrdinalIgnoreCase))
+            return "🏨";
+        if (categoryId.Contains("shop", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("retail", StringComparison.OrdinalIgnoreCase))
+            return "🛍";
+        if (categoryId.Contains("fuel", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("gas", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("charging", StringComparison.OrdinalIgnoreCase))
+            return "⛽";
+        if (categoryId.Contains("hospital", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("medical", StringComparison.OrdinalIgnoreCase))
+            return "🏥";
+        if (categoryId.Contains("parking", StringComparison.OrdinalIgnoreCase))
+            return "🅿";
+        if (categoryId.Contains("park", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("museum", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("attraction", StringComparison.OrdinalIgnoreCase))
+            return "🎯";
+        if (categoryId.Contains("bank", StringComparison.OrdinalIgnoreCase) || categoryId.Contains("atm", StringComparison.OrdinalIgnoreCase))
+            return "🏧";
+        return "📍";
     }
 }

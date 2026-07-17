@@ -14459,9 +14459,127 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "location",
+            "printedName": "location",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereGeoPolyline",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficFlow(py)location",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A11TrafficFlowC8locationAA0A11GeoPolylineCSgvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereGeoPolyline",
+                        "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficFlow(im)location",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A11TrafficFlowC8locationAA0A11GeoPolylineCSgvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereGeoPolyline",
+                        "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficFlow(im)setLocation:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A11TrafficFlowC8locationAA0A11GeoPolylineCSgvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A11TrafficFlowC8locationAA0A11GeoPolylineCSgvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A11TrafficFlowC8locationAA0A11GeoPolylineCSgvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(jamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:)",
+            "printedName": "init(jamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:location:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -14486,13 +14604,27 @@
                 "name": "Double",
                 "printedName": "Swift.Double",
                 "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereGeoPolyline",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                  }
+                ],
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Constructor",
-            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficFlow(im)initWithJamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:",
-            "mangledName": "$s26HereSdkExploreNativeBridge0A11TrafficFlowC9jamFactor22speedInMetersPerSecond04freeg5SpeedklmN0ACSd_S2dtcfc",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficFlow(im)initWithJamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:location:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A11TrafficFlowC9jamFactor22speedInMetersPerSecond04freeg5SpeedklmN08locationACSd_S2dAA0A11GeoPolylineCSgtcfc",
             "moduleName": "HereSdkExploreNativeBridge",
-            "objc_name": "initWithJamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:",
+            "objc_name": "initWithJamFactor:speedInMetersPerSecond:freeFlowSpeedInMetersPerSecond:location:",
             "declAttributes": [
               "AccessControl",
               "ObjC"
@@ -15072,9 +15204,127 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "location",
+            "printedName": "location",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereGeoPolyline",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficIncident(py)location",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A15TrafficIncidentC8locationAA0A11GeoPolylineCSgvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereGeoPolyline",
+                        "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficIncident(im)location",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A15TrafficIncidentC8locationAA0A11GeoPolylineCSgvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereGeoPolyline",
+                        "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficIncident(im)setLocation:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A15TrafficIncidentC8locationAA0A11GeoPolylineCSgvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A15TrafficIncidentC8locationAA0A11GeoPolylineCSgvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A15TrafficIncidentC8locationAA0A11GeoPolylineCSgvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(id:descriptionText:typeRawValue:impactRawValue:isRoadClosed:)",
+            "printedName": "init(id:descriptionText:typeRawValue:impactRawValue:isRoadClosed:location:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -15111,13 +15361,27 @@
                 "name": "Bool",
                 "printedName": "Swift.Bool",
                 "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereGeoPolyline",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoPolyline",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoPolyline"
+                  }
+                ],
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Constructor",
-            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficIncident(im)initWithId:descriptionText:typeRawValue:impactRawValue:isRoadClosed:",
-            "mangledName": "$s26HereSdkExploreNativeBridge0A15TrafficIncidentC2id15descriptionText12typeRawValue06impactlM012isRoadClosedACSS_SSS2iSbtcfc",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTrafficIncident(im)initWithId:descriptionText:typeRawValue:impactRawValue:isRoadClosed:location:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A15TrafficIncidentC2id15descriptionText12typeRawValue06impactlM012isRoadClosed8locationACSS_SSS2iSbAA0A11GeoPolylineCSgtcfc",
             "moduleName": "HereSdkExploreNativeBridge",
-            "objc_name": "initWithId:descriptionText:typeRawValue:impactRawValue:isRoadClosed:",
+            "objc_name": "initWithId:descriptionText:typeRawValue:impactRawValue:isRoadClosed:location:",
             "declAttributes": [
               "AccessControl",
               "ObjC"

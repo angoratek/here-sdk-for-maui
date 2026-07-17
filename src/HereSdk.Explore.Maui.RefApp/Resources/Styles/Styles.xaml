@@ -141,7 +141,7 @@
         <Setter Property="FontSize" Value="13" />
         <Setter Property="HeightRequest" Value="36" />
         <Setter Property="CornerRadius" Value="16" />
-        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="Padding" Value="14,4" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
         <Setter Property="BorderWidth" Value="0" />
@@ -170,6 +170,19 @@
         <Setter Property="TextColor" Value="White" />
         <Setter Property="BorderWidth" Value="0" />
     </Style>
+
+    <!-- ============================================================ -->
+    <!-- SAFE-AREA / TOP MARGIN                                       -->
+    <!-- ============================================================ -->
+    <!-- iOS MAUI ContentPage already applies the system safe-area
+         inset when used inside a Shell, so 60 dp is the total margin
+         needed. Android's status bar is 24-30 dp, so 12 dp + system
+         inset is enough. Centralising the value here means future
+         status-bar / Dynamic-Island changes are a one-line edit. -->
+    <OnPlatform x:Key="TopSafeMargin" x:TypeArguments="Thickness">
+        <On Platform="iOS" Value="12,60,12,0" />
+        <On Platform="Android" Value="12,12,12,0" />
+    </OnPlatform>
 
     <!-- ============================================================ -->
     <!-- CARD STYLES                                                  -->

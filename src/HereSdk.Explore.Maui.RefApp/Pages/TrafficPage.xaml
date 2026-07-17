@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBool" />
             <converters:JamFactorToColorConverter x:Key="JamToColor" />
+            <converters:TrafficIncidentTypeToIconConverter x:Key="IncidentTypeToIcon" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -25,7 +26,7 @@
                                SemanticProperties.Description="Map showing traffic flow and incidents" />
 
         <!-- Top controls -->
-        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
+        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
         <local:ErrorBanner ErrorMessage="{Binding StatusMessage}"
                            RetryCommand="{Binding RefreshTrafficCommand}"
@@ -54,6 +55,7 @@
                     </Button.Triggers>
                 </Button>
                 <Button Text="↻" Style="{StaticResource MapFloatingButton}"
+                        AutomationId="TrafficRefreshButton"
                         WidthRequest="36" HeightRequest="36" CornerRadius="18"
                         Command="{Binding RefreshTrafficCommand}" />
             </HorizontalStackLayout>
@@ -87,14 +89,14 @@
         <!-- Status message -->
         <Label Grid.Row="0" Text="{Binding StatusMessage}" FontSize="12"
                VerticalOptions="End" HorizontalOptions="Center"
-               Margin="0,0,0,160"
+               Margin="0,0,0,200"
                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
         <!-- HERE SDK: Incident list populated from ITrafficService.QueryIncidentsAsync().
              Each TrafficIncident has Type, Impact, Description — rendered as cards with tap-to-select. -->
         <local:BottomSheet x:Name="IncidentSheet" Grid.Row="0"
                            CollapsedHeight="80"
-                           HalfExpandedHeight="300"
+                           HalfExpandedHeight="420"
                            IsVisible="{Binding IsIncidentsVisible}">
             <local:BottomSheet.HeaderContent>
                 <Label Text="{Binding StatusMessage}" FontSize="14" Margin="16,4" />
@@ -103,18 +105,22 @@
                 <CollectionView ItemsSource="{Binding Incidents}" Margin="16,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="traffic:TrafficIncident">
-                            <Border Style="{StaticResource CardBorder}" Margin="0,4" Padding="12">
-                                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                                    <!-- Type icon -->
+                            <Border Style="{StaticResource CardBorder}" Margin="0,2" Padding="12">
+                                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                                    <!-- Type icon: 🚗 / 🚧 / ⛔ / ⚠ / 🌧 etc.
+                                         The converter maps the enum to a glyph
+                                         so users can scan the list quickly. -->
                                     <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
-                                           Text="⚠" FontSize="24" VerticalOptions="Center" />
+                                           Text="{Binding Type, Converter={StaticResource IncidentTypeToIcon}}"
+                                           FontSize="22" VerticalOptions="Center" />
                                     <!-- Description -->
                                     <Label Grid.Row="0" Grid.Column="1"
-                                           Text="{Binding Description}" FontSize="14" FontAttributes="Bold"
+                                           Text="{Binding Description}" FontSize="12" FontAttributes="Bold"
+                                           LineBreakMode="TailTruncation" MaxLines="2"
                                            TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
                                     <!-- Type + Impact -->
                                     <Label Grid.Row="1" Grid.Column="1"
-                                           FontSize="12"
+                                           FontSize="11"
                                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0} · {1}">

@@ -36,27 +36,36 @@
     <Grid x:Name="RootGrid" RowDefinitions="*">
         <!-- HERE SDK: HereMapView is the target for drawing tools — markers, polylines, polygons, circles
              are added via IMapService.AddMarker(), AddPolyline(), AddPolygon(), AddCircle(). -->
-        <controls:HereMapView x:Name="MapView" Grid.Row="0" />
+        <controls:HereMapView x:Name="MapView" Grid.Row="0" AutomationId="ToolsMapView" />
 
-        <!-- Drawing mode banner -->
-        <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="12,60,12,0"
+        <!-- Drawing mode banner. Visible whenever the tools section
+             is expanded; renders the live DrawingHint (set after a tool
+             is picked) and a static "how to draw" tip before any tool
+             is selected. -->
+        <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="{StaticResource TopSafeMargin}"
                 VerticalOptions="Start" Padding="10,8"
-                IsVisible="{Binding IsDrawingActive}">
+                IsVisible="{Binding IsDrawingExpanded}">
             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                 <Label Grid.Column="0" Text="✏" FontSize="16" VerticalOptions="Center" />
-                <Label Grid.Column="1" Text="{Binding DrawingHint}" FontSize="13"
+                <Label Grid.Column="1" FontSize="13"
                        VerticalOptions="Center"
-                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}">
+                    <Label.Text>
+                        <Binding Path="DrawingHint" FallbackValue="Tip: pick a tool below, then tap the map to draw." TargetNullValue="Tip: pick a tool below, then tap the map to draw." />
+                    </Label.Text>
+                </Label>
                 <Button Grid.Column="2" Text="Cancel" FontSize="12"
                         HeightRequest="32" CornerRadius="14"
                         BackgroundColor="{StaticResource ErrorRed}"
                         TextColor="White"
+                        IsVisible="{Binding IsDrawingActive}"
                         Command="{Binding CancelDrawingCommand}" />
             </Grid>
         </Border>
 
         <!-- Clear All button -->
         <Button Grid.Row="0" Text="Clear All" Style="{StaticResource MapFloatingButton}"
+                AutomationId="ToolsClearAllButton"
                 VerticalOptions="End" HorizontalOptions="End"
                 Margin="0,0,12,68" WidthRequest="72"
                 Command="{Binding ClearAllCommand}"
@@ -73,11 +82,14 @@
                    TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
         </Border>
 
-        <!-- Bottom sheet with tools -->
+        <!-- Bottom sheet with tools. Lands fully expanded so the user
+             sees the drawing tools and Demo Gallery immediately; the
+             "Tap a tool, then tap the map" hint is rendered inside. -->
         <local:BottomSheet x:Name="ToolsSheet" Grid.Row="0"
                            CollapsedHeight="80"
                            HalfExpandedHeight="340"
-                           CurrentState="HalfExpanded">
+                           FullyExpandedHeight="640"
+                           CurrentState="FullyExpanded">
             <local:BottomSheet.HeaderContent>
                 <Grid Padding="16,4" ColumnDefinitions="*,Auto">
                     <Label Grid.Column="0" Text="Tools &amp; Settings" FontSize="16" FontAttributes="Bold"
@@ -135,6 +147,7 @@
                                             </Button.Triggers>
                                         </Button>
                                         <Button Text="📏 Polyline" Style="{StaticResource DrawingToolButton}"
+                                                AutomationId="ToolsPolylineButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Polyline">
                                             <Button.Triggers>
                                                 <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
@@ -145,6 +158,7 @@
                                             </Button.Triggers>
                                         </Button>
                                         <Button Text="⬡ Polygon" Style="{StaticResource DrawingToolButton}"
+                                                AutomationId="ToolsPolygonButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Polygon">
                                             <Button.Triggers>
                                                 <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
@@ -155,6 +169,7 @@
                                             </Button.Triggers>
                                         </Button>
                                         <Button Text="◎ Circle" Style="{StaticResource DrawingToolButton}"
+                                                AutomationId="ToolsCircleButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Circle">
                                             <Button.Triggers>
                                                 <DataTrigger TargetType="Button" Binding="{Binding CurrentDrawingTool}"
@@ -255,6 +270,7 @@
                                                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                                         <FlexLayout Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
                                             <Button Text="Normal Day" Style="{StaticResource SchemeChip}"
+                                                    AutomationId="ToolsSchemeNormalDay"
                                                     Command="{Binding ChangeSchemeCommand}" CommandParameter="NormalDay">
                                                 <Button.Triggers>
                                                     <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="NormalDay">
@@ -264,6 +280,7 @@
                                                 </Button.Triggers>
                                             </Button>
                                             <Button Text="Night" Style="{StaticResource SchemeChip}"
+                                                    AutomationId="ToolsSchemeNormalNight"
                                                     Command="{Binding ChangeSchemeCommand}" CommandParameter="NormalNight">
                                                 <Button.Triggers>
                                                     <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="NormalNight">
@@ -273,6 +290,7 @@
                                                 </Button.Triggers>
                                             </Button>
                                             <Button Text="Hybrid" Style="{StaticResource SchemeChip}"
+                                                    AutomationId="ToolsSchemeHybridDay"
                                                     Command="{Binding ChangeSchemeCommand}" CommandParameter="HybridDay">
                                                 <Button.Triggers>
                                                     <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="HybridDay">
@@ -282,6 +300,7 @@
                                                 </Button.Triggers>
                                             </Button>
                                             <Button Text="Satellite" Style="{StaticResource SchemeChip}"
+                                                    AutomationId="ToolsSchemeSatelliteDay"
                                                     Command="{Binding ChangeSchemeCommand}" CommandParameter="SatelliteDay">
                                                 <Button.Triggers>
                                                     <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="SatelliteDay">
@@ -291,6 +310,7 @@
                                                 </Button.Triggers>
                                             </Button>
                                             <Button Text="Terrain" Style="{StaticResource SchemeChip}"
+                                                    AutomationId="ToolsSchemeTerrainDay"
                                                     Command="{Binding ChangeSchemeCommand}" CommandParameter="TerrainDay">
                                                 <Button.Triggers>
                                                     <DataTrigger TargetType="Button" Binding="{Binding SelectedSchemeName}" Value="TerrainDay">
@@ -331,6 +351,7 @@
 
                                     <!-- Open full settings -->
                                     <Button Text="More Settings →" FontSize="14"
+                                            AutomationId="ToolsMoreSettingsButton"
                                             HeightRequest="44" CornerRadius="12"
                                             BackgroundColor="{StaticResource Primary}"
                                             TextColor="White"

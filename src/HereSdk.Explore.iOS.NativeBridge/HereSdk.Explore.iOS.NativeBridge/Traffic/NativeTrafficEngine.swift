@@ -82,11 +82,18 @@ public class HereTrafficFlow: NSObject {
     @objc public var jamFactor: Double
     @objc public var speedInMetersPerSecond: Double
     @objc public var freeFlowSpeedInMetersPerSecond: Double
+    /// Road segment covered by this flow. May be nil if the underlying
+    /// TrafficFlow has no location (e.g. an empty result row).
+    @objc public var location: HereGeoPolyline?
 
-    @objc public init(jamFactor: Double, speedInMetersPerSecond: Double, freeFlowSpeedInMetersPerSecond: Double) {
+    @objc public init(jamFactor: Double,
+                      speedInMetersPerSecond: Double,
+                      freeFlowSpeedInMetersPerSecond: Double,
+                      location: HereGeoPolyline?) {
         self.jamFactor = jamFactor
         self.speedInMetersPerSecond = speedInMetersPerSecond
         self.freeFlowSpeedInMetersPerSecond = freeFlowSpeedInMetersPerSecond
+        self.location = location
         super.init()
     }
 
@@ -94,7 +101,8 @@ public class HereTrafficFlow: NSObject {
         return HereTrafficFlow(
             jamFactor: swift.jamFactor,
             speedInMetersPerSecond: swift.speedInMetersPerSecond ?? 0,
-            freeFlowSpeedInMetersPerSecond: swift.freeFlowSpeedInMetersPerSecond
+            freeFlowSpeedInMetersPerSecond: swift.freeFlowSpeedInMetersPerSecond,
+            location: HereGeoPolyline.from(swift.location.polyline)
         )
     }
 }
@@ -107,13 +115,23 @@ public class HereTrafficIncident: NSObject {
     @objc public var typeRawValue: Int
     @objc public var impactRawValue: Int
     @objc public var isRoadClosed: Bool
+    /// Road segment covered by this incident. Used by the RefApp to
+    /// drop a marker at the first vertex. May be nil for incidents
+    /// without geometry.
+    @objc public var location: HereGeoPolyline?
 
-    @objc public init(id: String, descriptionText: String, typeRawValue: Int, impactRawValue: Int, isRoadClosed: Bool) {
+    @objc public init(id: String,
+                      descriptionText: String,
+                      typeRawValue: Int,
+                      impactRawValue: Int,
+                      isRoadClosed: Bool,
+                      location: HereGeoPolyline?) {
         self.id = id
         self.descriptionText = descriptionText
         self.typeRawValue = typeRawValue
         self.impactRawValue = impactRawValue
         self.isRoadClosed = isRoadClosed
+        self.location = location
         super.init()
     }
 
@@ -123,7 +141,8 @@ public class HereTrafficIncident: NSObject {
             descriptionText: swift.description.text,
             typeRawValue: Int(swift.type.rawValue),
             impactRawValue: Int(swift.impact.rawValue),
-            isRoadClosed: swift.isRoadClosed
+            isRoadClosed: swift.isRoadClosed,
+            location: HereGeoPolyline.from(swift.location.polyline)
         )
     }
 }

@@ -146,6 +146,7 @@ public static class MauiProgram
         builder.Services.AddTransient<BoolToOpenColorConverter>();
         builder.Services.AddTransient<JamFactorToColorConverter>();
         builder.Services.AddTransient<ManeuverActionToIconConverter>();
+        builder.Services.AddTransient<TrafficIncidentTypeToIconConverter>();
 
         return builder.Build();
     }

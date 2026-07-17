@@ -111,9 +111,20 @@ internal class FlowQueryCallback : Java.Lang.Object, Here.Explore.Traffic.Traffi
             _tcs.SetResult(new TrafficFlowResult(TrafficService.ToSharedQueryError(error), null));
         else if (flows is not null)
             _tcs.SetResult(new TrafficFlowResult(TrafficQueryError.None,
-                flows.Select(f => new TrafficFlow(f.JamFactor, (double)(f.SpeedInMetersPerSecond ?? (Java.Lang.Double)0.0),
-                    new GeoPolyline(new List<GeoCoordinates>()),
-                    FreeFlowSpeedInMetersPerSecond: f.FreeFlowSpeedInMetersPerSecond)).ToList()));
+                flows.Select(f =>
+                {
+                    // f.Location.Polyline.Vertices contains the actual road
+                    // segment the flow covers. The previous implementation
+                    // discarded the polyline (empty GeoPolyline) and the
+                    // RefApp's "Geometry.Vertices.Count >= 2" guard
+                    // therefore never matched — no polylines were ever drawn.
+                    var vertices = IncidentGeometryHelpers.ExtractVertices(f.Location?.Polyline);
+                    return new TrafficFlow(
+                        f.JamFactor,
+                        (double)(f.SpeedInMetersPerSecond ?? (Java.Lang.Double)0.0),
+                        new GeoPolyline(vertices),
+                        FreeFlowSpeedInMetersPerSecond: f.FreeFlowSpeedInMetersPerSecond);
+                }).ToList()));
         else
             _tcs.SetResult(new TrafficFlowResult(TrafficQueryError.None, null));
     }
@@ -130,10 +141,23 @@ internal class IncidentsQueryCallback : Java.Lang.Object, Here.Explore.Traffic.T
             _tcs.SetResult(new TrafficIncidentsResult(ToSharedQueryError(error), null));
         else if (incidents is not null)
             _tcs.SetResult(new TrafficIncidentsResult(TrafficQueryError.None,
-                incidents.Select(i => new TrafficIncident(i.Id, i.Description.Text,
-                    TrafficService.ToSharedIncidentType(i.Type),
-                    TrafficService.ToSharedIncidentImpact(i.Impact),
-                    RoadClosed: i.IsRoadClosed)).ToList()));
+                incidents.Select(i =>
+                {
+                    // Take the first vertex of the incident's location polyline
+                    // as the marker position. The previous implementation had
+                    // no Location field on the shared model and the RefApp
+                    // fell back to a hash-derived offset at the query center,
+                    // so all incident markers clustered on top of each other.
+                    var firstVertex = IncidentGeometryHelpers.FirstVertex(i.Location?.Polyline);
+                    var location = firstVertex is not null
+                        ? new GeoCoordinates(firstVertex.Latitude, firstVertex.Longitude)
+                        : (GeoCoordinates?)null;
+                    return new TrafficIncident(i.Id, i.Description.Text,
+                        TrafficService.ToSharedIncidentType(i.Type),
+                        TrafficService.ToSharedIncidentImpact(i.Impact),
+                        Location: location,
+                        RoadClosed: i.IsRoadClosed);
+                }).ToList()));
         else
             _tcs.SetResult(new TrafficIncidentsResult(TrafficQueryError.None, null));
     }
@@ -157,9 +181,47 @@ internal class IncidentLookupCallback : Java.Lang.Object, Here.Explore.Traffic.T
         if (error is not null || incident is null)
             _tcs.SetResult(null);
         else
+        {
+            var firstVertex = IncidentGeometryHelpers.FirstVertex(incident.Location?.Polyline);
+            var location = firstVertex is not null
+                ? new GeoCoordinates(firstVertex.Latitude, firstVertex.Longitude)
+                : (GeoCoordinates?)null;
             _tcs.SetResult(new TrafficIncident(incident.Id, incident.Description.Text,
                 TrafficService.ToSharedIncidentType(incident.Type),
-                TrafficService.ToSharedIncidentImpact(incident.Impact)));
+                TrafficService.ToSharedIncidentImpact(incident.Impact),
+                Location: location));
+        }
+    }
+}
+
+/// <summary>
+/// Helpers for converting HERE Java <c>GeoPolyline</c> instances into
+/// shared <see cref="GeoCoordinates"/> lists. The Java binding's
+/// <c>Vertices</c> property is a non-generic <see cref="System.Collections.IList"/>,
+/// so LINQ cannot infer element types — these helpers cast explicitly.
+/// </summary>
+internal static class IncidentGeometryHelpers
+{
+    public static List<GeoCoordinates> ExtractVertices(Here.Explore.Core.GeoPolyline? polyline)
+    {
+        var result = new List<GeoCoordinates>();
+        if (polyline?.Vertices is null) return result;
+        foreach (var v in polyline.Vertices)
+        {
+            if (v is Here.Explore.Core.GeoCoordinates c)
+                result.Add(new GeoCoordinates(c.Latitude, c.Longitude));
+        }
+        return result;
+    }
+
+    public static Here.Explore.Core.GeoCoordinates? FirstVertex(Here.Explore.Core.GeoPolyline? polyline)
+    {
+        if (polyline?.Vertices is null) return null;
+        foreach (var v in polyline.Vertices)
+        {
+            if (v is Here.Explore.Core.GeoCoordinates c) return c;
+        }
+        return null;
     }
 }
 #endif

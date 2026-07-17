@@ -15,6 +15,7 @@
               BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}">
             <Button Grid.Column="0"
                     x:Name="BackButton"
+                    AutomationId="SettingsBackButton"
                     Text="←"
                     WidthRequest="40"
                     HeightRequest="40"
@@ -130,7 +131,8 @@
                                  Color="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
                                  HorizontalOptions="Fill" />
 
-                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8"
+                              AutomationId="SettingsSendFeedbackRow">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendFeedbackCommand}" />
                             </Grid.GestureRecognizers>
@@ -147,7 +149,8 @@
                                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
                                Margin="0,0,0,8" />
 
-                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8"
+                              AutomationId="SettingsClearCacheRow">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ClearCacheCommand}" />
                             </Grid.GestureRecognizers>

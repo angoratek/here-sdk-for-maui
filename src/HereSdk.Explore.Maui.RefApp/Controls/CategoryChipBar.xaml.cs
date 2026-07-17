@@ -45,6 +45,9 @@ public partial class CategoryChipBar : ContentView
             };
             var chipBorder = new Border
             {
+                // Per-chip AutomationId so Appium can target each one
+                // without relying on the emoji-prefixed label text.
+                AutomationId = $"ExploreCategory{ChipIdFromLabel(chip.Label)}",
                 StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 16 },
                 StrokeThickness = 1,
                 Padding = new Thickness(12, 6),
@@ -62,6 +65,15 @@ public partial class CategoryChipBar : ContentView
             ChipsContainer.Children.Add(chipBorder);
         }
     }
+
+    /// <summary>
+    /// Maps a chip's human-readable label (e.g. "Restaurants") to the
+    /// suffix used in its AutomationId (e.g. "Restaurants"). One-to-one
+    /// with the labels in <see cref="DefaultCategories"/>; labels with
+    /// spaces are stripped (none currently do).
+    /// </summary>
+    private static string ChipIdFromLabel(string label) =>
+        label.Replace(" ", string.Empty, StringComparison.Ordinal);
 
     private void OnChipTapped(CategoryChip chip, Border border, Label label)
     {

@@ -30,7 +30,7 @@ public partial class TrafficService
             else if (flows is not null)
                 tcs.SetResult(new TrafficFlowResult(TrafficQueryError.None,
                     flows.Select(f => new TrafficFlow(f.JamFactor, f.SpeedInMetersPerSecond,
-                        new GeoPolyline(new List<GeoCoordinates>()),
+                        ToSharedPolyline(f.Location),
                         FreeFlowSpeedInMetersPerSecond: f.FreeFlowSpeedInMetersPerSecond)).ToList()));
             else
                 tcs.SetResult(new TrafficFlowResult(TrafficQueryError.None, null));
@@ -52,6 +52,7 @@ public partial class TrafficService
                 tcs.SetResult(new TrafficIncidentsResult(TrafficQueryError.None,
                     incidents.Select(i => new TrafficIncident(i.Id, i.DescriptionText,
                         (TrafficIncidentType)i.TypeRawValue, (TrafficIncidentImpact)i.ImpactRawValue,
+                        Location: FirstVertex(i.Location),
                         RoadClosed: i.IsRoadClosed)).ToList()));
             else
                 tcs.SetResult(new TrafficIncidentsResult(TrafficQueryError.None, null));
@@ -64,6 +65,35 @@ public partial class TrafficService
     {
         // Will be expanded with lookup API
         return null;
+    }
+
+    /// <summary>
+    /// Maps an iOS bridge <c>HereGeoPolyline</c> to a shared
+    /// <see cref="GeoPolyline"/>. Returns an empty polyline if the
+    /// bridge type is null (the underlying iOS TrafficFlow may have
+    /// no location for some rows).
+    /// </summary>
+    private static GeoPolyline ToSharedPolyline(Here.Explore.iOS.HereGeoPolyline? polyline)
+    {
+        if (polyline?.Vertices is null || polyline.Vertices.Length == 0)
+            return new GeoPolyline(new List<GeoCoordinates>());
+        var vertices = polyline.Vertices
+            .Select(v => new GeoCoordinates(v.Latitude, v.Longitude))
+            .ToList();
+        return new GeoPolyline(vertices);
+    }
+
+    /// <summary>
+    /// Returns the first vertex of the bridge polyline as a
+    /// <see cref="GeoCoordinates"/>, or null if the polyline is missing
+    /// or empty. The RefApp uses this to place a marker on the map.
+    /// </summary>
+    private static GeoCoordinates? FirstVertex(Here.Explore.iOS.HereGeoPolyline? polyline)
+    {
+        if (polyline?.Vertices is null || polyline.Vertices.Length == 0)
+            return null;
+        var first = polyline.Vertices[0];
+        return new GeoCoordinates(first.Latitude, first.Longitude);
     }
 }
 #endif

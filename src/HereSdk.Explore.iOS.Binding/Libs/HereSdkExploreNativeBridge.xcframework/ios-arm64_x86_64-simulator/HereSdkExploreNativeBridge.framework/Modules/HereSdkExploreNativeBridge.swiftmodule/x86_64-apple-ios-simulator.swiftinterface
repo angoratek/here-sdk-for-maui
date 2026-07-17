@@ -1,7 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.3.1 effective-5.10 (swiftlang-6.3.1.1.2 clang-2100.0.123.102)
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
 // swift-module-flags: -target x86_64-apple-ios15.2-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name HereSdkExploreNativeBridge
-// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.1
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
 import Foundation
 import Swift
 import UIKit
@@ -305,7 +305,8 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public var jamFactor: Swift.Double
   @objc public var speedInMetersPerSecond: Swift.Double
   @objc public var freeFlowSpeedInMetersPerSecond: Swift.Double
-  @objc public init(jamFactor: Swift.Double, speedInMetersPerSecond: Swift.Double, freeFlowSpeedInMetersPerSecond: Swift.Double)
+  @objc public var location: HereSdkExploreNativeBridge.HereGeoPolyline?
+  @objc public init(jamFactor: Swift.Double, speedInMetersPerSecond: Swift.Double, freeFlowSpeedInMetersPerSecond: Swift.Double, location: HereSdkExploreNativeBridge.HereGeoPolyline?)
   @objc deinit
 }
 @objc(HereTrafficIncident) public class HereTrafficIncident : ObjectiveC.NSObject {
@@ -314,7 +315,8 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public var typeRawValue: Swift.Int
   @objc public var impactRawValue: Swift.Int
   @objc public var isRoadClosed: Swift.Bool
-  @objc public init(id: Swift.String, descriptionText: Swift.String, typeRawValue: Swift.Int, impactRawValue: Swift.Int, isRoadClosed: Swift.Bool)
+  @objc public var location: HereSdkExploreNativeBridge.HereGeoPolyline?
+  @objc public init(id: Swift.String, descriptionText: Swift.String, typeRawValue: Swift.Int, impactRawValue: Swift.Int, isRoadClosed: Swift.Bool, location: HereSdkExploreNativeBridge.HereGeoPolyline?)
   @objc deinit
 }
 extension HereSdkExploreNativeBridge.HereMapScheme : Swift.Equatable {}

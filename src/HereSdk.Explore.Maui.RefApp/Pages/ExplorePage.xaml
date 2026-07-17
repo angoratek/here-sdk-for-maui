@@ -25,7 +25,7 @@
                                SemanticProperties.Description="Interactive map for exploring places" />
 
         <!-- Top search area -->
-        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="12,60,12,0"
+        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
 
             <!-- Search error banner (also shows offline message) -->
@@ -53,6 +53,7 @@
                             WidthRequest="32" HeightRequest="32" CornerRadius="16"
                             IsVisible="{Binding SearchQuery.Length, Converter={StaticResource InverseBool}}"
                             Command="{Binding ClearSearchCommand}"
+                            AutomationId="ExploreClearSearchButton"
                             VerticalOptions="Center" Margin="0,0,4,0" />
                 </Grid>
             </Border>
@@ -100,17 +101,21 @@
         <!-- Floating map buttons (right side, vertically centered) -->
         <VerticalStackLayout Grid.Row="0" Spacing="8"
                              VerticalOptions="End" HorizontalOptions="End"
-                             Margin="0,0,12,100">
+                             Margin="0,0,12,72">
             <Button Text="＋" Style="{StaticResource MapFloatingButton}"
+                    AutomationId="ExploreZoomInButton"
                     Command="{Binding ZoomInCommand}" />
             <Button Text="−" Style="{StaticResource MapFloatingButton}"
+                    AutomationId="ExploreZoomOutButton"
                     Command="{Binding ZoomOutCommand}" />
             <Button Text="🧭" Style="{StaticResource MapFloatingButton}"
+                    AutomationId="ExploreCenterOnLocationButton"
                     Command="{Binding CenterOnLocationCommand}" />
         </VerticalStackLayout>
 
         <!-- Map style picker (bottom-right) -->
         <local:MapStylePicker x:Name="StylePicker" Grid.Row="0"
+                              AutomationId="ExploreMapStylePicker"
                               VerticalOptions="End" HorizontalOptions="End"
                               Margin="0,0,12,12" />
 
@@ -128,7 +133,6 @@
                 </ScrollView>
             </local:BottomSheet.SheetContent>
         </local:BottomSheet>
-
         <!-- Loading overlay -->
         <Grid Grid.Row="0" BackgroundColor="#80000000"
               IsVisible="{Binding IsSearching}">

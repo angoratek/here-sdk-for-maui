@@ -14,22 +14,26 @@ public class CategoryChipBarTests
     [Fact]
     public void DefaultCategories_HaveCorrectIds()
     {
+        // HERE Places API taxonomy codes — see
+        // https://developer.here.com/documentation. The previous
+        // friendly names ("restaurant", "hotel", …) caused the API
+        // to return 400 Illegal input for parameter 'categories'.
         var ids = CategoryChipBar.DefaultCategories.Select(c => c.CategoryId).ToList();
-        Assert.Contains("restaurant", ids);
-        Assert.Contains("hotel", ids);
-        Assert.Contains("fuel-station", ids);
-        Assert.Contains("parking", ids);
-        Assert.Contains("atm", ids);
-        Assert.Contains("hospital", ids);
-        Assert.Contains("shopping", ids);
-        Assert.Contains("attraction", ids);
+        Assert.Contains("100-1000", ids);   // restaurants
+        Assert.Contains("500-5000", ids);   // hotels
+        Assert.Contains("700-7600-0116", ids); // gas stations
+        Assert.Contains("800-8500", ids);   // parking
+        Assert.Contains("700-7010", ids);   // ATMs
+        Assert.Contains("800-8000", ids);   // hospitals
+        Assert.Contains("600", ids);        // shopping
+        Assert.Contains("300", ids);        // attractions
     }
 
     [Fact]
     public void CategoryChip_Restaurant_HasCorrectProperties()
     {
         var chip = CategoryChipBar.DefaultCategories[0];
-        Assert.Equal("restaurant", chip.CategoryId);
+        Assert.Equal("100-1000", chip.CategoryId);
         Assert.Equal("Restaurants", chip.Label);
         Assert.NotNull(chip.Icon);
         Assert.False(string.IsNullOrEmpty(chip.Icon));
@@ -39,7 +43,7 @@ public class CategoryChipBarTests
     public void CategoryChip_Hotel_HasCorrectProperties()
     {
         var chip = CategoryChipBar.DefaultCategories[1];
-        Assert.Equal("hotel", chip.CategoryId);
+        Assert.Equal("500-5000", chip.CategoryId);
         Assert.Equal("Hotels", chip.Label);
     }
 
@@ -47,7 +51,7 @@ public class CategoryChipBarTests
     public void CategoryChip_FuelStation_HasCorrectProperties()
     {
         var chip = CategoryChipBar.DefaultCategories[2];
-        Assert.Equal("fuel-station", chip.CategoryId);
+        Assert.Equal("700-7600-0116", chip.CategoryId);
         Assert.Equal("Gas Stations", chip.Label);
     }
 
@@ -55,7 +59,7 @@ public class CategoryChipBarTests
     public void CategoryChip_Parking_HasCorrectProperties()
     {
         var chip = CategoryChipBar.DefaultCategories[3];
-        Assert.Equal("parking", chip.CategoryId);
+        Assert.Equal("800-8500", chip.CategoryId);
         Assert.Equal("Parking", chip.Label);
     }
 
@@ -63,7 +67,7 @@ public class CategoryChipBarTests
     public void CategoryChip_ATM_HasCorrectProperties()
     {
         var chip = CategoryChipBar.DefaultCategories[4];
-        Assert.Equal("atm", chip.CategoryId);
+        Assert.Equal("700-7010", chip.CategoryId);
         Assert.Equal("ATMs", chip.Label);
     }
 
@@ -71,7 +75,7 @@ public class CategoryChipBarTests
     public void CategoryChip_Hospital_HasCorrectProperties()
     {
         var chip = CategoryChipBar.DefaultCategories[5];
-        Assert.Equal("hospital", chip.CategoryId);
+        Assert.Equal("800-8000", chip.CategoryId);
         Assert.Equal("Hospitals", chip.Label);
     }
 
