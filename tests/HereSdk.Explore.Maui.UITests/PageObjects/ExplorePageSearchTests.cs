@@ -1,7 +1,6 @@
 using NUnit.Framework;
 
 using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
 
 namespace Here.Explore.Maui.UITests.PageObjects;
 
@@ -77,10 +76,8 @@ public class ExplorePageSearchTests : BaseTest
     private void TapCategoryByLabel(string label)
     {
         // The chip label is rendered as "🍽 Restaurants" — match the
-        // visible label exactly. Appium's XPath finds descendants of
-        // the chip border.
-        var chip = App.FindElement(
-            MobileBy.AndroidUIAutomator($"new UiSelector().textContains(\"{label}\")"));
+        // visible label exactly via the platform-appropriate text locator.
+        var chip = FindByTextContains(label);
         chip.Click();
     }
 
@@ -97,8 +94,7 @@ public class ExplorePageSearchTests : BaseTest
         // present, the error banner appears within a few hundred ms.
         System.Threading.Thread.Sleep(5000);
 
-        var matches = App.FindElements(
-            MobileBy.AndroidUIAutomator($"new UiSelector().textContains(\"{substring}\")"));
+        var matches = FindAllContainingText(substring);
 
         if (matches.Count > 0)
         {

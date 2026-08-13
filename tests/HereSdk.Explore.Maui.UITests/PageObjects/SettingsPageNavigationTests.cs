@@ -28,9 +28,7 @@ public class SettingsPageNavigationTests : BaseTest
             "SettingsBackButton not found — More Settings → did not navigate to SettingsPage");
 
         // And the about / legal / debug sections are present (text-based).
-        var about = App.FindElement(
-            OpenQA.Selenium.Appium.MobileBy.AndroidUIAutomator(
-                "new UiSelector().textContains(\"About\")"));
+        var about = FindByTextContains("About");
         Assert.That(about.Displayed, Is.True);
     }
 

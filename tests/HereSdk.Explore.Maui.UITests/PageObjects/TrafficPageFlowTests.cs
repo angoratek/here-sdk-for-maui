@@ -1,7 +1,6 @@
 using NUnit.Framework;
 
 using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
 
 namespace Here.Explore.Maui.UITests.PageObjects;
 
@@ -28,8 +27,7 @@ public class TrafficPageFlowTests : BaseTest
 
         System.Threading.Thread.Sleep(5000);
 
-        var matches = App.FindElements(
-            MobileBy.AndroidUIAutomator($"new UiSelector().textContains(\"{NotInitializedSignature}\")"));
+        var matches = FindAllContainingText(NotInitializedSignature);
 
         if (matches.Count > 0)
         {

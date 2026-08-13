@@ -1,7 +1,6 @@
 using NUnit.Framework;
 
 using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
 
 namespace Here.Explore.Maui.UITests.PageObjects;
 
@@ -64,8 +63,7 @@ public class ExplorePagePlaceCardTests : BaseTest
 
     private void AssertNoElementContains(string substring)
     {
-        var matches = App.FindElements(
-            MobileBy.AndroidUIAutomator($"new UiSelector().textContains(\"{substring}\")"));
+        var matches = FindAllContainingText(substring);
         if (matches.Count > 0)
         {
             var texts = string.Join(" | ", matches.Select(m => m.Text));

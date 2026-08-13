@@ -1,7 +1,5 @@
 using NUnit.Framework;
 
-using OpenQA.Selenium.Appium;
-
 namespace Here.Explore.Maui.UITests.PageObjects;
 
 /// <summary>
@@ -65,8 +63,7 @@ public class ToolsPageSchemeTests : BaseTest
 
     private void AssertNoError()
     {
-        var matches = App.FindElements(
-            MobileBy.AndroidUIAutomator($"new UiSelector().textContains(\"{NotInitializedSignature}\")"));
+        var matches = FindAllContainingText(NotInitializedSignature);
         if (matches.Count > 0)
         {
             var texts = string.Join(" | ", matches.Select(m => m.Text));
