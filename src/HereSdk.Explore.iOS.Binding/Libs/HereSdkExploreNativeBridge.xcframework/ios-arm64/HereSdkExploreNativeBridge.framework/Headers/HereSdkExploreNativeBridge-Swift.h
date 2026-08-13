@@ -830,6 +830,26 @@ SWIFT_CLASS_NAMED("HereWaypoint")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+/// Stub class that satisfies the HERE SDK’s optional <code>hsdk-initializeOptional</code>
+/// reflection hook. The native SDK does an <code>NSClassFromString("LocationInitializer")</code>
+/// lookup at engine init; if the class is missing, the hook logs
+/// <code>class LocationInitializer not found</code> and the <code>LoadingView</code> never
+/// dismisses, wedging the iOS RefApp on the init splash.
+/// <code>ILocationService</code> in the C# layer uses
+/// <code>Microsoft.Maui.Devices.Sensors.Geolocation</code> as the primary source
+/// (see CLAUDE.md rule 17 — HERE native positioning is not exposed in
+/// iOS NativeBridge yet), so the SDK’s own positioning hook is
+/// intentionally unused. This stub exists solely to satisfy the
+/// reflection lookup so the init hook can complete.
+/// The Objective-C class name is <em>exactly</em> <code>LocationInitializer</code> (no
+/// <code>Here</code> prefix) because that is the literal string the native SDK
+/// passes to <code>NSClassFromString</code>. Do not rename it.
+SWIFT_CLASS_NAMED("LocationInitializer")
+@interface LocationInitializer : NSObject
++ (void)initializeLocation;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 #endif // defined(__OBJC__)
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

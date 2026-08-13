@@ -9,6 +9,11 @@ import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 import heresdk
+@_inheritsConvenienceInitializers @objc(LocationInitializer) final public class LocationInitializer : ObjectiveC.NSObject {
+  @objc public static func initializeLocation()
+  @objc override dynamic public init()
+  @objc deinit
+}
 @objc(HereGeoBox) public class HereGeoBox : ObjectiveC.NSObject {
   @objc public var southWest: HereSdkExploreNativeBridge.HereGeoCoordinates
   @objc public var northEast: HereSdkExploreNativeBridge.HereGeoCoordinates

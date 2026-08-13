@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1BB50C1A4A974608894CDE39 /* NativeMapCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA173F07BE83C8061F8830CE /* NativeMapCamera.swift */; };
 		1E852C5442EE13C9182E6338 /* NativeSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C15BC3C51ED6D42F56C2832 /* NativeSearchEngine.swift */; };
+		21A4AD3C14457749D1901B10 /* LocationInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467D43160FB2AAA9AAA82910 /* LocationInitializer.swift */; };
 		2BC90AB69058937BB8699724 /* NativeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF4BCCD4C296195A3F3B903 /* NativeMapView.swift */; };
 		315D44FDCE1946D9A6397336 /* NativeMapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8884FE9B65BD7FE9EE7EE603 /* NativeMapScene.swift */; };
 		38D96FF45D34DC8B728DBDC6 /* NativeSDKOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC470A9F031305116A217C11 /* NativeSDKOptions.swift */; };
@@ -31,6 +32,7 @@
 		143E263A27E3628D5AC75BA4 /* NativeGeoCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGeoCoordinates.swift; sourceTree = "<group>"; };
 		28B25FC703D32522A98D7D07 /* NativePrimitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePrimitives.swift; sourceTree = "<group>"; };
 		2DF4BCCD4C296195A3F3B903 /* NativeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapView.swift; sourceTree = "<group>"; };
+		467D43160FB2AAA9AAA82910 /* LocationInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInitializer.swift; sourceTree = "<group>"; };
 		55E270842F7FF1B0D352138B /* NativeGeoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGeoBox.swift; sourceTree = "<group>"; };
 		5A9DF410D28ADDCF5D7C4F4A /* NativeMapItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapItems.swift; sourceTree = "<group>"; };
 		613F1288254A4D7F38BD44A6 /* NativeGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGestures.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		BAC2A60A79A7D5ECF617C827 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				467D43160FB2AAA9AAA82910 /* LocationInitializer.swift */,
 				55E270842F7FF1B0D352138B /* NativeGeoBox.swift */,
 				143E263A27E3628D5AC75BA4 /* NativeGeoCoordinates.swift */,
 				0DA7E8C3453ABFDFE87957F0 /* NativeGeoPolyline.swift */,
@@ -208,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A4AD3C14457749D1901B10 /* LocationInitializer.swift in Sources */,
 				B8AE1E33A3DDA62838250B9A /* NativeGeoBox.swift in Sources */,
 				5DBB8E189362BE5FAD3CF7B5 /* NativeGeoCoordinates.swift in Sources */,
 				5938AEBEBF59254DCEE7B82C /* NativeGeoPolyline.swift in Sources */,
