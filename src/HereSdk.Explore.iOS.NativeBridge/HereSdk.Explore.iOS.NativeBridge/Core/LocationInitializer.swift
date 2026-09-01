@@ -2,8 +2,11 @@ import Foundation
 
 /// Stub class that satisfies the HERE SDK's optional `hsdk-initializeOptional`
 /// reflection hook. The native SDK does an `NSClassFromString("LocationInitializer")`
-/// lookup at engine init; if the class is missing, the hook logs
-/// `class LocationInitializer not found` and the `LoadingView` never
+/// lookup at engine init and then calls a class method on the result. The exact
+/// selector varies by SDK version and platform: the 4.25.x Explore SDK on iOS
+/// calls `+opt_initialize:` (one argument). If the class is missing OR the
+/// selector is missing, the hook logs `class LocationInitializer not found`
+/// (or `unrecognized selector sent to class 0x…`) and the `LoadingView` never
 /// dismisses, wedging the iOS RefApp on the init splash.
 ///
 /// `ILocationService` in the C# layer uses
@@ -18,7 +21,12 @@ import Foundation
 /// passes to `NSClassFromString`. Do not rename it.
 @objc(LocationInitializer)
 public final class LocationInitializer: NSObject {
-    @objc public static func initializeLocation() {
+    /// Class method that the HERE SDK's optional-init hook actually calls on
+    /// the resolved `LocationInitializer` class. Takes one argument (the
+    /// hook passes whatever it has — typically a settings/options object —
+    /// and we ignore it). Selector name is **exactly** `opt_initialize:` —
+    /// the trailing colon is part of the selector name.
+    @objc public static func opt_initialize(_ arg: Any?) {
         // Intentionally empty. Real positioning happens through MAUI's
         // Geolocation API (see `Here.Explore.Maui.Services.LocationService`).
     }
