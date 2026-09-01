@@ -18,24 +18,38 @@
         "children": [
           {
             "kind": "Function",
-            "name": "initializeLocation",
-            "printedName": "initializeLocation()",
+            "name": "opt_initialize",
+            "printedName": "opt_initialize(_:)",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Void",
                 "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Any?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Func",
-            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)LocationInitializer(cm)initializeLocation",
-            "mangledName": "$s26HereSdkExploreNativeBridge19LocationInitializerC010initializeF0yyFZ",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)LocationInitializer(cm)opt_initialize:",
+            "mangledName": "$s26HereSdkExploreNativeBridge19LocationInitializerC14opt_initializeyyypSgFZ",
             "moduleName": "HereSdkExploreNativeBridge",
             "static": true,
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },

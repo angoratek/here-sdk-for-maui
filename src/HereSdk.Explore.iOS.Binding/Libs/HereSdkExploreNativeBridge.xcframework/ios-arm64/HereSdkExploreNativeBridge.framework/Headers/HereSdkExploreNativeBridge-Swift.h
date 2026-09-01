@@ -832,8 +832,11 @@ SWIFT_CLASS_NAMED("HereWaypoint")
 
 /// Stub class that satisfies the HERE SDK’s optional <code>hsdk-initializeOptional</code>
 /// reflection hook. The native SDK does an <code>NSClassFromString("LocationInitializer")</code>
-/// lookup at engine init; if the class is missing, the hook logs
-/// <code>class LocationInitializer not found</code> and the <code>LoadingView</code> never
+/// lookup at engine init and then calls a class method on the result. The exact
+/// selector varies by SDK version and platform: the 4.25.x Explore SDK on iOS
+/// calls <code>+opt_initialize:</code> (one argument). If the class is missing OR the
+/// selector is missing, the hook logs <code>class LocationInitializer not found</code>
+/// (or <code>unrecognized selector sent to class 0x…</code>) and the <code>LoadingView</code> never
 /// dismisses, wedging the iOS RefApp on the init splash.
 /// <code>ILocationService</code> in the C# layer uses
 /// <code>Microsoft.Maui.Devices.Sensors.Geolocation</code> as the primary source
@@ -846,7 +849,12 @@ SWIFT_CLASS_NAMED("HereWaypoint")
 /// passes to <code>NSClassFromString</code>. Do not rename it.
 SWIFT_CLASS_NAMED("LocationInitializer")
 @interface LocationInitializer : NSObject
-+ (void)initializeLocation;
+/// Class method that the HERE SDK’s optional-init hook actually calls on
+/// the resolved <code>LocationInitializer</code> class. Takes one argument (the
+/// hook passes whatever it has — typically a settings/options object —
+/// and we ignore it). Selector name is <em>exactly</em> <code>opt_initialize:</code> —
+/// the trailing colon is part of the selector name.
++ (void)opt_initialize:(id _Nullable)arg;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

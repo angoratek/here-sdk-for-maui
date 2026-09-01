@@ -10,7 +10,7 @@ import _StringProcessing
 import _SwiftConcurrencyShims
 import heresdk
 @_inheritsConvenienceInitializers @objc(LocationInitializer) final public class LocationInitializer : ObjectiveC.NSObject {
-  @objc public static func initializeLocation()
+  @objc public static func opt_initialize(_ arg: Any?)
   @objc override dynamic public init()
   @objc deinit
 }
