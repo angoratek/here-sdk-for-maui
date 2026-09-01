@@ -161,6 +161,11 @@ public class AppiumSetup
         iosOptions.AddAdditionalAppiumOption("useNewWDA", "false");
         iosOptions.AddAdditionalAppiumOption("wdaLaunchTimeout", "60000");
         iosOptions.AddAdditionalAppiumOption("wdaConnectionTimeout", "60000");
+        // iOS 26 simulators on a freshly-erased sim show a one-time "Enable
+        // Dictation?" system dialog on first app launch. WDA's
+        // autoDismissAlerts capability makes it tap the cancel/"Not Now"
+        // button automatically so the RefApp gets foreground focus.
+        iosOptions.AddAdditionalAppiumOption("autoDismissAlerts", "true");
 
         var udid = Environment.GetEnvironmentVariable("UITEST_IOS_UDID");
         if (!string.IsNullOrWhiteSpace(udid))
