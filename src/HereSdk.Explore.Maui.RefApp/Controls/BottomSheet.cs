@@ -38,6 +38,7 @@ public partial class BottomSheet : Border
     private double _dragStartY;
     private double _sheetStartY;
     private double _availableHeight;
+    private double _deviceHeight;
 
     public SheetState CurrentState
     {
@@ -91,6 +92,28 @@ public partial class BottomSheet : Border
         panGesture.PanUpdated += OnPanUpdated;
         handle.GestureRecognizers.Add(panGesture);
 
+        // On iOS, the first navigation to a page hosting this BottomSheet can
+        // land before OnSizeAllocated gets a real parent height, leaving the
+        // sheet stuck at CollapsedHeight even when CurrentState is set to
+        // FullyExpanded in XAML. The Loaded event fires when the visual tree
+        // is actually attached, so re-applying the layout there fixes the
+        // initial-expand-on-Shell-tab issue.
+        Loaded += OnLoaded;
+
+        // Re-apply layout on every SizeChanged. On iOS Shell-tab navigation
+        // the visual tree can resize AFTER the first Loaded + UpdateSheetLayout
+        // run, leaving the sheet stuck at a stale TranslationY. The
+        // SizeChanged signal is the canonical "I actually have a real size
+        // now" hook, and re-running the layout there is idempotent.
+        SizeChanged += OnSizeChanged;
+
+        // DeviceDisplay is reliable on iOS even before the first layout pass,
+        // so cache it here as a fallback when Parent.Height is still 0
+        // (Shell-tab navigation can land before OnSizeAllocated reports a
+        // valid parent height).
+        _deviceHeight = DeviceDisplay.Current.MainDisplayInfo.Height /
+            DeviceDisplay.Current.MainDisplayInfo.Density;
+
         _headerSlot = new ContentView();
         _contentSlot = new ContentView();
 
@@ -121,9 +144,51 @@ public partial class BottomSheet : Border
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
-        var parentHeight = this.Parent is View pv ? pv.Height : 800;
-        _availableHeight = parentHeight;
+        _availableHeight = ResolveAvailableHeight();
         UpdateSheetLayout();
+    }
+
+    /// <summary>
+    /// On iOS, Shell-tab content pages can land on the Tools tab before
+    /// <see cref="OnSizeAllocated"/> is called with a non-zero parent height,
+    /// which leaves the BottomSheet stuck at its CollapsedHeight even though
+    /// <c>CurrentState</c> is set to <see cref="SheetState.FullyExpanded"/>.
+    /// Re-applying the layout on the Loaded event (fired when the visual
+    /// tree is attached) forces the snap to the configured state once the
+    /// page is actually on screen. Subscribed from the constructor so it
+    /// fires every time the BottomSheet is attached to a parent.
+    /// </summary>
+    private void OnLoaded(object? sender, EventArgs e)
+    {
+        _availableHeight = ResolveAvailableHeight();
+        UpdateSheetLayout();
+    }
+
+    /// <summary>
+    /// Re-runs the layout on every SizeChanged signal. On iOS Shell-tab
+    /// navigation the visual tree can resize AFTER the first Loaded +
+    /// UpdateSheetLayout run, leaving the sheet stuck at a stale
+    /// TranslationY (0, collapsed). Subscribed from the constructor.
+    /// </summary>
+    private void OnSizeChanged(object? sender, EventArgs e)
+    {
+        _availableHeight = ResolveAvailableHeight();
+        UpdateSheetLayout();
+    }
+
+    /// <summary>
+    /// Returns the height we should treat as available for the sheet to
+    /// draw into. Prefer the parent View's reported height; on iOS Shell
+    /// tabs that value can be 0 until the first layout pass, so fall back
+    /// to the cached <see cref="DeviceDisplay"/> height in that case.
+    /// </summary>
+    private double ResolveAvailableHeight()
+    {
+        if (this.Parent is View pv && pv.Height > 0)
+        {
+            return pv.Height;
+        }
+        return _deviceHeight > 0 ? _deviceHeight : 800.0;
     }
 
     private static void OnStateChanged(BindableObject bindable, object oldValue, object newValue)
@@ -205,11 +270,37 @@ public partial class BottomSheet : Border
 
     private async void UpdateSheetLayout()
     {
-        if (_availableHeight <= 0) return;
+        // On iOS, the Loaded event can fire before the parent has been laid
+        // out (so Parent.Height is still 0). If we bail here we leave the
+        // sheet stuck at CollapsedHeight for the lifetime of the page, even
+        // though CurrentState is set to FullyExpanded in XAML. Poll a few
+        // times for a real parent height, and fall back to the cached
+        // DeviceDisplay height so the sheet always snaps to its target
+        // state instead of staying collapsed.
+        if (_availableHeight <= 0)
+        {
+            for (var i = 0; i < 10; i++)
+            {
+                await Task.Delay(50);
+                _availableHeight = ResolveAvailableHeight();
+                if (_availableHeight > 0) break;
+            }
+        }
 
-        var targetTranslation = GetTargetTranslation(CurrentState);
-        await this.TranslateToAsync(0, targetTranslation, 350, Easing.CubicOut);
+        if (_availableHeight <= 0)
+        {
+            _availableHeight = _deviceHeight > 0 ? _deviceHeight : 800.0;
+        }
 
+        // On iOS Shell tab content pages, MAUI's iOS handler re-applies
+        // AutoLayout constraints after layout and discards TranslationY,
+        // leaving the sheet stuck at TranslationY=0 (collapsed position).
+        // We work around this by changing the sheet's HeightRequest only —
+        // `VerticalOptions = End` anchors it to the parent bottom, and a
+        // larger HeightRequest makes the sheet grow upward into the
+        // available space. Visibility of the SheetContent is also gated on
+        // CurrentState so the collapsed sheet doesn't render its content
+        // (which would push the layout taller than CollapsedHeight).
         var fullHeight = FullyExpandedHeight > 0 ? FullyExpandedHeight : _availableHeight * 0.85;
         var displayHeight = CurrentState switch
         {
@@ -219,5 +310,10 @@ public partial class BottomSheet : Border
             _ => CollapsedHeight
         };
         this.HeightRequest = displayHeight;
+
+        if (_contentSlot is not null)
+        {
+            _contentSlot.IsVisible = CurrentState != SheetState.Collapsed;
+        }
     }
 }
