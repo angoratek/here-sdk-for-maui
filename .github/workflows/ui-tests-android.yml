@@ -31,13 +31,10 @@ jobs:
       - name: Setup Android SDK (cached)
         uses: android-actions/setup-android@v3
         with:
+          # packages must be a single space-delimited string — the action
+          # passes it to sdkmanager verbatim, so multi-line lists break.
           # Cache is on by default; packages are restored on subsequent runs.
-          packages: |
-            cmdline-tools;latest
-            platform-tools
-            platforms;android-34
-            build-tools;34.0.0
-            system-images;android-34;google_apis;x86_64
+          packages: 'cmdline-tools;latest platform-tools platforms;android-34 build-tools;34.0.0 system-images;android-34;google_apis;x86_64'
 
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses
