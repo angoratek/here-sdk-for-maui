@@ -25,6 +25,15 @@ public protocol HereDoubleTapDelegate: AnyObject {
 public class HereGestures: NSObject {
     private let gestures: Gestures
 
+    // The HERE SDK's Gestures delegate properties are `weak`, so the wrapper
+    // instances must be retained here or they (and the callback) die as soon
+    // as setXxxDelegate returns. The wrappers themselves hold their ObjC
+    // delegate weakly — the C# side must keep its delegate handler alive
+    // (e.g. in a handler field).
+    private var tapWrapper: TapDelegateWrapper?
+    private var longPressWrapper: LongPressDelegateWrapper?
+    private var doubleTapWrapper: DoubleTapDelegateWrapper?
+
     /// Non-@objc init — ObjC can't provide a Gestures argument.
     public init(_ gestures: Gestures) {
         self.gestures = gestures
@@ -37,21 +46,18 @@ public class HereGestures: NSObject {
     }
 
     @objc public func setTapDelegate(_ delegate: HereTapDelegate?) {
-        gestures.tapDelegate = delegate.map { wrapper in
-            TapDelegateWrapper(wrapper)
-        }
+        tapWrapper = delegate.map { TapDelegateWrapper($0) }
+        gestures.tapDelegate = tapWrapper
     }
 
     @objc public func setLongPressDelegate(_ delegate: HereLongPressDelegate?) {
-        gestures.longPressDelegate = delegate.map { wrapper in
-            LongPressDelegateWrapper(wrapper)
-        }
+        longPressWrapper = delegate.map { LongPressDelegateWrapper($0) }
+        gestures.longPressDelegate = longPressWrapper
     }
 
     @objc public func setDoubleTapDelegate(_ delegate: HereDoubleTapDelegate?) {
-        gestures.doubleTapDelegate = delegate.map { wrapper in
-            DoubleTapDelegateWrapper(wrapper)
-        }
+        doubleTapWrapper = delegate.map { DoubleTapDelegateWrapper($0) }
+        gestures.doubleTapDelegate = doubleTapWrapper
     }
 
     var swiftGestures: Gestures {

@@ -15,9 +15,17 @@ public partial class HereMapViewHandler
     private HereMapBridgeView? _bridgeView;
     private HereGestures? _gestures;
 
+    // Gesture delegate handlers MUST be kept alive in fields: the Swift side
+    // (HereGestures) holds them only weakly, so an unreferenced handler is
+    // GC-collected and the map's tap/long-press/double-tap callbacks go
+    // silently dead.
+    private TapDelegateHandler? _tapDelegate;
+    private LongPressDelegateHandler? _longPressDelegate;
+    private DoubleTapDelegateHandler? _doubleTapDelegate;
+
     protected override UIKit.UIView CreatePlatformView()
     {
-        System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] iOS CreatePlatformView started");
+        Console.WriteLine("[REFAPP_DIAG] iOS CreatePlatformView started");
         _bridgeView = HereMapBridgeView.Create();
 
         var mapService = new MapService();
@@ -26,23 +34,26 @@ public partial class HereMapViewHandler
         _gestures = new HereGestures(_bridgeView);
         mapService.Initialize(camera, scene, _gestures, _bridgeView);
         _mapService = mapService;
-        System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] iOS MapService initialized");
+        Console.WriteLine("[REFAPP_DIAG] iOS MapService initialized");
 
         // Wire up gesture events
-        _gestures.SetTapDelegate(new TapDelegateHandler(this));
-        _gestures.SetLongPressDelegate(new LongPressDelegateHandler(this));
-        _gestures.SetDoubleTapDelegate(new DoubleTapDelegateHandler(this));
-        System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] iOS gesture delegates wired");
+        _tapDelegate = new TapDelegateHandler(this);
+        _longPressDelegate = new LongPressDelegateHandler(this);
+        _doubleTapDelegate = new DoubleTapDelegateHandler(this);
+        _gestures.SetTapDelegate(_tapDelegate);
+        _gestures.SetLongPressDelegate(_longPressDelegate);
+        _gestures.SetDoubleTapDelegate(_doubleTapDelegate);
+        Console.WriteLine("[REFAPP_DIAG] iOS gesture delegates wired");
 
         // Load the initial map scene. The MapScheme property defaults to NormalDay,
         // so XAML setting MapScheme="NormalDay" never triggers the property changed callback.
         var initialScheme = VirtualView?.MapScheme ?? Models.Maps.MapScheme.NormalDay;
-        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] iOS loading initial scene: {initialScheme}");
+        Console.WriteLine($"[REFAPP_DIAG] iOS loading initial scene: {initialScheme}");
         _ = LoadInitialSceneAsync(initialScheme);
 
         // The bridge view exposes the MapView as a UIView via PlatformView
         _platformView = _bridgeView.PlatformView ?? new UIKit.UIView(CoreGraphics.CGRect.Empty);
-        System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] iOS CreatePlatformView completed");
+        Console.WriteLine("[REFAPP_DIAG] iOS CreatePlatformView completed");
         return _platformView;
     }
 
@@ -57,6 +68,9 @@ public partial class HereMapViewHandler
         (_mapService as MapService)?.Dispose();
         _mapService = null;
         _gestures = null;
+        _tapDelegate = null;
+        _longPressDelegate = null;
+        _doubleTapDelegate = null;
         _bridgeView = null;
         _platformView = null;
         base.DisconnectHandler(platformView);
@@ -74,7 +88,7 @@ public partial class HereMapViewHandler
 
     internal void OnMapTapped(double originX, double originY)
     {
-        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] iOS OnMapTapped: originX={originX}, originY={originY}");
+        Console.WriteLine($"[REFAPP_DIAG] iOS OnMapTapped: originX={originX}, originY={originY}");
         if (_mapService is MapService ms)
         {
             var coordinates = _bridgeView?.ViewToGeoCoordinates(originX, originY);
@@ -82,14 +96,14 @@ public partial class HereMapViewHandler
                 ? new GeoCoordinates(coordinates.Latitude, coordinates.Longitude)
                 : new GeoCoordinates(0, 0);
             var screenPoint = new Point2D(originX, originY);
-            System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] iOS MapTapped raised: {geo.Latitude},{geo.Longitude}");
+            Console.WriteLine($"[REFAPP_DIAG] iOS MapTapped raised: {geo.Latitude},{geo.Longitude}");
             ms.RaiseMapTapped(new MapTappedEventArgs(geo, screenPoint));
         }
     }
 
     internal void OnMapDoubleTapped(double originX, double originY)
     {
-        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] iOS OnMapDoubleTapped: originX={originX}, originY={originY}");
+        Console.WriteLine($"[REFAPP_DIAG] iOS OnMapDoubleTapped: originX={originX}, originY={originY}");
         if (_mapService is MapService ms)
         {
             var coordinates = _bridgeView?.ViewToGeoCoordinates(originX, originY);
@@ -103,7 +117,7 @@ public partial class HereMapViewHandler
 
     internal void OnMapLongPressed(nint state, double originX, double originY)
     {
-        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] iOS OnMapLongPressed: state={state}, originX={originX}, originY={originY}");
+        Console.WriteLine($"[REFAPP_DIAG] iOS OnMapLongPressed: state={state}, originX={originX}, originY={originY}");
         if (_mapService is MapService ms)
         {
             var coordinates = _bridgeView?.ViewToGeoCoordinates(originX, originY);
@@ -120,11 +134,11 @@ public partial class HereMapViewHandler
         try
         {
             await _mapService!.LoadSceneAsync(scheme);
-            System.Diagnostics.Debug.WriteLine($"[HereMapViewHandler] Initial scene loaded: {scheme}");
+            Console.WriteLine($"[HereMapViewHandler] Initial scene loaded: {scheme}");
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"[HereMapViewHandler] Failed to load initial scene: {ex.Message}");
+            Console.WriteLine($"[HereMapViewHandler] Failed to load initial scene: {ex.Message}");
         }
     }
 }
