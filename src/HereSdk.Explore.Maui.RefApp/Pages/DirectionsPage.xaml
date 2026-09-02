@@ -127,6 +127,7 @@
 
             <!-- Isoline toggle -->
             <Button Style="{StaticResource MapFloatingButton}"
+                    AutomationId="DirectionsIsolineButton"
                     Command="{Binding ToggleIsolineModeCommand}"
                     Text="{Binding IsIsolineMode, Converter={StaticResource InverseBool}}">
                 <Button.Triggers>
@@ -210,13 +211,22 @@
                                Title="{Binding EmptyStateTitle}"
                                Subtitle="{Binding EmptyStateSubtitle}" />
 
-        <!-- Loading overlay -->
-        <Grid Grid.Row="0" BackgroundColor="#80000000"
-              IsVisible="{Binding IsCalculating}">
-            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-                <ActivityIndicator IsRunning="True" Color="White" />
-                <Label Text="Calculating route..." FontSize="16" TextColor="White" />
-            </VerticalStackLayout>
+        <!-- Loading indicator: centered pill, map stays interactive -->
+        <Grid Grid.Row="0" InputTransparent="True" IsVisible="{Binding IsCalculating}">
+            <Border HorizontalOptions="Center" VerticalOptions="Center"
+                    StrokeShape="RoundRectangle 18" StrokeThickness="0" Padding="18,12"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceSecondaryDark}}">
+                <Border.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColor}, Dark={StaticResource ShadowColorDark}}"
+                            Offset="0,4" Radius="16" />
+                </Border.Shadow>
+                <HorizontalStackLayout Spacing="10">
+                    <ActivityIndicator IsRunning="True"
+                                       Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                    <Label Text="Calculating route…" FontSize="15" VerticalOptions="Center"
+                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                </HorizontalStackLayout>
+            </Border>
         </Grid>
     </Grid>
 </ContentPage>

@@ -179,8 +179,10 @@
          needed. Android's status bar is 24-30 dp, so 12 dp + system
          inset is enough. Centralising the value here means future
          status-bar / Dynamic-Island changes are a one-line edit. -->
+    <!-- NOTE: MAUI already applies the iOS safe-area inset to ContentPage, so the
+         top margin only needs the visual gap below the status bar. -->
     <OnPlatform x:Key="TopSafeMargin" x:TypeArguments="Thickness">
-        <On Platform="iOS" Value="12,60,12,0" />
+        <On Platform="iOS" Value="12,8,12,0" />
         <On Platform="Android" Value="12,12,12,0" />
     </OnPlatform>
 
