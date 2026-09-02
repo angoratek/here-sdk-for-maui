@@ -38,6 +38,10 @@
   suggestions show `Type` instead of raw place IDs.
 - **Isoline routing on iOS (2026-09-01)**: `HereIsolineRoutingEngine` added to NativeBridge,
   bound in `ApiDefinition.cs`, `RoutingService.iOS.CalculateIsolineAsync` implemented.
+- **Forward/reverse geocoding (2026-09-01)**: iOS NativeBridge wraps `searchByAddress` /
+  `searchByCoordinates` and exposes `HereAddress` on `HerePlace`; shared `AddressQuery` model,
+  two new `ISearchService.SearchAsync` overloads (forward + reverse), Android implementations;
+  `Place` now carries an `Address`. RefApp: map tap reverse-geocodes and shows a place card.
 
 ## Active Work: RefApp UX polish (continued)
 
@@ -54,14 +58,12 @@
 
 | Gap | Detail | Platforms |
 |-----|--------|-----------|
-| Geocoding | `searchByAddress` not wrapped | iOS |
-| Reverse geocoding | `searchByCoordinates` not wrapped | iOS |
 | Picked place lookup | `searchByPickedPlace` not wrapped | iOS |
 | Structured address search | `StructuredQuery` not wrapped | iOS |
 | Extended callbacks | `SearchCallbackExtended` / `SuggestCallbackExtended` | iOS |
 | EV/fuel models | `EVChargingStation`, `FuelStation`, `EVChargingPool` | iOS |
 | WebDetails on Place | `WebImage`, `WebEditorial`, `WebRating` | iOS |
-| Place model too thin | No address, categories, details (iOS) | iOS |
+| Place model too thin | No categories, contact, details (iOS); Address now bound | iOS |
 | Suggestion model too thin | No `SuggestionType` enum precision | iOS → Shared |
 | `setCustomOption` / `sendRequest` | Not wrapped | iOS |
 | Full `RoutingOptions` | Only `transportMode` — no avoidance, toll, EV, text options | iOS |
