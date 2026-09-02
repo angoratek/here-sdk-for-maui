@@ -370,6 +370,23 @@ extern "C" {
 
 #if defined(__OBJC__)
 
+@class NSString;
+/// ObjC-visible wrapper for Address.
+SWIFT_CLASS_NAMED("HereAddress")
+@interface HereAddress : NSObject
+@property (nonatomic, copy) NSString * _Nonnull street;
+@property (nonatomic, copy) NSString * _Nonnull houseNumber;
+@property (nonatomic, copy) NSString * _Nonnull city;
+@property (nonatomic, copy) NSString * _Nonnull district;
+@property (nonatomic, copy) NSString * _Nonnull state;
+@property (nonatomic, copy) NSString * _Nonnull countryCode;
+@property (nonatomic, copy) NSString * _Nonnull countryName;
+@property (nonatomic, copy) NSString * _Nonnull postalCode;
+- (nonnull instancetype)initWithStreet:(NSString * _Nonnull)street houseNumber:(NSString * _Nonnull)houseNumber city:(NSString * _Nonnull)city district:(NSString * _Nonnull)district state:(NSString * _Nonnull)state countryCode:(NSString * _Nonnull)countryCode countryName:(NSString * _Nonnull)countryName postalCode:(NSString * _Nonnull)postalCode OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 /// ObjC-visible wrapper for MapCamera.State (nested struct).
 SWIFT_CLASS_NAMED("HereCameraState")
 @interface HereCameraState : NSObject
@@ -465,7 +482,6 @@ SWIFT_CLASS_NAMED("HereIsoline")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class NSString;
 /// ObjC-visible isoline result.
 SWIFT_CLASS_NAMED("HereIsolineResult")
 @interface HereIsolineResult : NSObject
@@ -670,7 +686,8 @@ SWIFT_CLASS_NAMED("HerePlace")
 @property (nonatomic, copy) NSString * _Nonnull title;
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
-- (nonnull instancetype)initWithId:(NSString * _Nonnull)id title:(NSString * _Nonnull)title latitude:(double)latitude longitude:(double)longitude OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, strong) HereAddress * _Nullable address;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id title:(NSString * _Nonnull)title latitude:(double)latitude longitude:(double)longitude address:(HereAddress * _Nullable)address OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -765,6 +782,9 @@ SWIFT_CLASS_NAMED("HereSearchEngine")
 - (void)searchByTextWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByCategoryWithCategoryId:(NSString * _Nonnull)categoryId latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)suggestWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HereSuggestion *> * _Nullable, NSString * _Nullable))completion;
+- (void)searchByAddressWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
+/// Reverse geocoding: look up the place/address at a coordinate.
+- (void)searchByCoordinatesWithLatitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByPlaceIdWithPlaceId:(NSString * _Nonnull)placeId completion:(void (^ _Nonnull)(HerePlace * _Nullable, NSString * _Nullable))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -1274,6 +1294,23 @@ extern "C" {
 
 #if defined(__OBJC__)
 
+@class NSString;
+/// ObjC-visible wrapper for Address.
+SWIFT_CLASS_NAMED("HereAddress")
+@interface HereAddress : NSObject
+@property (nonatomic, copy) NSString * _Nonnull street;
+@property (nonatomic, copy) NSString * _Nonnull houseNumber;
+@property (nonatomic, copy) NSString * _Nonnull city;
+@property (nonatomic, copy) NSString * _Nonnull district;
+@property (nonatomic, copy) NSString * _Nonnull state;
+@property (nonatomic, copy) NSString * _Nonnull countryCode;
+@property (nonatomic, copy) NSString * _Nonnull countryName;
+@property (nonatomic, copy) NSString * _Nonnull postalCode;
+- (nonnull instancetype)initWithStreet:(NSString * _Nonnull)street houseNumber:(NSString * _Nonnull)houseNumber city:(NSString * _Nonnull)city district:(NSString * _Nonnull)district state:(NSString * _Nonnull)state countryCode:(NSString * _Nonnull)countryCode countryName:(NSString * _Nonnull)countryName postalCode:(NSString * _Nonnull)postalCode OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 /// ObjC-visible wrapper for MapCamera.State (nested struct).
 SWIFT_CLASS_NAMED("HereCameraState")
 @interface HereCameraState : NSObject
@@ -1369,7 +1406,6 @@ SWIFT_CLASS_NAMED("HereIsoline")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class NSString;
 /// ObjC-visible isoline result.
 SWIFT_CLASS_NAMED("HereIsolineResult")
 @interface HereIsolineResult : NSObject
@@ -1574,7 +1610,8 @@ SWIFT_CLASS_NAMED("HerePlace")
 @property (nonatomic, copy) NSString * _Nonnull title;
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
-- (nonnull instancetype)initWithId:(NSString * _Nonnull)id title:(NSString * _Nonnull)title latitude:(double)latitude longitude:(double)longitude OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, strong) HereAddress * _Nullable address;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id title:(NSString * _Nonnull)title latitude:(double)latitude longitude:(double)longitude address:(HereAddress * _Nullable)address OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -1669,6 +1706,9 @@ SWIFT_CLASS_NAMED("HereSearchEngine")
 - (void)searchByTextWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByCategoryWithCategoryId:(NSString * _Nonnull)categoryId latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)suggestWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HereSuggestion *> * _Nullable, NSString * _Nullable))completion;
+- (void)searchByAddressWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
+/// Reverse geocoding: look up the place/address at a coordinate.
+- (void)searchByCoordinatesWithLatitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByPlaceIdWithPlaceId:(NSString * _Nonnull)placeId completion:(void (^ _Nonnull)(HerePlace * _Nullable, NSString * _Nullable))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");

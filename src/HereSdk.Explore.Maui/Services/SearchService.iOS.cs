@@ -66,6 +66,50 @@ public partial class SearchService
         return await tcs.Task;
     }
 
+    public async Task<SearchResult> SearchAsync(AddressQuery query, SearchOptions options)
+    {
+        if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");
+        var tcs = new TaskCompletionSource<SearchResult>();
+
+        var latitude = query.AreaCenter?.Latitude ?? 0;
+        var longitude = query.AreaCenter?.Longitude ?? 0;
+        var maxItems = options.MaxItems ?? 0;
+        var languageCode = options.Language.HasValue ? (nint)options.Language.Value : -1;
+
+        _engine.SearchByAddress(query.Query, latitude, longitude, (int)maxItems, languageCode, (places, error) =>
+        {
+            if (error is not null)
+                tcs.SetResult(new SearchResult(ToSharedSearchError(error), null));
+            else if (places is not null)
+                tcs.SetResult(new SearchResult(SearchError.None, places.Select(ToSharedPlace).ToList()));
+            else
+                tcs.SetResult(new SearchResult(SearchError.None, null));
+        });
+
+        return await tcs.Task;
+    }
+
+    public async Task<SearchResult> SearchAsync(GeoCoordinates coordinates, SearchOptions options)
+    {
+        if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");
+        var tcs = new TaskCompletionSource<SearchResult>();
+
+        var maxItems = options.MaxItems ?? 0;
+        var languageCode = options.Language.HasValue ? (nint)options.Language.Value : -1;
+
+        _engine.SearchByCoordinates(coordinates.Latitude, coordinates.Longitude, (int)maxItems, languageCode, (places, error) =>
+        {
+            if (error is not null)
+                tcs.SetResult(new SearchResult(ToSharedSearchError(error), null));
+            else if (places is not null)
+                tcs.SetResult(new SearchResult(SearchError.None, places.Select(ToSharedPlace).ToList()));
+            else
+                tcs.SetResult(new SearchResult(SearchError.None, null));
+        });
+
+        return await tcs.Task;
+    }
+
     public async Task<SuggestResult> SuggestAsync(TextQuery query, SearchOptions options)
     {
         if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");
@@ -116,10 +160,23 @@ public partial class SearchService
 
     private static Place ToSharedPlace(HerePlace iosPlace)
     {
+        var address = iosPlace.Address is null
+            ? null
+            : new Address(
+                iosPlace.Address.Street,
+                iosPlace.Address.HouseNumber,
+                iosPlace.Address.City,
+                iosPlace.Address.District,
+                iosPlace.Address.State,
+                iosPlace.Address.CountryCode,
+                iosPlace.Address.CountryName,
+                iosPlace.Address.PostalCode);
+
         return new Place(
             iosPlace.Id,
             iosPlace.Title,
-            new GeoCoordinates(iosPlace.Latitude, iosPlace.Longitude));
+            new GeoCoordinates(iosPlace.Latitude, iosPlace.Longitude),
+            address);
     }
 
     private static Suggestion ToSharedSuggestion(HereSuggestion iosSuggestion)

@@ -58,6 +58,32 @@ public partial class SearchService
         return await tcs.Task;
     }
 
+    public async Task<SearchResult> SearchAsync(AddressQuery query, SearchOptions options)
+    {
+        if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");
+        var tcs = new TaskCompletionSource<SearchResult>();
+
+        var androidArea = query.AreaCenter is not null
+            ? new Here.Explore.Core.GeoCoordinates(query.AreaCenter.Latitude, query.AreaCenter.Longitude)
+            : new Here.Explore.Core.GeoCoordinates(0, 0);
+
+        var androidQuery = new Here.Explore.Search.AddressQuery(query.Query, androidArea);
+        var androidOptions = ToAndroidSearchOptions(options);
+        _engine.SearchByAddress(androidQuery, androidOptions, new SearchCallback(tcs));
+        return await tcs.Task;
+    }
+
+    public async Task<SearchResult> SearchAsync(GeoCoordinates coordinates, SearchOptions options)
+    {
+        if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");
+        var tcs = new TaskCompletionSource<SearchResult>();
+
+        var androidCoords = new Here.Explore.Core.GeoCoordinates(coordinates.Latitude, coordinates.Longitude);
+        var androidOptions = ToAndroidSearchOptions(options);
+        _engine.SearchByCoordinates(androidCoords, androidOptions, new SearchCallback(tcs));
+        return await tcs.Task;
+    }
+
     public async Task<SuggestResult> SuggestAsync(TextQuery query, SearchOptions options)
     {
         if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");

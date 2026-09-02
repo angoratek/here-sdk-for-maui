@@ -299,7 +299,21 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public func searchByText(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
   @objc public func searchByCategory(categoryId: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
   @objc public func suggest(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HereSuggestion]?, Swift.String?) -> Swift.Void)
+  @objc public func searchByAddress(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
+  @objc public func searchByCoordinates(latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
   @objc public func searchByPlaceId(placeId: Swift.String, completion: @escaping (HereSdkExploreNativeBridge.HerePlace?, Swift.String?) -> Swift.Void)
+  @objc deinit
+}
+@objc(HereAddress) public class HereAddress : ObjectiveC.NSObject {
+  @objc public var street: Swift.String
+  @objc public var houseNumber: Swift.String
+  @objc public var city: Swift.String
+  @objc public var district: Swift.String
+  @objc public var state: Swift.String
+  @objc public var countryCode: Swift.String
+  @objc public var countryName: Swift.String
+  @objc public var postalCode: Swift.String
+  @objc public init(street: Swift.String, houseNumber: Swift.String, city: Swift.String, district: Swift.String, state: Swift.String, countryCode: Swift.String, countryName: Swift.String, postalCode: Swift.String)
   @objc deinit
 }
 @objc(HerePlace) public class HerePlace : ObjectiveC.NSObject {
@@ -307,7 +321,8 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public var title: Swift.String
   @objc public var latitude: Swift.Double
   @objc public var longitude: Swift.Double
-  @objc public init(id: Swift.String, title: Swift.String, latitude: Swift.Double, longitude: Swift.Double)
+  @objc public var address: HereSdkExploreNativeBridge.HereAddress?
+  @objc public init(id: Swift.String, title: Swift.String, latitude: Swift.Double, longitude: Swift.Double, address: HereSdkExploreNativeBridge.HereAddress?)
   @objc deinit
 }
 @objc(HereSuggestion) public class HereSuggestion : ObjectiveC.NSObject {

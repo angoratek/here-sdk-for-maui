@@ -35,6 +35,10 @@ public partial class SearchService : ISearchService
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<SearchResult> SearchAsync(CategoryQuery query, SearchOptions options) =>
         throw new NotImplementedException("Platform-specific implementation required.");
+    public Task<SearchResult> SearchAsync(AddressQuery query, SearchOptions options) =>
+        throw new NotImplementedException("Platform-specific implementation required.");
+    public Task<SearchResult> SearchAsync(GeoCoordinates coordinates, SearchOptions options) =>
+        throw new NotImplementedException("Platform-specific implementation required.");
     public Task<SuggestResult> SuggestAsync(TextQuery query, SearchOptions options) =>
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<Place?> GetPlaceByIdAsync(string placeId) =>

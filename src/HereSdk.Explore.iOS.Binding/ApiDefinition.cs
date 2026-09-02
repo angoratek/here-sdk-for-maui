@@ -394,10 +394,42 @@ namespace Here.Explore.iOS
 
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
+    interface HereAddress
+    {
+        [Export("initWithStreet:houseNumber:city:district:state:countryCode:countryName:postalCode:")]
+        IntPtr Constructor(string street, string houseNumber, string city, string district, string state, string countryCode, string countryName, string postalCode);
+
+        [Export("street")]
+        string Street { get; set; }
+
+        [Export("houseNumber")]
+        string HouseNumber { get; set; }
+
+        [Export("city")]
+        string City { get; set; }
+
+        [Export("district")]
+        string District { get; set; }
+
+        [Export("state")]
+        string State { get; set; }
+
+        [Export("countryCode")]
+        string CountryCode { get; set; }
+
+        [Export("countryName")]
+        string CountryName { get; set; }
+
+        [Export("postalCode")]
+        string PostalCode { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
     interface HerePlace
     {
-        [Export("initWithId:title:latitude:longitude:")]
-        IntPtr Constructor(string id, string title, double latitude, double longitude);
+        [Export("initWithId:title:latitude:longitude:address:")]
+        IntPtr Constructor(string id, string title, double latitude, double longitude, [NullAllowed] HereAddress? address);
 
         [Export("id")]
         string Id { get; set; }
@@ -410,6 +442,10 @@ namespace Here.Explore.iOS
 
         [Export("longitude")]
         double Longitude { get; set; }
+
+        [Export("address", ArgumentSemantic.Retain)]
+        [NullAllowed]
+        HereAddress Address { get; set; }
     }
 
     [BaseType(typeof(NSObject))]
@@ -444,6 +480,12 @@ namespace Here.Explore.iOS
 
         [Export("suggestWithQuery:latitude:longitude:maxItems:languageCode:completion:")]
         void Suggest(string query, double latitude, double longitude, int maxItems, nint languageCode, Action<HereSuggestion[]?, string?> completion);
+
+        [Export("searchByAddressWithQuery:latitude:longitude:maxItems:languageCode:completion:")]
+        void SearchByAddress(string query, double latitude, double longitude, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
+
+        [Export("searchByCoordinatesWithLatitude:longitude:maxItems:languageCode:completion:")]
+        void SearchByCoordinates(double latitude, double longitude, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
 
         [Export("searchByPlaceIdWithPlaceId:completion:")]
         void SearchByPlaceId(string placeId, Action<HerePlace?, string?> completion);

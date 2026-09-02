@@ -8,6 +8,13 @@ namespace Here.Explore.Maui.Models.Search;
 public record TextQuery(string Query, GeoCoordinates? AreaCenter = null);
 
 /// <summary>
+/// An address-based search (forward geocoding) query, e.g.
+/// "Invalidenstraße 116, Berlin". Excludes POI names — use
+/// <see cref="TextQuery"/> when a POI name is included.
+/// </summary>
+public record AddressQuery(string Query, GeoCoordinates? AreaCenter = null);
+
+/// <summary>
 /// A category-based search query.
 /// </summary>
 public record CategoryQuery(string CategoryId, GeoCoordinates? AreaCenter = null);
