@@ -129,6 +129,8 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public var latitude: Swift.Double
   @objc public var longitude: Swift.Double
   @objc public var imageName: Swift.String?
+  @objc public var anchorU: Swift.Double
+  @objc public var anchorV: Swift.Double
   @objc public init(latitude: Swift.Double, longitude: Swift.Double)
   @objc public init(latitude: Swift.Double, longitude: Swift.Double, imageName: Swift.String)
   @objc deinit

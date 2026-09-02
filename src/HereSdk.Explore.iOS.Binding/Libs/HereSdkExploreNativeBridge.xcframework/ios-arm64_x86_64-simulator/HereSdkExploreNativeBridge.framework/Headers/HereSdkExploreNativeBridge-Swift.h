@@ -597,6 +597,11 @@ SWIFT_CLASS_NAMED("HereMapMarker")
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 @property (nonatomic, copy) NSString * _Nullable imageName;
+/// Normalized image anchor (0..1) — which point of the image sits on the
+/// coordinate. Defaults to the image center; the default POI pin overrides
+/// this to (0.5, 1.0) so the pin tip points at the coordinate.
+@property (nonatomic) double anchorU;
+@property (nonatomic) double anchorV;
 - (nonnull instancetype)initWithLatitude:(double)latitude longitude:(double)longitude OBJC_DESIGNATED_INITIALIZER;
 /// Create with image name (for MapScene-based add/remove).
 - (nonnull instancetype)initWithLatitude:(double)latitude longitude:(double)longitude imageName:(NSString * _Nonnull)imageName OBJC_DESIGNATED_INITIALIZER;
@@ -1521,6 +1526,11 @@ SWIFT_CLASS_NAMED("HereMapMarker")
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 @property (nonatomic, copy) NSString * _Nullable imageName;
+/// Normalized image anchor (0..1) — which point of the image sits on the
+/// coordinate. Defaults to the image center; the default POI pin overrides
+/// this to (0.5, 1.0) so the pin tip points at the coordinate.
+@property (nonatomic) double anchorU;
+@property (nonatomic) double anchorV;
 - (nonnull instancetype)initWithLatitude:(double)latitude longitude:(double)longitude OBJC_DESIGNATED_INITIALIZER;
 /// Create with image name (for MapScene-based add/remove).
 - (nonnull instancetype)initWithLatitude:(double)latitude longitude:(double)longitude imageName:(NSString * _Nonnull)imageName OBJC_DESIGNATED_INITIALIZER;

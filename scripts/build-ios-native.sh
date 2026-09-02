@@ -75,6 +75,7 @@ xcodebuild archive \
 # Create xcframework
 echo "Creating xcframework..."
 FRAMEWORK_NAME="HereSdkExploreNativeBridge"
+rm -rf "./build/$FRAMEWORK_NAME.xcframework"
 xcodebuild -create-xcframework \
     -framework "./build/ios.xcarchive/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" \
     -framework "./build/ios-simulator.xcarchive/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" \

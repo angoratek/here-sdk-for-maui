@@ -5307,6 +5307,193 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "anchorU",
+            "printedName": "anchorU",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapMarker(py)anchorU",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorUSdvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapMarker(im)anchorU",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorUSdvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapMarker(im)setAnchorU:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorUSdvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A9MapMarkerC7anchorUSdvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorUSdvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "anchorV",
+            "printedName": "anchorV",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapMarker(py)anchorV",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorVSdvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapMarker(im)anchorV",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorVSdvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapMarker(im)setAnchorV:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorVSdvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A9MapMarkerC7anchorVSdvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A9MapMarkerC7anchorVSdvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(latitude:longitude:)",
@@ -17935,6 +18122,20 @@
     "json_format_version": 8
   },
   "ConstValues": [
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Maps\/NativeMapMarker.swift",
+      "kind": "FloatLiteral",
+      "offset": 531,
+      "length": 3,
+      "value": "0.5"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Maps\/NativeMapMarker.swift",
+      "kind": "FloatLiteral",
+      "offset": 574,
+      "length": 3,
+      "value": "0.5"
+    },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Maps\/NativeMapScene.swift",
       "kind": "IntegerLiteral",

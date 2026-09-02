@@ -104,9 +104,15 @@ public class HereMapScene: NSObject {
     // --- Marker management ---
 
     @objc public func addMapMarker(_ marker: HereMapMarker) {
-        guard let mapImage = marker.createMapImage() else { return }
+        guard let mapImage = marker.createMapImage() else {
+            NSLog("REFAPP_DIAG: MapScene.addMapMarker dropped marker at (%f,%f) — image could not be created", marker.latitude, marker.longitude)
+            return
+        }
         let coordinates = GeoCoordinates(latitude: marker.latitude, longitude: marker.longitude)
-        let swiftMarker = MapMarker(at: coordinates, image: mapImage)
+        let swiftMarker = MapMarker(
+            at: coordinates,
+            image: mapImage,
+            anchor: Anchor2D(horizontal: marker.anchorU, vertical: marker.anchorV))
         marker.setSwiftMarker(swiftMarker)
         mapScene.addMapMarker(swiftMarker)
     }
