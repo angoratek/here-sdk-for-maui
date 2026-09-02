@@ -6,7 +6,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$ROOT_DIR"
 
 BINDING_DIR="src/HereSdk.Explore.iOS.Binding"
-XCFRAMEWORK="$BINDING_DIR/Libs/HereSdk.Explore.iOS.NativeBridge.xcframework"
+XCFRAMEWORK="$BINDING_DIR/Libs/HereSdkExploreNativeBridge.xcframework"
 
 echo "=== Running Objective-Sharpie for iOS Bindings ==="
 
