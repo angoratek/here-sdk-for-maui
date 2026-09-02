@@ -243,6 +243,79 @@ public class ExploreViewModelTests
 
     #endregion
 
+    #region MapTapReverseGeocode
+
+    [Fact]
+    public async Task MapTapped_OnEmptyMap_ReverseGeocodesAndShowsPlaceCard()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        mockMap.GetCameraTargetAsync().Returns(new GeoCoordinates(52.52, 13.40));
+        _viewModel.SetMapService(mockMap);
+
+        var place = new Place("rev1", "Invalidenstraße 116, Berlin", new GeoCoordinates(52.52, 13.40));
+        _searchService.SearchAsync(Arg.Any<GeoCoordinates>(), Arg.Any<SearchOptions>())
+            .Returns(new SearchResult(SearchError.None, new List<Place> { place }));
+
+        mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
+            null, new MapTappedEventArgs(new GeoCoordinates(52.52, 13.40), new Point2D(100, 200)));
+        await Task.Delay(50);
+
+        await _searchService.Received(1).SearchAsync(
+            Arg.Is<GeoCoordinates>(c => c.Latitude == 52.52 && c.Longitude == 13.40),
+            Arg.Any<SearchOptions>());
+        Assert.True(_viewModel.IsPlaceCardVisible);
+        Assert.Equal(place, _viewModel.SelectedPlace);
+    }
+
+    [Fact]
+    public async Task MapTapped_WhenPlaceCardVisible_DismissesCard()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        mockMap.GetCameraTargetAsync().Returns(new GeoCoordinates(52.52, 13.40));
+        _viewModel.SetMapService(mockMap);
+
+        var place = new Place("rev1", "Invalidenstraße 116, Berlin", new GeoCoordinates(52.52, 13.40));
+        _searchService.SearchAsync(Arg.Any<GeoCoordinates>(), Arg.Any<SearchOptions>())
+            .Returns(new SearchResult(SearchError.None, new List<Place> { place }));
+
+        // First tap: reverse geocode shows the place card
+        mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
+            null, new MapTappedEventArgs(new GeoCoordinates(52.52, 13.40), new Point2D(100, 200)));
+        await Task.Delay(50);
+        Assert.True(_viewModel.IsPlaceCardVisible);
+
+        // Second tap: dismisses the card
+        mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
+            null, new MapTappedEventArgs(new GeoCoordinates(52.53, 13.41), new Point2D(110, 210)));
+        await Task.Delay(50);
+
+        Assert.False(_viewModel.IsPlaceCardVisible);
+        // Dismissal must not fire a second reverse-geocode on top of the closing card
+        await _searchService.Received(1).SearchAsync(
+            Arg.Any<GeoCoordinates>(), Arg.Any<SearchOptions>());
+    }
+
+    [Fact]
+    public async Task MapTapped_ClearsTapMarkerOnDismiss()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        mockMap.GetCameraTargetAsync().Returns(new GeoCoordinates(52.52, 13.40));
+        _viewModel.SetMapService(mockMap);
+
+        // First tap: pin + reverse geocode (no results -> no card)
+        _searchService.SearchAsync(Arg.Any<GeoCoordinates>(), Arg.Any<SearchOptions>())
+            .Returns(new SearchResult(SearchError.NoResults, null));
+        mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
+            null, new MapTappedEventArgs(new GeoCoordinates(52.52, 13.40), new Point2D(100, 200)));
+        await Task.Delay(50);
+
+        mockMap.Received(1).AddMapMarker(Arg.Any<MapMarker>());
+        _viewModel.ClearSearchCommand.Execute(null);
+        mockMap.Received(1).RemoveMapMarker(Arg.Any<MapMarker>());
+    }
+
+    #endregion
+
     #region NavigateToDirections
 
     [Fact]

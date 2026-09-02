@@ -22,6 +22,7 @@ public partial class ExploreViewModel : ViewModelBase
     [ObservableProperty] private bool _isSearching;
     [ObservableProperty] private Place? _selectedPlace;
     [ObservableProperty] private string? _placeDistance;
+    [ObservableProperty] private double? _selectedPlaceDistanceKm;
     [ObservableProperty] private bool _isPlaceCardVisible;
     [ObservableProperty] private MapScheme _currentScheme = MapScheme.NormalDay;
     [ObservableProperty] private double _currentZoom = 14;
@@ -35,6 +36,7 @@ public partial class ExploreViewModel : ViewModelBase
     private readonly List<MapMarker> _placeMarkers = new();
     private MapMarker? _selectedMarker;
     private MapMarker? _longPressMarker;
+    private MapMarker? _tapMarker;
     private const int DebounceMs = 300;
     private const int MinQueryLength = 2;
 
@@ -136,6 +138,10 @@ public partial class ExploreViewModel : ViewModelBase
     private async Task SubmitSearch()
     {
         if (_mapService is null || string.IsNullOrWhiteSpace(SearchQuery) || SearchQuery.Length < 2) return;
+
+        // Cancel any in-flight debounced suggest — its result must not
+        // re-open the suggestions panel after the submit cleared it.
+        _debounceCts?.Cancel();
 
         Suggestions = Array.Empty<Suggestion>();
         HasSuggestions = false;
@@ -256,6 +262,7 @@ public partial class ExploreViewModel : ViewModelBase
         {
             var center = await _mapService.GetCameraTargetAsync();
             var distKm = ComputeDistanceKm(center, place.Coordinates);
+            SelectedPlaceDistanceKm = distKm;
             PlaceDistance = distKm < 1 ? $"{distKm * 1000:F0}m away" : $"{distKm:F1}km away";
         }
         catch { PlaceDistance = null; }
@@ -346,6 +353,11 @@ public partial class ExploreViewModel : ViewModelBase
             _mapService.RemoveMapMarker(_selectedMarker);
             _selectedMarker = null;
         }
+        if (_tapMarker is not null && _mapService is not null)
+        {
+            _mapService.RemoveMapMarker(_tapMarker);
+            _tapMarker = null;
+        }
     }
 
     [RelayCommand]
@@ -356,11 +368,33 @@ public partial class ExploreViewModel : ViewModelBase
                 $"//directions?placeId={SelectedPlace.Id}&placeName={Uri.EscapeDataString(SelectedPlace.Title)}&lat={SelectedPlace.Coordinates.Latitude}&lng={SelectedPlace.Coordinates.Longitude}");
     }
 
-    private void OnMapTapped(object? sender, MapTappedEventArgs e)
+    private async void OnMapTapped(object? sender, MapTappedEventArgs e)
     {
-        // Tap on empty map while place card is not showing: clear
-        if (!IsPlaceCardVisible)
+        // Tap while the place card is showing: dismiss it
+        if (IsPlaceCardVisible)
+        {
             ClearSearchCommand.Execute(null);
+            return;
+        }
+
+        // Tap on empty map: drop a pin and reverse-geocode the address
+        if (_mapService is null) return;
+
+        if (_tapMarker is not null)
+            _mapService.RemoveMapMarker(_tapMarker);
+        _tapMarker = new MapMarker(e.Coordinates);
+        _mapService.AddMapMarker(_tapMarker);
+
+        try
+        {
+            var result = await _searchService.SearchAsync(
+                e.Coordinates,
+                new SearchOptions { MaxItems = 1 });
+
+            if (result.Places is { Count: > 0 })
+                await ShowPlaceOnMap(result.Places[0]);
+        }
+        catch { /* ignore reverse-geocode failures */ }
     }
 
     private async void OnMapLongPressed(object? sender, MapLongPressedEventArgs e)
