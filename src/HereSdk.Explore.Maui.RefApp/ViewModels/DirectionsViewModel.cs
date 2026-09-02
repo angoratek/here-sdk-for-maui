@@ -4,6 +4,7 @@ using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Models.Routing;
 using Here.Explore.Maui.Models.Search;
+using Here.Explore.Maui.RefApp.Services;
 using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
@@ -12,6 +13,8 @@ public partial class DirectionsViewModel : ViewModelBase
 {
     private readonly IRoutingService _routingService;
     private readonly ISearchService _searchService;
+    private readonly ILocationService? _locationService;
+    private readonly IPermissionsService? _permissionsService;
     private IMapService? _mapService;
 
     [ObservableProperty] private string _originQuery = "";
@@ -45,11 +48,18 @@ public partial class DirectionsViewModel : ViewModelBase
     private MapMarker? _destMarker;
     private MapMarker? _isolineCenterMarker;
     private const int DebounceMs = 300;
+    // True while Origin/DestinationQuery is set programmatically so the
+    // suggestion popup is not triggered for an already-resolved place.
+    private bool _suppressOriginSuggestions;
+    private bool _suppressDestinationSuggestions;
 
-    public DirectionsViewModel(IRoutingService routingService, ISearchService searchService)
+    public DirectionsViewModel(IRoutingService routingService, ISearchService searchService,
+        ILocationService? locationService = null, IPermissionsService? permissionsService = null)
     {
         _routingService = routingService;
         _searchService = searchService;
+        _locationService = locationService;
+        _permissionsService = permissionsService;
     }
 
     public void SetMapService(IMapService mapService)
@@ -59,12 +69,14 @@ public partial class DirectionsViewModel : ViewModelBase
 
     partial void OnOriginQueryChanged(string value)
     {
+        if (_suppressOriginSuggestions) return;
         if (value.Length >= 2) _ = DebouncedSuggestAsync(value, true);
         else { OriginSuggestions = Array.Empty<Suggestion>(); HasOriginSuggestions = false; }
     }
 
     partial void OnDestinationQueryChanged(string value)
     {
+        if (_suppressDestinationSuggestions) return;
         if (value.Length >= 2) _ = DebouncedSuggestAsync(value, false);
         else { DestinationSuggestions = Array.Empty<Suggestion>(); HasDestinationSuggestions = false; }
     }
@@ -146,6 +158,63 @@ public partial class DirectionsViewModel : ViewModelBase
         (OriginPlace, DestinationPlace) = (DestinationPlace, OriginPlace);
         if (OriginPlace is not null) UpdateOriginMarker(OriginPlace);
         if (DestinationPlace is not null) UpdateDestMarker(DestinationPlace);
+    }
+
+    /// <summary>
+    /// Sets a POI selected on the Explore page as the destination, uses the
+    /// current device location as the origin, and calculates the route.
+    /// </summary>
+    public async Task SetPoiDestinationAsync(Place destination)
+    {
+        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] SetPoiDestinationAsync: {destination.Title} ({destination.Coordinates.Latitude},{destination.Coordinates.Longitude})");
+
+        DestinationPlace = destination;
+        _suppressDestinationSuggestions = true;
+        try { DestinationQuery = destination.Title; }
+        finally { _suppressDestinationSuggestions = false; }
+
+        if (_locationService is null)
+        {
+            RouteError = "Location service unavailable. Set an origin to calculate a route.";
+            return;
+        }
+
+        try
+        {
+            if (_permissionsService is not null && !await _permissionsService.RequestLocationPermissionAsync())
+            {
+                RouteError = "Location permission denied. Set an origin to calculate a route.";
+                return;
+            }
+
+            var loc = await _locationService.GetCurrentLocationAsync();
+            if (loc is null)
+            {
+                RouteError = "Could not determine your location. Set an origin to calculate a route.";
+                return;
+            }
+
+            var origin = new Place("current-location", "Current location", loc.Coordinates);
+            OriginPlace = origin;
+            _suppressOriginSuggestions = true;
+            try { OriginQuery = $"{loc.Coordinates.Latitude:F5}, {loc.Coordinates.Longitude:F5}"; }
+            finally { _suppressOriginSuggestions = false; }
+
+            if (_mapService is not null)
+            {
+                UpdateOriginMarker(origin);
+                UpdateDestMarker(destination);
+                await CalculateRouteCommand.ExecuteAsync(null);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] SetPoiDestinationAsync: map service not ready — set destination only");
+            }
+        }
+        catch (Exception ex)
+        {
+            RouteError = $"Location error: {ex.Message}";
+        }
     }
 
     [RelayCommand]

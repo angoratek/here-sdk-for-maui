@@ -5,6 +5,7 @@ using Here.Explore.Maui.Models.Routing;
 using Here.Explore.Maui.Models.Search;
 using Here.Explore.Maui.Services;
 using Here.Explore.Maui.RefApp.ViewModels;
+using Location = Here.Explore.Maui.Models.Location;
 using NSubstitute;
 
 namespace Here.Explore.Maui.RefApp.UITests.ViewModelTests;
@@ -263,6 +264,62 @@ public class DirectionsViewModelTests
         Assert.Null(_viewModel.CurrentRoute);
         Assert.Equal("", _viewModel.RouteSummary);
         Assert.Equal("", _viewModel.RouteError);
+    }
+
+    #endregion
+
+    #region SetPoiDestination
+
+    [Fact]
+    public async Task SetPoiDestinationAsync_WithLocation_SetsDestinationAndOrigin()
+    {
+        var locationService = Substitute.For<ILocationService>();
+        locationService.GetCurrentLocationAsync(Arg.Any<CancellationToken>())
+            .Returns(new Location(new GeoCoordinates(52.52, 13.405), Source: LocationSource.Gps));
+        var vm = new DirectionsViewModel(_routingService, _searchService, locationService);
+
+        var poi = new Place("poi1", "Coffee Shop", new GeoCoordinates(52.53, 13.41));
+        await vm.SetPoiDestinationAsync(poi);
+
+        Assert.Equal(poi, vm.DestinationPlace);
+        Assert.Equal("Coffee Shop", vm.DestinationQuery);
+        Assert.NotNull(vm.OriginPlace);
+        Assert.Equal(52.52, vm.OriginPlace!.Coordinates.Latitude);
+        Assert.Equal("52.52000, 13.40500", vm.OriginQuery);
+    }
+
+    [Fact]
+    public async Task SetPoiDestinationAsync_LocationUnavailable_ShowsRouteError()
+    {
+        var locationService = Substitute.For<ILocationService>();
+        locationService.GetCurrentLocationAsync(Arg.Any<CancellationToken>())
+            .Returns((Location?)null);
+        var vm = new DirectionsViewModel(_routingService, _searchService, locationService);
+
+        var poi = new Place("poi1", "Coffee Shop", new GeoCoordinates(52.53, 13.41));
+        await vm.SetPoiDestinationAsync(poi);
+
+        Assert.Equal(poi, vm.DestinationPlace);
+        Assert.Contains("location", vm.RouteError, StringComparison.OrdinalIgnoreCase);
+        Assert.Null(vm.OriginPlace);
+    }
+
+    [Fact]
+    public async Task SetPoiDestinationAsync_ProgrammaticQueries_DoNotTriggerSuggest()
+    {
+        var locationService = Substitute.For<ILocationService>();
+        locationService.GetCurrentLocationAsync(Arg.Any<CancellationToken>())
+            .Returns(new Location(new GeoCoordinates(52.52, 13.405)));
+        var vm = new DirectionsViewModel(_routingService, _searchService, locationService);
+
+        var poi = new Place("poi1", "Coffee Shop Mitte", new GeoCoordinates(52.53, 13.41));
+        await vm.SetPoiDestinationAsync(poi);
+
+        await Task.Delay(400); // longer than the 300ms suggest debounce
+
+        await _searchService.DidNotReceive().SuggestAsync(Arg.Any<TextQuery>(), Arg.Any<SearchOptions>());
+        Assert.False(vm.HasDestinationSuggestions);
+        Assert.False(vm.HasOriginSuggestions);
     }
 
     #endregion

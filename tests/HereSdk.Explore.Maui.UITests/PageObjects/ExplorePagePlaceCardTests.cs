@@ -5,10 +5,11 @@ using OpenQA.Selenium;
 namespace Here.Explore.Maui.UITests.PageObjects;
 
 /// <summary>
-/// End-to-end test: search for a known place, open the place card, tap
-/// "Get Directions" and assert arrival on the Directions tab with the
-/// destination pre-filled. This is the single most important user
-/// journey in the RefApp — without it the search results are a dead end.
+/// End-to-end test: tap the map to open the place card, tap "Get
+/// Directions" and assert arrival on the Directions tab with the
+/// destination pre-filled and the origin resolved from the device
+/// location. This is the single most important user journey in the
+/// RefApp — without it the search results are a dead end.
 /// </summary>
 public class ExplorePagePlaceCardTests : BaseTest
 {
@@ -18,47 +19,42 @@ public class ExplorePagePlaceCardTests : BaseTest
     public void NavigateToExplore() => NavigateToTab("Explore");
 
     [Test]
-    public void SearchPlace_TapGetDirections_NavigatesToDirectionsTabWithDestination()
+    public void MapTap_PlaceCard_TapGetDirections_NavigatesToDirectionsWithDestination()
     {
-        var search = FindUIElement("ExploreSearchEntry");
-        search.Clear();
-        search.SendKeys("coffee");
-        App.HideKeyboard();
-        search.SendKeys(Keys.Enter);
+        var map = FindUIElement("ExploreMapView");
 
-        Screenshot(nameof(SearchPlace_TapGetDirections_NavigatesToDirectionsTabWithDestination));
+        // Element tap = tap at the map's center (coordinate TouchActions
+        // crash WDA on iOS 26). The place card appears via the
+        // tap-to-geocode path — a text search only drops result markers
+        // and never opens the card. 8s covers a slow first reverse geocode.
+        map.Click();
+        System.Threading.Thread.Sleep(8000);
 
-        // Give the search a moment to complete and the place card to
-        // appear in the bottom sheet. 6s is enough on a healthy network.
-        System.Threading.Thread.Sleep(6000);
-
-        // First sanity: no "service not initialized" error. The end-to-end
-        // journey is only meaningful if the search itself works.
         AssertNoElementContains(NotInitializedSignature);
 
-        // Look for the place card's "Get Directions" CTA. It only exists
-        // when IsPlaceCardVisible flips true. If results came back, tap it.
         var directionsCta = TryFindUIElement("PlaceCardDirectionsButton");
         if (directionsCta is null)
         {
-            // No results — the network probably had no data, but the search
-            // itself completed. In CI without real HERE SDK credentials this
-            // is the common case; we treat it as a pass rather than fail.
-            Assert.Inconclusive("No search results — place card did not appear. The HERE SDK may not be configured in this CI environment.");
-            return;
+            Screenshot(nameof(MapTap_PlaceCard_TapGetDirections_NavigatesToDirectionsWithDestination) + "_noCard");
+            Assert.Fail("Place card did not appear after tapping the map — reverse geocoding " +
+                "or the place card sheet expansion failed");
         }
 
-        directionsCta.Click();
+        directionsCta!.Click();
 
-        // After tapping, the Shell should switch to the Directions tab.
-        // We assert by checking the From/To entries are present and the
-        // To entry is pre-populated with the destination.
-        System.Threading.Thread.Sleep(2000);
+        // Shell tab switch + current-location lookup + route calculation.
+        System.Threading.Thread.Sleep(5000);
 
         var toEntry = TryFindUIElement("DirectionsToEntry");
         Assert.That(toEntry, Is.Not.Null, "DirectionsToEntry not found after tapping Get Directions");
         Assert.That(toEntry!.Text, Is.Not.Empty,
             "DirectionsToEntry was not pre-filled with the destination");
+
+        // The origin must be resolved from the device location automatically.
+        var fromEntry = TryFindUIElement("DirectionsFromEntry");
+        Assert.That(fromEntry, Is.Not.Null, "DirectionsFromEntry not found after tapping Get Directions");
+        Assert.That(fromEntry!.Text, Is.Not.Empty,
+            "DirectionsFromEntry was not pre-filled with the current location");
     }
 
     private void AssertNoElementContains(string substring)
