@@ -14,6 +14,35 @@ namespace Here.Explore.Maui.UITests;
 public abstract class BaseTest
 {    protected AppiumDriver App => AppiumSetup.App;
 
+    [TearDown]
+    public void DismissKeyboardAfterTest()
+    {
+        // Typing tests leave the on-screen keyboard (and on iOS 26 the
+        // autocomplete/suggestion overlay, which covers the whole page
+        // including the Shell tab bar) open. Every later test then fails
+        // with NoSuchElementException. Dismiss it after each test so
+        // state never leaks across fixtures.
+        try
+        {
+            App.HideKeyboard();
+        }
+        catch
+        {
+            // No keyboard, or the driver cannot hide it — fall through.
+        }
+
+        try
+        {
+            // iOS input accessory bar's Done button — HideKeyboard alone can
+            // leave the accessory suggestion strip in the tree on iOS 26.
+            App.FindElement(MobileBy.AccessibilityId("Done")).Click();
+        }
+        catch
+        {
+            // No Done button (Android, or keyboard already dismissed).
+        }
+    }
+
     /// <summary>
     /// Locates a UI element by its MAUI <c>AutomationId</c>.
     /// <list type="bullet">
@@ -71,6 +100,23 @@ public abstract class BaseTest
     /// </summary>
     protected IWebElement FindByTextContains(string substring) =>
         App.FindElement(ContainsTextSelector(substring));
+
+    /// <summary>
+    /// Expands the collapsed "Settings" section on the Tools page
+    /// (tap on the section header) when it is not already open. The
+    /// scheme chips and the "More Settings →" button only exist in
+    /// the accessibility tree while the section is expanded, so tests
+    /// that target them must call this first.
+    /// </summary>
+    protected void ExpandToolsSettings()
+    {
+        if (TryFindUIElement("ToolsSchemeNormalDay") is not null)
+        {
+            return; // already expanded
+        }
+
+        FindByText("Settings").Click();
+    }
 
     /// <summary>
     /// Switches to the named Shell tab by tapping its bottom-bar entry.

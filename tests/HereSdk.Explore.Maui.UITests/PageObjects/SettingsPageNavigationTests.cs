@@ -11,7 +11,11 @@ namespace Here.Explore.Maui.UITests.PageObjects;
 public class SettingsPageNavigationTests : BaseTest
 {
     [SetUp]
-    public void NavigateToTools() => NavigateToTab("Tools");
+    public void NavigateToTools()
+    {
+        NavigateToTab("Tools");
+        ExpandToolsSettings();
+    }
 
     [Test]
     public void TapMoreSettings_NavigatesToSettingsPage()
@@ -30,6 +34,11 @@ public class SettingsPageNavigationTests : BaseTest
         // And the about / legal / debug sections are present (text-based).
         var about = FindByTextContains("About");
         Assert.That(about.Displayed, Is.True);
+
+        // Navigate back so later fixtures find the Shell tab bar — the
+        // pushed Settings page hides it, and with noReset=true the app
+        // would otherwise stay here for the rest of the run.
+        FindUIElement("SettingsBackButton").Click();
     }
 
     [Test]
@@ -45,7 +54,9 @@ public class SettingsPageNavigationTests : BaseTest
 
         Screenshot(nameof(TapBack_ReturnsToTools));
 
-        // On Tools, ToolsMoreSettingsButton should be visible again.
+        // Back navigation creates a fresh ToolsPage with the Settings
+        // section collapsed again — expand it so the button is in the tree.
+        ExpandToolsSettings();
         var moreSettings = TryFindUIElement("ToolsMoreSettingsButton");
         Assert.That(moreSettings, Is.Not.Null,
             "ToolsMoreSettingsButton not found after back — navigation did not return to Tools");

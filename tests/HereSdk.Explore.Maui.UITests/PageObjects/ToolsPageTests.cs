@@ -34,14 +34,12 @@ public class ToolsPageTests : BaseTest
         // custom-drawn ViewGroup with no native `android.widget.Switch`
         // surface and no `resource-id` for UIAutomator2 to latch onto.
         var settingsHeader = FindByText("Settings");
-        var loc = settingsHeader.Location;
-        var size = settingsHeader.Size;
+        // Tap the header label itself (the TapGestureRecognizer is on the
+        // parent Grid, and taps on non-interactive children bubble up).
+        // Coordinate TouchActions crash WDA on iOS 26
+        // ("unrecognized selector: waitForQuiescenceIncludingAnimationsIdle:").
         Thread.Sleep(200);
-#pragma warning disable CS0618
-        new TouchAction(App)
-            .Tap(loc.X + size.Width + 10, loc.Y + size.Height / 2)
-            .Perform();
-#pragma warning restore CS0618
+        settingsHeader.Click();
         Thread.Sleep(500);
 
         Screenshot(nameof(DarkModeToggle_TogglesState));

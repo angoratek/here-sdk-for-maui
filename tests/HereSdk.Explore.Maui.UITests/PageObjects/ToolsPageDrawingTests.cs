@@ -53,8 +53,9 @@ public class ToolsPageDrawingTests : BaseTest
             "ToolsMapView should be present at the top of the page");
         Assert.That(FindUIElement("ToolsMarkerButton").Displayed, Is.True,
             "ToolsMarkerButton should be visible (sheet is fully expanded by default)");
-        Assert.That(FindUIElement("ToolsClearAllButton"), Is.Not.Null,
-            "ToolsClearAllButton should exist in the visual tree (initially hidden but in the XAML)");
+        // ToolsClearAllButton is intentionally not asserted: it is
+        // IsVisible=false until a drawing exists, so it is not in the
+        // Android accessibility tree and a lookup would throw.
     }
 
     private void TapDrawingTool(string buttonId)

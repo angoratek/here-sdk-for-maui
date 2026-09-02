@@ -158,7 +158,10 @@ public class AppiumSetup
 
         iosOptions.AddAdditionalAppiumOption(MobileCapabilityType.NoReset, "true");
         iosOptions.AddAdditionalAppiumOption(IOSMobileCapabilityType.BundleId, AppBundleId);
-        iosOptions.AddAdditionalAppiumOption("useNewWDA", "false");
+        // Rebuild + reinstall WebDriverAgent when the cached build predates
+        // the current Xcode/iOS pair — a stale WDA crashes coordinate taps
+        // with "unrecognized selector: waitForQuiescenceIncludingAnimationsIdle:".
+        iosOptions.AddAdditionalAppiumOption("useNewWDA", "true");
         iosOptions.AddAdditionalAppiumOption("wdaLaunchTimeout", "60000");
         iosOptions.AddAdditionalAppiumOption("wdaConnectionTimeout", "60000");
         // iOS 26 simulators on a freshly-erased sim show a one-time "Enable
@@ -166,6 +169,10 @@ public class AppiumSetup
         // autoDismissAlerts capability makes it tap the cancel/"Not Now"
         // button automatically so the RefApp gets foreground focus.
         iosOptions.AddAdditionalAppiumOption("autoDismissAlerts", "true");
+        // WDA on iOS 26 crashes coordinate taps with an
+        // "unrecognized selector: waitForQuiescenceIncludingAnimationsIdle:"
+        // while waiting for the app to go idle. Skip the idle wait entirely.
+        iosOptions.AddAdditionalAppiumOption("settings[waitForIdleTimeout]", "0");
 
         var udid = Environment.GetEnvironmentVariable("UITEST_IOS_UDID");
         if (!string.IsNullOrWhiteSpace(udid))
@@ -203,6 +210,7 @@ public class AppiumSetup
         var deadline = DateTime.UtcNow.AddSeconds(180);
 
         Exception? lastError = null;
+        var restarted = false;
         while (DateTime.UtcNow < deadline)
         {
             try
@@ -213,6 +221,23 @@ public class AppiumSetup
             catch (Exception ex)
             {
                 lastError = ex;
+                // With noReset=true the app may still be on another tab
+                // (e.g. Traffic) from a previous run's last test. Restart
+                // it once so the session starts on the Explore tab.
+                if (!restarted)
+                {
+                    try
+                    {
+                        _driver!.TerminateApp(AppBundleId);
+                        _driver!.ActivateApp(AppBundleId);
+                        restarted = true;
+                    }
+                    catch
+                    {
+                        // Driver may not support terminate/activate yet —
+                        // keep probing below.
+                    }
+                }
                 Thread.Sleep(1000);
             }
         }

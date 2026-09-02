@@ -33,9 +33,17 @@ public class DirectionsPageTests : BaseTest
 
         Screenshot(nameof(OriginAndDestinationEntries_AcceptText));
 
-        Assert.That(from.Text, Is.EqualTo("San Francisco, CA"));
-        Assert.That(to.Text, Is.EqualTo("Oakland, CA"));
+        // On iOS, element.Text exposes the accessibility label (the
+        // placeholder, e.g. "Origin"), not the typed value — read the
+        // field's value attribute there instead.
+        Assert.That(EntryText(from), Is.EqualTo("San Francisco, CA"));
+        Assert.That(EntryText(to), Is.EqualTo("Oakland, CA"));
     }
+
+    private static string EntryText(OpenQA.Selenium.IWebElement entry) =>
+        AppiumSetup.Platform == TestPlatform.iOS
+            ? entry.GetAttribute("value")
+            : entry.Text;
 
     [Test]
     public void CalculateButton_IsDisplayedAfterOrigin()

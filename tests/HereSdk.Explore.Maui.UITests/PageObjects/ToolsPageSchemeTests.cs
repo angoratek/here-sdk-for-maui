@@ -14,7 +14,11 @@ public class ToolsPageSchemeTests : BaseTest
     private const string NotInitializedSignature = "not initialized";
 
     [SetUp]
-    public void NavigateToTools() => NavigateToTab("Tools");
+    public void NavigateToTools()
+    {
+        NavigateToTab("Tools");
+        ExpandToolsSettings();
+    }
 
     [Test]
     public void TapNormalDayScheme_DoesNotError()
