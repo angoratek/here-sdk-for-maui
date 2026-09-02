@@ -8,16 +8,18 @@ namespace Here.Explore.Maui.Services;
 
 /// <summary>
 /// iOS-specific RoutingService implementation using NativeBridge wrappers.
-/// Uses HereRoutingEngine for route calculation.
-/// Isoline and traffic-on-route are not yet available in NativeBridge.
+/// Uses HereRoutingEngine for route calculation and HereIsolineRoutingEngine for isolines.
+/// Traffic-on-route is not yet available in NativeBridge.
 /// </summary>
 public partial class RoutingService
 {
     private HereRoutingEngine? _engine;
+    private HereIsolineRoutingEngine? _isolineEngine;
 
     internal void Initialize()
     {
         _engine = new HereRoutingEngine(0);
+        _isolineEngine = new HereIsolineRoutingEngine(0);
     }
 
     public async Task<RoutingResult> CalculateRouteAsync(IReadOnlyList<Waypoint> waypoints, RoutingOptions options)
@@ -45,10 +47,31 @@ public partial class RoutingService
         return await tcs.Task;
     }
 
-    public Task<IsolineResult> CalculateIsolineAsync(GeoCoordinates center, IsolineOptions options)
+    public async Task<IsolineResult> CalculateIsolineAsync(GeoCoordinates center, IsolineOptions options)
     {
-        // Isoline routing is not yet available in NativeBridge.
-        throw new NotImplementedException("Isoline calculation is not yet supported on iOS.");
+        if (_isolineEngine is null) throw new InvalidOperationException("RoutingService not initialized.");
+        var tcs = new TaskCompletionSource<IsolineResult>();
+
+        _isolineEngine.CalculateIsoline(
+            center.Latitude,
+            center.Longitude,
+            (nint)ToIOSTransportMode(options.TransportMode),
+            (int)options.RangeInMeters,
+            options.MaxPoints ?? 0,
+            result =>
+            {
+                if (result.Error is not null)
+                    tcs.SetResult(new IsolineResult(ToSharedRoutingError(result.Error), null));
+                else if (result.Isolines is not null)
+                    tcs.SetResult(new IsolineResult(RoutingError.None,
+                        result.Isolines.Select(i => new Isoline(
+                            i.PolygonVertices.Select(v => new GeoCoordinates(v.Latitude, v.Longitude)).ToList(),
+                            i.RangeValue)).ToList()));
+                else
+                    tcs.SetResult(new IsolineResult(RoutingError.None, null));
+            });
+
+        return await tcs.Task;
     }
 
     public Task<TrafficOnRoute> GetTrafficOnRouteAsync(Route route)

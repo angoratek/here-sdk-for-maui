@@ -455,6 +455,43 @@ typedef SWIFT_ENUM_NAMED(NSInteger, HereInstantiationErrorCode, "HereInstantiati
   HereInstantiationErrorCodeInternalError = 6,
 };
 
+/// ObjC-visible wrapper for Isoline.
+SWIFT_CLASS_NAMED("HereIsoline")
+@interface HereIsoline : NSObject
+@property (nonatomic) double rangeValue;
+@property (nonatomic, copy) NSArray<HereGeoCoordinates *> * _Nonnull polygonVertices;
+- (nonnull instancetype)initWithRangeValue:(double)rangeValue polygonVertices:(NSArray<HereGeoCoordinates *> * _Nonnull)polygonVertices OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class NSString;
+/// ObjC-visible isoline result.
+SWIFT_CLASS_NAMED("HereIsolineResult")
+@interface HereIsolineResult : NSObject
+@property (nonatomic, copy) NSString * _Nullable error;
+@property (nonatomic, copy) NSArray<HereIsoline *> * _Nullable isolines;
+- (nonnull instancetype)initWithError:(NSString * _Nullable)error isolines:(NSArray<HereIsoline *> * _Nullable)isolines OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// ObjC-visible wrapper for IsolineRoutingEngine.
+SWIFT_CLASS_NAMED("HereIsolineRoutingEngine")
+@interface HereIsolineRoutingEngine : NSObject
+- (nonnull instancetype)initWithSdkEnginePointer:(int64_t)sdkEnginePointer OBJC_DESIGNATED_INITIALIZER;
+/// Calculates an isoline around a center point.
+/// \param transportMode 0=Car, 1=Truck, 2=Pedestrian, 3=Bicycle, 4=Scooter (see HereRoutingOptions)
+///
+/// \param rangeInMeters reachability range in meters
+///
+/// \param maxPoints maximum polygon points; 0 means SDK default
+///
+- (void)calculateIsolineWithCenterLatitude:(double)centerLatitude centerLongitude:(double)centerLongitude transportMode:(NSInteger)transportMode rangeInMeters:(int32_t)rangeInMeters maxPoints:(int32_t)maxPoints completion:(void (^ _Nonnull)(HereIsolineResult * _Nonnull))completion;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 /// ObjC-visible wrapper for Location (Swift struct → ObjC class).
 SWIFT_CLASS_NAMED("HereLocation")
 @interface HereLocation : NSObject
@@ -475,7 +512,6 @@ SWIFT_PROTOCOL_NAMED("HereLongPressDelegate")
 - (void)onLongPressWithState:(NSInteger)state originX:(double)originX originY:(double)originY;
 @end
 
-@class NSString;
 /// ObjC-visible wrapper for Maneuver.
 SWIFT_CLASS_NAMED("HereManeuver")
 @interface HereManeuver : NSObject

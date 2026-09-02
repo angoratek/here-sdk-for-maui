@@ -587,6 +587,47 @@ namespace Here.Explore.iOS
         void CalculateRoute(HereWaypoint[] waypoints, HereRoutingOptions options, Action<HereRouteResult> completion);
     }
 
+    // --- Isoline routing types ---
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereIsolineRoutingEngine
+    {
+        [Export("initWithSdkEnginePointer:")]
+        IntPtr Constructor(long sdkEnginePointer);
+
+        [Export("calculateIsolineWithCenterLatitude:centerLongitude:transportMode:rangeInMeters:maxPoints:completion:")]
+        void CalculateIsoline(double centerLatitude, double centerLongitude, nint transportMode, int rangeInMeters, int maxPoints, Action<HereIsolineResult> completion);
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereIsolineResult
+    {
+        [Export("initWithError:isolines:")]
+        IntPtr Constructor(string? error, HereIsoline[]? isolines);
+
+        [Export("error")]
+        string? Error { get; set; }
+
+        [Export("isolines")]
+        HereIsoline[]? Isolines { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereIsoline
+    {
+        [Export("initWithRangeValue:polygonVertices:")]
+        IntPtr Constructor(double rangeValue, HereGeoCoordinates[] polygonVertices);
+
+        [Export("rangeValue")]
+        double RangeValue { get; set; }
+
+        [Export("polygonVertices")]
+        HereGeoCoordinates[] PolygonVertices { get; set; }
+    }
+
     // --- Traffic types ---
 
     [BaseType(typeof(NSObject))]

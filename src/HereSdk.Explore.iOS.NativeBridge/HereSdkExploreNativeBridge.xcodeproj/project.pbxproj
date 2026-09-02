@@ -18,6 +18,7 @@
 		5938AEBEBF59254DCEE7B82C /* NativeGeoPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA7E8C3453ABFDFE87957F0 /* NativeGeoPolyline.swift */; };
 		5DBB8E189362BE5FAD3CF7B5 /* NativeGeoCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143E263A27E3628D5AC75BA4 /* NativeGeoCoordinates.swift */; };
 		7BF9BEBA1492FB8C8DF34193 /* NativeMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DAD093EFD3784E23F62664 /* NativeMapMarker.swift */; };
+		85BC97711C63E121E9833108 /* NativeIsolineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA78407F400B94ACB787E41 /* NativeIsolineEngine.swift */; };
 		9BFA8A0D70C33C2F6E17E5A4 /* NativeGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613F1288254A4D7F38BD44A6 /* NativeGestures.swift */; };
 		A0A2B83F9A476D29CA005922 /* heresdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9679423E71CB628909453BE8 /* heresdk.xcframework */; };
 		AB2BDA460A29B7E65E0F520A /* NativePrimitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B25FC703D32522A98D7D07 /* NativePrimitives.swift */; };
@@ -35,6 +36,7 @@
 		467D43160FB2AAA9AAA82910 /* LocationInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInitializer.swift; sourceTree = "<group>"; };
 		55E270842F7FF1B0D352138B /* NativeGeoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGeoBox.swift; sourceTree = "<group>"; };
 		5A9DF410D28ADDCF5D7C4F4A /* NativeMapItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMapItems.swift; sourceTree = "<group>"; };
+		5FA78407F400B94ACB787E41 /* NativeIsolineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeIsolineEngine.swift; sourceTree = "<group>"; };
 		613F1288254A4D7F38BD44A6 /* NativeGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeGestures.swift; sourceTree = "<group>"; };
 		6BD9C3B70EA4D68F406D2C8B /* NativeTrafficEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTrafficEngine.swift; sourceTree = "<group>"; };
 		6FDCC4E94363BF37D6EC08AC /* HereSdkExploreNativeBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HereSdkExploreNativeBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,7 @@
 		3432B9C459AC8D93136E7585 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				5FA78407F400B94ACB787E41 /* NativeIsolineEngine.swift */,
 				F756CE4F7FA42594B50F3B58 /* NativeRoutingEngine.swift */,
 			);
 			path = Routing;
@@ -216,6 +219,7 @@
 				5DBB8E189362BE5FAD3CF7B5 /* NativeGeoCoordinates.swift in Sources */,
 				5938AEBEBF59254DCEE7B82C /* NativeGeoPolyline.swift in Sources */,
 				9BFA8A0D70C33C2F6E17E5A4 /* NativeGestures.swift in Sources */,
+				85BC97711C63E121E9833108 /* NativeIsolineEngine.swift in Sources */,
 				1BB50C1A4A974608894CDE39 /* NativeMapCamera.swift in Sources */,
 				B52A38538560D1DDA39B6C72 /* NativeMapItems.swift in Sources */,
 				7BF9BEBA1492FB8C8DF34193 /* NativeMapMarker.swift in Sources */,

@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/HereSdkExploreNativeBridge-Swift.h</key>
 		<data>
-		7KS5vI6FWPilUXUK6OVdvpCYnoQ=
+		Qj4znnWhJem+r9tvlBo0YVvfu4k=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -14,43 +14,43 @@
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		4ea8GFsekUpuQZ99H2/pXtB8fXo=
+		OISiJWb8i7xGmyHBGJ9gnjEyTEM=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		1s1j7XyAnpZ3dGLC+ggEZQId3wo=
+		3g2wvoECg+12e8UCzikFTfuLmwQ=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		5y71EHe9KdpAMicq9Y5hdKEpfHI=
+		9UZoyzBaPsGUYmm8K4YlfAdwfJw=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		1s1j7XyAnpZ3dGLC+ggEZQId3wo=
+		3g2wvoECg+12e8UCzikFTfuLmwQ=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		IHIT4jsFW8YUAbJw7LRFZF403pU=
+		wm0sAvbt0Sa0maq0smiwFtWPSLQ=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		4ea8GFsekUpuQZ99H2/pXtB8fXo=
+		OISiJWb8i7xGmyHBGJ9gnjEyTEM=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		w3gwS0ZOcozOnXAKAUjOIwDamt4=
+		GY0zcFzLNaNqWhS6m4ugKjYkCo0=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Ln3/3r0zLmHUwlAB5FP0XHSXc8w=
+		SCQ44YcRtMmFx4A+NZ6eosP2x4c=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		w3gwS0ZOcozOnXAKAUjOIwDamt4=
+		GY0zcFzLNaNqWhS6m4ugKjYkCo0=
 		</data>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		62s/FHP7UJM7unCzMElTv8R/3rc=
+		SnrV8IeIxg9dpOQRmcnoIXODVCY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,77 +63,77 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ST4r8y5IkBOEzNzjt0znjBe6guclsv1tKe9aW5d5XJE=
+			VQWvM8aWR7Co3n0+2+oC1fBw+LHWR4c0UXw9WhFUT0w=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aM0gh88HkrQ3Paaru2wOJhxI5qDaKka60op6v4zxp5I=
+			fHEpJAUZNJWOm0OHrXS92h6wLz9dbJH+BM/Na3KqGsQ=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+YNZuGzuaXuKJSTsqOlkHAnSPQR+A1lk8ceOfoxEuFw=
+			R56mnKmUAAy/3faHBZ7bSZWbEB+3pFei+wn3a3Yq79g=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8rqWRucYvFBq8HJCR1SSS4xcGyU6zNtCNu0QIeKsNlE=
+			qtCL639wtYx3AQvtmsMFnR9QGHprIFYIme8ytmXvB68=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+YNZuGzuaXuKJSTsqOlkHAnSPQR+A1lk8ceOfoxEuFw=
+			R56mnKmUAAy/3faHBZ7bSZWbEB+3pFei+wn3a3Yq79g=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IbS9wRHP6ftAdgi+YKaVTigScu9rIcHy+9gIMIKKQ1M=
+			UPqR5CIhuU9M1Jom+1eWAWsS5yMlAVIyKyLNtDXp2pI=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aM0gh88HkrQ3Paaru2wOJhxI5qDaKka60op6v4zxp5I=
+			fHEpJAUZNJWOm0OHrXS92h6wLz9dbJH+BM/Na3KqGsQ=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G2S9GairozjsO7yBAIePHzaILn0m2JRgdLsCjD38KTc=
+			KLezJywSFfOs7M400mjGm2n3trxEaGEbMHzYKVGlb0M=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LPXWO5mF2rvZojZ5Ij7fY7T9hYhW2W7DHqc5+tu5Gco=
+			0f9rANOa/0qqsJE/XQ4qO+XDPZPtUraNQbIn40fAoG0=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G2S9GairozjsO7yBAIePHzaILn0m2JRgdLsCjD38KTc=
+			KLezJywSFfOs7M400mjGm2n3trxEaGEbMHzYKVGlb0M=
 			</data>
 		</dict>
 		<key>Modules/HereSdkExploreNativeBridge.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hH2ur9ds75YqdREfK5xCihf8hTroH7ugTj2ADTLyNas=
+			Vc8Osn8m6JhzGksdgSO6t87+ts5MQLEuMqI2872kxcQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

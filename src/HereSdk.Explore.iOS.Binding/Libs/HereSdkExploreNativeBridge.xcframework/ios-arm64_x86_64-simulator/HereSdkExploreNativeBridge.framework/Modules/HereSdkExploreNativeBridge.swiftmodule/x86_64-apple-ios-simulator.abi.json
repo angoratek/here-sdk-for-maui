@@ -1924,6 +1924,1025 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "HereIsolineRoutingEngine",
+        "printedName": "HereIsolineRoutingEngine",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(sdkEnginePointer:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereIsolineRoutingEngine",
+                "printedName": "HereSdkExploreNativeBridge.HereIsolineRoutingEngine",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineRoutingEngine"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int64",
+                "printedName": "Swift.Int64",
+                "usr": "s:s5Int64V"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineRoutingEngine(im)initWithSdkEnginePointer:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A20IsolineRoutingEngineC03sdkH7PointerACs5Int64V_tcfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "initWithSdkEnginePointer:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "calculateIsoline",
+            "printedName": "calculateIsoline(centerLatitude:centerLongitude:transportMode:rangeInMeters:maxPoints:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(HereSdkExploreNativeBridge.HereIsolineResult) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereIsolineResult",
+                    "printedName": "HereSdkExploreNativeBridge.HereIsolineResult",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineRoutingEngine(im)calculateIsolineWithCenterLatitude:centerLongitude:transportMode:rangeInMeters:maxPoints:completion:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A20IsolineRoutingEngineC09calculateF014centerLatitude0J9Longitude13transportMode13rangeInMeters9maxPoints10completionySd_SdSis5Int32VALyAA0aF6ResultCctF",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "calculateIsolineWithCenterLatitude:centerLongitude:transportMode:rangeInMeters:maxPoints:completion:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereIsolineRoutingEngine",
+                "printedName": "HereSdkExploreNativeBridge.HereIsolineRoutingEngine",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineRoutingEngine"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineRoutingEngine(im)init",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A20IsolineRoutingEngineCACycfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineRoutingEngine",
+        "mangledName": "$s26HereSdkExploreNativeBridge0A20IsolineRoutingEngineC",
+        "moduleName": "HereSdkExploreNativeBridge",
+        "objc_name": "HereIsolineRoutingEngine",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "HereIsolineResult",
+        "printedName": "HereIsolineResult",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "error",
+            "printedName": "error",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(py)error",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC5errorSSSgvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(im)error",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC5errorSSSgvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(im)setError:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC5errorSSSgvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A13IsolineResultC5errorSSSgvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC5errorSSSgvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isolines",
+            "printedName": "isolines",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[HereSdkExploreNativeBridge.HereIsoline]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HereSdkExploreNativeBridge.HereIsoline]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereIsoline",
+                        "printedName": "HereSdkExploreNativeBridge.HereIsoline",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(py)isolines",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC8isolinesSayAA0aF0CGSgvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[HereSdkExploreNativeBridge.HereIsoline]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[HereSdkExploreNativeBridge.HereIsoline]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "HereIsoline",
+                            "printedName": "HereSdkExploreNativeBridge.HereIsoline",
+                            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(im)isolines",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC8isolinesSayAA0aF0CGSgvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[HereSdkExploreNativeBridge.HereIsoline]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[HereSdkExploreNativeBridge.HereIsoline]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "HereIsoline",
+                            "printedName": "HereSdkExploreNativeBridge.HereIsoline",
+                            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(im)setIsolines:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC8isolinesSayAA0aF0CGSgvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A13IsolineResultC8isolinesSayAA0aF0CGSgvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC8isolinesSayAA0aF0CGSgvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(error:isolines:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereIsolineResult",
+                "printedName": "HereSdkExploreNativeBridge.HereIsolineResult",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[HereSdkExploreNativeBridge.HereIsoline]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HereSdkExploreNativeBridge.HereIsoline]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereIsoline",
+                        "printedName": "HereSdkExploreNativeBridge.HereIsoline",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(im)initWithError:isolines:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC5error8isolinesACSSSg_SayAA0aF0CGSgtcfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "initWithError:isolines:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereIsolineResult",
+                "printedName": "HereSdkExploreNativeBridge.HereIsolineResult",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult(im)init",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultCACycfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsolineResult",
+        "mangledName": "$s26HereSdkExploreNativeBridge0A13IsolineResultC",
+        "moduleName": "HereSdkExploreNativeBridge",
+        "objc_name": "HereIsolineResult",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "HereIsoline",
+        "printedName": "HereIsoline",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "rangeValue",
+            "printedName": "rangeValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(py)rangeValue",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC10rangeValueSdvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(im)rangeValue",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC10rangeValueSdvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(im)setRangeValue:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC10rangeValueSdvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A7IsolineC10rangeValueSdvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC10rangeValueSdvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "polygonVertices",
+            "printedName": "polygonVertices",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[HereSdkExploreNativeBridge.HereGeoCoordinates]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereGeoCoordinates",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoCoordinates",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoCoordinates"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(py)polygonVertices",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC15polygonVerticesSayAA0A14GeoCoordinatesCGvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HereSdkExploreNativeBridge.HereGeoCoordinates]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereGeoCoordinates",
+                        "printedName": "HereSdkExploreNativeBridge.HereGeoCoordinates",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoCoordinates"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(im)polygonVertices",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC15polygonVerticesSayAA0A14GeoCoordinatesCGvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HereSdkExploreNativeBridge.HereGeoCoordinates]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereGeoCoordinates",
+                        "printedName": "HereSdkExploreNativeBridge.HereGeoCoordinates",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoCoordinates"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(im)setPolygonVertices:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC15polygonVerticesSayAA0A14GeoCoordinatesCGvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A7IsolineC15polygonVerticesSayAA0A14GeoCoordinatesCGvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC15polygonVerticesSayAA0A14GeoCoordinatesCGvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rangeValue:polygonVertices:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereIsoline",
+                "printedName": "HereSdkExploreNativeBridge.HereIsoline",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[HereSdkExploreNativeBridge.HereGeoCoordinates]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereGeoCoordinates",
+                    "printedName": "HereSdkExploreNativeBridge.HereGeoCoordinates",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoCoordinates"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(im)initWithRangeValue:polygonVertices:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC10rangeValue15polygonVerticesACSd_SayAA0A14GeoCoordinatesCGtcfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "initWithRangeValue:polygonVertices:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereIsoline",
+                "printedName": "HereSdkExploreNativeBridge.HereIsoline",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline(im)init",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineCACycfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereIsoline",
+        "mangledName": "$s26HereSdkExploreNativeBridge0A7IsolineC",
+        "moduleName": "HereSdkExploreNativeBridge",
+        "objc_name": "HereIsoline",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "HereSdkExploreNativeBridge"
+      },
+      {
+        "kind": "Import",
+        "name": "heresdk",
+        "printedName": "heresdk",
+        "declKind": "Import",
+        "moduleName": "HereSdkExploreNativeBridge"
+      },
+      {
+        "kind": "TypeDecl",
         "name": "HereCameraState",
         "printedName": "HereCameraState",
         "children": [

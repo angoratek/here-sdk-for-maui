@@ -53,6 +53,23 @@ import heresdk
   @objc public func setDoubleTapDelegate(_ delegate: (any HereSdkExploreNativeBridge.HereDoubleTapDelegate)?)
   @objc deinit
 }
+@objc(HereIsolineRoutingEngine) public class HereIsolineRoutingEngine : ObjectiveC.NSObject {
+  @objc public init(sdkEnginePointer: Swift.Int64)
+  @objc public func calculateIsoline(centerLatitude: Swift.Double, centerLongitude: Swift.Double, transportMode: Swift.Int, rangeInMeters: Swift.Int32, maxPoints: Swift.Int32, completion: @escaping (HereSdkExploreNativeBridge.HereIsolineResult) -> Swift.Void)
+  @objc deinit
+}
+@objc(HereIsolineResult) public class HereIsolineResult : ObjectiveC.NSObject {
+  @objc public var error: Swift.String?
+  @objc public var isolines: [HereSdkExploreNativeBridge.HereIsoline]?
+  @objc public init(error: Swift.String?, isolines: [HereSdkExploreNativeBridge.HereIsoline]?)
+  @objc deinit
+}
+@objc(HereIsoline) public class HereIsoline : ObjectiveC.NSObject {
+  @objc public var rangeValue: Swift.Double
+  @objc public var polygonVertices: [HereSdkExploreNativeBridge.HereGeoCoordinates]
+  @objc public init(rangeValue: Swift.Double, polygonVertices: [HereSdkExploreNativeBridge.HereGeoCoordinates])
+  @objc deinit
+}
 @objc(HereCameraState) public class HereCameraState : ObjectiveC.NSObject {
   @objc public var targetLatitude: Swift.Double
   @objc public var targetLongitude: Swift.Double
