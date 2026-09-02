@@ -46,6 +46,14 @@ fi
 
 cd "$NATIVE_BRIDGE_DIR"
 
+# Regenerate the Xcode project from project.yml (the xcodeproj is gitignored).
+if ! command -v xcodegen &> /dev/null; then
+    echo "xcodegen not found — installing via Homebrew..."
+    brew install xcodegen
+fi
+echo "Generating Xcode project with xcodegen..."
+xcodegen generate
+
 # Build for device (arm64)
 echo "Building for iOS device (arm64)..."
 xcodebuild archive \
@@ -55,11 +63,7 @@ xcodebuild archive \
     -archivePath "./build/ios.xcarchive" \
     SKIP_INSTALL=NO \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-    clean build 2>&1 || {
-        echo "NOTE: The Xcode project needs to be created first."
-        echo "Run 'scripts/setup-ios-xcode-project.sh' to generate it."
-        exit 1
-    }
+    clean build
 
 # Build for simulator (x86_64 + arm64)
 echo "Building for iOS simulator..."

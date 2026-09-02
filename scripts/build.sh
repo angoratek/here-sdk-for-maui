@@ -9,28 +9,21 @@ echo "=== Building Android Binding ==="
 dotnet build src/HereSdk.Explore.Android.Binding -c Release
 
 echo "=== Building iOS NativeBridge ==="
-if [ -d "src/HereSdk.Explore.iOS.NativeBridge/build" ]; then
-    echo "iOS NativeBridge already built, skipping. Run scripts/build-ios-native.sh to rebuild."
+if [ -d "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
+    echo "NativeBridge xcframework already present, skipping. Run scripts/build-ios-native.sh to rebuild."
 else
-    echo "iOS NativeBridge not built yet. Run scripts/build-ios-native.sh first."
+    echo "NativeBridge xcframework not found — building it (requires Xcode + HERE SDK cache, see scripts/download-sdk.sh)."
+    ./scripts/build-ios-native.sh
 fi
 
 echo "=== Building iOS Binding ==="
-if [ -d "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
-    dotnet build src/HereSdk.Explore.iOS.Binding -c Release
-else
-    echo "Skipping iOS binding — xcframework not found. Run scripts/build-ios-native.sh first."
-fi
+dotnet build src/HereSdk.Explore.iOS.Binding -c Release
 
 echo "=== Building MAUI Library (Android) ==="
 dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
 
 echo "=== Building MAUI Library (iOS) ==="
-if [ -d "src/HereSdk.Explore.iOS.Binding/Libs/HereSdkExploreNativeBridge.xcframework" ]; then
-    dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
-else
-    echo "Skipping iOS MAUI build — iOS binding not available."
-fi
+dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
 
 echo "=== Building Ref App (Android) ==="
 dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-android -c Release
