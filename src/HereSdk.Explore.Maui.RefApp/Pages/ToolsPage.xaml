@@ -6,6 +6,7 @@
              xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
              x:Class="Here.Explore.Maui.RefApp.Pages.ToolsPage"
              x:DataType="viewmodels:ToolsViewModel"
+             Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True">
 
     <ContentPage.Resources>

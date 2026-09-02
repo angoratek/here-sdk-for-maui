@@ -8,6 +8,7 @@
              xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
              x:Class="Here.Explore.Maui.RefApp.Pages.ExplorePage"
              x:DataType="viewmodels:ExploreViewModel"
+             Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True">
 
     <ContentPage.Resources>
@@ -72,7 +73,7 @@
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                                     <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold"
                                            TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                    <Label Text="{Binding Id}" FontSize="12"
+                                    <Label Text="{Binding Type}" FontSize="12"
                                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
                                            LineBreakMode="TailTruncation" />
                                 </VerticalStackLayout>

@@ -9,6 +9,7 @@
              xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
              x:Class="Here.Explore.Maui.RefApp.Pages.DirectionsPage"
              x:DataType="viewmodels:DirectionsViewModel"
+             Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True">
 
     <ContentPage.Resources>
