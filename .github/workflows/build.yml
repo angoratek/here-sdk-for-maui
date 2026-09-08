@@ -34,8 +34,14 @@ jobs:
         # build-android.sh extracts the AAR from the cached SDK archive into
         # src/HereSdk.Explore.Android.Binding/Jars/ and builds the binding.
         run: ./scripts/build-android.sh
+      - name: Restore MAUI library
+        # Restore without walking project references: the MAUI library
+        # multi-targets both platforms, and an ordinary restore would evaluate
+        # the iOS binding project — which fails NETSDK1178 on Linux (no iOS
+        # workload packs). The Android binding was restored+built above.
+        run: dotnet restore src/HereSdk.Explore.Maui --no-dependencies
       - name: Build MAUI library (Android)
-        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
+        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release --no-restore
 
   build-ios:
     runs-on: macos-latest
@@ -57,5 +63,9 @@ jobs:
       # not feed the build.
       - name: Build iOS binding
         run: dotnet build src/HereSdk.Explore.iOS.Binding -c Release
+      - name: Restore MAUI library
+        # Same as the Android job: an ordinary restore would evaluate the
+        # Android binding project, failing NETSDK1147 (no android workload).
+        run: dotnet restore src/HereSdk.Explore.Maui --no-dependencies
       - name: Build MAUI library (iOS)
-        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
+        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release --no-restore

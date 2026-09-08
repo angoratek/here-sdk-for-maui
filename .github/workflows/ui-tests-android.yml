@@ -32,6 +32,11 @@ jobs:
         env:
           HERE_SDK_DIST_TOKEN: ${{ secrets.HERE_SDK_DIST_TOKEN }}
         run: ./scripts/fetch-sdk.sh android
+      - name: Build Android binding
+        # build-android.sh extracts the AAR from the cached SDK archive into
+        # src/HereSdk.Explore.Android.Binding/Jars/ — required by the ref app
+        # build below, which references the binding transitively.
+        run: ./scripts/build-android.sh
 
       - name: Setup Android SDK (cached)
         uses: android-actions/setup-android@v3
@@ -78,10 +83,18 @@ jobs:
           npm i -g appium@2.5.0
           appium driver install uiautomator2
 
+      - name: Restore projects for ref app build
+        # Restore each project without walking project references so the
+        # multi-platform MAUI library's iOS binding project is never evaluated
+        # on this Linux runner (NETSDK1178). Binding was restored by
+        # build-android.sh above; Maui and RefApp are restored root-only.
+        run: |
+          dotnet restore src/HereSdk.Explore.Maui --no-dependencies
+          dotnet restore src/HereSdk.Explore.Maui.RefApp --no-dependencies
       - name: Build ref app (Debug, no signing required)
         run: |
           dotnet build src/HereSdk.Explore.Maui.RefApp \
-            -f net10.0-android -c Debug
+            -f net10.0-android -c Debug --no-restore
 
       - name: Install APK on emulator
         run: |
