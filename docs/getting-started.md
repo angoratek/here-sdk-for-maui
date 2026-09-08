@@ -178,5 +178,5 @@ mapService.AddMapCircle(circle);
 
 - **iOS binary size**: ~831 MB (stripped for release)
 - **Map circles**: Approximated as polygons (HERE SDK has no native circle primitive)
-- **iOS positioning**: Uses MAUI Geolocation fallback (HERE native positioning not yet in NativeBridge)
+- **Positioning**: Both platforms use MAUI Geolocation (the Explore SDK ships no positioning engine)
 - **Map pick**: Returns null on both platforms (not yet fully implemented)

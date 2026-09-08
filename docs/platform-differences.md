@@ -14,12 +14,12 @@ The iOS NativeBridge exposes 4 engines: Map, Search, Routing, Traffic. The follo
 | Isoline routing | Full | Not exposed |
 | Traffic-on-route | Full | Not exposed |
 | Map picking (tap → address) | Full | Returns null |
-| HERE native positioning | Full | Not exposed (uses MAUI Geolocation) |
+| HERE native positioning | None | None (Explore SDK has no positioning engine on either platform) |
 | Map circles | Polygon approx | Polygon approx (no native circle) |
 
 ## Location Service
 
-On both platforms, `ILocationService` uses `Microsoft.Maui.Devices.Sensors.Geolocation` as the primary positioning source. HERE native positioning is available on Android but not yet exposed through the iOS NativeBridge.
+On both platforms, `ILocationService` uses `Microsoft.Maui.Devices.Sensors.Geolocation` as the primary positioning source — the HERE Explore SDK ships no positioning engine at all (unlike the Navigation/Premium editions), so there is nothing to bridge on either platform.
 
 ## Map Circle Rendering
 

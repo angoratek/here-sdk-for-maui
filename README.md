@@ -235,8 +235,8 @@ here-sdk-for-maui/
 | 5 | Documentation: XML docs, DocFX pipeline, how-to guides | Complete |
 | 6 | Final Release: pre-release gate, artifacts, GA publish | In Progress |
 
-For per-phase task breakdowns see [PLAN.md](PLAN.md). The live operational
-backlog is captured in [`plan/07-public-release-gaps.md`](plan/07-public-release-gaps.md).
+For per-phase task breakdowns and the live operational backlog see
+[PLAN.md](PLAN.md).
 
 ## Key Design Decisions
 

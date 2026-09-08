@@ -40,7 +40,7 @@ All notable changes to the HERE SDK for MAUI project.
 - Automated Android-emulator UI tests (Appium + UIAutomator2) covering the 4
   ref-app tabs (Explore, Directions, Traffic, Tools). Runs in CI on
   `ubuntu-latest` with the Android SDK.
-- Per-package API coverage report (see `plan/gap-analysis.md` Appendix A).
+- Per-package API coverage report (see the PLAN.md backlog — `plan/gap-analysis.md` Appendix A was consolidated into PLAN.md).
 
 ### Changed
 - Version bump to `4.25.5.0` (GA). `VersionSuffix` removed.

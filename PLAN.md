@@ -8,7 +8,7 @@
 
 | Area | Status |
 |------|--------|
-| Android binding | Full AAR binding, all services functional |
+| Android binding | Full AAR binding; known unified-wrap gaps: `AddMapMarker3D` stub throws, `RemoveMapMarkerCluster` removes ALL markers (destructive), `MapDoubleTapped` listener never wired |
 | iOS NativeBridge | xcframework built; Map, Search, Routing, Traffic, **Isoline** engines exposed |
 | MAUI library | 58 of 361 cross-platform API types (~16%), core services complete |
 | Ref app | 5 pages, 5 VMs (+ViewModelBase), 7 controls, 7 converters; 2026-09-01 Airbnb-style polish pass applied |
@@ -68,8 +68,8 @@
 | `setCustomOption` / `sendRequest` | Not wrapped | iOS |
 | Full `RoutingOptions` | Only `transportMode` — no avoidance, toll, EV, text options | iOS |
 | Route serialization | `Route.serialize()`/`deserialize()` | iOS |
-| TrafficOnRoute | Not wrapped on iOS; Android needs native Route reference | Both |
-| HERE native positioning | `ILocationService` uses MAUI Geolocation fallback | Both |
+| TrafficOnRoute | Throws on BOTH platforms (`InvalidOperationException` / `NotImplementedException`) — unusable today; implement or remove from `IRoutingService` (RefApp `DirectionsViewModel` still calls it) | Both |
+| HERE native positioning | Explore SDK has no positioning engine on either platform; `ILocationService` uses MAUI Geolocation — but `StartListeningAsync` never calls `StartListeningForegroundAsync`, so `LocationChanged` never fires | Both |
 | Shared `Place` model | Missing `details`, `openingHours`, full `categories`, `chains` | Shared |
 
 ### Advanced / nice-to-have (P2)

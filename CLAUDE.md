@@ -104,8 +104,8 @@ tests/
   HereSdk.Explore.Maui.DeviceTests/     # Platform device tests (net10.0-android;net10.0-ios)
 scripts/
   build.sh, build-android.sh, build-ios-native.sh, bind-ios.sh, test.sh, pack.sh,
-  clean.sh, release.sh, validate-nupkg.sh, generate-docs.sh, download-sdk.sh
-plan/                                  # Design documents (gap-analysis.md, 07-public-release-gaps.md)
+  clean.sh, release.sh, validate-nupkg.sh, generate-docs.sh, download-sdk.sh,
+  fetch-sdk.sh
 docs/                                  # DocFX site (architecture.md, services.md, how-to-*.md)
 tmp/                                   # SDK archives (gitignored; use HERE_SDK_CACHE instead)
 Version.props                          # Centralized version numbers (HereSdkVersion, PackageVersion)
@@ -116,6 +116,11 @@ Version.props                          # Centralized version numbers (HereSdkVer
 ```bash
 # Full build (from repo root)
 ./scripts/build.sh
+
+# CI / fresh machines: fetch the proprietary SDK archives into the cache
+# (from the private angoratek/here-sdk-dist release; requires
+# HERE_SDK_DIST_TOKEN — the same token is set as a Dependabot secret too)
+./scripts/fetch-sdk.sh
 
 # Android binding only
 dotnet build src/HereSdk.Explore.Android.Binding -c Release
@@ -189,7 +194,7 @@ dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
 14. **iOS gesture delegates** are bound as concrete classes (`HereTapDelegate`, `HereLongPressDelegate`, `HereDoubleTapDelegate`) — subclass them, don't implement the `IHereTapDelegate` interface
 15. **iOS xcframework filename** is `HereSdkExploreNativeBridge.xcframework` (no dots), not `HereSdk.Explore.iOS.NativeBridge.xcframework`
 16. **Int32 properties in ApiDefinition.cs** use `int`, not `nint` (which maps to NSInteger, 64-bit on arm64)
-17. **HERE native positioning is NOT exposed in iOS NativeBridge yet** — `ILocationService` uses `Microsoft.Maui.Devices.Sensors.Geolocation` as the primary source on both platforms
+17. **The Explore SDK has no positioning engine on either platform** (verified: no `LocationEngine` in the Javadoc or swiftinterface) — `ILocationService` uses `Microsoft.Maui.Devices.Sensors.Geolocation` on both platforms by design
 
 ## Android Binding — Critical Details
 
@@ -243,7 +248,7 @@ Validation checklist per type:
 5. Async patterns map correctly (Java callbacks → C# Tasks, Swift closures → C# Tasks)
 
 If a type exists on only one platform, document it as platform-specific in
-`plan/gap-analysis.md` (see the per-gap `Platforms` column).
+the [PLAN.md](PLAN.md) backlog.
 
 ## Testing
 
@@ -267,8 +272,8 @@ If a type exists on only one platform, document it as platform-specific in
 | 5 | Documentation: XML docs, DocFX pipeline, how-to guides | Complete |
 | 6 | Final Release: pre-release gate, artifacts, GA publish | In Progress |
 
-For per-phase task breakdowns see [PLAN.md](PLAN.md). The operational backlog
-captured in `plan/07-public-release-gaps.md` is the active to-do list.
+For per-phase task breakdowns see [PLAN.md](PLAN.md). Its Backlog section
+is the active to-do list.
 
 ## Key Discrepancies Found (from verification)
 
@@ -279,4 +284,4 @@ captured in `plan/07-public-release-gaps.md` is the active to-do list.
 5. `FuelType` belongs to Transport module, NOT Search
 6. `AuthenticationMode`, `LogControl`, `SDKBuildInformation`, `SDKLogger` belong to `core.engine`, not `core`
 7. **Map circles** — HERE SDK has no native circle primitive on either platform; implemented as polygon approximation via `CircleGeometryHelper`
-8. **iOS NativeBridge lacks positioning types** — `ILocationService` uses MAUI Geolocation as cross-platform fallback
+8. **The Explore SDK has no positioning engine on either platform** — `ILocationService` uses MAUI Geolocation on both platforms (by design, not a fallback)
