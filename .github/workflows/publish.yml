@@ -19,10 +19,19 @@ jobs:
         with:
           dotnet-version: '10.0.x'
       - run: dotnet workload install maui
+      - name: Fetch HERE SDK archives
+        env:
+          HERE_SDK_DIST_TOKEN: ${{ secrets.HERE_SDK_DIST_TOKEN }}
+        run: ./scripts/fetch-sdk.sh
+      - name: Extract Android AAR
+        # Places the AAR in src/HereSdk.Explore.Android.Binding/Jars/ so the
+        # Android binding pack below can reference it.
+        run: ./scripts/build-android.sh
       - name: Build iOS NativeBridge
         run: ./scripts/build-ios-native.sh
-      - name: Run Sharpie + fix bindings
-        run: ./scripts/bind-ios.sh
+      # Note: no Objective-Sharpie step — the committed ApiDefinition.cs is
+      # the source of truth; sharpie output requires manual fixup and does
+      # not feed the build.
       - name: Pack NuGet packages (with symbol packages)
         run: |
           dotnet pack src/HereSdk.Explore.Android.Binding \
