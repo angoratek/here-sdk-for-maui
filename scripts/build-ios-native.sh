@@ -25,10 +25,18 @@ CACHE_ZIP="$CACHE_DIR/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}.zip"
 LEGACY_XCFRAMEWORK="tmp/ios-inspect/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}/heresdk/frameworks/heresdk.xcframework"
 
 # Auto-extract cached zip if the xcframework isn't already there.
+# The iOS zip is a nested archive: it contains an inner tar.gz that holds
+# heresdk/frameworks/heresdk.xcframework.
 if [ ! -d "$CACHE_XCFRAMEWORK" ] && [ -f "$CACHE_ZIP" ]; then
     echo "Extracting cached iOS SDK to $CACHE_DIR/..."
-    mkdir -p "$CACHE_DIR"
+    EXTRACT_DIR="$CACHE_DIR/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}"
+    mkdir -p "$EXTRACT_DIR"
     unzip -q -o "$CACHE_ZIP" -d "$CACHE_DIR/"
+    INNER_TGZ="$EXTRACT_DIR/heresdk-explore-ios-${SDK_VERSION}.${SDK_BUILD}.tar.gz"
+    if [ -f "$INNER_TGZ" ]; then
+        echo "Extracting inner tar.gz ..."
+        tar -xzf "$INNER_TGZ" -C "$EXTRACT_DIR/"
+    fi
 fi
 
 if [ -d "$CACHE_XCFRAMEWORK" ]; then

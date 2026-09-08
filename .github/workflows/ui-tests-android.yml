@@ -46,12 +46,13 @@ jobs:
 
       - name: Create AVD
         run: |
+          # No --skin: runner images no longer bundle the numeric skins dir, and
+          # the pixel_5 device profile carries its own default skin.
           echo no | avdmanager create avd \
             -n testavd \
             -k "system-images;android-34;google_apis;x86_64" \
             -d pixel_5 \
-            --force \
-            --skin "1080x2340"
+            --force
 
       - name: Boot emulator (headless, swiftshader)
         # `-no-snapshot` forces a clean boot from poweroff; `-gpu swiftshader_indirect`

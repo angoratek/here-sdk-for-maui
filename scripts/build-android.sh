@@ -23,6 +23,7 @@ if [ ! -f "$AAR_DEST" ]; then
     if [ -f "$AAR_SOURCE" ]; then
         echo "Extracting AAR from SDK archive..."
         # The AAR is inside the zip — extract it
+        mkdir -p tmp/aar-extract
         unzip -o "$AAR_SOURCE" -d tmp/aar-extract/
         AAR_FILE=$(find tmp/aar-extract -name "*.aar" | head -1)
         if [ -n "$AAR_FILE" ]; then
