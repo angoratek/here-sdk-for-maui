@@ -44,17 +44,38 @@ fetch() {
     fi
 
     echo "↓ Downloading $filename from $DIST_REPO@$TAG …"
+    local api_status api_body
+    api_body=$(mktemp)
+    api_status=$(curl -sSL -w '%{http_code}' -o "$api_body" \
+        -H "Authorization: Bearer $HERE_SDK_DIST_TOKEN" "$API_URL") || api_status="curl-error"
+    if [ "$api_status" != "200" ]; then
+        echo "ERROR: release API returned HTTP $api_status for $DIST_REPO@$TAG"
+        head -c 300 "$api_body" || true
+        rm -f "$api_body"
+        if [ "$api_status" = "404" ]; then
+            echo ""
+            echo "  A 404 on a private repo means the token is valid but CANNOT see $DIST_REPO."
+            echo "  Fix the PAT's repository access: Settings > Developer settings > Fine-grained"
+            echo "  tokens > edit token > Repository access must include $DIST_REPO,"
+            echo "  with Permissions > Contents: read-only."
+        elif [ "$api_status" = "401" ]; then
+            echo ""
+            echo "  401: the token itself is invalid or expired. Re-set the"
+            echo "  HERE_SDK_DIST_TOKEN secret (Actions app AND Dependabot app)."
+        fi
+        exit 1
+    fi
     local asset_id
-    asset_id=$(curl -fsSL -H "Authorization: Bearer $HERE_SDK_DIST_TOKEN" \
-        "$API_URL" | python3 -c "
+    asset_id=$(python3 -c "
 import json, sys
-release = json.load(sys.stdin)
+release = json.load(open('$api_body'))
 for a in release.get('assets', []):
     if a['name'] == '$filename':
         print(a['id']); break
 else:
     sys.exit('$filename not found in release $TAG of $DIST_REPO')
 ")
+    rm -f "$api_body"
     curl -fSL --retry 3 \
         -H "Authorization: Bearer $HERE_SDK_DIST_TOKEN" \
         -H "Accept: application/octet-stream" \
