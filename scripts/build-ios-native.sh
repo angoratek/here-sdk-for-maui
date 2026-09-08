@@ -41,6 +41,12 @@ fi
 
 if [ -d "$CACHE_XCFRAMEWORK" ]; then
     HERE_SDK_XCFRAMEWORK="$CACHE_XCFRAMEWORK"
+    # project.yml references the SDK xcframework via the legacy tmp/ path —
+    # bridge it with a symlink so the cache-based layout works in CI too.
+    mkdir -p "$(dirname "$LEGACY_XCFRAMEWORK")"
+    if [ ! -e "$LEGACY_XCFRAMEWORK" ]; then
+        ln -s "$(cd "$CACHE_XCFRAMEWORK" && pwd)" "$LEGACY_XCFRAMEWORK"
+    fi
 elif [ -d "$LEGACY_XCFRAMEWORK" ]; then
     HERE_SDK_XCFRAMEWORK="$LEGACY_XCFRAMEWORK"
 else

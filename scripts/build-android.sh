@@ -27,6 +27,7 @@ if [ ! -f "$AAR_DEST" ]; then
         unzip -o "$AAR_SOURCE" -d tmp/aar-extract/
         AAR_FILE=$(find tmp/aar-extract -name "*.aar" | head -1)
         if [ -n "$AAR_FILE" ]; then
+            mkdir -p "$(dirname "$AAR_DEST")"
             cp "$AAR_FILE" "$AAR_DEST"
             echo "AAR copied to $AAR_DEST"
         else
