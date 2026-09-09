@@ -83,18 +83,12 @@ jobs:
           npm i -g appium@2.5.0
           appium driver install uiautomator2
 
-      - name: Restore projects for ref app build
-        # Restore each project without walking project references so the
-        # multi-platform MAUI library's iOS binding project is never evaluated
-        # on this Linux runner (NETSDK1178). Binding was restored by
-        # build-android.sh above; Maui and RefApp are restored root-only.
-        run: |
-          dotnet restore src/HereSdk.Explore.Maui --no-dependencies
-          dotnet restore src/HereSdk.Explore.Maui.RefApp --no-dependencies
       - name: Build ref app (Debug, no signing required)
+        # Cross-platform restore works because Directory.Build.targets shadows
+        # the SDK workload check (_CheckForMissingWorkload) — see that file.
         run: |
           dotnet build src/HereSdk.Explore.Maui.RefApp \
-            -f net10.0-android -c Debug --no-restore
+            -f net10.0-android -c Debug
 
       - name: Install APK on emulator
         run: |
