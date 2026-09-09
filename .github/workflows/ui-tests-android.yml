@@ -15,7 +15,7 @@ on:
 jobs:
   ui-android:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v4
@@ -63,13 +63,18 @@ jobs:
         # `-no-snapshot` forces a clean boot from poweroff; `-gpu swiftshader_indirect`
         # uses the CPU software renderer (no hardware GPU on CI runners).
         run: |
+          ls -l /dev/kvm || true
+          emulator -accel-check || true
           nohup emulator -avd testavd \
             -no-window -no-audio -no-snapshot -no-boot-anim \
             -gpu swiftshader_indirect \
             > "$GITHUB_WORKSPACE/emulator.log" 2>&1 &
-          # Wait for the device to finish booting.
+          # Bounded boot wait — fail fast with the emulator log instead of
+          # hanging until the job timeout.
           adb wait-for-device
-          adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
+          timeout 600 bash -c \
+            "adb shell 'while [[ -z \$(getprop sys.boot_completed) ]]; do sleep 2; done'" \
+            || { echo "BOOT TIMEOUT — emulator.log:"; tail -50 "$GITHUB_WORKSPACE/emulator.log"; exit 1; }
           echo "Emulator boot complete."
 
       - name: Setup Node 20
@@ -131,7 +136,8 @@ jobs:
             **/*.trx
 
       - name: Upload emulator + appium logs
-        if: failure()
+        # failure() alone doesn't fire on cancelled jobs (e.g. boot timeout).
+        if: failure() || cancelled()
         uses: actions/upload-artifact@v4
         with:
           name: ui-android-logs
