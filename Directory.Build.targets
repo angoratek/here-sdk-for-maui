@@ -1,14 +1,3 @@
 <Project>
   <!-- Shared build targets -->
-
-  <!-- Shadow the SDK's workload-pack check (defined earlier in
-       Microsoft.NET.Sdk.ImportWorkloads.targets; this file is imported after
-       it, so this empty definition wins). The check fires while any project
-       is *evaluated* — including the restore-graph walk of the multi-TF MAUI
-       library, which always evaluates BOTH platform bindings regardless of
-       the requested target framework. Without this shadow, the Linux Android
-       CI job fails NETSDK1178 on the iOS binding and the macOS iOS CI job
-       fails NETSDK1147 on the Android binding, even though only one
-       platform's code is ever actually built there. -->
-  <Target Name="_CheckForMissingWorkload" />
 </Project>

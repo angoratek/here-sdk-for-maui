@@ -35,9 +35,12 @@ jobs:
         # src/HereSdk.Explore.Android.Binding/Jars/ and builds the binding.
         run: ./scripts/build-android.sh
       - name: Build MAUI library (Android)
-        # Cross-platform restore works because Directory.Build.targets shadows
-        # the SDK workload check (_CheckForMissingWorkload) — see that file.
-        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
+        # -p:TargetFrameworks pins the project to a single TFM for restore as
+        # well as build: the implicit restore of a multi-TF project walks
+        # project references for ALL target frameworks, and evaluating the iOS
+        # binding on a Linux runner fails NETSDK1139 (iOS packs can't be
+        # installed on Linux).
+        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release -p:TargetFrameworks=net10.0-android
 
   build-ios:
     runs-on: macos-latest
@@ -60,4 +63,7 @@ jobs:
       - name: Build iOS binding
         run: dotnet build src/HereSdk.Explore.iOS.Binding -c Release
       - name: Build MAUI library (iOS)
-        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
+        # Same -p:TargetFrameworks rationale as the Android job — this keeps
+        # the Android binding project out of the restore graph, so the android
+        # workload is not required on this runner.
+        run: dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release -p:TargetFrameworks=net10.0-ios
