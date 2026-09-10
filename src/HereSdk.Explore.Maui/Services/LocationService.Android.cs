@@ -37,13 +37,19 @@ public partial class LocationService
         }
     }
 
-    public Task StartListeningAsync(CancellationToken cancellationToken = default)
+    public async Task StartListeningAsync(CancellationToken cancellationToken = default)
     {
-        if (IsListening) return Task.CompletedTask;
+        if (IsListening) return;
+
+        // MAUI's static Geolocation.LocationChanged only fires while a
+        // foreground listener is active — subscribing alone is not enough.
+        await Microsoft.Maui.Devices.Sensors.Geolocation.StartListeningForegroundAsync(
+            new Microsoft.Maui.Devices.Sensors.GeolocationListeningRequest(
+                Microsoft.Maui.Devices.Sensors.GeolocationAccuracy.Medium,
+                TimeSpan.FromSeconds(5)));
 
         Microsoft.Maui.Devices.Sensors.Geolocation.LocationChanged += OnLocationChanged;
         IsListening = true;
-        return Task.CompletedTask;
     }
 
     public Task StopListeningAsync()
@@ -51,6 +57,7 @@ public partial class LocationService
         if (!IsListening) return Task.CompletedTask;
 
         Microsoft.Maui.Devices.Sensors.Geolocation.LocationChanged -= OnLocationChanged;
+        Microsoft.Maui.Devices.Sensors.Geolocation.StopListeningForeground();
         IsListening = false;
         return Task.CompletedTask;
     }
