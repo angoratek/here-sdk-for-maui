@@ -279,6 +279,25 @@ public class MapServiceAndroidTests
     }
 
     // ================================================================
+    // MapMarker3D model tests
+    // ================================================================
+
+    [Fact]
+    public void MapMarker3D_Model_CanBeCreated()
+    {
+        var marker = new MapMarker3D(new GeoCoordinates(52.5, 13.4));
+        Assert.Equal(1.0, marker.Scale);
+        Assert.Equal(0.0, marker.Bearing);
+    }
+
+    [Fact]
+    public void MapMarker3D_Model_CustomScale()
+    {
+        var marker = new MapMarker3D(new GeoCoordinates(52.5, 13.4), Scale: 2.5);
+        Assert.Equal(2.5, marker.Scale);
+    }
+
+    // ================================================================
     // MapArrow model tests
     // ================================================================
 

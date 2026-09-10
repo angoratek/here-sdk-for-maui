@@ -61,6 +61,14 @@ public class MapViewAndroidTests
     }
 
     [Fact]
+    public void MapService_CannotAdd3DMarker_WhenNotInitialized()
+    {
+        var mapService = new MapService();
+        var marker = new Models.Maps.MapMarker3D(new Models.GeoCoordinates(52.5, 13.4));
+        Assert.Throws<InvalidOperationException>(() => mapService.AddMapMarker3D(marker));
+    }
+
+    [Fact]
     public void MapService_CannotAddPolyline_WhenNotInitialized()
     {
         var mapService = new MapService();

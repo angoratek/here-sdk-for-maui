@@ -269,9 +269,40 @@ public partial class MapService
     public void AddMapMarker3D(Here.Explore.Maui.Models.Maps.MapMarker3D marker)
     {
         if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
-        // MapMarker3D requires a MapImage or MapMarker3DModel
-        // For now, stub until we have proper 3D model support
-        throw new NotImplementedException("MapMarker3D requires MapImage or MapMarker3DModel.");
+
+        // Flat 3D marker textured with the same drawable-based MapImage used
+        // for 2D markers (ImagePath on the shared model is iOS-only — Android
+        // markers load from app drawable resources).
+        var androidCoords = new Here.Explore.Core.GeoCoordinates(marker.Coordinates.Latitude, marker.Coordinates.Longitude);
+        var mapImage = TryLoadMarkerImage()
+            ?? throw new InvalidOperationException("Failed to load a marker image for MapMarker3D.");
+
+        var androidMarker3D = new Here.Explore.Maps.MapMarker3D(
+            androidCoords, mapImage, marker.Scale, Here.Explore.Maps.RenderSize.Unit.Pixels!);
+        _mapScene.AddMapMarker3d(androidMarker3D);
+        _markers3D[marker] = androidMarker3D;
+    }
+
+    private Here.Explore.Maps.MapImage? TryLoadMarkerImage()
+    {
+        Here.Explore.Maps.MapImage? mapImage = null;
+        try
+        {
+            var resId = Platform.AppContext.Resources?.GetIdentifier("marker", "drawable", Platform.AppContext.PackageName) ?? 0;
+            if (resId != 0)
+                mapImage = Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, resId);
+        }
+        catch (Exception ex) { Android.Util.Log.Warn("REFAPP_DIAG", $"TryLoadMarkerImage: custom marker load failed: {ex.Message}"); }
+
+        try
+        {
+            mapImage ??= Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, global::Android.Resource.Drawable.IcMenuCompass);
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Error("REFAPP_DIAG", $"TryLoadMarkerImage: fallback marker load failed: {ex.Message}");
+        }
+        return mapImage;
     }
 
     public void RemoveMapMarker3D(Here.Explore.Maui.Models.Maps.MapMarker3D marker)
