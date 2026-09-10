@@ -18,6 +18,12 @@ public partial class TrafficService
         _engine = new HereTrafficEngine(0);
     }
 
+    partial void DisposePlatform(bool disposing)
+    {
+        _engine?.Dispose();
+        _engine = null;
+    }
+
     public async Task<TrafficFlowResult> QueryFlowAsync(GeoCircle area, TrafficFlowQueryOptions options)
     {
         if (_engine is null) throw new InvalidOperationException("TrafficService not initialized.");

@@ -46,11 +46,16 @@ public partial class RoutingService : IRoutingService
         {
             if (disposing)
             {
-                // Platform implementations will dispose native engine
+                DisposePlatform(disposing);
             }
             _disposed = true;
         }
     }
+
+    /// <summary>Platform hook that disposes the native engine(s).</summary>
+    // Implemented by the platform partials; elided when no platform part
+    // exists (unit-test builds).
+    partial void DisposePlatform(bool disposing);
 
     /// <inheritdoc />
     public void Dispose()

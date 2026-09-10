@@ -73,7 +73,8 @@ public partial class MapService : IMapService
         {
             if (disposing)
             {
-                // Platform implementations will clear native resources
+                // Native map objects (camera, scene, view) are owned by the
+                // platform view and released by the handler — nothing to clear here.
             }
             _disposed = true;
         }

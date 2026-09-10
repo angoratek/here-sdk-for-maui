@@ -20,6 +20,12 @@ public partial class SearchService
         _engine = new HereSearchEngine(0);
     }
 
+    partial void DisposePlatform(bool disposing)
+    {
+        _engine?.Dispose();
+        _engine = null;
+    }
+
     public async Task<SearchResult> SearchAsync(TextQuery query, SearchOptions options)
     {
         if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");

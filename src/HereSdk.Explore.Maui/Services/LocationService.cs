@@ -37,7 +37,8 @@ public partial class LocationService : ILocationService
         {
             if (disposing)
             {
-                // Platform implementations will clear native resources
+                // Location uses MAUI Geolocation on both platforms — no native
+                // SDK resources to release.
             }
             _disposed = true;
         }

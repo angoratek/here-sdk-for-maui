@@ -28,6 +28,14 @@ public partial class RoutingService
         _isolineEngine = new HereIsolineRoutingEngine(0);
     }
 
+    partial void DisposePlatform(bool disposing)
+    {
+        _engine?.Dispose();
+        _engine = null;
+        _isolineEngine?.Dispose();
+        _isolineEngine = null;
+    }
+
     public async Task<RoutingResult> CalculateRouteAsync(IReadOnlyList<Waypoint> waypoints, RoutingOptions options)
     {
         if (_engine is null) throw new InvalidOperationException("RoutingService not initialized.");
