@@ -60,9 +60,12 @@ jobs:
             --force
 
       - name: Boot emulator (headless, swiftshader)
-        # `-no-snapshot` forces a clean boot from poweroff; `-gpu swiftshader_indirect`
-        # uses the CPU software renderer (no hardware GPU on CI runners).
+        # The emulator binary is NOT on PATH by default — it lives in
+        # $ANDROID_HOME/emulator (setup-android only exposes cmdline-tools and
+        # platform-tools). A missing emulator made adb wait-for-device hang
+        # until the job timeout.
         run: |
+          export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
           ls -l /dev/kvm || true
           emulator -accel-check || true
           nohup emulator -avd testavd \
