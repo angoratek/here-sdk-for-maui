@@ -578,6 +578,9 @@ SWIFT_CLASS_NAMED("HereMapCamera")
 @property (nonatomic, readonly, strong) HereCameraState * _Nonnull state;
 - (void)setTarget:(HereGeoCoordinates * _Nonnull)coordinates;
 - (void)setTarget:(HereGeoCoordinates * _Nonnull)coordinates zoomLevel:(double)zoomLevel;
+/// Animates the camera to look at the given target. Calls completion when
+/// the animation completes (true) or is cancelled (false).
+- (void)animateLookAt:(HereGeoCoordinates * _Nonnull)coordinates zoomLevel:(double)zoomLevel bearing:(double)bearing tilt:(double)tilt durationSeconds:(double)durationSeconds completion:(void (^ _Nonnull)(BOOL, NSString * _Nullable))completion;
 - (void)addDelegate:(id <HereMapCameraDelegate> _Nonnull)delegate;
 - (void)removeDelegate;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -1577,6 +1580,9 @@ SWIFT_CLASS_NAMED("HereMapCamera")
 @property (nonatomic, readonly, strong) HereCameraState * _Nonnull state;
 - (void)setTarget:(HereGeoCoordinates * _Nonnull)coordinates;
 - (void)setTarget:(HereGeoCoordinates * _Nonnull)coordinates zoomLevel:(double)zoomLevel;
+/// Animates the camera to look at the given target. Calls completion when
+/// the animation completes (true) or is cancelled (false).
+- (void)animateLookAt:(HereGeoCoordinates * _Nonnull)coordinates zoomLevel:(double)zoomLevel bearing:(double)bearing tilt:(double)tilt durationSeconds:(double)durationSeconds completion:(void (^ _Nonnull)(BOOL, NSString * _Nullable))completion;
 - (void)addDelegate:(id <HereMapCameraDelegate> _Nonnull)delegate;
 - (void)removeDelegate;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;

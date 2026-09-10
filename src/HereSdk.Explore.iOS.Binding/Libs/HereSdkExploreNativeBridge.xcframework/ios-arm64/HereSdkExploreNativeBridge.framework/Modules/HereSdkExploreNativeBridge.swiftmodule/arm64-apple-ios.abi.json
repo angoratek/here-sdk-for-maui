@@ -3900,6 +3900,97 @@
           },
           {
             "kind": "Function",
+            "name": "animateLookAt",
+            "printedName": "animateLookAt(_:zoomLevel:bearing:tilt:durationSeconds:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "HereGeoCoordinates",
+                "printedName": "HereSdkExploreNativeBridge.HereGeoCoordinates",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereGeoCoordinates"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Bool, Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(Swift.Bool, Swift.String?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereMapCamera(im)animateLookAt:zoomLevel:bearing:tilt:durationSeconds:completion:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A9MapCameraC13animateLookAt_9zoomLevel7bearing4tilt15durationSeconds10completionyAA0A14GeoCoordinatesC_S4dySb_SSSgtctF",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "addDelegate",
             "printedName": "addDelegate(_:)",
             "children": [

@@ -91,6 +91,7 @@ import heresdk
   }
   @objc public func setTarget(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates)
   @objc public func setTarget(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates, zoomLevel: Swift.Double)
+  @objc public func animateLookAt(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates, zoomLevel: Swift.Double, bearing: Swift.Double, tilt: Swift.Double, durationSeconds: Swift.Double, completion: @escaping (Swift.Bool, Swift.String?) -> Swift.Void)
   @objc public func addDelegate(_ delegate: any HereSdkExploreNativeBridge.HereMapCameraDelegate)
   @objc public func removeDelegate()
   @objc deinit

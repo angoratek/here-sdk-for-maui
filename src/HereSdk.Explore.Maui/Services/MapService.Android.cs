@@ -87,13 +87,11 @@ public partial class MapService
         var duration = Com.Here.Time.HereDuration.OfSeconds((long)animation.DurationInSeconds);
         var mapAnimation = Here.Explore.Maps.MapCameraAnimationFactory.CreateAnimation(
             cameraUpdate, duration!, new Here.Explore.Animation.Easing(Here.Explore.Animation.EasingFunction.Linear!));
-        // PlayAnimation is on MapView — but let's use the update directly
-        // The camera LookAt with update is synchronous; animation requires MapView support
-        _camera.LookAt(
-            new Here.Explore.Core.GeoCoordinates(animation.Target.Latitude, animation.Target.Longitude),
-            orientation,
-            mapMeasure);
-        return Task.CompletedTask;
+
+        // The task completes when the animation ends (or is cancelled).
+        var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        _camera.StartAnimation(mapAnimation, new CameraAnimationListener(tcs));
+        return tcs.Task;
     }
 
     public async Task LoadSceneAsync(Here.Explore.Maui.Models.Maps.MapScheme scheme)
@@ -484,6 +482,21 @@ internal class SceneLoadCallback : Java.Lang.Object, Here.Explore.Maps.MapScene.
             _tcs.SetResult(true);
         else
             _tcs.SetException(new Exception($"Scene load error: {error.Value}"));
+    }
+}
+
+/// Bridges the SDK camera animation callback to the shared Task-based API.
+internal class CameraAnimationListener : Java.Lang.Object, Here.Explore.Animation.IAnimationListener
+{
+    private readonly TaskCompletionSource<bool> _tcs;
+    public CameraAnimationListener(TaskCompletionSource<bool> tcs) => _tcs = tcs;
+
+    public void OnAnimationStateChanged(Here.Explore.Animation.AnimationState state)
+    {
+        if (state == Here.Explore.Animation.AnimationState.Completed)
+            _tcs.TrySetResult(true);
+        else if (state == Here.Explore.Animation.AnimationState.Cancelled)
+            _tcs.TrySetResult(false);
     }
 }
 

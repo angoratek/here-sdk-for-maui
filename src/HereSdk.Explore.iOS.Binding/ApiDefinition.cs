@@ -190,6 +190,9 @@ namespace Here.Explore.iOS
         [Export("setTarget:zoomLevel:")]
         void SetTarget(HereGeoCoordinates coordinates, double zoomLevel);
 
+        [Export("animateLookAtWithCoordinates:zoomLevel:bearing:tilt:durationSeconds:completion:")]
+        void AnimateLookAt(HereGeoCoordinates coordinates, double zoomLevel, double bearing, double tilt, double durationSeconds, Action<bool, string?> completion);
+
         [Export("addDelegate:")]
         void AddDelegate(HereMapCameraDelegate delegate_);
 

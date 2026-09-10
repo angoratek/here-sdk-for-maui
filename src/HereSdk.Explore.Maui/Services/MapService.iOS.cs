@@ -68,8 +68,16 @@ public partial class MapService
     public async Task AnimateCameraAsync(CameraAnimation animation)
     {
         if (_camera is null) throw new InvalidOperationException("MapService not initialized.");
-        var iosCoords = animation.Target.ToiOS();
-        _camera.SetTarget(iosCoords, animation.ZoomLevel ?? -1);
+        var state = _camera.State;
+        var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        _camera.AnimateLookAt(
+            animation.Target.ToiOS(),
+            animation.ZoomLevel ?? state.ZoomLevel,
+            animation.Bearing ?? state.Bearing,
+            animation.Tilt ?? state.Tilt,
+            animation.DurationInSeconds,
+            (completed, _) => tcs.TrySetResult(completed));
+        await tcs.Task;
     }
 
     public async Task LoadSceneAsync(MapScheme scheme)

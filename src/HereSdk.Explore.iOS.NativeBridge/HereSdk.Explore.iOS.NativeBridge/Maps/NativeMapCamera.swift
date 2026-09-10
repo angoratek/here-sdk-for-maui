@@ -79,6 +79,28 @@ public class HereMapCamera: NSObject {
         camera.applyUpdate(update)
     }
 
+    /// Animates the camera to look at the given target. Calls completion when
+    /// the animation completes (true) or is cancelled (false).
+    @objc public func animateLookAt(
+        _ coordinates: HereGeoCoordinates,
+        zoomLevel: Double,
+        bearing: Double,
+        tilt: Double,
+        durationSeconds: Double,
+        completion: @escaping (Bool, String?) -> Void
+    ) {
+        let geoUpdate = GeoCoordinatesUpdate(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        let orientation = GeoOrientationUpdate(GeoOrientation(bearing: bearing, tilt: tilt))
+        let measure = MapMeasure(kind: .zoomLevel, value: zoomLevel)
+        let update = MapCameraUpdateFactory.lookAt(point: geoUpdate, orientation: orientation, measure: measure)
+        let animation = MapCameraAnimationFactory.createAnimation(
+            from: update,
+            duration: durationSeconds,
+            easing: Easing(EasingFunction.linear)
+        )
+        camera.startAnimation(animation, animationDelegate: AnimationEndBridge(completion))
+    }
+
     @objc public func addDelegate(_ delegate: HereMapCameraDelegate) {
         self.delegate = delegate
         camera.addDelegate(self)
@@ -98,5 +120,28 @@ public class HereMapCamera: NSObject {
 extension HereMapCamera: MapCameraDelegate {
     public func onMapCameraUpdated(_ cameraState: MapCamera.State) {
         delegate?.onMapCameraUpdated?(HereCameraState.from(cameraState))
+    }
+}
+
+/// Bridges AnimationDelegate callbacks to a completion handler, resolving
+/// only on completion/cancellation (the "started" state is ignored).
+private final class AnimationEndBridge: NSObject, AnimationDelegate {
+    private let completion: (Bool, String?) -> Void
+
+    init(_ completion: @escaping (Bool, String?) -> Void) {
+        self.completion = completion
+    }
+
+    func onAnimationStateChanged(state: AnimationState) {
+        switch state {
+        case .completed:
+            completion(true, nil)
+        case .cancelled:
+            completion(false, "cancelled")
+        case .started:
+            break
+        @unknown default:
+            break
+        }
     }
 }
