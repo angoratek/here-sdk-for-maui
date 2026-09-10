@@ -484,6 +484,9 @@ namespace Here.Explore.iOS
         [Export("searchByAddressWithQuery:latitude:longitude:maxItems:languageCode:completion:")]
         void SearchByAddress(string query, double latitude, double longitude, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
 
+        [Export("searchByAddressNoAreaWithQuery:maxItems:languageCode:completion:")]
+        void SearchByAddressNoArea(string query, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
+
         [Export("searchByCoordinatesWithLatitude:longitude:maxItems:languageCode:completion:")]
         void SearchByCoordinates(double latitude, double longitude, int maxItems, nint languageCode, Action<HerePlace[]?, string?> completion);
 

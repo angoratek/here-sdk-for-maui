@@ -137,6 +137,33 @@ public class HereSearchEngine: NSObject {
         }
     }
 
+    /// Address search without an area center — no geographic bias.
+    @objc public func searchByAddressNoArea(
+        query: String,
+        maxItems: Int32,
+        languageCode: Int,
+        completion: @escaping ([HerePlace]?, String?) -> Void
+    ) {
+        guard let engine = engine else {
+            completion(nil, "SearchEngine not initialized")
+            return
+        }
+
+        let addressQuery = AddressQuery(query)
+        let options = buildSearchOptions(maxItems: maxItems, languageRawValue: languageCode)
+
+        engine.searchByAddress(addressQuery, options: options) { searchError, places in
+            if let searchError = searchError {
+                completion(nil, String(describing: searchError))
+            } else if let places = places {
+                let herePlaces = places.map { HerePlace.from($0) }
+                completion(herePlaces, nil)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
+
     /// Reverse geocoding: look up the place/address at a coordinate.
     @objc public func searchByCoordinates(
         latitude: Double,

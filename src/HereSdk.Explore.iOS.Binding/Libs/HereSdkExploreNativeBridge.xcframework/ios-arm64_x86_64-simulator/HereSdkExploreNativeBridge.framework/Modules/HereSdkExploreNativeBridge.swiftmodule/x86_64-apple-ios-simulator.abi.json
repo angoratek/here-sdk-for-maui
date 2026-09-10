@@ -17319,6 +17319,102 @@
           },
           {
             "kind": "Function",
+            "name": "searchByAddressNoArea",
+            "printedName": "searchByAddressNoArea(query:maxItems:languageCode:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "[HereSdkExploreNativeBridge.HerePlace]?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Array",
+                            "printedName": "[HereSdkExploreNativeBridge.HerePlace]",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "HerePlace",
+                                "printedName": "HereSdkExploreNativeBridge.HerePlace",
+                                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlace"
+                              }
+                            ],
+                            "usr": "s:Sa"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereSearchEngine(im)searchByAddressNoAreaWithQuery:maxItems:languageCode:completion:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A12SearchEngineC21searchByAddressNoArea5query8maxItems12languageCode10completionySS_s5Int32VSiySayAA0A5PlaceCGSg_SSSgtctF",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "searchByAddressNoAreaWithQuery:maxItems:languageCode:completion:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "searchByCoordinates",
             "printedName": "searchByCoordinates(latitude:longitude:maxItems:languageCode:completion:)",
             "children": [

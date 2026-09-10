@@ -793,6 +793,8 @@ SWIFT_CLASS_NAMED("HereSearchEngine")
 - (void)searchByCategoryWithCategoryId:(NSString * _Nonnull)categoryId latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)suggestWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HereSuggestion *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByAddressWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
+/// Address search without an area center — no geographic bias.
+- (void)searchByAddressNoAreaWithQuery:(NSString * _Nonnull)query maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 /// Reverse geocoding: look up the place/address at a coordinate.
 - (void)searchByCoordinatesWithLatitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByPlaceIdWithPlaceId:(NSString * _Nonnull)placeId completion:(void (^ _Nonnull)(HerePlace * _Nullable, NSString * _Nullable))completion;
@@ -1790,6 +1792,8 @@ SWIFT_CLASS_NAMED("HereSearchEngine")
 - (void)searchByCategoryWithCategoryId:(NSString * _Nonnull)categoryId latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)suggestWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HereSuggestion *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByAddressWithQuery:(NSString * _Nonnull)query latitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
+/// Address search without an area center — no geographic bias.
+- (void)searchByAddressNoAreaWithQuery:(NSString * _Nonnull)query maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 /// Reverse geocoding: look up the place/address at a coordinate.
 - (void)searchByCoordinatesWithLatitude:(double)latitude longitude:(double)longitude maxItems:(int32_t)maxItems languageCode:(NSInteger)languageCode completion:(void (^ _Nonnull)(NSArray<HerePlace *> * _Nullable, NSString * _Nullable))completion;
 - (void)searchByPlaceIdWithPlaceId:(NSString * _Nonnull)placeId completion:(void (^ _Nonnull)(HerePlace * _Nullable, NSString * _Nullable))completion;

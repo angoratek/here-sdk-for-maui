@@ -343,6 +343,7 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public func searchByCategory(categoryId: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
   @objc public func suggest(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HereSuggestion]?, Swift.String?) -> Swift.Void)
   @objc public func searchByAddress(query: Swift.String, latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
+  @objc public func searchByAddressNoArea(query: Swift.String, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
   @objc public func searchByCoordinates(latitude: Swift.Double, longitude: Swift.Double, maxItems: Swift.Int32, languageCode: Swift.Int, completion: @escaping ([HereSdkExploreNativeBridge.HerePlace]?, Swift.String?) -> Swift.Void)
   @objc public func searchByPlaceId(placeId: Swift.String, completion: @escaping (HereSdkExploreNativeBridge.HerePlace?, Swift.String?) -> Swift.Void)
   @objc deinit

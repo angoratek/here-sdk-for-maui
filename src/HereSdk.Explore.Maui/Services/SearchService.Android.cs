@@ -63,11 +63,11 @@ public partial class SearchService
         if (_engine is null) throw new InvalidOperationException("SearchService not initialized.");
         var tcs = new TaskCompletionSource<SearchResult>();
 
-        var androidArea = query.AreaCenter is not null
-            ? new Here.Explore.Core.GeoCoordinates(query.AreaCenter.Latitude, query.AreaCenter.Longitude)
-            : new Here.Explore.Core.GeoCoordinates(0, 0);
-
-        var androidQuery = new Here.Explore.Search.AddressQuery(query.Query, androidArea);
+        // Null AreaCenter uses the single-arg constructor — no geographic bias.
+        var androidQuery = query.AreaCenter is not null
+            ? new Here.Explore.Search.AddressQuery(query.Query,
+                new Here.Explore.Core.GeoCoordinates(query.AreaCenter.Latitude, query.AreaCenter.Longitude))
+            : new Here.Explore.Search.AddressQuery(query.Query);
         var androidOptions = ToAndroidSearchOptions(options);
         _engine.SearchByAddress(androidQuery, androidOptions, new SearchCallback(tcs));
         return await tcs.Task;

@@ -3,19 +3,24 @@ using Here.Explore.Maui.Models;
 namespace Here.Explore.Maui.Models.Search;
 
 /// <summary>
-/// A text-based search query.
+/// A text-based search query. Note: when <see cref="AreaCenter"/> is null the
+/// underlying SDK still requires an area center on both platforms, so results
+/// are biased toward (0, 0) — pass a center for location-relevant results.
 /// </summary>
 public record TextQuery(string Query, GeoCoordinates? AreaCenter = null);
 
 /// <summary>
 /// An address-based search (forward geocoding) query, e.g.
 /// "Invalidenstraße 116, Berlin". Excludes POI names — use
-/// <see cref="TextQuery"/> when a POI name is included.
+/// <see cref="TextQuery"/> when a POI name is included. When
+/// <see cref="AreaCenter"/> is null the query is unbiased.
 /// </summary>
 public record AddressQuery(string Query, GeoCoordinates? AreaCenter = null);
 
 /// <summary>
-/// A category-based search query.
+/// A category-based search query. Note: when <see cref="AreaCenter"/> is null
+/// the underlying SDK still requires an area center on both platforms, so
+/// results are biased toward (0, 0) — pass a center for location-relevant results.
 /// </summary>
 public record CategoryQuery(string CategoryId, GeoCoordinates? AreaCenter = null);
 

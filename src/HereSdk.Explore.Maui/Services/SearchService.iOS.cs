@@ -76,7 +76,7 @@ public partial class SearchService
         var maxItems = options.MaxItems ?? 0;
         var languageCode = options.Language.HasValue ? (nint)options.Language.Value : -1;
 
-        _engine.SearchByAddress(query.Query, latitude, longitude, (int)maxItems, languageCode, (places, error) =>
+        void OnResult(HerePlace[]? places, string? error)
         {
             if (error is not null)
                 tcs.SetResult(new SearchResult(ToSharedSearchError(error), null));
@@ -84,7 +84,13 @@ public partial class SearchService
                 tcs.SetResult(new SearchResult(SearchError.None, places.Select(ToSharedPlace).ToList()));
             else
                 tcs.SetResult(new SearchResult(SearchError.None, null));
-        });
+        }
+
+        // Null AreaCenter uses the no-area variant — no geographic bias.
+        if (query.AreaCenter is null)
+            _engine.SearchByAddressNoArea(query.Query, (int)maxItems, languageCode, OnResult);
+        else
+            _engine.SearchByAddress(query.Query, latitude, longitude, (int)maxItems, languageCode, OnResult);
 
         return await tcs.Task;
     }
