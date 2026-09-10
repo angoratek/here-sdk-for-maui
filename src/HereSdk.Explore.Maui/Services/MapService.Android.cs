@@ -33,6 +33,10 @@ public partial class MapService
     private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapArrow, Here.Explore.Maps.MapArrow> _arrows = new();
     private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapMarker3D, Here.Explore.Maps.MapMarker3D> _markers3D = new();
     private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapCircle, Here.Explore.Maps.MapPolygon> _circles = new();
+    // Reference equality: MapMarkerCluster is a record, so value-equal clusters
+    // (e.g. two created with defaults) must not collide as dictionary keys.
+    private readonly Dictionary<Here.Explore.Maui.Models.Maps.MapMarkerCluster, Here.Explore.Maps.MapMarkerCluster> _markerClusters =
+        new(ReferenceEqualityComparer.Instance);
 
     internal void Initialize(Here.Explore.Maps.MapView mapView)
     {
@@ -367,6 +371,11 @@ public partial class MapService
             _mapScene.RemoveMapMarker3d(androidMarker3D);
         _markers3D.Clear();
 
+        // Remove all clusters
+        foreach (var androidCluster in _markerClusters.Values)
+            _mapScene.RemoveMapMarkerCluster(androidCluster);
+        _markerClusters.Clear();
+
         // Remove all circles
         foreach (var androidCircle in _circles.Values)
             _mapScene.RemoveMapPolygon(androidCircle);
@@ -407,12 +416,20 @@ public partial class MapService
         }
 
         _mapScene.AddMapMarkerCluster(androidCluster);
+        _markerClusters[cluster] = androidCluster;
     }
 
     public void RemoveMapMarkerCluster(MapMarkerCluster cluster)
     {
         if (_mapScene is null) throw new InvalidOperationException("MapService not initialized.");
-        _mapScene.RemoveAllMapMarkers();
+
+        // Remove only the tracked cluster — RemoveAllMapMarkers would wipe
+        // individually added markers too.
+        if (_markerClusters.TryGetValue(cluster, out var androidCluster))
+        {
+            _mapScene.RemoveMapMarkerCluster(androidCluster);
+            _markerClusters.Remove(cluster);
+        }
     }
 
     public void AddLocationIndicator(LocationIndicator indicator)

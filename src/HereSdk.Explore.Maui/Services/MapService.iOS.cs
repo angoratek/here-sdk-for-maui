@@ -26,6 +26,11 @@ public partial class MapService
     private readonly Dictionary<MapArrow, HereMapArrow> _arrows = new();
     private readonly Dictionary<MapMarker3D, HereMapMarker3D> _markers3D = new();
     private readonly Dictionary<MapCircle, HereMapPolygon> _circles = new();
+    // NativeBridge doesn't expose clustering, so cluster members are added as
+    // plain markers — track which members belong to which shared cluster
+    // (reference equality: MapMarkerCluster is a record) so removal is precise.
+    private readonly Dictionary<MapMarkerCluster, List<MapMarker>> _clusterMembers =
+        new(ReferenceEqualityComparer.Instance);
 
     public double ZoomLevel => _camera?.State.ZoomLevel ?? 0;
     public double Bearing => _camera?.State.Bearing ?? 0;
@@ -248,6 +253,9 @@ public partial class MapService
         foreach (var iosCircle in _circles.Values)
             iosCircle.RemoveFromMapView(_mapBridgeView);
         _circles.Clear();
+
+        // Cluster members were removed with the markers above.
+        _clusterMembers.Clear();
     }
 
     private static UIColor ColorFromHex(uint hex)
@@ -262,13 +270,25 @@ public partial class MapService
     public void AddMapMarkerCluster(MapMarkerCluster cluster, IEnumerable<MapMarker> markers)
     {
         // iOS NativeBridge doesn't expose marker clustering - markers added individually
+        var memberList = new List<MapMarker>();
         foreach (var marker in markers)
+        {
             AddMapMarker(marker);
+            memberList.Add(marker);
+        }
+        _clusterMembers[cluster] = memberList;
     }
 
     public void RemoveMapMarkerCluster(MapMarkerCluster cluster)
     {
-        // iOS NativeBridge doesn't expose marker clustering
+        // iOS NativeBridge doesn't expose marker clustering — remove the
+        // members that were added individually on AddMapMarkerCluster.
+        if (_clusterMembers.TryGetValue(cluster, out var members))
+        {
+            foreach (var marker in members)
+                RemoveMapMarker(marker);
+            _clusterMembers.Remove(cluster);
+        }
     }
 
     public void AddLocationIndicator(LocationIndicator indicator)

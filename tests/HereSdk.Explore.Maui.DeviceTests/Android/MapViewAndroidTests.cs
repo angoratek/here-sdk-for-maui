@@ -53,6 +53,14 @@ public class MapViewAndroidTests
     }
 
     [Fact]
+    public void MapService_CannotRemoveMarkerCluster_WhenNotInitialized()
+    {
+        var mapService = new MapService();
+        var cluster = new Models.Maps.MapMarkerCluster();
+        Assert.Throws<InvalidOperationException>(() => mapService.RemoveMapMarkerCluster(cluster));
+    }
+
+    [Fact]
     public void MapService_CannotAddPolyline_WhenNotInitialized()
     {
         var mapService = new MapService();
