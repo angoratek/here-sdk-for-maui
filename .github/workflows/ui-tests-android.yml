@@ -112,10 +112,12 @@ jobs:
           node-version: '20'
 
       - name: Install Appium + UIAutomator2 driver
-        # Pin Appium 2.x for reproducibility.
+        # Pin both server and driver for reproducibility: the LATEST
+        # uiautomator2 driver (8.x) requires Appium server ^3.0.0-rc.2, which
+        # would break against the pinned 2.5.0 server.
         run: |
           npm i -g appium@2.5.0
-          appium driver install uiautomator2
+          appium driver install uiautomator2@2.29.5
 
       - name: Build ref app (Debug, no signing required)
         # -p:TargetFrameworks keeps the iOS binding project out of the restore
