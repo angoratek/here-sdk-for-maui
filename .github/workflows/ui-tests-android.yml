@@ -67,7 +67,7 @@ jobs:
           if [ -z "$ini" ]; then
             echo "testavd.ini not found in expected locations"; exit 1
           fi
-          avd_home=$(dirname "$(dirname "$ini")")
+          avd_home=$(dirname "$ini")
           echo "AVD home: $avd_home"
           echo "ANDROID_AVD_HOME=$avd_home" >> "$GITHUB_ENV"
 
