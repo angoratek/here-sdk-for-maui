@@ -16,6 +16,7 @@
             <converters:InverseBoolConverter x:Key="InverseBool" />
             <converters:JamFactorToColorConverter x:Key="JamToColor" />
             <converters:TrafficIncidentTypeToIconConverter x:Key="IncidentTypeToIcon" />
+            <converters:TrafficIncidentImpactToColorConverter x:Key="ImpactToColor" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -32,10 +33,11 @@
         <local:ErrorBanner ErrorMessage="{Binding StatusMessage}"
                            RetryCommand="{Binding RefreshTrafficCommand}"
                            RetryText="Retry" />
-        <Border Style="{StaticResource CardBorder}"
-                VerticalOptions="Start" Padding="8">
-            <HorizontalStackLayout Spacing="6">
+        <Border Style="{StaticResource SearchPillBorder}"
+                VerticalOptions="Start" Padding="10,8">
+            <HorizontalStackLayout Spacing="8">
                 <Button Text="Flow" Style="{StaticResource ChipButton}"
+                        FontFamily="InterSemiBold"
                         AutomationId="TrafficFlowButton"
                         Command="{Binding ToggleFlowCommand}">
                     <Button.Triggers>
@@ -46,6 +48,7 @@
                     </Button.Triggers>
                 </Button>
                 <Button Text="Incidents" Style="{StaticResource ChipButton}"
+                        FontFamily="InterSemiBold"
                         AutomationId="TrafficIncidentsButton"
                         Command="{Binding ToggleIncidentsCommand}">
                     <Button.Triggers>
@@ -55,7 +58,8 @@
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Text="↻" Style="{StaticResource MapFloatingButton}"
+                <Button FontFamily="MaterialIcons" Text="&#xe5d5;" FontSize="16"
+                        Style="{StaticResource MapFloatingButton}"
                         AutomationId="TrafficRefreshButton"
                         WidthRequest="36" HeightRequest="36" CornerRadius="18"
                         Command="{Binding RefreshTrafficCommand}" />
@@ -103,33 +107,42 @@
                 <Label Text="{Binding StatusMessage}" FontSize="14" Margin="16,4" />
             </local:BottomSheet.HeaderContent>
             <local:BottomSheet.SheetContent>
-                <CollectionView ItemsSource="{Binding Incidents}" Margin="16,0">
+                <CollectionView ItemsSource="{Binding Incidents}" Margin="16,4">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="traffic:TrafficIncident">
-                            <Border Style="{StaticResource CardBorder}" Margin="0,2" Padding="12">
-                                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                                    <!-- Type icon: 🚗 / 🚧 / ⛔ / ⚠ / 🌧 etc.
-                                         The converter maps the enum to a glyph
-                                         so users can scan the list quickly. -->
-                                    <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
-                                           Text="{Binding Type, Converter={StaticResource IncidentTypeToIcon}}"
-                                           FontSize="22" VerticalOptions="Center" />
-                                    <!-- Description -->
-                                    <Label Grid.Row="0" Grid.Column="1"
-                                           Text="{Binding Description}" FontSize="12" FontAttributes="Bold"
-                                           LineBreakMode="TailTruncation" MaxLines="2"
-                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                    <!-- Type + Impact -->
-                                    <Label Grid.Row="1" Grid.Column="1"
-                                           FontSize="11"
-                                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0} · {1}">
-                                                <Binding Path="Type" />
-                                                <Binding Path="Impact" />
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>
+                            <Border Style="{StaticResource CompactCardBorder}" Margin="0,4" Padding="12">
+                                <Grid ColumnDefinitions="Auto,3,*,Auto" ColumnSpacing="12">
+                                    <!-- Severity rail: impact color strip on the card's left edge -->
+                                    <BoxView Grid.Column="1" WidthRequest="3" CornerRadius="1.5"
+                                             Color="{Binding Impact, Converter={StaticResource ImpactToColor}}"
+                                             VerticalOptions="Fill" />
+                                    <!-- Type icon disc -->
+                                    <Border Grid.Column="0" WidthRequest="40" HeightRequest="40"
+                                            StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary10}, Dark={StaticResource Primary30}}"
+                                            VerticalOptions="Center">
+                                        <Label FontFamily="MaterialIcons"
+                                               Text="{Binding Type, Converter={StaticResource IncidentTypeToIcon}}"
+                                               FontSize="19"
+                                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="2" Spacing="2" VerticalOptions="Center">
+                                        <!-- Description -->
+                                        <Label Text="{Binding Description}" FontFamily="InterSemiBold" FontSize="13.5"
+                                               LineBreakMode="TailTruncation" MaxLines="2"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                        <!-- Type + Impact -->
+                                        <Label FontFamily="InterRegular" FontSize="11.5"
+                                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} · {1}">
+                                                    <Binding Path="Type" />
+                                                    <Binding Path="Impact" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </VerticalStackLayout>
                                 </Grid>
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer

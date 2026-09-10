@@ -2,12 +2,12 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Here.Explore.Maui.RefApp.Controls.TransportModePicker">
-    <Border StrokeShape="RoundRectangle 20"
+    <Border StrokeShape="RoundRectangle 24"
             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceSecondaryDark}}"
-            StrokeThickness="0" Padding="8,6">
+            StrokeThickness="0" Padding="10,8">
         <Border.Shadow>
             <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColor}, Dark={StaticResource ShadowColorDark}}"
-                    Offset="0,2" Radius="8" />
+                    Offset="0,4" Radius="14" />
         </Border.Shadow>
         <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
             <HorizontalStackLayout x:Name="ModesContainer" Spacing="8" />

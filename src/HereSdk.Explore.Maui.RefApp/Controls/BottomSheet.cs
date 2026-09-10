@@ -80,13 +80,13 @@ public partial class BottomSheet : Border
     {
         var handle = new BoxView
         {
-            HeightRequest = 5,
-            WidthRequest = 36,
-            CornerRadius = 3,
+            HeightRequest = 4,
+            WidthRequest = 44,
+            CornerRadius = 2,
             HorizontalOptions = LayoutOptions.Center,
-            Margin = new Thickness(0, 8, 0, 4)
+            Margin = new Thickness(0, 10, 0, 6)
         };
-        handle.SetAppThemeColor(BoxView.ColorProperty, Color.FromArgb("#D1D1D6"), Color.FromArgb("#48484A"));
+        handle.SetAppThemeColor(BoxView.ColorProperty, Color.FromArgb("#E1E1E4"), Color.FromArgb("#48484A"));
 
         var panGesture = new PanGestureRecognizer();
         panGesture.PanUpdated += OnPanUpdated;

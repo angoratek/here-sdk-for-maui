@@ -16,6 +16,14 @@ public partial class ExploreViewModel : ViewModelBase
     private readonly IPermissionsService _permissionsService;
     private IMapService? _mapService;
 
+    /// <summary>A place search result prepared for the results carousel.</summary>
+    public record SearchResultItem(
+        Place Place,
+        string Title,
+        string? DistanceText,
+        string CategoryGlyph,
+        Color? CategoryColor);
+
     [ObservableProperty] private string _searchQuery = "";
     [ObservableProperty] private IReadOnlyList<Suggestion> _suggestions = Array.Empty<Suggestion>();
     [ObservableProperty] private bool _hasSuggestions;
@@ -31,6 +39,8 @@ public partial class ExploreViewModel : ViewModelBase
     [ObservableProperty] private string? _emptyStateTitle;
     [ObservableProperty] private string? _emptyStateSubtitle;
     [ObservableProperty] private bool _isOffline;
+    [ObservableProperty] private IReadOnlyList<SearchResultItem> _searchResults = Array.Empty<SearchResultItem>();
+    [ObservableProperty] private bool _hasSearchResults;
 
     private CancellationTokenSource? _debounceCts;
     private readonly List<MapMarker> _placeMarkers = new();
@@ -147,6 +157,8 @@ public partial class ExploreViewModel : ViewModelBase
         HasSuggestions = false;
         IsSearching = true;
         ClearPlaceMarkers();
+        SearchResults = Array.Empty<SearchResultItem>();
+        HasSearchResults = false;
         SearchErrorMessage = null;
         EmptyStateTitle = null;
 
@@ -171,6 +183,10 @@ public partial class ExploreViewModel : ViewModelBase
                     _mapService.AddMapMarker(marker);
                     _placeMarkers.Add(marker);
                 }
+
+                SearchResults = BuildResultItems(result.Places, area);
+                HasSearchResults = SearchResults.Count > 0;
+                await FitCameraToCoordinates(_placeMarkers.Select(m => m.Coordinates).ToList());
             }
             else
             {
@@ -195,6 +211,8 @@ public partial class ExploreViewModel : ViewModelBase
 
         IsSearching = true;
         ClearPlaceMarkers();
+        SearchResults = Array.Empty<SearchResultItem>();
+        HasSearchResults = false;
         SearchErrorMessage = null;
         EmptyStateTitle = null;
 
@@ -219,6 +237,9 @@ public partial class ExploreViewModel : ViewModelBase
                     _mapService.AddMapMarker(marker);
                     _placeMarkers.Add(marker);
                 }
+
+                SearchResults = BuildResultItems(result.Places, area);
+                HasSearchResults = SearchResults.Count > 0;
 
                 if (_placeMarkers.Count > 0)
                 {
@@ -269,6 +290,41 @@ public partial class ExploreViewModel : ViewModelBase
 
         IsPlaceCardVisible = true;
         await _mapService.SetCameraTargetAsync(place.Coordinates, 15);
+    }
+
+    /// <summary>
+    /// Shows a place from the results carousel on the map and opens its
+    /// place card. Distances are recomputed for the tapped place.
+    /// </summary>
+    [RelayCommand]
+    private async Task SelectResult(SearchResultItem item)
+    {
+        if (_mapService is null) return;
+        await ShowPlaceOnMap(item.Place);
+    }
+
+    private IReadOnlyList<SearchResultItem> BuildResultItems(IReadOnlyList<Place> places, GeoCoordinates center)
+    {
+        var items = new List<SearchResultItem>();
+        foreach (var place in places)
+        {
+            var cat = place.PrimaryCategory ?? place.Categories?.FirstOrDefault();
+            var catId = cat?.Id ?? cat?.Name ?? "";
+            string? distance = null;
+            try
+            {
+                var distKm = ComputeDistanceKm(center, place.Coordinates);
+                distance = distKm < 1 ? $"{distKm * 1000:F0}m" : $"{distKm:F1}km";
+            }
+            catch { /* distance is decorative */ }
+            items.Add(new SearchResultItem(
+                place,
+                place.Title,
+                distance,
+                Services.CategoryVisuals.GlyphFor(catId),
+                Services.CategoryVisuals.ColorFor(catId)));
+        }
+        return items;
     }
 
     [RelayCommand]
@@ -343,6 +399,8 @@ public partial class ExploreViewModel : ViewModelBase
         SearchQuery = "";
         Suggestions = Array.Empty<Suggestion>();
         HasSuggestions = false;
+        SearchResults = Array.Empty<SearchResultItem>();
+        HasSearchResults = false;
         SelectedPlace = null;
         IsPlaceCardVisible = false;
         SearchErrorMessage = null;

@@ -31,6 +31,10 @@ public partial class DirectionsViewModel : ViewModelBase
     [ObservableProperty] private IReadOnlyList<Route> _alternativeRoutes = Array.Empty<Route>();
     [ObservableProperty] private Section[] _maneuvers = Array.Empty<Section>();
     [ObservableProperty] private string _routeSummary = "";
+    /// <summary>Route duration alone (e.g. "32 min") for the ETA hero display.</summary>
+    [ObservableProperty] private string _routeEta = "";
+    /// <summary>Route length alone (e.g. "14.2 km") for the ETA hero display.</summary>
+    [ObservableProperty] private string _routeDistance = "";
     [ObservableProperty] private string _maneuverItems = "";
     [ObservableProperty] private bool _isRouteVisible;
     [ObservableProperty] private bool _isIsolineMode;
@@ -270,7 +274,7 @@ public partial class DirectionsViewModel : ViewModelBase
 
             if (geometry.Count >= 2)
             {
-                _routePolyline = new MapPolyline(geometry, Color: 0xFF007AFF, WidthInPixels: 8);
+                _routePolyline = new MapPolyline(geometry, Color: 0xFFFF385C, WidthInPixels: 8);
                 _mapService.AddMapPolyline(_routePolyline);
             }
 
@@ -288,6 +292,7 @@ public partial class DirectionsViewModel : ViewModelBase
             }
 
             RouteSummary = FormatRouteSummary(CurrentRoute);
+            (RouteEta, RouteDistance) = FormatEtaAndDistance(CurrentRoute);
             Maneuvers = CurrentRoute.Sections?.ToArray() ?? Array.Empty<Section>();
             IsRouteVisible = true;
 
@@ -338,7 +343,7 @@ public partial class DirectionsViewModel : ViewModelBase
             {
                 foreach (var isoline in result.Isolines)
                 {
-                    var polygon = new MapPolygon(isoline.Polygon, FillColor: 0x44007AFF);
+                    var polygon = new MapPolygon(isoline.Polygon, FillColor: 0x33FF385C);
                     _mapService.AddMapPolygon(polygon);
                     _isolinePolygons.Add(polygon);
                 }
@@ -380,6 +385,8 @@ public partial class DirectionsViewModel : ViewModelBase
         ClearRouteInternal();
         IsRouteVisible = false;
         RouteSummary = "";
+        RouteEta = "";
+        RouteDistance = "";
         Maneuvers = Array.Empty<Section>();
         CurrentRoute = null;
         AlternativeRoutes = Array.Empty<Route>();
@@ -429,6 +436,15 @@ public partial class DirectionsViewModel : ViewModelBase
         if (mins >= 60)
             return $"{km:F1} km — {mins / 60}h {mins % 60}min";
         return $"{km:F1} km — {mins}min";
+    }
+
+    /// <summary>Duration and length split for the ETA hero (e.g. "32 min", "14.2 km").</summary>
+    private static (string Eta, string Distance) FormatEtaAndDistance(Route route)
+    {
+        var km = route.LengthInMeters / 1000.0;
+        var mins = (int)(route.DurationInSeconds / 60);
+        var eta = mins >= 60 ? $"{mins / 60}h {mins % 60}min" : $"{mins} min";
+        return (eta, $"{km:F1} km");
     }
 
     private static SectionTransportMode TransportModeFromInt(int mode) => mode switch

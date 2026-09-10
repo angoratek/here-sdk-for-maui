@@ -40,7 +40,12 @@
     <MauiAsset Include="appsettings.Local.json" Condition="Exists('appsettings.Local.json')" />
   </ItemGroup>
   <ItemGroup>
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0066CC" />
-    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0A1628" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#FF385C" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FF385C" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Inter (SIL OFL 1.1) for the modern geometric-sans type ramp;
+         Material Icons (Apache 2.0) for vector UI icons. -->
+    <MauiFont Include="Resources\Fonts\*.ttf" />
   </ItemGroup>
 </Project>

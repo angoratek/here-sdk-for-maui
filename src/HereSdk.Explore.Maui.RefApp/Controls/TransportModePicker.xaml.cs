@@ -11,18 +11,20 @@ public partial class TransportModePicker : ContentView
 
     public static readonly TransportModeOption[] Modes =
     {
-        new("Car", "🚗", 0),
-        new("Truck", "🚛", 1),
-        new("Pedestrian", "🚶", 2),
-        new("Bicycle", "🚲", 3),
-        new("Scooter", "🛴", 4),
-        new("Bus", "🚌", 5),
-        new("Taxi", "🚕", 6),
-        new("Transit", "🚊", 7),
+        // Icons are Material Icons glyphs (codepoints).
+        new("Car", "\ue531", 0),          // directions_car
+        new("Truck", "\ue558", 1),        // local_shipping
+        new("Pedestrian", "\ue536", 2),   // directions_walk
+        new("Bicycle", "\ue52f", 3),      // directions_bike
+        new("Scooter", "\ueb1f", 4),      // electric_scooter
+        new("Bus", "\ue530", 5),          // directions_bus
+        new("Taxi", "\ue559", 6),         // local_taxi
+        new("Transit", "\ue571", 7),      // tram
     };
 
     private readonly List<Border> _chipBorders = new();
     private readonly List<Label> _chipLabels = new();
+    private readonly List<Label> _iconLabels = new();
     private int _selectedModeKey;
 
     public TransportModePicker()
@@ -36,21 +38,36 @@ public partial class TransportModePicker : ContentView
     {
         foreach (var mode in Modes)
         {
-            var label = new Label
+            var content = new HorizontalStackLayout
             {
-                Text = $"{mode.Icon} {mode.Label}",
-                FontSize = 12,
+                Spacing = 7,
                 VerticalOptions = LayoutOptions.Center
             };
+            var icon = new Label
+            {
+                Text = mode.Icon,
+                FontFamily = "MaterialIcons",
+                FontSize = 17,
+                VerticalOptions = LayoutOptions.Center
+            };
+            var label = new Label
+            {
+                Text = mode.Label,
+                FontSize = 13,
+                FontFamily = "InterMedium",
+                VerticalOptions = LayoutOptions.Center
+            };
+            content.Children.Add(icon);
+            content.Children.Add(label);
+
             var border = new Border
             {
-                StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 18 },
-                StrokeThickness = 1,
-                Padding = new Thickness(14, 8),
+                StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 19 },
+                StrokeThickness = 0,
+                Padding = new Thickness(13, 8),
                 HeightRequest = 40,
-                Content = label,
-                BackgroundColor = Colors.White,
-                Stroke = Color.FromArgb("#E5E5EA"),
+                Content = content,
+                BackgroundColor = ThemeColor("SurfaceTertiary", "SurfaceTertiaryDark"),
             };
 
             var modeIndex = mode.ModeKey;
@@ -60,26 +77,45 @@ public partial class TransportModePicker : ContentView
 
             _chipBorders.Add(border);
             _chipLabels.Add(label);
+            _iconLabels.Add(icon);
             ModesContainer.Children.Add(border);
         }
+    }
+
+    private static Color ThemeColor(string lightKey, string darkKey)
+    {
+        var app = Application.Current;
+        if (app?.Resources.TryGetValue(lightKey, out var light) == true &&
+            app.RequestedTheme == AppTheme.Light)
+            return (Color)light;
+        if (app?.Resources.TryGetValue(darkKey, out var dark) == true)
+            return (Color)dark;
+        if (app?.Resources.TryGetValue(lightKey, out var fallback) == true)
+            return (Color)fallback;
+        return Color.FromArgb("#EBEBEB");
     }
 
     public void SelectMode(int modeKey)
     {
         _selectedModeKey = modeKey;
+        var primary = ThemeColor("Primary", "PrimaryDark");
+        var textPrimary = ThemeColor("TextPrimary", "TextPrimaryDark");
+        var textSecondary = ThemeColor("TextSecondary", "TextSecondaryDark");
         for (int i = 0; i < _chipBorders.Count; i++)
         {
             if (i == modeKey)
             {
-                _chipBorders[i].BackgroundColor = Color.FromArgb("#007AFF");
-                _chipBorders[i].Stroke = Color.FromArgb("#007AFF");
+                _chipBorders[i].BackgroundColor = primary;
+                _chipBorders[i].Stroke = primary;
                 _chipLabels[i].TextColor = Colors.White;
+                _iconLabels[i].TextColor = Colors.White;
             }
             else
             {
-                _chipBorders[i].BackgroundColor = Colors.White;
-                _chipBorders[i].Stroke = Color.FromArgb("#E5E5EA");
-                _chipLabels[i].TextColor = Color.FromArgb("#000000");
+                _chipBorders[i].BackgroundColor = ThemeColor("SurfaceTertiary", "SurfaceTertiaryDark");
+                _chipBorders[i].Stroke = _chipBorders[i].BackgroundColor;
+                _chipLabels[i].TextColor = textPrimary;
+                _iconLabels[i].TextColor = textSecondary;
             }
         }
         ModeSelected?.Invoke(this, modeKey);

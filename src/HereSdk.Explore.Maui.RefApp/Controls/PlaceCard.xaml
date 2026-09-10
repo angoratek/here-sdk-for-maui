@@ -1,69 +1,118 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
+             xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
              x:Class="Here.Explore.Maui.RefApp.Controls.PlaceCard">
-    <Border Style="{StaticResource CardBorder}" Padding="20">
-        <VerticalStackLayout Spacing="14">
-            <!-- Title row -->
-            <Grid ColumnDefinitions="*,Auto">
-                <Label x:Name="TitleLabel" x:FieldModifier="public"
-                       FontSize="22" FontAttributes="Bold"
-                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}"
-                       LineBreakMode="TailTruncation" MaxLines="2" />
-                <!-- Open/closed indicator -->
-                <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center"
-                                       IsVisible="False" x:Name="OpenStatusRow" x:FieldModifier="public">
-                    <BoxView x:Name="OpenDot" x:FieldModifier="public" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
-                    <Label x:Name="OpenLabel" x:FieldModifier="public" FontSize="13"
-                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
-                </HorizontalStackLayout>
-            </Grid>
+    <Border StrokeShape="RoundRectangle 28,28,0,0" StrokeThickness="0" Padding="0"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}">
+        <VerticalStackLayout Spacing="0">
 
-            <!-- Category chip: icon glyph + name. The icon makes the
-                 place's category recognizable at a glance; the colour
-                 background reinforces the category. -->
-            <Border x:Name="CategoryChip" x:FieldModifier="public"
-                    StrokeShape="RoundRectangle 8" Padding="10,5"
-                    StrokeThickness="0" IsVisible="False"
-                    HorizontalOptions="Start">
-                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
-                    <Label x:Name="CategoryIconLabel" x:FieldModifier="public"
-                           FontSize="13" TextColor="White" />
-                    <Label x:Name="CategoryLabel" x:FieldModifier="public"
-                           FontSize="12" TextColor="White" />
-                </HorizontalStackLayout>
+            <!-- Hero header: warm coral gradient with the category badge -->
+            <Border StrokeThickness="0" Padding="20,18" HeightRequest="104">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="28,28,0,0" />
+                </Border.StrokeShape>
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource HeroGradientStart}, Dark={StaticResource HeroGradientStartDark}}"
+                                      Offset="0.0" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource HeroGradientEnd}, Dark={StaticResource HeroGradientEndDark}}"
+                                      Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                    <!-- Category icon disc -->
+                    <Border x:Name="CategoryDisc" x:FieldModifier="public"
+                            WidthRequest="52" HeightRequest="52"
+                            StrokeShape="RoundRectangle 26" StrokeThickness="0" IsVisible="False"
+                            VerticalOptions="Center">
+                        <Label x:Name="CategoryIconLabel" x:FieldModifier="public"
+                               FontFamily="MaterialIcons" FontSize="24" TextColor="White"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                        <Label x:Name="CategoryLabel" x:FieldModifier="public"
+                               FontFamily="InterMedium" FontSize="12" CharacterSpacing="0.6"
+                               TextColor="#E8FFFFFF" IsVisible="False" />
+                        <Label x:Name="TitleLabel" x:FieldModifier="public"
+                               FontFamily="InterBold" FontSize="21" CharacterSpacing="-0.4"
+                               TextColor="White" MaxLines="2" LineBreakMode="TailTruncation" />
+                    </VerticalStackLayout>
+                    <!-- Open/closed pill -->
+                    <Border x:Name="OpenStatusRow" x:FieldModifier="public" Grid.Column="2"
+                            StrokeShape="RoundRectangle 12" StrokeThickness="0" Padding="10,5"
+                            BackgroundColor="#66FFFFFF" VerticalOptions="Center" IsVisible="False">
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <BoxView x:Name="OpenDot" x:FieldModifier="public" WidthRequest="7" HeightRequest="7" CornerRadius="3.5" />
+                            <Label x:Name="OpenLabel" x:FieldModifier="public" FontFamily="InterSemiBold" FontSize="11.5" TextColor="White" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </Grid>
             </Border>
 
-            <!-- Address -->
-            <Label x:Name="AddressLabel" x:FieldModifier="public" FontSize="14" MaxLines="3"
-                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+            <!-- Body -->
+            <VerticalStackLayout Spacing="12" Padding="20,14,20,20">
+                <!-- Address with pin glyph -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" x:Name="AddressRow" x:FieldModifier="public" IsVisible="False">
+                    <Label Grid.Column="0" FontFamily="MaterialIcons" Text="&#xe55f;" FontSize="17"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                           VerticalOptions="Start" Margin="0,2,0,0" />
+                    <Label x:Name="AddressLabel" x:FieldModifier="public" Grid.Column="1" FontSize="14" MaxLines="3"
+                           FontFamily="InterRegular" LineHeight="1.35"
+                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                </Grid>
 
-            <!-- Distance -->
-            <Label x:Name="DistanceLabel" x:FieldModifier="public" FontSize="13" IsVisible="False"
-                   TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource TextTertiaryDark}}" />
+                <!-- Distance pill -->
+                <HorizontalStackLayout x:Name="DistanceRow" x:FieldModifier="public" Spacing="6" IsVisible="False">
+                    <Label FontFamily="MaterialIcons" Text="&#xe55d;" FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                    <Label x:Name="DistanceLabel" x:FieldModifier="public" FontSize="13" FontFamily="InterMedium"
+                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                </HorizontalStackLayout>
 
-            <!-- Contact buttons -->
-            <HorizontalStackLayout x:Name="ContactRow" x:FieldModifier="public" Spacing="12" IsVisible="False">
-                <Button x:Name="PhoneButton" x:FieldModifier="public" Text="Call"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource SurfaceTertiaryDark}}"
-                        TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
-                        CornerRadius="10" HeightRequest="40" FontSize="13"
-                        Clicked="OnPhoneClicked" />
-                <Button x:Name="WebsiteButton" x:FieldModifier="public" Text="Website"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceSecondary}, Dark={StaticResource SurfaceTertiaryDark}}"
-                        TextColor="{AppThemeBinding Light=#007AFF, Dark=#0A84FF}"
-                        CornerRadius="10" HeightRequest="40" FontSize="13"
-                        Clicked="OnWebsiteClicked" />
-            </HorizontalStackLayout>
+                <!-- Circular contact buttons -->
+                <HorizontalStackLayout x:Name="ContactRow" x:FieldModifier="public" Spacing="12" IsVisible="False">
+                    <VerticalStackLayout Spacing="4">
+                        <Border x:Name="PhoneButton" x:FieldModifier="public"
+                                WidthRequest="46" HeightRequest="46"
+                                StrokeShape="RoundRectangle 23" StrokeThickness="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary10}, Dark={StaticResource Primary30}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPhoneClicked" />
+                            </Border.GestureRecognizers>
+                            <Label FontFamily="MaterialIcons" Text="&#xe0cd;" FontSize="20"
+                                  TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                  HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="Call" FontSize="10.5" FontFamily="InterMedium" HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="4">
+                        <Border x:Name="WebsiteButton" x:FieldModifier="public"
+                                WidthRequest="46" HeightRequest="46"
+                                StrokeShape="RoundRectangle 23" StrokeThickness="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary10}, Dark={StaticResource Primary30}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnWebsiteClicked" />
+                            </Border.GestureRecognizers>
+                            <Label FontFamily="MaterialIcons" Text="&#xe894;" FontSize="20"
+                                  TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                  HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="Website" FontSize="10.5" FontFamily="InterMedium" HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
 
-            <!-- Directions CTA -->
-            <Button x:Name="DirectionsButton" x:FieldModifier="public" Text="Get Directions"
-                    AutomationId="PlaceCardDirectionsButton"
-                    BackgroundColor="{StaticResource Primary}"
-                    TextColor="White"
-                    CornerRadius="14" HeightRequest="48" FontSize="16" FontAttributes="Bold"
-                    Clicked="OnDirectionsClicked" />
+                <!-- Directions CTA -->
+                <Button x:Name="DirectionsButton" x:FieldModifier="public" Text="Get Directions"
+                        AutomationId="PlaceCardDirectionsButton"
+                        FontFamily="InterSemiBold"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="23" HeightRequest="46" FontSize="15"
+                        Clicked="OnDirectionsClicked" />
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </Border>
 </ContentView>

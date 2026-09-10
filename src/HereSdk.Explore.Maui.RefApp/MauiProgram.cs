@@ -7,6 +7,7 @@ using Here.Explore.Maui.RefApp.Services;
 using Here.Explore.Maui.RefApp.ViewModels;
 using Here.Explore.Maui.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Maui.Hosting;
 
 namespace Here.Explore.Maui.RefApp;
 
@@ -19,6 +20,18 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder.UseMauiApp<App>();
+
+        builder.ConfigureFonts(fonts =>
+        {
+            // Note: MauiFont flattens the files to assets/<name>.ttf in the
+            // package, so register by bare filename — the "Resources/Fonts/"
+            // path form (older MAUI templates) does not resolve here.
+            fonts.AddFont("Inter-Regular.ttf", "InterRegular");
+            fonts.AddFont("Inter-Medium.ttf", "InterMedium");
+            fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
+            fonts.AddFont("Inter-Bold.ttf", "InterBold");
+            fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcons");
+        });
 
         builder.ConfigureMauiHandlers(handlers =>
         {

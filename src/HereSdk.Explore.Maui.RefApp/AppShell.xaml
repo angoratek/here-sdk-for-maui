@@ -14,14 +14,21 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar>
+    <TabBar Shell.TabBarBackgroundColor="{AppThemeBinding Light={StaticResource TabBarBackground}, Dark={StaticResource TabBarBackgroundDark}}"
+            Shell.TabBarTitleColor="{AppThemeBinding Light={StaticResource TabSelected}, Dark={StaticResource TabSelectedDark}}"
+            Shell.TabBarUnselectedColor="{AppThemeBinding Light={StaticResource TabUnselected}, Dark={StaticResource TabUnselectedDark}}"
+            Shell.TabBarDisabledColor="{StaticResource TabUnselected}">
         <ShellContent Title="Explore" Route="explore"
+                      Icon="{FontImageSource Glyph=&#xe2db;, FontFamily=MaterialIcons, Size=24, Color={StaticResource TabUnselected}}"
                       ContentTemplate="{DataTemplate pages:ExplorePage}" />
         <ShellContent Title="Directions" Route="directions"
+                      Icon="{FontImageSource Glyph=&#xeacd;, FontFamily=MaterialIcons, Size=24, Color={StaticResource TabUnselected}}"
                       ContentTemplate="{DataTemplate pages:DirectionsPage}" />
         <ShellContent Title="Traffic" Route="traffic"
+                      Icon="{FontImageSource Glyph=&#xe565;, FontFamily=MaterialIcons, Size=24, Color={StaticResource TabUnselected}}"
                       ContentTemplate="{DataTemplate pages:TrafficPage}" />
         <ShellContent Title="Tools" Route="tools"
+                      Icon="{FontImageSource Glyph=&#xea3c;, FontFamily=MaterialIcons, Size=24, Color={StaticResource TabUnselected}}"
                       ContentTemplate="{DataTemplate pages:ToolsPage}" />
     </TabBar>
 </Shell>

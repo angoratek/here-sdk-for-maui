@@ -13,23 +13,34 @@
         <ResourceDictionary>
             <!-- Button style for selected drawing tool -->
             <Style x:Key="DrawingToolButton" TargetType="Button">
-                <Setter Property="CornerRadius" Value="16" />
-                <Setter Property="HeightRequest" Value="36" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="Margin" Value="0,2,4,2" />
-                <Setter Property="Padding" Value="12,0" />
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#E5E5EA, Dark=#3A3A3C}" />
-                <Setter Property="TextColor" Value="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+                <Setter Property="CornerRadius" Value="19" />
+                <Setter Property="HeightRequest" Value="38" />
+                <Setter Property="FontFamily" Value="InterSemiBold" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Margin" Value="0,2,8,2" />
+                <Setter Property="Padding" Value="14,0" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
             </Style>
 
             <Style x:Key="SchemeChip" TargetType="Button">
-                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="CornerRadius" Value="15" />
                 <Setter Property="HeightRequest" Value="30" />
-                <Setter Property="FontSize" Value="11" />
-                <Setter Property="Margin" Value="0,2,4,2" />
-                <Setter Property="Padding" Value="10,0" />
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#E5E5EA, Dark=#3A3A3C}" />
-                <Setter Property="TextColor" Value="{AppThemeBinding Light=#000000, Dark=#FFFFFF}" />
+                <Setter Property="FontFamily" Value="InterMedium" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="0,2,8,2" />
+                <Setter Property="Padding" Value="12,0" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+            </Style>
+
+            <!-- Collapsible section header chevron -->
+            <Style x:Key="SectionChevron" TargetType="Label">
+                <Setter Property="FontFamily" Value="MaterialIcons" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource TextTertiaryDark}}" />
+                <Setter Property="Text" Value="&#xe5cc;" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -43,20 +54,29 @@
              is expanded; renders the live DrawingHint (set after a tool
              is picked) and a static "how to draw" tip before any tool
              is selected. -->
-        <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="{StaticResource TopSafeMargin}"
-                VerticalOptions="Start" Padding="10,8"
+        <Border Grid.Row="0" Style="{StaticResource SearchPillBorder}" Margin="{StaticResource TopSafeMargin}"
+                VerticalOptions="Start" Padding="14,8"
                 IsVisible="{Binding IsDrawingExpanded}">
             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-                <Label Grid.Column="0" Text="✏" FontSize="16" VerticalOptions="Center" />
-                <Label Grid.Column="1" FontSize="13"
+                <Label Grid.Column="0" FontFamily="MaterialIcons" Text="&#xe746;" FontSize="18"
+                       TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                       VerticalOptions="Center" />
+                <Label Grid.Column="1" FontFamily="InterMedium" FontSize="13"
                        VerticalOptions="Center"
                        TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}">
+                    <!-- DrawingHint starts as "" (not null), so FallbackValue/TargetNullValue
+                         never apply — cover the empty state with a DataTrigger instead. -->
                     <Label.Text>
                         <Binding Path="DrawingHint" FallbackValue="Tip: pick a tool below, then tap the map to draw." TargetNullValue="Tip: pick a tool below, then tap the map to draw." />
                     </Label.Text>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding DrawingHint}" Value="">
+                            <Setter Property="Text" Value="Tip: pick a tool below, then tap the map to draw." />
+                        </DataTrigger>
+                    </Label.Triggers>
                 </Label>
-                <Button Grid.Column="2" Text="Cancel" FontSize="12"
-                        HeightRequest="32" CornerRadius="14"
+                <Button Grid.Column="2" Text="Cancel" FontFamily="InterSemiBold" FontSize="12"
+                        HeightRequest="32" CornerRadius="16" Padding="14,0"
                         BackgroundColor="{StaticResource ErrorRed}"
                         TextColor="White"
                         IsVisible="{Binding IsDrawingActive}"
@@ -67,19 +87,24 @@
         <!-- Clear All button -->
         <Button Grid.Row="0" Text="Clear All" Style="{StaticResource MapFloatingButton}"
                 AutomationId="ToolsClearAllButton"
+                FontFamily="InterSemiBold" FontSize="13"
                 VerticalOptions="End" HorizontalOptions="End"
-                Margin="0,0,12,68" WidthRequest="72"
+                Margin="0,0,12,68" WidthRequest="78"
                 Command="{Binding ClearAllCommand}"
                 IsVisible="{Binding TotalObjectCount}" />
 
         <!-- Object count badge -->
         <Border Grid.Row="0" VerticalOptions="End" HorizontalOptions="Center"
-                Margin="0,0,0,68" Padding="10,5"
-                BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
-                StrokeShape="RoundRectangle 12"
+                Margin="0,0,0,68" Padding="12,6"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceSecondaryDark}}"
+                StrokeShape="RoundRectangle 14" StrokeThickness="0"
                 IsVisible="{Binding TotalObjectCount}">
+            <Border.Shadow>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColorSubtle}, Dark={StaticResource ShadowColorDark}}"
+                        Offset="0,2" Radius="8" />
+            </Border.Shadow>
             <Label Text="{Binding TotalObjectCount, StringFormat='{0} objects on map'}"
-                   FontSize="12"
+                   FontFamily="InterMedium" FontSize="12"
                    TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
         </Border>
 
@@ -93,10 +118,10 @@
                            CurrentState="FullyExpanded">
             <local:BottomSheet.HeaderContent>
                 <Grid Padding="16,4" ColumnDefinitions="*,Auto">
-                    <Label Grid.Column="0" Text="Tools &amp; Settings" FontSize="16" FontAttributes="Bold"
+                    <Label Grid.Column="0" Text="Tools &amp; Settings" FontFamily="InterBold" FontSize="17"
                            TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
                     <Label Grid.Column="1" Text="{Binding TotalObjectCount, StringFormat='{0} objects'}"
-                           FontSize="12"
+                           FontFamily="InterMedium" FontSize="12"
                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}"
                            VerticalOptions="Center" />
                 </Grid>
@@ -104,7 +129,7 @@
 
             <local:BottomSheet.SheetContent>
                 <ScrollView Padding="16,0">
-                    <VerticalStackLayout Spacing="8" Padding="0,0,0,20">
+                    <VerticalStackLayout Spacing="10" Padding="0,0,0,20">
 
                         <!-- ================================================ -->
                         <!-- DRAWING TOOLS — IMapService.AddMarker/AddPolyline/AddPolygon/AddCircle -->
@@ -115,16 +140,16 @@
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleDrawingExpandedCommand}" />
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Column="0" Text="Drawing Tools" FontSize="15" FontAttributes="Bold"
+                                    <Label Grid.Column="0" Text="Drawing Tools" FontFamily="InterSemiBold" FontSize="15"
                                            VerticalOptions="Center"
                                            TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                    <Label Grid.Column="1" FontSize="20" VerticalOptions="Center">
+                                    <Label Grid.Column="1" Style="{StaticResource SectionChevron}">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsDrawingExpanded}" Value="True">
-                                                <Setter Property="Text" Value="▾" />
+                                                <Setter Property="Text" Value="&#xe5cf;" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsDrawingExpanded}" Value="False">
-                                                <Setter Property="Text" Value="▸" />
+                                                <Setter Property="Text" Value="&#xe5cc;" />
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
@@ -132,11 +157,11 @@
 
                                 <VerticalStackLayout Spacing="8" IsVisible="{Binding IsDrawingExpanded}">
                                     <Label Text="Select a tool, then tap the map to draw. Double-tap to finish lines &amp; polygons."
-                                           FontSize="11"
+                                           FontFamily="InterRegular" FontSize="12"
                                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
                                     <FlexLayout Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
-                                        <Button Text="📍 Marker" Style="{StaticResource DrawingToolButton}"
+                                        <Button Text="Marker" Style="{StaticResource DrawingToolButton}"
                                                 AutomationId="ToolsMarkerButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Marker">
                                             <Button.Triggers>
@@ -147,7 +172,7 @@
                                                 </DataTrigger>
                                             </Button.Triggers>
                                         </Button>
-                                        <Button Text="📏 Polyline" Style="{StaticResource DrawingToolButton}"
+                                        <Button Text="Polyline" Style="{StaticResource DrawingToolButton}"
                                                 AutomationId="ToolsPolylineButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Polyline">
                                             <Button.Triggers>
@@ -158,7 +183,7 @@
                                                 </DataTrigger>
                                             </Button.Triggers>
                                         </Button>
-                                        <Button Text="⬡ Polygon" Style="{StaticResource DrawingToolButton}"
+                                        <Button Text="Polygon" Style="{StaticResource DrawingToolButton}"
                                                 AutomationId="ToolsPolygonButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Polygon">
                                             <Button.Triggers>
@@ -169,7 +194,7 @@
                                                 </DataTrigger>
                                             </Button.Triggers>
                                         </Button>
-                                        <Button Text="◎ Circle" Style="{StaticResource DrawingToolButton}"
+                                        <Button Text="Circle" Style="{StaticResource DrawingToolButton}"
                                                 AutomationId="ToolsCircleButton"
                                                 Command="{Binding SetDrawingToolCommand}" CommandParameter="Circle">
                                             <Button.Triggers>
@@ -194,16 +219,16 @@
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleGalleryExpandedCommand}" />
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Column="0" Text="Demo Gallery" FontSize="15" FontAttributes="Bold"
+                                    <Label Grid.Column="0" Text="Demo Gallery" FontFamily="InterSemiBold" FontSize="15"
                                            VerticalOptions="Center"
                                            TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                    <Label Grid.Column="1" FontSize="20" VerticalOptions="Center">
+                                    <Label Grid.Column="1" Style="{StaticResource SectionChevron}">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsGalleryExpanded}" Value="True">
-                                                <Setter Property="Text" Value="▾" />
+                                                <Setter Property="Text" Value="&#xe5cf;" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsGalleryExpanded}" Value="False">
-                                                <Setter Property="Text" Value="▸" />
+                                                <Setter Property="Text" Value="&#xe5cc;" />
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
@@ -211,24 +236,34 @@
 
                                 <VerticalStackLayout Spacing="6" IsVisible="{Binding IsGalleryExpanded}">
                                     <Label Text="Pre-built demos that showcase SDK rendering capabilities."
-                                           FontSize="11"
+                                           FontFamily="InterRegular" FontSize="12"
                                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
                                     <CollectionView ItemsSource="{Binding DemoPresets}">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate x:DataType="viewmodels:DemoPreset">
-                                                <Border Style="{StaticResource CardBorder}" Margin="0,3" Padding="12,10">
-                                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                                                        <VerticalStackLayout Grid.Column="0" Spacing="2">
-                                                            <Label Text="{Binding Name}" FontSize="14" FontAttributes="Bold"
+                                                <Border Style="{StaticResource CompactCardBorder}" Margin="0,3" Padding="12,10">
+                                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                                        <Border Grid.Column="0" WidthRequest="40" HeightRequest="40"
+                                                                StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                                                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary10}, Dark={StaticResource Primary30}}"
+                                                                VerticalOptions="Center">
+                                                            <Label FontFamily="MaterialIcons" Text="&#xe53b;" FontSize="19"
+                                                                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                                                        </Border>
+                                                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                                            <Label Text="{Binding Name}" FontFamily="InterSemiBold" FontSize="14"
                                                                    TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                                            <Label Text="{Binding Description}" FontSize="11"
+                                                            <Label Text="{Binding Description}" FontFamily="InterRegular" FontSize="11.5"
                                                                    TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                                                         </VerticalStackLayout>
-                                                        <Button Grid.Column="1" Text="Add"
-                                                                FontSize="12" HeightRequest="32" CornerRadius="14"
+                                                        <Button Grid.Column="2" Text="Add"
+                                                                FontFamily="InterSemiBold" FontSize="12"
+                                                                HeightRequest="32" CornerRadius="16" Padding="16,0"
                                                                 BackgroundColor="{StaticResource Primary}"
                                                                 TextColor="White"
+                                                                VerticalOptions="Center"
                                                                 Command="{Binding ActivateCommand}" />
                                                     </Grid>
                                                 </Border>
@@ -243,21 +278,21 @@
                         <!-- SETTINGS                                         -->
                         <!-- ================================================ -->
                         <Border Style="{StaticResource CardBorder}" Padding="14">
-                            <VerticalStackLayout Spacing="10">
+                            <VerticalStackLayout Spacing="12">
                                 <Grid ColumnDefinitions="*,Auto">
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleSettingsExpandedCommand}" />
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Column="0" Text="Settings" FontSize="15" FontAttributes="Bold"
+                                    <Label Grid.Column="0" Text="Settings" FontFamily="InterSemiBold" FontSize="15"
                                            VerticalOptions="Center"
                                            TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                    <Label Grid.Column="1" FontSize="20" VerticalOptions="Center">
+                                    <Label Grid.Column="1" Style="{StaticResource SectionChevron}">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsSettingsExpanded}" Value="True">
-                                                <Setter Property="Text" Value="▾" />
+                                                <Setter Property="Text" Value="&#xe5cf;" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsSettingsExpanded}" Value="False">
-                                                <Setter Property="Text" Value="▸" />
+                                                <Setter Property="Text" Value="&#xe5cc;" />
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
@@ -267,7 +302,7 @@
 
                                     <!-- HERE SDK: Map scheme picker — calls IMapService.SetScheme() to switch map style at runtime. -->
                                     <VerticalStackLayout Spacing="6">
-                                        <Label Text="Map Style" FontSize="12" FontAttributes="Bold"
+                                        <Label Text="MAP STYLE" FontFamily="InterSemiBold" FontSize="11" CharacterSpacing="0.8"
                                                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                                         <FlexLayout Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
                                             <Button Text="Normal Day" Style="{StaticResource SchemeChip}"
@@ -326,10 +361,10 @@
                                     <!-- Dark mode toggle -->
                                     <Grid ColumnDefinitions="*,Auto" Padding="0,4">
                                         <VerticalStackLayout Grid.Column="0" Spacing="2">
-                                            <Label Text="Dark Mode" FontSize="14"
+                                            <Label Text="Dark Mode" FontFamily="InterMedium" FontSize="14"
                                                    TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
                                             <Label Text="Toggle between light and dark appearance"
-                                                   FontSize="11"
+                                                   FontFamily="InterRegular" FontSize="11.5"
                                                    TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                                         </VerticalStackLayout>
                                         <Switch Grid.Column="1" IsToggled="{Binding IsDarkMode, Mode=TwoWay}"
@@ -338,22 +373,27 @@
                                     </Grid>
 
                                     <!-- SDK version -->
-                                    <Border BackgroundColor="{AppThemeBinding Light=#F2F2F7, Dark=#1C1C1E}"
-                                            Padding="12" StrokeShape="RoundRectangle 10">
-                                        <VerticalStackLayout Spacing="2">
-                                            <Label Text="HERE SDK Version" FontSize="11"
-                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
-                                            <Label Text="{Binding SdkVersion}" FontSize="18" FontAttributes="Bold"
-                                                   TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-                                            <Label Text="Explore Edition" FontSize="11"
-                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
-                                        </VerticalStackLayout>
+                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Primary10}, Dark={StaticResource Primary30}}"
+                                            Padding="12" StrokeShape="RoundRectangle 12" StrokeThickness="0">
+                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                            <Label FontFamily="MaterialIcons" Text="&#xe2db;" FontSize="22"
+                                                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                                   VerticalOptions="Center" />
+                                            <VerticalStackLayout Grid.Column="1" Spacing="1">
+                                                <Label Text="HERE SDK VERSION" FontFamily="InterSemiBold" FontSize="10" CharacterSpacing="0.8"
+                                                       TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                                <Label Text="{Binding SdkVersion}" FontFamily="InterBold" FontSize="17"
+                                                       TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
+                                                <Label Text="Explore Edition" FontFamily="InterRegular" FontSize="11"
+                                                       TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                                            </VerticalStackLayout>
+                                        </Grid>
                                     </Border>
 
                                     <!-- Open full settings -->
-                                    <Button Text="More Settings →" FontSize="14"
+                                    <Button Text="More Settings" FontFamily="InterSemiBold" FontSize="14"
                                             AutomationId="ToolsMoreSettingsButton"
-                                            HeightRequest="44" CornerRadius="12"
+                                            HeightRequest="46" CornerRadius="23"
                                             BackgroundColor="{StaticResource Primary}"
                                             TextColor="White"
                                             Clicked="OnOpenSettingsClicked" />

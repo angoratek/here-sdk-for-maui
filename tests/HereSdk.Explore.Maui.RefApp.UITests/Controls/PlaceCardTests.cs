@@ -2,6 +2,7 @@ using Xunit;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Search;
 using Here.Explore.Maui.RefApp.Controls;
+using Here.Explore.Maui.RefApp.Services;
 
 namespace Here.Explore.Maui.RefApp.UITests.Controls;
 
@@ -48,75 +49,70 @@ public class PlaceCardTests
     }
 
     [Fact]
-    public void CategoryColor_Restaurant_IsOrange()
+    public void CategoryVisuals_Restaurant_IsCoral()
     {
         var color = InvokeCategoryColorFor("restaurant-123");
-        Assert.Equal(Color.FromArgb("#FF9500"), color);
+        Assert.Equal(Color.FromArgb("#FF7A59"), color);
     }
 
     [Fact]
-    public void CategoryColor_Hotel_IsPurple()
+    public void CategoryVisuals_Hotel_IsPurple()
     {
         var color = InvokeCategoryColorFor("hotel-abc");
-        Assert.Equal(Color.FromArgb("#5856D6"), color);
+        Assert.Equal(Color.FromArgb("#7C5CD6"), color);
     }
 
     [Fact]
-    public void CategoryColor_Parking_IsGray()
+    public void CategoryVisuals_Parking_IsGray()
     {
         var color = InvokeCategoryColorFor("parking-garage");
         Assert.Equal(Color.FromArgb("#8E8E93"), color);
     }
 
     [Fact]
-    public void CategoryColor_FuelStation_IsBlue()
+    public void CategoryVisuals_FuelStation_IsBlue()
     {
         var color = InvokeCategoryColorFor("fuel-station-1");
-        Assert.Equal(Color.FromArgb("#007AFF"), color);
+        Assert.Equal(Color.FromArgb("#0A7AFF"), color);
     }
 
     [Fact]
-    public void CategoryColor_Hospital_IsRed()
+    public void CategoryVisuals_Hospital_IsRed()
     {
         var color = InvokeCategoryColorFor("hospital-main");
-        Assert.Equal(Color.FromArgb("#FF3B30"), color);
+        Assert.Equal(Color.FromArgb("#E33B4E"), color);
     }
 
     [Fact]
-    public void CategoryColor_Attraction_IsGreen()
+    public void CategoryVisuals_Attraction_IsGreen()
     {
-        var color = InvokeCategoryColorFor("park-museum");
-        Assert.Equal(Color.FromArgb("#34C759"), color);
+        var color = InvokeCategoryColorFor("city-park");
+        Assert.Equal(Color.FromArgb("#2FBF71"), color);
     }
 
     [Fact]
-    public void CategoryColor_Shopping_IsPink()
+    public void CategoryVisuals_Shopping_IsPink()
     {
         var color = InvokeCategoryColorFor("shop-retail");
-        Assert.Equal(Color.FromArgb("#FF2D55"), color);
+        Assert.Equal(Color.FromArgb("#FF5B8A"), color);
     }
 
     [Fact]
-    public void CategoryColor_Bank_IsDarkGreen()
+    public void CategoryVisuals_Bank_IsTeal()
     {
         var color = InvokeCategoryColorFor("bank-atm");
-        Assert.Equal(Color.FromArgb("#34A853"), color);
+        Assert.Equal(Color.FromArgb("#279E8F"), color);
     }
 
     [Fact]
-    public void CategoryColor_Unknown_IsDefaultBlue()
+    public void CategoryVisuals_Unknown_ReturnsNull()
     {
+        // Unmapped categories return null; PlaceCard falls back to a translucent white disc.
         var color = InvokeCategoryColorFor("unknown-thing");
-        Assert.Equal(Color.FromArgb("#5AC8FA"), color);
+        Assert.Null(color);
     }
 
-    /// <summary>
-    /// Invokes the private CategoryColorFor method via reflection.
-    /// </summary>
-    private static Color InvokeCategoryColorFor(string categoryId)
-    {
-        var method = typeof(PlaceCard).GetMethod("CategoryColorFor",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-        return (Color)method!.Invoke(null, new object[] { categoryId })!;
-    }
+    /// <summary>Delegates to the shared category palette (was PlaceCard.CategoryColorFor).</summary>
+    private static Color? InvokeCategoryColorFor(string categoryId)
+        => Here.Explore.Maui.RefApp.Services.CategoryVisuals.ColorFor(categoryId);
 }
