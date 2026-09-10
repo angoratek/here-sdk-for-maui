@@ -43,6 +43,7 @@ public partial class HereMapViewHandler
         // Wire up gesture events
         _gestures!.TapListener = new TapListener(this);
         _gestures.LongPressListener = new LongPressListener(this);
+        _gestures.DoubleTapListener = new DoubleTapListener(this);
         _gestures.PinchRotateListener = new PinchRotateListener(this);
 
         // Start rendering
@@ -78,7 +79,10 @@ public partial class HereMapViewHandler
             _platformView.OnDestroy();
         }
         if (_gestures is not null)
+        {
             _gestures.TapListener = null;
+            _gestures.DoubleTapListener = null;
+        }
         (_mapService as MapService)?.Dispose();
         _mapService = null;
         _platformView?.Dispose();
@@ -112,6 +116,20 @@ public partial class HereMapViewHandler
             var screenPoint = new Models.Point2D(point.X, point.Y);
             var args = new MapTappedEventArgs(coordinates, screenPoint);
             ms.RaiseMapTapped(args);
+        }
+    }
+
+    internal void OnMapDoubleTapped(Here.Explore.Core.Point2D point)
+    {
+        if (_mapService is MapService ms)
+        {
+            var geoCoords = _platformView?.ViewToGeoCoordinates(point);
+            var coordinates = geoCoords is not null
+                ? new GeoCoordinates(geoCoords.Latitude, geoCoords.Longitude)
+                : new GeoCoordinates(0, 0);
+            var screenPoint = new Models.Point2D(point.X, point.Y);
+            var args = new MapTappedEventArgs(coordinates, screenPoint);
+            ms.RaiseMapDoubleTapped(args);
         }
     }
 
@@ -192,6 +210,17 @@ internal class LongPressListener : Java.Lang.Object, Here.Explore.Gestures.MapLo
     public void OnLongPress(Here.Explore.Gestures.GestureState state, Here.Explore.Core.Point2D point)
     {
         _handler.OnMapLongPressed(state, point);
+    }
+}
+
+internal class DoubleTapListener : Java.Lang.Object, Here.Explore.Gestures.MapDoubleTapDelegate
+{
+    private readonly HereMapViewHandler _handler;
+    public DoubleTapListener(HereMapViewHandler handler) => _handler = handler;
+
+    public void OnDoubleTap(Here.Explore.Core.Point2D point)
+    {
+        _handler.OnMapDoubleTapped(point);
     }
 }
 

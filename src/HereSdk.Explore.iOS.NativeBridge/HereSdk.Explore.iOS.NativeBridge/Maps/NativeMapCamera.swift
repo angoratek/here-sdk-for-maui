@@ -51,6 +51,9 @@ public protocol HereMapCameraDelegate: AnyObject {
 public class HereMapCamera: NSObject {
     private let camera: MapCamera
     private weak var delegate: HereMapCameraDelegate?
+    // Closure-based camera-update handler (registered via setCameraUpdatedHandler).
+    private var updatedHandler: ((Double, Double, Double, Double, Double) -> Void)?
+    private var isRegisteredAsDelegate = false
 
     /// Non-@objc init — ObjC can't provide a MapCamera argument.
     public init(_ camera: MapCamera) {
@@ -101,6 +104,18 @@ public class HereMapCamera: NSObject {
         camera.startAnimation(animation, animationDelegate: AnimationEndBridge(completion))
     }
 
+    /// Closure-based camera-update callback (lat, lon, zoom, bearing, tilt).
+    /// Registers this wrapper as a MapCameraDelegate on first use.
+    @objc public func setCameraUpdatedHandler(
+        _ handler: @escaping (Double, Double, Double, Double, Double) -> Void
+    ) {
+        updatedHandler = handler
+        if !isRegisteredAsDelegate {
+            camera.addDelegate(self)
+            isRegisteredAsDelegate = true
+        }
+    }
+
     @objc public func addDelegate(_ delegate: HereMapCameraDelegate) {
         self.delegate = delegate
         camera.addDelegate(self)
@@ -119,6 +134,15 @@ public class HereMapCamera: NSObject {
 // Conform to MapCameraDelegate to bridge callbacks
 extension HereMapCamera: MapCameraDelegate {
     public func onMapCameraUpdated(_ cameraState: MapCamera.State) {
+        if let handler = updatedHandler {
+            handler(
+                cameraState.targetCoordinates.latitude,
+                cameraState.targetCoordinates.longitude,
+                cameraState.zoomLevel,
+                cameraState.orientationAtTarget.bearing,
+                cameraState.orientationAtTarget.tilt
+            )
+        }
         delegate?.onMapCameraUpdated?(HereCameraState.from(cameraState))
     }
 }

@@ -554,10 +554,6 @@ SWIFT_CLASS_NAMED("HereMapArrow")
 @end
 
 @class UIView;
-/// ObjC-visible UIView wrapper that owns a HERE MapView.
-/// C# uses this as the platform view for the MAUI handler.
-/// Other NativeBridge wrappers (HereMapCamera, HereMapScene, HereGestures)
-/// extract MapView/mapScene/camera/gestures from this bridge view.
 SWIFT_CLASS_NAMED("HereMapBridgeView")
 @interface HereMapBridgeView : NSObject
 /// @objc factory — C# calls this to create a bridge that owns the MapView.
@@ -566,6 +562,12 @@ SWIFT_CLASS_NAMED("HereMapBridgeView")
 @property (nonatomic, readonly, strong) UIView * _Nullable platformView;
 /// Convert screen coordinates to geo coordinates.
 - (HereGeoCoordinates * _Nullable)viewToGeoCoordinatesWithOriginX:(double)originX originY:(double)originY SWIFT_WARN_UNUSED_RESULT;
+/// Picks map items at a screen point (1x1 px area, MAP_ITEMS filter) and
+/// reports the first picked marker’s coordinates — nil when nothing was picked.
+- (void)pickFirstMarkerWithOriginX:(double)originX originY:(double)originY completion:(void (^ _Nonnull)(HereGeoCoordinates * _Nullable, NSString * _Nullable))completion;
+/// Registers a callback invoked when the map becomes idle after loading
+/// completes (rendering and map data loaded).
+- (void)setMapIdleHandler:(void (^ _Nonnull)(void))handler;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -581,6 +583,9 @@ SWIFT_CLASS_NAMED("HereMapCamera")
 /// Animates the camera to look at the given target. Calls completion when
 /// the animation completes (true) or is cancelled (false).
 - (void)animateLookAt:(HereGeoCoordinates * _Nonnull)coordinates zoomLevel:(double)zoomLevel bearing:(double)bearing tilt:(double)tilt durationSeconds:(double)durationSeconds completion:(void (^ _Nonnull)(BOOL, NSString * _Nullable))completion;
+/// Closure-based camera-update callback (lat, lon, zoom, bearing, tilt).
+/// Registers this wrapper as a MapCameraDelegate on first use.
+- (void)setCameraUpdatedHandler:(void (^ _Nonnull)(double, double, double, double, double))handler;
 - (void)addDelegate:(id <HereMapCameraDelegate> _Nonnull)delegate;
 - (void)removeDelegate;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -1556,10 +1561,6 @@ SWIFT_CLASS_NAMED("HereMapArrow")
 @end
 
 @class UIView;
-/// ObjC-visible UIView wrapper that owns a HERE MapView.
-/// C# uses this as the platform view for the MAUI handler.
-/// Other NativeBridge wrappers (HereMapCamera, HereMapScene, HereGestures)
-/// extract MapView/mapScene/camera/gestures from this bridge view.
 SWIFT_CLASS_NAMED("HereMapBridgeView")
 @interface HereMapBridgeView : NSObject
 /// @objc factory — C# calls this to create a bridge that owns the MapView.
@@ -1568,6 +1569,12 @@ SWIFT_CLASS_NAMED("HereMapBridgeView")
 @property (nonatomic, readonly, strong) UIView * _Nullable platformView;
 /// Convert screen coordinates to geo coordinates.
 - (HereGeoCoordinates * _Nullable)viewToGeoCoordinatesWithOriginX:(double)originX originY:(double)originY SWIFT_WARN_UNUSED_RESULT;
+/// Picks map items at a screen point (1x1 px area, MAP_ITEMS filter) and
+/// reports the first picked marker’s coordinates — nil when nothing was picked.
+- (void)pickFirstMarkerWithOriginX:(double)originX originY:(double)originY completion:(void (^ _Nonnull)(HereGeoCoordinates * _Nullable, NSString * _Nullable))completion;
+/// Registers a callback invoked when the map becomes idle after loading
+/// completes (rendering and map data loaded).
+- (void)setMapIdleHandler:(void (^ _Nonnull)(void))handler;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -1583,6 +1590,9 @@ SWIFT_CLASS_NAMED("HereMapCamera")
 /// Animates the camera to look at the given target. Calls completion when
 /// the animation completes (true) or is cancelled (false).
 - (void)animateLookAt:(HereGeoCoordinates * _Nonnull)coordinates zoomLevel:(double)zoomLevel bearing:(double)bearing tilt:(double)tilt durationSeconds:(double)durationSeconds completion:(void (^ _Nonnull)(BOOL, NSString * _Nullable))completion;
+/// Closure-based camera-update callback (lat, lon, zoom, bearing, tilt).
+/// Registers this wrapper as a MapCameraDelegate on first use.
+- (void)setCameraUpdatedHandler:(void (^ _Nonnull)(double, double, double, double, double))handler;
 - (void)addDelegate:(id <HereMapCameraDelegate> _Nonnull)delegate;
 - (void)removeDelegate;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;

@@ -193,6 +193,9 @@ namespace Here.Explore.iOS
         [Export("animateLookAtWithCoordinates:zoomLevel:bearing:tilt:durationSeconds:completion:")]
         void AnimateLookAt(HereGeoCoordinates coordinates, double zoomLevel, double bearing, double tilt, double durationSeconds, Action<bool, string?> completion);
 
+        [Export("setCameraUpdatedHandler:")]
+        void SetCameraUpdatedHandler(Action<double, double, double, double, double> handler);
+
         [Export("addDelegate:")]
         void AddDelegate(HereMapCameraDelegate delegate_);
 
@@ -213,6 +216,12 @@ namespace Here.Explore.iOS
         [Export("viewToGeoCoordinatesWithOriginX:originY:")]
         [return: NullAllowed]
         HereGeoCoordinates? ViewToGeoCoordinates(double originX, double originY);
+
+        [Export("pickFirstMarkerWithOriginX:originY:completion:")]
+        void PickFirstMarker(double originX, double originY, Action<HereGeoCoordinates?, string?> completion);
+
+        [Export("setMapIdleHandler:")]
+        void SetMapIdleHandler(Action handler);
     }
 
     [BaseType(typeof(NSObject))]

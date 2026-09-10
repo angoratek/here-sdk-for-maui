@@ -538,30 +538,17 @@ internal class MapPickCallback : Java.Lang.Object, Here.Explore.Maps.IMapViewBas
 
     public void OnPickMap(Here.Explore.Maps.MapPickResult? result)
     {
-        if (result is null)
+        if (result?.MapItems is not { } mapItems || mapItems.Markers.Count == 0)
         {
+            // Nothing picked — honor the null contract (never fabricate (0,0)).
             _tcs.SetResult(null);
             return;
         }
 
-        // Get coordinates from the first picked item (marker, polyline, etc.)
-        var mapItems = result.MapItems;
-        double lat = 0, lon = 0;
-
-        if (mapItems != null)
-        {
-            // Try to get coordinates from first marker
-            var markers = mapItems.Markers;
-            if (markers.Count > 0)
-            {
-                var marker = markers[0];
-                lat = marker.Coordinates.Latitude;
-                lon = marker.Coordinates.Longitude;
-            }
-        }
-
+        // Coordinates from the first picked marker
+        var marker = mapItems.Markers[0];
         var pickResult = new Here.Explore.Maui.Models.Maps.MapPickResult(
-            new GeoCoordinates(lat, lon),
+            new GeoCoordinates(marker.Coordinates.Latitude, marker.Coordinates.Longitude),
             result);
         _tcs.SetResult(pickResult);
     }

@@ -36,6 +36,13 @@ public partial class HereMapViewHandler
         _mapService = mapService;
         Console.WriteLine("[REFAPP_DIAG] iOS MapService initialized");
 
+        // Wire up camera state changes and map idle (raised on IMapService events)
+        camera.SetCameraUpdatedHandler((lat, lon, zoom, bearing, tilt) =>
+            mapService.RaiseCameraStateChanged(
+                new CameraStateChangedEventArgs(new GeoCoordinates(lat, lon), zoom, bearing, tilt)));
+        _bridgeView.SetMapIdleHandler(() => mapService.RaiseMapIdle());
+        Console.WriteLine("[REFAPP_DIAG] iOS camera/idle handlers wired");
+
         // Wire up gesture events
         _tapDelegate = new TapDelegateHandler(this);
         _longPressDelegate = new LongPressDelegateHandler(this);

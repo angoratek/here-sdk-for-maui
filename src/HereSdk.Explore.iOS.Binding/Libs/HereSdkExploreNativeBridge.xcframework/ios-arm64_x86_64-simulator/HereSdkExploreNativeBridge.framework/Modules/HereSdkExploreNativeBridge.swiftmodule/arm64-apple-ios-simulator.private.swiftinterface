@@ -92,6 +92,7 @@ import heresdk
   @objc public func setTarget(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates)
   @objc public func setTarget(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates, zoomLevel: Swift.Double)
   @objc public func animateLookAt(_ coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates, zoomLevel: Swift.Double, bearing: Swift.Double, tilt: Swift.Double, durationSeconds: Swift.Double, completion: @escaping (Swift.Bool, Swift.String?) -> Swift.Void)
+  @objc public func setCameraUpdatedHandler(_ handler: @escaping (Swift.Double, Swift.Double, Swift.Double, Swift.Double, Swift.Double) -> Swift.Void)
   @objc public func addDelegate(_ delegate: any HereSdkExploreNativeBridge.HereMapCameraDelegate)
   @objc public func removeDelegate()
   @objc deinit
@@ -193,6 +194,8 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
     @objc get
   }
   @objc public func viewToGeoCoordinates(originX: Swift.Double, originY: Swift.Double) -> HereSdkExploreNativeBridge.HereGeoCoordinates?
+  @objc public func pickFirstMarker(originX: Swift.Double, originY: Swift.Double, completion: @escaping (HereSdkExploreNativeBridge.HereGeoCoordinates?, Swift.String?) -> Swift.Void)
+  @objc public func setMapIdleHandler(_ handler: @escaping () -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }
