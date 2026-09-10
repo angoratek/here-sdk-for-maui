@@ -58,6 +58,17 @@ jobs:
             -k "system-images;android-34;google_apis;x86_64" \
             -d pixel_5 \
             --force
+          # avdmanager writes to $ANDROID_SDK_HOME/.android/avd but the emulator
+          # searches $ANDROID_AVD_HOME, $ANDROID_SDK_HOME/avd (no .android) and
+          # $HOME/.android/avd — point ANDROID_AVD_HOME at where the ini landed.
+          ini=$(find "$HOME/.android" "$ANDROID_HOME/.android" \
+            -maxdepth 3 -name testavd.ini 2>/dev/null | head -1)
+          if [ -z "$ini" ]; then
+            echo "testavd.ini not found in expected locations"; exit 1
+          fi
+          avd_home=$(dirname "$(dirname "$ini")")
+          echo "AVD home: $avd_home"
+          echo "ANDROID_AVD_HOME=$avd_home" >> "$GITHUB_ENV"
 
       - name: Boot emulator (headless, swiftshader)
         # The emulator binary is NOT on PATH by default — it lives in
@@ -68,13 +79,16 @@ jobs:
           export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
           ls -l /dev/kvm || true
           emulator -accel-check || true
+          echo "Available AVDs: $(emulator -list-avds | tr '\n' ' ')"
           nohup emulator -avd testavd \
             -no-window -no-audio -no-snapshot -no-boot-anim \
             -gpu swiftshader_indirect \
             > "$GITHUB_WORKSPACE/emulator.log" 2>&1 &
-          # Bounded boot wait — fail fast with the emulator log instead of
-          # hanging until the job timeout.
-          adb wait-for-device
+          # Bounded waits — fail fast with the emulator log instead of
+          # hanging until the job timeout (an emulator that dies on startup
+          # leaves wait-for-device pending forever).
+          timeout 120 adb wait-for-device \
+            || { echo "DEVICE NEVER APPEARED — emulator.log:"; tail -50 "$GITHUB_WORKSPACE/emulator.log"; exit 1; }
           timeout 600 bash -c \
             "adb shell 'while [[ -z \$(getprop sys.boot_completed) ]]; do sleep 2; done'" \
             || { echo "BOOT TIMEOUT — emulator.log:"; tail -50 "$GITHUB_WORKSPACE/emulator.log"; exit 1; }
