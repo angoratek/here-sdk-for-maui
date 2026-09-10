@@ -51,7 +51,7 @@ public partial class TrafficService
             else if (incidents is not null)
                 tcs.SetResult(new TrafficIncidentsResult(TrafficQueryError.None,
                     incidents.Select(i => new TrafficIncident(i.Id, i.DescriptionText,
-                        (TrafficIncidentType)i.TypeRawValue, (TrafficIncidentImpact)i.ImpactRawValue,
+                        ToSharedIncidentType((int)i.TypeRawValue), ToSharedIncidentImpact((int)i.ImpactRawValue),
                         Location: FirstVertex(i.Location),
                         RoadClosed: i.IsRoadClosed)).ToList()));
             else
@@ -82,6 +82,39 @@ public partial class TrafficService
             .ToList();
         return new GeoPolyline(vertices);
     }
+
+    // iOS TrafficIncidentType raw values (UInt32-backed enum, order differs
+    // from the shared enum — a direct cast corrupts the values):
+    // accident=0, congestion=1, construction=2, disabledVehicle=3, massTransit=4,
+    // plannedEvent=5, roadHazard=6, weather=7, roadClosure=8, laneRestriction=9,
+    // other=10, unknown=11.
+    internal static TrafficIncidentType ToSharedIncidentType(int rawValue) => rawValue switch
+    {
+        0 => TrafficIncidentType.Accident,
+        1 => TrafficIncidentType.Congestion,
+        2 => TrafficIncidentType.Construction,
+        3 => TrafficIncidentType.DisabledVehicle,
+        4 => TrafficIncidentType.MassTransit,
+        5 => TrafficIncidentType.PlannedEvent,
+        6 => TrafficIncidentType.RoadHazard,
+        7 => TrafficIncidentType.Weather,
+        8 => TrafficIncidentType.RoadClosure,
+        9 => TrafficIncidentType.LaneRestriction,
+        10 => TrafficIncidentType.Miscellaneous,
+        _ => TrafficIncidentType.Unknown,
+    };
+
+    // iOS TrafficIncidentImpact raw values: critical=0, major=1, minor=2, low=3,
+    // unknown=4. Mapped consistently with the Android implementation
+    // (Critical → Closed, Low → Minor).
+    internal static TrafficIncidentImpact ToSharedIncidentImpact(int rawValue) => rawValue switch
+    {
+        0 => TrafficIncidentImpact.Closed,
+        1 => TrafficIncidentImpact.Major,
+        2 => TrafficIncidentImpact.Minor,
+        3 => TrafficIncidentImpact.Minor,
+        _ => TrafficIncidentImpact.Unknown,
+    };
 
     /// <summary>
     /// Returns the first vertex of the bridge polyline as a

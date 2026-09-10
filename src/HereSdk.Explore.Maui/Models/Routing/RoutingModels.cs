@@ -48,23 +48,56 @@ public record IsolineOptions(
 );
 
 /// <summary>
-/// Traffic information along a route.
+/// Result of a traffic-along-route calculation.
+/// </summary>
+public record TrafficOnRouteResult(RoutingError Error, TrafficOnRoute? TrafficOnRoute);
+
+/// <summary>
+/// Traffic information along a route, as calculated by
+/// <c>GetTrafficOnRouteAsync</c>. Information for the already-traveled
+/// portion of the route is omitted.
 /// </summary>
 public record TrafficOnRoute(
-    string RouteHandle,
-    IReadOnlyList<TrafficIncidentOnRoute>? Incidents = null,
-    double? DelayInSeconds = null
+    int LastTraveledSectionIndex,
+    int TraveledDistanceOnLastSectionInMeters,
+    IReadOnlyList<TrafficOnSection> TrafficSections
+);
+
+/// <summary>
+/// A route section with real-time traffic data: geometry, traffic spans,
+/// and incidents. Mirrors the SDK's <c>TrafficOnSection</c>.
+/// </summary>
+public record TrafficOnSection(
+    IReadOnlyList<GeoCoordinates> Geometry,
+    IReadOnlyList<TrafficOnSpan> TrafficSpans,
+    IReadOnlyList<TrafficIncidentOnRoute> TrafficIncidents
+);
+
+/// <summary>
+/// A traffic span along a route section: traffic conditions for a
+/// portion of the section geometry. Mirrors the SDK's <c>TrafficOnSpan</c>.
+/// <paramref name="GeometryOffset"/> is the index into
+/// <see cref="TrafficOnSection.Geometry"/> where this span starts.
+/// </summary>
+public record TrafficOnSpan(
+    double JamFactor,
+    double LengthInMeters,
+    double BaseSpeedInMetersPerSecond,
+    double TrafficSpeedInMetersPerSecond,
+    double TrafficDelayInSeconds,
+    double DurationInSeconds,
+    int GeometryOffset,
+    IReadOnlyList<int> IncidentIndices
 );
 
 /// <summary>
 /// A traffic incident on a specific route.
 /// </summary>
 public record TrafficIncidentOnRoute(
-    string Id,
-    string Description,
+    string? Id,
     TrafficIncidentType Type,
     TrafficIncidentImpact Impact,
-    int? AffectedSectionIndex = null
+    string? Description
 );
 
 /// <summary>

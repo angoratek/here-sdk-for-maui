@@ -210,16 +210,53 @@ public class RouteModelTests
     }
 
     [Fact]
-    public void TrafficOnRoute_CreatedWithIncidents()
+    public void TrafficOnRoute_CreatedWithSections()
     {
-        var incidents = new List<TrafficIncidentOnRoute>
-        {
-            new("inc-1", "Construction", TrafficIncidentType.Construction, TrafficIncidentImpact.Major, AffectedSectionIndex: 0)
-        };
-        var tor = new TrafficOnRoute("route-handle", incidents, 120.0);
+        var geometry = new List<GeoCoordinates> { new(52.5, 13.4), new(52.6, 13.5) };
+        var span = new TrafficOnSpan(
+            JamFactor: 7.5, LengthInMeters: 1200, BaseSpeedInMetersPerSecond: 25,
+            TrafficSpeedInMetersPerSecond: 8, TrafficDelayInSeconds: 90, DurationInSeconds: 150,
+            GeometryOffset: 1, IncidentIndices: new List<int> { 0 });
+        var incident = new TrafficIncidentOnRoute("inc-1", TrafficIncidentType.Construction,
+            TrafficIncidentImpact.Major, "Construction");
+        var section = new TrafficOnSection(geometry, new[] { span }, new[] { incident });
+        var tor = new TrafficOnRoute(0, 250, new[] { section });
 
-        Assert.Equal("route-handle", tor.RouteHandle);
-        Assert.Single(tor.Incidents!);
-        Assert.Equal(120.0, tor.DelayInSeconds);
+        Assert.Equal(0, tor.LastTraveledSectionIndex);
+        Assert.Equal(250, tor.TraveledDistanceOnLastSectionInMeters);
+        Assert.Single(tor.TrafficSections);
+        Assert.Equal(2, tor.TrafficSections[0].Geometry.Count);
+        Assert.Single(tor.TrafficSections[0].TrafficSpans);
+        Assert.Equal(7.5, tor.TrafficSections[0].TrafficSpans[0].JamFactor);
+        Assert.Equal(1, tor.TrafficSections[0].TrafficSpans[0].GeometryOffset);
+        Assert.Equal(90, tor.TrafficSections[0].TrafficSpans[0].TrafficDelayInSeconds);
+        Assert.Single(tor.TrafficSections[0].TrafficIncidents);
+        Assert.Equal("inc-1", tor.TrafficSections[0].TrafficIncidents[0].Id);
+    }
+
+    [Fact]
+    public void TrafficOnRouteResult_CreatedWithError()
+    {
+        var result = new TrafficOnRouteResult(RoutingError.None, null);
+        Assert.Equal(RoutingError.None, result.Error);
+        Assert.Null(result.TrafficOnRoute);
+
+        var tor = new TrafficOnRoute(1, 0, new List<TrafficOnSection>());
+        var okResult = new TrafficOnRouteResult(RoutingError.None, tor);
+        Assert.Equal(tor, okResult.TrafficOnRoute);
+    }
+
+    [Fact]
+    public void TrafficOnSpan_DefaultsAndFields()
+    {
+        var span = new TrafficOnSpan(2.0, 500, 13.9, 5.6, 30, 40, 0, Array.Empty<int>());
+        Assert.Equal(2.0, span.JamFactor);
+        Assert.Equal(500, span.LengthInMeters);
+        Assert.Equal(13.9, span.BaseSpeedInMetersPerSecond);
+        Assert.Equal(5.6, span.TrafficSpeedInMetersPerSecond);
+        Assert.Equal(30, span.TrafficDelayInSeconds);
+        Assert.Equal(40, span.DurationInSeconds);
+        Assert.Equal(0, span.GeometryOffset);
+        Assert.Empty(span.IncidentIndices);
     }
 }

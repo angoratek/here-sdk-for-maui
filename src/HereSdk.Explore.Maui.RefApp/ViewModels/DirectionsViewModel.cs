@@ -359,8 +359,17 @@ public partial class DirectionsViewModel : ViewModelBase
 
         try
         {
-            var traffic = await _routingService.GetTrafficOnRouteAsync(CurrentRoute);
-            RouteSummary = FormatRouteSummary(CurrentRoute) + $" | Traffic delay: {traffic.DelayInSeconds ?? 0}s";
+            var result = await _routingService.GetTrafficOnRouteAsync(CurrentRoute);
+            if (result.TrafficOnRoute is null)
+            {
+                HasTrafficOnRoute = false;
+                return;
+            }
+
+            var totalDelay = result.TrafficOnRoute.TrafficSections
+                .SelectMany(s => s.TrafficSpans)
+                .Sum(s => s.TrafficDelayInSeconds);
+            RouteSummary = FormatRouteSummary(CurrentRoute) + $" | Traffic delay: {(int)totalDelay}s";
         }
         catch { HasTrafficOnRoute = false; }
     }

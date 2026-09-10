@@ -46,6 +46,41 @@ public class HereRoutingEngine: NSObject {
     var swiftEngine: RoutingEngine? {
         return engine
     }
+
+    /// Calculates traffic along a previously calculated route. Requires the
+    /// HereRoute to still hold its underlying Swift Route (routeHandle alone
+    /// is not enough — the SDK reuses the original calculation options).
+    @objc(calculateTrafficOnRouteRoute:lastTraveledSectionIndex:traveledDistanceOnLastSectionInMeters:completion:)
+    public func calculateTrafficOnRoute(
+        route: HereRoute,
+        lastTraveledSectionIndex: Int32,
+        traveledDistanceOnLastSectionInMeters: Int32,
+        completion: @escaping (HereTrafficOnRouteResult) -> Void
+    ) {
+        guard let engine = engine, let swiftRoute = route.swiftRoute else {
+            completion(HereTrafficOnRouteResult(
+                error: "RoutingEngine not initialized or route not retained",
+                trafficOnRoute: nil))
+            return
+        }
+
+        engine.calculateTrafficOnRoute(
+            route: swiftRoute,
+            lastTraveledSectionIndex: lastTraveledSectionIndex,
+            traveledDistanceOnLastSectionInMeters: traveledDistanceOnLastSectionInMeters) { error, trafficOnRoute in
+            if let error = error {
+                completion(HereTrafficOnRouteResult(
+                    error: String(describing: error),
+                    trafficOnRoute: nil))
+            } else if let trafficOnRoute = trafficOnRoute {
+                completion(HereTrafficOnRouteResult(
+                    error: nil,
+                    trafficOnRoute: HereTrafficOnRoute.from(trafficOnRoute)))
+            } else {
+                completion(HereTrafficOnRouteResult(error: nil, trafficOnRoute: nil))
+            }
+        }
+    }
 }
 
 /// ObjC-visible wrapper for Waypoint (Swift struct).
@@ -118,6 +153,10 @@ public class HereRoute: NSObject {
     @objc public var routeHandle: String?
     @objc public var sections: [HereSection]?
     @objc public var geometry: HereGeoPolyline?
+    /// The underlying Swift Route, retained so traffic-on-route can be
+    /// calculated later (the SDK needs the original calculation options).
+    /// Internal so HereRoutingEngine can access it within the module.
+    var swiftRoute: Route?
 
     @objc public init(
         lengthInMeters: Int32,
@@ -137,13 +176,15 @@ public class HereRoute: NSObject {
     static func from(_ swift: Route) -> HereRoute {
         let sections = swift.sections.map { HereSection.from($0) }
         let geometry = HereGeoPolyline.from(swift.geometry)
-        return HereRoute(
+        let route = HereRoute(
             lengthInMeters: swift.lengthInMeters,
             durationInSeconds: swift.duration,
             routeHandle: swift.routeHandle?.handle,
             sections: sections,
             geometry: geometry
         )
+        route.swiftRoute = swift
+        return route
     }
 }
 
@@ -235,6 +276,152 @@ public class HereManeuver: NSObject {
             lengthInMeters: swift.lengthInMeters,
             durationInSeconds: swift.duration,
             turnAngleInDegrees: turnAngle
+        )
+    }
+}
+
+/// ObjC-visible result of a traffic-on-route calculation.
+@objc(HereTrafficOnRouteResult)
+public class HereTrafficOnRouteResult: NSObject {
+    @objc public var error: String?
+    @objc public var trafficOnRoute: HereTrafficOnRoute?
+
+    @objc public init(error: String?, trafficOnRoute: HereTrafficOnRoute?) {
+        self.error = error
+        self.trafficOnRoute = trafficOnRoute
+        super.init()
+    }
+}
+
+/// ObjC-visible wrapper for TrafficOnRoute.
+@objc(HereTrafficOnRoute)
+public class HereTrafficOnRoute: NSObject {
+    @objc public var lastTraveledSectionIndex: Int32
+    @objc public var traveledDistanceOnLastSectionInMeters: Int32
+    @objc public var trafficSections: [HereTrafficOnSection]?
+
+    @objc public init(
+        lastTraveledSectionIndex: Int32,
+        traveledDistanceOnLastSectionInMeters: Int32,
+        trafficSections: [HereTrafficOnSection]?
+    ) {
+        self.lastTraveledSectionIndex = lastTraveledSectionIndex
+        self.traveledDistanceOnLastSectionInMeters = traveledDistanceOnLastSectionInMeters
+        self.trafficSections = trafficSections
+        super.init()
+    }
+
+    static func from(_ swift: TrafficOnRoute) -> HereTrafficOnRoute {
+        return HereTrafficOnRoute(
+            lastTraveledSectionIndex: swift.lastTraveledSectionIndex,
+            traveledDistanceOnLastSectionInMeters: swift.traveledDistanceOnLastSectionInMeters,
+            trafficSections: swift.trafficSections.map { HereTrafficOnSection.from($0) }
+        )
+    }
+}
+
+/// ObjC-visible wrapper for TrafficOnSection.
+@objc(HereTrafficOnSection)
+public class HereTrafficOnSection: NSObject {
+    @objc public var geometry: [HereGeoCoordinates]?
+    @objc public var trafficSpans: [HereTrafficOnSpan]?
+    @objc public var trafficIncidents: [HereTrafficIncidentOnRoute]?
+
+    @objc public init(
+        geometry: [HereGeoCoordinates]?,
+        trafficSpans: [HereTrafficOnSpan]?,
+        trafficIncidents: [HereTrafficIncidentOnRoute]?
+    ) {
+        self.geometry = geometry
+        self.trafficSpans = trafficSpans
+        self.trafficIncidents = trafficIncidents
+        super.init()
+    }
+
+    static func from(_ swift: TrafficOnSection) -> HereTrafficOnSection {
+        return HereTrafficOnSection(
+            geometry: swift.geometry.map { HereGeoCoordinates.from($0) },
+            trafficSpans: swift.trafficSpans.map { HereTrafficOnSpan.from($0) },
+            trafficIncidents: swift.trafficIncidents.map { HereTrafficIncidentOnRoute.from($0) }
+        )
+    }
+}
+
+/// ObjC-visible wrapper for TrafficOnSpan.
+@objc(HereTrafficOnSpan)
+public class HereTrafficOnSpan: NSObject {
+    @objc public var jamFactor: Double
+    @objc public var lengthInMeters: Double
+    @objc public var baseSpeedInMetersPerSecond: Double
+    @objc public var trafficSpeedInMetersPerSecond: Double
+    @objc public var trafficDelayInSeconds: Double
+    @objc public var durationInSeconds: Double
+    /// Index into HereTrafficOnSection.geometry where this span starts.
+    @objc public var geometryOffset: Int32
+    @objc public var incidentIndices: [Int32]?
+
+    @objc public init(
+        jamFactor: Double,
+        lengthInMeters: Double,
+        baseSpeedInMetersPerSecond: Double,
+        trafficSpeedInMetersPerSecond: Double,
+        trafficDelayInSeconds: Double,
+        durationInSeconds: Double,
+        geometryOffset: Int32,
+        incidentIndices: [Int32]?
+    ) {
+        self.jamFactor = jamFactor
+        self.lengthInMeters = lengthInMeters
+        self.baseSpeedInMetersPerSecond = baseSpeedInMetersPerSecond
+        self.trafficSpeedInMetersPerSecond = trafficSpeedInMetersPerSecond
+        self.trafficDelayInSeconds = trafficDelayInSeconds
+        self.durationInSeconds = durationInSeconds
+        self.geometryOffset = geometryOffset
+        self.incidentIndices = incidentIndices
+        super.init()
+    }
+
+    static func from(_ swift: TrafficOnSpan) -> HereTrafficOnSpan {
+        return HereTrafficOnSpan(
+            jamFactor: swift.jamFactor,
+            lengthInMeters: swift.lengthInMeters,
+            baseSpeedInMetersPerSecond: swift.baseSpeedInMetersPerSecond,
+            trafficSpeedInMetersPerSecond: swift.trafficSpeedInMetersPerSecond,
+            trafficDelayInSeconds: swift.trafficDelay,
+            durationInSeconds: swift.duration,
+            geometryOffset: swift.trafficSectionPolylineOffset,
+            incidentIndices: swift.incidentIndices
+        )
+    }
+}
+
+/// ObjC-visible wrapper for the routing TrafficIncidentOnRoute.
+@objc(HereTrafficIncidentOnRoute)
+public class HereTrafficIncidentOnRoute: NSObject {
+    @objc public var id: String?
+    @objc public var typeRawValue: Int32
+    @objc public var impactRawValue: Int32
+    @objc public var descriptionText: String?
+
+    @objc public init(
+        id: String?,
+        typeRawValue: Int32,
+        impactRawValue: Int32,
+        descriptionText: String?
+    ) {
+        self.id = id
+        self.typeRawValue = typeRawValue
+        self.impactRawValue = impactRawValue
+        self.descriptionText = descriptionText
+        super.init()
+    }
+
+    static func from(_ swift: TrafficIncidentOnRoute) -> HereTrafficIncidentOnRoute {
+        return HereTrafficIncidentOnRoute(
+            id: swift.id,
+            typeRawValue: Int32(swift.type.rawValue),
+            impactRawValue: Int32(swift.impact.rawValue),
+            descriptionText: swift.description.text
         )
     }
 }

@@ -627,6 +627,111 @@ namespace Here.Explore.iOS
 
         [Export("calculateRouteWithWaypoints:options:completion:")]
         void CalculateRoute(HereWaypoint[] waypoints, HereRoutingOptions options, Action<HereRouteResult> completion);
+
+        [Export("calculateTrafficOnRouteRoute:lastTraveledSectionIndex:traveledDistanceOnLastSectionInMeters:completion:")]
+        void CalculateTrafficOnRoute(HereRoute route, int lastTraveledSectionIndex, int traveledDistanceOnLastSectionInMeters, Action<HereTrafficOnRouteResult> completion);
+    }
+
+    // --- Traffic-on-route types ---
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereTrafficOnRouteResult
+    {
+        [Export("initWithError:trafficOnRoute:")]
+        IntPtr Constructor([NullAllowed] string? error, [NullAllowed] HereTrafficOnRoute? trafficOnRoute);
+
+        [Export("error")]
+        string? Error { get; set; }
+
+        [Export("trafficOnRoute", ArgumentSemantic.Retain)]
+        HereTrafficOnRoute? TrafficOnRoute { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereTrafficOnRoute
+    {
+        [Export("initWithLastTraveledSectionIndex:traveledDistanceOnLastSectionInMeters:trafficSections:")]
+        IntPtr Constructor(int lastTraveledSectionIndex, int traveledDistanceOnLastSectionInMeters, [NullAllowed] HereTrafficOnSection[]? trafficSections);
+
+        [Export("lastTraveledSectionIndex")]
+        int LastTraveledSectionIndex { get; set; }
+
+        [Export("traveledDistanceOnLastSectionInMeters")]
+        int TraveledDistanceOnLastSectionInMeters { get; set; }
+
+        [Export("trafficSections", ArgumentSemantic.Retain)]
+        HereTrafficOnSection[]? TrafficSections { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereTrafficOnSection
+    {
+        [Export("initWithGeometry:trafficSpans:trafficIncidents:")]
+        IntPtr Constructor([NullAllowed] HereGeoCoordinates[]? geometry, [NullAllowed] HereTrafficOnSpan[]? trafficSpans, [NullAllowed] HereTrafficIncidentOnRoute[]? trafficIncidents);
+
+        [Export("geometry", ArgumentSemantic.Retain)]
+        HereGeoCoordinates[]? Geometry { get; set; }
+
+        [Export("trafficSpans", ArgumentSemantic.Retain)]
+        HereTrafficOnSpan[]? TrafficSpans { get; set; }
+
+        [Export("trafficIncidents", ArgumentSemantic.Retain)]
+        HereTrafficIncidentOnRoute[]? TrafficIncidents { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereTrafficOnSpan
+    {
+        [Export("initWithJamFactor:lengthInMeters:baseSpeedInMetersPerSecond:trafficSpeedInMetersPerSecond:trafficDelayInSeconds:durationInSeconds:geometryOffset:incidentIndices:")]
+        IntPtr Constructor(double jamFactor, double lengthInMeters, double baseSpeedInMetersPerSecond, double trafficSpeedInMetersPerSecond, double trafficDelayInSeconds, double durationInSeconds, int geometryOffset, [NullAllowed] NSNumber[]? incidentIndices);
+
+        [Export("jamFactor")]
+        double JamFactor { get; set; }
+
+        [Export("lengthInMeters")]
+        double LengthInMeters { get; set; }
+
+        [Export("baseSpeedInMetersPerSecond")]
+        double BaseSpeedInMetersPerSecond { get; set; }
+
+        [Export("trafficSpeedInMetersPerSecond")]
+        double TrafficSpeedInMetersPerSecond { get; set; }
+
+        [Export("trafficDelayInSeconds")]
+        double TrafficDelayInSeconds { get; set; }
+
+        [Export("durationInSeconds")]
+        double DurationInSeconds { get; set; }
+
+        [Export("geometryOffset")]
+        int GeometryOffset { get; set; }
+
+        [Export("incidentIndices", ArgumentSemantic.Retain)]
+        NSNumber[]? IncidentIndices { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface HereTrafficIncidentOnRoute
+    {
+        [Export("initWithId:typeRawValue:impactRawValue:descriptionText:")]
+        IntPtr Constructor([NullAllowed] string? id, int typeRawValue, int impactRawValue, [NullAllowed] string? descriptionText);
+
+        [Export("id")]
+        string? Id { get; set; }
+
+        [Export("typeRawValue")]
+        int TypeRawValue { get; set; }
+
+        [Export("impactRawValue")]
+        int ImpactRawValue { get; set; }
+
+        [Export("descriptionText")]
+        string? DescriptionText { get; set; }
     }
 
     // --- Isoline routing types ---

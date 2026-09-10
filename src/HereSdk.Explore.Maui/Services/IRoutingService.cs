@@ -21,7 +21,7 @@ public interface IRoutingService : IHereSdkService
     Task<IsolineResult> CalculateIsolineAsync(GeoCoordinates center, IsolineOptions options);
 
     /// <summary>Gets real-time traffic information along a previously calculated route.</summary>
-    /// <param name="route">The route to query traffic for.</param>
-    /// <returns>Traffic information including incidents and delay.</returns>
-    Task<TrafficOnRoute> GetTrafficOnRouteAsync(Route route);
+    /// <param name="route">The route to query traffic for (from <see cref="CalculateRouteAsync"/>).</param>
+    /// <returns>Traffic information: spans, incidents and per-section geometry.</returns>
+    Task<TrafficOnRouteResult> GetTrafficOnRouteAsync(Route route);
 }

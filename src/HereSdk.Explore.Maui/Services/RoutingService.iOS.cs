@@ -16,6 +16,12 @@ public partial class RoutingService
     private HereRoutingEngine? _engine;
     private HereIsolineRoutingEngine? _isolineEngine;
 
+    // HereRoute wrappers of the most recent CalculateRouteAsync call, keyed by
+    // route handle. CalculateTrafficOnRoute requires the wrapper to still hold
+    // its underlying Swift Route, so the last calculation's routes are retained
+    // for GetTrafficOnRouteAsync.
+    private readonly Dictionary<string, HereRoute> _nativeRoutes = new();
+
     internal void Initialize()
     {
         _engine = new HereRoutingEngine(0);
@@ -39,7 +45,17 @@ public partial class RoutingService
             if (result.Error is not null)
                 tcs.SetResult(new RoutingResult(ToSharedRoutingError(result.Error), null));
             else if (result.Routes is not null)
+            {
+                // Retain the HereRoute wrappers for a later GetTrafficOnRouteAsync call.
+                _nativeRoutes.Clear();
+                foreach (var iosRoute in result.Routes)
+                {
+                    if (!string.IsNullOrEmpty(iosRoute.RouteHandle))
+                        _nativeRoutes[iosRoute.RouteHandle!] = iosRoute;
+                }
+
                 tcs.SetResult(new RoutingResult(RoutingError.None, result.Routes.Select(ToSharedRoute).ToList()));
+            }
             else
                 tcs.SetResult(new RoutingResult(RoutingError.None, null));
         });
@@ -74,10 +90,67 @@ public partial class RoutingService
         return await tcs.Task;
     }
 
-    public Task<TrafficOnRoute> GetTrafficOnRouteAsync(Route route)
+    public async Task<TrafficOnRouteResult> GetTrafficOnRouteAsync(Route route)
     {
-        // Traffic on route is not yet available in NativeBridge.
-        throw new NotImplementedException("Traffic on route is not yet supported on iOS.");
+        if (_engine is null) throw new InvalidOperationException("RoutingService not initialized.");
+        if (!_nativeRoutes.TryGetValue(route.Handle, out var iosRoute))
+            throw new InvalidOperationException(
+                "Unknown route: calculate it with CalculateRouteAsync first, then pass the returned Route.");
+
+        var tcs = new TaskCompletionSource<TrafficOnRouteResult>();
+
+        _engine.CalculateTrafficOnRoute(iosRoute, 0, 0, result =>
+        {
+            if (result.Error is not null)
+                tcs.SetResult(new TrafficOnRouteResult(ToSharedRoutingError(result.Error), null));
+            else if (result.TrafficOnRoute is not null)
+                tcs.SetResult(new TrafficOnRouteResult(RoutingError.None, ToSharedTrafficOnRoute(result.TrafficOnRoute)));
+            else
+                tcs.SetResult(new TrafficOnRouteResult(RoutingError.None, null));
+        });
+
+        return await tcs.Task;
+    }
+
+    internal static TrafficOnRoute ToSharedTrafficOnRoute(HereTrafficOnRoute iosTrafficOnRoute)
+    {
+        var sections = new List<TrafficOnSection>();
+        if (iosTrafficOnRoute.TrafficSections is not null)
+        {
+            foreach (var s in iosTrafficOnRoute.TrafficSections)
+            {
+                var geometry = (s.Geometry ?? Array.Empty<HereGeoCoordinates>())
+                    .Select(v => new GeoCoordinates(v.Latitude, v.Longitude)).ToList();
+
+                var spans = (s.TrafficSpans ?? Array.Empty<HereTrafficOnSpan>())
+                    .Select(span => new TrafficOnSpan(
+                        span.JamFactor,
+                        span.LengthInMeters,
+                        span.BaseSpeedInMetersPerSecond,
+                        span.TrafficSpeedInMetersPerSecond,
+                        span.TrafficDelayInSeconds,
+                        span.DurationInSeconds,
+                        span.GeometryOffset,
+                        (span.IncidentIndices ?? Array.Empty<Foundation.NSNumber>())
+                            .Select(n => n.Int32Value).ToList()))
+                    .ToList();
+
+                var incidents = (s.TrafficIncidents ?? Array.Empty<HereTrafficIncidentOnRoute>())
+                    .Select(i => new TrafficIncidentOnRoute(
+                        i.Id,
+                        TrafficService.ToSharedIncidentType(i.TypeRawValue),
+                        TrafficService.ToSharedIncidentImpact(i.ImpactRawValue),
+                        i.DescriptionText))
+                    .ToList();
+
+                sections.Add(new TrafficOnSection(geometry, spans, incidents));
+            }
+        }
+
+        return new TrafficOnRoute(
+            iosTrafficOnRoute.LastTraveledSectionIndex,
+            iosTrafficOnRoute.TraveledDistanceOnLastSectionInMeters,
+            sections);
     }
 
     private static SectionTransportMode ToIOSTransportMode(SectionTransportMode mode) => mode switch

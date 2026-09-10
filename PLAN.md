@@ -42,6 +42,17 @@
   `searchByCoordinates` and exposes `HereAddress` on `HerePlace`; shared `AddressQuery` model,
   two new `ISearchService.SearchAsync` overloads (forward + reverse), Android implementations;
   `Place` now carries an `Address`. RefApp: map tap reverse-geocodes and shows a place card.
+- **TrafficOnRoute on both platforms (2026-09-09)**: `GetTrafficOnRouteAsync` now calls the SDK's
+  `calculateTrafficOnRoute` (Android `RoutingEngine.calculateTrafficOnRoute`, iOS NativeBridge
+  `HereRoutingEngine.calculateTrafficOnRoute`); native routes retained by handle for the query;
+  shared model reshaped to the real API (`TrafficOnRoute`/`TrafficOnSection`/`TrafficOnSpan`,
+  `TrafficIncidentOnRoute`, `TrafficOnRouteResult`), RefApp traffic toggle shows summed span delay.
+- **iOS traffic enum mapping fixed (2026-09-09)**: `TrafficService.iOS` cast raw enum values
+  directly into the shared enum (different member order → corrupted types/impacts); explicit
+  raw-value mapping added, consistent with Android (Critical→Closed, Low→Minor), pinned by device tests.
+- **LocationChanged fixed (2026-09-09)**: `StartListeningAsync` now starts the MAUI foreground
+  listener (`StartListeningForegroundAsync`) and `StopListeningAsync` stops it — previously only the
+  static event was subscribed and `LocationChanged` never fired on either platform.
 
 ## Active Work: RefApp UX polish (continued)
 
@@ -68,8 +79,7 @@
 | `setCustomOption` / `sendRequest` | Not wrapped | iOS |
 | Full `RoutingOptions` | Only `transportMode` — no avoidance, toll, EV, text options | iOS |
 | Route serialization | `Route.serialize()`/`deserialize()` | iOS |
-| TrafficOnRoute | Throws on BOTH platforms (`InvalidOperationException` / `NotImplementedException`) — unusable today; implement or remove from `IRoutingService` (RefApp `DirectionsViewModel` still calls it) | Both |
-| HERE native positioning | Explore SDK has no positioning engine on either platform; `ILocationService` uses MAUI Geolocation — but `StartListeningAsync` never calls `StartListeningForegroundAsync`, so `LocationChanged` never fires | Both |
+| HERE native positioning | Explore SDK has no positioning engine on either platform; `ILocationService` uses MAUI Geolocation (by design) | Both |
 | Shared `Place` model | Missing `details`, `openingHours`, full `categories`, `chains` | Shared |
 
 ### Advanced / nice-to-have (P2)

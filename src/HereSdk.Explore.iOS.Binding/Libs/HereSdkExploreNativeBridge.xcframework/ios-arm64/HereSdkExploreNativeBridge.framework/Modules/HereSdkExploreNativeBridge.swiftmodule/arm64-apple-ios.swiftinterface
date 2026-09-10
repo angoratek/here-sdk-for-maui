@@ -233,6 +233,7 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
 @objc(HereRoutingEngine) public class HereRoutingEngine : ObjectiveC.NSObject {
   @objc public init(sdkEnginePointer: Swift.Int64)
   @objc public func calculateRoute(waypoints: [HereSdkExploreNativeBridge.HereWaypoint], options: HereSdkExploreNativeBridge.HereRoutingOptions, completion: @escaping (HereSdkExploreNativeBridge.HereRouteResult) -> Swift.Void)
+  @objc(calculateTrafficOnRouteRoute:lastTraveledSectionIndex:traveledDistanceOnLastSectionInMeters:completion:) public func calculateTrafficOnRoute(route: HereSdkExploreNativeBridge.HereRoute, lastTraveledSectionIndex: Swift.Int32, traveledDistanceOnLastSectionInMeters: Swift.Int32, completion: @escaping (HereSdkExploreNativeBridge.HereTrafficOnRouteResult) -> Swift.Void)
   @objc deinit
 }
 @objc(HereWaypoint) public class HereWaypoint : ObjectiveC.NSObject {
@@ -281,6 +282,46 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public var durationInSeconds: Swift.Double
   @objc public var turnAngleInDegrees: Swift.Double
   @objc public init(coordinates: HereSdkExploreNativeBridge.HereGeoCoordinates, action: Swift.Int = 0, text: Swift.String? = nil, lengthInMeters: Swift.Int32 = 0, durationInSeconds: Swift.Double = 0, turnAngleInDegrees: Swift.Double = 0)
+  @objc deinit
+}
+@objc(HereTrafficOnRouteResult) public class HereTrafficOnRouteResult : ObjectiveC.NSObject {
+  @objc public var error: Swift.String?
+  @objc public var trafficOnRoute: HereSdkExploreNativeBridge.HereTrafficOnRoute?
+  @objc public init(error: Swift.String?, trafficOnRoute: HereSdkExploreNativeBridge.HereTrafficOnRoute?)
+  @objc deinit
+}
+@objc(HereTrafficOnRoute) public class HereTrafficOnRoute : ObjectiveC.NSObject {
+  @objc public var lastTraveledSectionIndex: Swift.Int32
+  @objc public var traveledDistanceOnLastSectionInMeters: Swift.Int32
+  @objc public var trafficSections: [HereSdkExploreNativeBridge.HereTrafficOnSection]?
+  @objc public init(lastTraveledSectionIndex: Swift.Int32, traveledDistanceOnLastSectionInMeters: Swift.Int32, trafficSections: [HereSdkExploreNativeBridge.HereTrafficOnSection]?)
+  @objc deinit
+}
+@objc(HereTrafficOnSection) public class HereTrafficOnSection : ObjectiveC.NSObject {
+  @objc public var geometry: [HereSdkExploreNativeBridge.HereGeoCoordinates]?
+  @objc public var trafficSpans: [HereSdkExploreNativeBridge.HereTrafficOnSpan]?
+  @objc public var trafficIncidents: [HereSdkExploreNativeBridge.HereTrafficIncidentOnRoute]?
+  @objc public init(geometry: [HereSdkExploreNativeBridge.HereGeoCoordinates]?, trafficSpans: [HereSdkExploreNativeBridge.HereTrafficOnSpan]?, trafficIncidents: [HereSdkExploreNativeBridge.HereTrafficIncidentOnRoute]?)
+  @objc deinit
+}
+@objc(HereTrafficOnSpan) public class HereTrafficOnSpan : ObjectiveC.NSObject {
+  @objc public var jamFactor: Swift.Double
+  @objc public var lengthInMeters: Swift.Double
+  @objc public var baseSpeedInMetersPerSecond: Swift.Double
+  @objc public var trafficSpeedInMetersPerSecond: Swift.Double
+  @objc public var trafficDelayInSeconds: Swift.Double
+  @objc public var durationInSeconds: Swift.Double
+  @objc public var geometryOffset: Swift.Int32
+  @objc public var incidentIndices: [Swift.Int32]?
+  @objc public init(jamFactor: Swift.Double, lengthInMeters: Swift.Double, baseSpeedInMetersPerSecond: Swift.Double, trafficSpeedInMetersPerSecond: Swift.Double, trafficDelayInSeconds: Swift.Double, durationInSeconds: Swift.Double, geometryOffset: Swift.Int32, incidentIndices: [Swift.Int32]?)
+  @objc deinit
+}
+@objc(HereTrafficIncidentOnRoute) public class HereTrafficIncidentOnRoute : ObjectiveC.NSObject {
+  @objc public var id: Swift.String?
+  @objc public var typeRawValue: Swift.Int32
+  @objc public var impactRawValue: Swift.Int32
+  @objc public var descriptionText: Swift.String?
+  @objc public init(id: Swift.String?, typeRawValue: Swift.Int32, impactRawValue: Swift.Int32, descriptionText: Swift.String?)
   @objc deinit
 }
 @objc(HereSdkOptions) public class HereSdkOptions : ObjectiveC.NSObject {

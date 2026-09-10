@@ -733,11 +733,16 @@ SWIFT_CLASS_NAMED("HereRouteResult")
 
 @class HereWaypoint;
 @class HereRoutingOptions;
+@class HereTrafficOnRouteResult;
 /// ObjC-visible wrapper for RoutingEngine.
 SWIFT_CLASS_NAMED("HereRoutingEngine")
 @interface HereRoutingEngine : NSObject
 - (nonnull instancetype)initWithSdkEnginePointer:(int64_t)sdkEnginePointer OBJC_DESIGNATED_INITIALIZER;
 - (void)calculateRouteWithWaypoints:(NSArray<HereWaypoint *> * _Nonnull)waypoints options:(HereRoutingOptions * _Nonnull)options completion:(void (^ _Nonnull)(HereRouteResult * _Nonnull))completion;
+/// Calculates traffic along a previously calculated route. Requires the
+/// HereRoute to still hold its underlying Swift Route (routeHandle alone
+/// is not enough — the SDK reuses the original calculation options).
+- (void)calculateTrafficOnRouteRoute:(HereRoute * _Nonnull)route lastTraveledSectionIndex:(int32_t)lastTraveledSectionIndex traveledDistanceOnLastSectionInMeters:(int32_t)traveledDistanceOnLastSectionInMeters completion:(void (^ _Nonnull)(HereTrafficOnRouteResult * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -876,6 +881,69 @@ SWIFT_CLASS_NAMED("HereTrafficIncident")
 /// without geometry.
 @property (nonatomic, strong) HereGeoPolyline * _Nullable location;
 - (nonnull instancetype)initWithId:(NSString * _Nonnull)id descriptionText:(NSString * _Nonnull)descriptionText typeRawValue:(NSInteger)typeRawValue impactRawValue:(NSInteger)impactRawValue isRoadClosed:(BOOL)isRoadClosed location:(HereGeoPolyline * _Nullable)location OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// ObjC-visible wrapper for the routing TrafficIncidentOnRoute.
+SWIFT_CLASS_NAMED("HereTrafficIncidentOnRoute")
+@interface HereTrafficIncidentOnRoute : NSObject
+@property (nonatomic, copy) NSString * _Nullable id;
+@property (nonatomic) int32_t typeRawValue;
+@property (nonatomic) int32_t impactRawValue;
+@property (nonatomic, copy) NSString * _Nullable descriptionText;
+- (nonnull instancetype)initWithId:(NSString * _Nullable)id typeRawValue:(int32_t)typeRawValue impactRawValue:(int32_t)impactRawValue descriptionText:(NSString * _Nullable)descriptionText OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class HereTrafficOnSection;
+/// ObjC-visible wrapper for TrafficOnRoute.
+SWIFT_CLASS_NAMED("HereTrafficOnRoute")
+@interface HereTrafficOnRoute : NSObject
+@property (nonatomic) int32_t lastTraveledSectionIndex;
+@property (nonatomic) int32_t traveledDistanceOnLastSectionInMeters;
+@property (nonatomic, copy) NSArray<HereTrafficOnSection *> * _Nullable trafficSections;
+- (nonnull instancetype)initWithLastTraveledSectionIndex:(int32_t)lastTraveledSectionIndex traveledDistanceOnLastSectionInMeters:(int32_t)traveledDistanceOnLastSectionInMeters trafficSections:(NSArray<HereTrafficOnSection *> * _Nullable)trafficSections OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// ObjC-visible result of a traffic-on-route calculation.
+SWIFT_CLASS_NAMED("HereTrafficOnRouteResult")
+@interface HereTrafficOnRouteResult : NSObject
+@property (nonatomic, copy) NSString * _Nullable error;
+@property (nonatomic, strong) HereTrafficOnRoute * _Nullable trafficOnRoute;
+- (nonnull instancetype)initWithError:(NSString * _Nullable)error trafficOnRoute:(HereTrafficOnRoute * _Nullable)trafficOnRoute OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class HereTrafficOnSpan;
+/// ObjC-visible wrapper for TrafficOnSection.
+SWIFT_CLASS_NAMED("HereTrafficOnSection")
+@interface HereTrafficOnSection : NSObject
+@property (nonatomic, copy) NSArray<HereGeoCoordinates *> * _Nullable geometry;
+@property (nonatomic, copy) NSArray<HereTrafficOnSpan *> * _Nullable trafficSpans;
+@property (nonatomic, copy) NSArray<HereTrafficIncidentOnRoute *> * _Nullable trafficIncidents;
+- (nonnull instancetype)initWithGeometry:(NSArray<HereGeoCoordinates *> * _Nullable)geometry trafficSpans:(NSArray<HereTrafficOnSpan *> * _Nullable)trafficSpans trafficIncidents:(NSArray<HereTrafficIncidentOnRoute *> * _Nullable)trafficIncidents OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// ObjC-visible wrapper for TrafficOnSpan.
+SWIFT_CLASS_NAMED("HereTrafficOnSpan")
+@interface HereTrafficOnSpan : NSObject
+@property (nonatomic) double jamFactor;
+@property (nonatomic) double lengthInMeters;
+@property (nonatomic) double baseSpeedInMetersPerSecond;
+@property (nonatomic) double trafficSpeedInMetersPerSecond;
+@property (nonatomic) double trafficDelayInSeconds;
+@property (nonatomic) double durationInSeconds;
+/// Index into HereTrafficOnSection.geometry where this span starts.
+@property (nonatomic) int32_t geometryOffset;
+@property (nonatomic, copy) NSArray<NSNumber *> * _Nullable incidentIndices;
+- (nonnull instancetype)initWithJamFactor:(double)jamFactor lengthInMeters:(double)lengthInMeters baseSpeedInMetersPerSecond:(double)baseSpeedInMetersPerSecond trafficSpeedInMetersPerSecond:(double)trafficSpeedInMetersPerSecond trafficDelayInSeconds:(double)trafficDelayInSeconds durationInSeconds:(double)durationInSeconds geometryOffset:(int32_t)geometryOffset incidentIndices:(NSArray<NSNumber *> * _Nullable)incidentIndices OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

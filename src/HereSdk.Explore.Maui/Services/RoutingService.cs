@@ -35,7 +35,7 @@ public partial class RoutingService : IRoutingService
         throw new NotImplementedException("Platform-specific implementation required.");
     public Task<IsolineResult> CalculateIsolineAsync(GeoCoordinates center, IsolineOptions options) =>
         throw new NotImplementedException("Platform-specific implementation required.");
-    public Task<TrafficOnRoute> GetTrafficOnRouteAsync(Route route) =>
+    public Task<TrafficOnRouteResult> GetTrafficOnRouteAsync(Route route) =>
         throw new NotImplementedException("Platform-specific implementation required.");
 #endif
 

@@ -141,19 +141,21 @@ public class ServiceDisposalTests
     [Fact]
     public void TrafficOnRoute_Created()
     {
-        var traffic = new TrafficOnRoute("handle-123", DelayInSeconds: 120);
-        Assert.Equal("handle-123", traffic.RouteHandle);
-        Assert.Equal(120, traffic.DelayInSeconds);
-        Assert.Null(traffic.Incidents);
+        var traffic = new TrafficOnRoute(0, 120, new List<TrafficOnSection>());
+        Assert.Equal(0, traffic.LastTraveledSectionIndex);
+        Assert.Equal(120, traffic.TraveledDistanceOnLastSectionInMeters);
+        Assert.Empty(traffic.TrafficSections);
     }
 
     [Fact]
     public void TrafficIncidentOnRoute_Created()
     {
-        var incident = new TrafficIncidentOnRoute("inc-1", "Accident", TrafficIncidentType.Accident,
-            TrafficIncidentImpact.Major, AffectedSectionIndex: 0);
+        var incident = new TrafficIncidentOnRoute("inc-1", TrafficIncidentType.Accident,
+            TrafficIncidentImpact.Major, "Accident");
         Assert.Equal("inc-1", incident.Id);
-        Assert.Equal(0, incident.AffectedSectionIndex);
+        Assert.Equal(TrafficIncidentType.Accident, incident.Type);
+        Assert.Equal(TrafficIncidentImpact.Major, incident.Impact);
+        Assert.Equal("Accident", incident.Description);
     }
 
     [Fact]

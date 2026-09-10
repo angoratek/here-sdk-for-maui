@@ -254,7 +254,7 @@ For per-phase task breakdowns and the live operational backlog see
 - **iOS `RefreshRouteOptions`** is deprecated and will NOT be bound
 - **iOS binary size** — xcframework is ~831 MB (stripped for release)
 - **macOS required** for building iOS bindings (Xcode dependency)
-- **iOS feature gaps**: Isoline routing and traffic-on-route not yet in NativeBridge; map pick returns null
+- **iOS feature gaps**: map pick returns null (NativeBridge search-by-picked-place not yet wrapped)
 - **Location service** uses `Microsoft.Maui.Devices.Sensors.Geolocation` as primary source; HERE native positioning not yet exposed in iOS NativeBridge
 - **Map circles** are approximated as polygons (HERE SDK has no native circle primitive)
 

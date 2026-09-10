@@ -19,6 +19,12 @@ public partial class RoutingService
     private Here.Explore.Routing.RoutingEngine? _engine;
     private Here.Explore.Routing.IsolineRoutingEngine? _isolineEngine;
 
+    // Native routes of the most recent CalculateRouteAsync call, keyed by
+    // route handle. calculateTrafficOnRoute requires the native Route object
+    // (its handle plus the original calculation options), so the last
+    // calculation's routes are retained for GetTrafficOnRouteAsync.
+    private readonly Dictionary<string, Here.Explore.Routing.Route> _nativeRoutes = new();
+
     internal void Initialize()
     {
         if (Here.Explore.Core.Engine.SDKNativeEngine.SharedInstance is not null)
@@ -37,7 +43,9 @@ public partial class RoutingService
             new Here.Explore.Core.GeoCoordinates(w.Coordinates.Latitude, w.Coordinates.Longitude))).ToList();
 
         var androidOptions = ToAndroidRoutingOptions(options);
-        _engine.CalculateRoute(androidWaypoints, androidOptions, new RouteCalculatedCallback(tcs));
+        _nativeRoutes.Clear();
+        _engine.CalculateRoute(androidWaypoints, androidOptions,
+            new RouteCalculatedCallback(tcs, _nativeRoutes));
         return await tcs.Task;
     }
 
@@ -53,12 +61,16 @@ public partial class RoutingService
         return await tcs.Task;
     }
 
-    public Task<TrafficOnRoute> GetTrafficOnRouteAsync(Route route)
+    public async Task<TrafficOnRouteResult> GetTrafficOnRouteAsync(Route route)
     {
-        // TrafficOnRoute requires an Android Route object — must be calculated first
-        throw new InvalidOperationException(
-            "Use the overload that accepts a calculated Android route. " +
-            "Call CalculateRouteAsync first, then pass the result to GetTrafficOnRouteAsync.");
+        if (_engine is null) throw new InvalidOperationException("RoutingService not initialized.");
+        if (!_nativeRoutes.TryGetValue(route.Handle, out var nativeRoute))
+            throw new InvalidOperationException(
+                "Unknown route: calculate it with CalculateRouteAsync first, then pass the returned Route.");
+
+        var tcs = new TaskCompletionSource<TrafficOnRouteResult>();
+        _engine.CalculateTrafficOnRoute(nativeRoute, 0, 0, new TrafficOnRouteCalculatedCallback(tcs));
+        return await tcs.Task;
     }
 
     private static Here.Explore.Routing.RoutingOptions ToAndroidRoutingOptions(RoutingOptions options)
@@ -243,22 +255,126 @@ public partial class RoutingService
         if (action.Equals(Here.Explore.Routing.ManeuverAction.ContinueOn)) return SharedManeuverAction.Straight;
         return SharedManeuverAction.Straight;
     }
+
+    internal static TrafficOnRoute ToSharedTrafficOnRoute(Here.Explore.Routing.TrafficOnRoute androidTrafficOnRoute)
+    {
+        var sections = new List<TrafficOnSection>();
+        if (androidTrafficOnRoute.TrafficSections is not null)
+        {
+            foreach (Here.Explore.Routing.TrafficOnSection s in androidTrafficOnRoute.TrafficSections.Cast<Here.Explore.Routing.TrafficOnSection>())
+            {
+                var geometry = new List<GeoCoordinates>();
+                if (s.Geometry is not null)
+                {
+                    foreach (var v in s.Geometry)
+                    {
+                        if (v is Here.Explore.Core.GeoCoordinates coords)
+                            geometry.Add(new GeoCoordinates(coords.Latitude, coords.Longitude));
+                    }
+                }
+
+                var spans = new List<TrafficOnSpan>();
+                if (s.TrafficSpans is not null)
+                {
+                    foreach (Here.Explore.Routing.TrafficOnSpan span in s.TrafficSpans.Cast<Here.Explore.Routing.TrafficOnSpan>())
+                    {
+                        var incidentIndices = new List<int>();
+                        if (span.IncidentIndices is not null)
+                        {
+                            foreach (var index in span.IncidentIndices)
+                            {
+                                if (index is Java.Lang.Integer i)
+                                    incidentIndices.Add((int)i);
+                            }
+                        }
+
+                        spans.Add(new TrafficOnSpan(
+                            span.JamFactor,
+                            span.LengthInMeters,
+                            span.BaseSpeedInMetersPerSecond,
+                            span.TrafficSpeedInMetersPerSecond,
+                            span.TrafficDelay?.Seconds ?? 0,
+                            span.Duration?.Seconds ?? 0,
+                            span.TrafficSectionPolylineOffset,
+                            incidentIndices));
+                    }
+                }
+
+                var incidents = new List<TrafficIncidentOnRoute>();
+                if (s.TrafficIncidents is not null)
+                {
+                    foreach (Here.Explore.Routing.TrafficIncidentOnRoute incident in s.TrafficIncidents.Cast<Here.Explore.Routing.TrafficIncidentOnRoute>())
+                    {
+                        if (incident is not Here.Explore.Routing.TrafficIncidentOnRoute routingIncident)
+                            continue;
+                        incidents.Add(new TrafficIncidentOnRoute(
+                            routingIncident.Id,
+                            TrafficService.ToSharedIncidentType(routingIncident.Type),
+                            TrafficService.ToSharedIncidentImpact(routingIncident.Impact),
+                            routingIncident.Description?.Text));
+                    }
+                }
+
+                sections.Add(new TrafficOnSection(geometry, spans, incidents));
+            }
+        }
+
+        return new TrafficOnRoute(
+            androidTrafficOnRoute.LastTraveledSectionIndex,
+            androidTrafficOnRoute.TraveledDistanceOnLastSectionInMeters,
+            sections);
+    }
 }
 
 internal class RouteCalculatedCallback : Java.Lang.Object, Here.Explore.Routing.RouteCalculatedHandler
 {
     private readonly TaskCompletionSource<RoutingResult> _tcs;
-    public RouteCalculatedCallback(TaskCompletionSource<RoutingResult> tcs) => _tcs = tcs;
+    private readonly IDictionary<string, Here.Explore.Routing.Route>? _nativeRoutes;
+    public RouteCalculatedCallback(TaskCompletionSource<RoutingResult> tcs,
+        IDictionary<string, Here.Explore.Routing.Route>? nativeRoutes = null)
+    {
+        _tcs = tcs;
+        _nativeRoutes = nativeRoutes;
+    }
 
     public void OnRouteCalculated(Here.Explore.Routing.RoutingError? error, System.Collections.Generic.IList<Here.Explore.Routing.Route>? routes)
     {
         if (error is not null)
             _tcs.SetResult(new RoutingResult(RoutingService.ToSharedRoutingError(error), null));
         else if (routes is not null)
+        {
+            // Retain the native routes for a later GetTrafficOnRouteAsync call.
+            if (_nativeRoutes is not null)
+            {
+                foreach (var nativeRoute in routes)
+                {
+                    var handle = nativeRoute.RouteHandle?.Handle;
+                    if (!string.IsNullOrEmpty(handle))
+                        _nativeRoutes[handle!] = nativeRoute;
+                }
+            }
+
             _tcs.SetResult(new RoutingResult(RoutingError.None,
                 routes.Select(RoutingService.ToSharedRoute).ToList()));
+        }
         else
             _tcs.SetResult(new RoutingResult(RoutingError.None, null));
+    }
+}
+
+internal class TrafficOnRouteCalculatedCallback : Java.Lang.Object, Here.Explore.Routing.TrafficOnRouteCalculatedHandler
+{
+    private readonly TaskCompletionSource<TrafficOnRouteResult> _tcs;
+    public TrafficOnRouteCalculatedCallback(TaskCompletionSource<TrafficOnRouteResult> tcs) => _tcs = tcs;
+
+    public void OnTrafficOnRouteCalculated(Here.Explore.Routing.RoutingError? error, Here.Explore.Routing.TrafficOnRoute? trafficOnRoute)
+    {
+        if (error is not null)
+            _tcs.SetResult(new TrafficOnRouteResult(RoutingService.ToSharedRoutingError(error), null));
+        else if (trafficOnRoute is not null)
+            _tcs.SetResult(new TrafficOnRouteResult(RoutingError.None, RoutingService.ToSharedTrafficOnRoute(trafficOnRoute)));
+        else
+            _tcs.SetResult(new TrafficOnRouteResult(RoutingError.None, null));
     }
 }
 
