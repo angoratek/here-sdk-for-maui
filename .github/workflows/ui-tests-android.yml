@@ -58,10 +58,11 @@ jobs:
             -k "system-images;android-34;google_apis;x86_64" \
             -d pixel_5 \
             --force
-          # avdmanager writes to $ANDROID_SDK_HOME/.android/avd but the emulator
-          # searches $ANDROID_AVD_HOME, $ANDROID_SDK_HOME/avd (no .android) and
-          # $HOME/.android/avd — point ANDROID_AVD_HOME at where the ini landed.
-          ini=$(find "$HOME/.android" "$ANDROID_HOME/.android" \
+          # avdmanager's AVD home varies by runner: newer cmdline-tools honor
+          # ANDROID_USER_HOME (default ~/.config/.android); older ones write to
+          # ~/.android or $ANDROID_HOME/.android. Find where the ini landed and
+          # point ANDROID_AVD_HOME there.
+          ini=$(find "$HOME/.config/.android" "$HOME/.android" "$ANDROID_HOME/.android" \
             -maxdepth 3 -name testavd.ini 2>/dev/null | head -1)
           if [ -z "$ini" ]; then
             echo "testavd.ini not found in expected locations"; exit 1
