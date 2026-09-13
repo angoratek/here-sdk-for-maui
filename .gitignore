@@ -65,3 +65,5 @@ local.properties
 credentials.json
 # Local override of appsettings.json — keep real HERE SDK credentials here, NOT in the committed file.
 appsettings.Local.json
+# adb bugreports pulled into repo root during debugging
+bugreport-*.zip

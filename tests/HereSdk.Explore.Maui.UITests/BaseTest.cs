@@ -15,7 +15,7 @@ public abstract class BaseTest
 {    protected AppiumDriver App => AppiumSetup.App;
 
     [TearDown]
-    public void DismissKeyboardAfterTest()
+    public void RestoreAppStateAfterTest()
     {
         // Typing tests leave the on-screen keyboard (and on iOS 26 the
         // autocomplete/suggestion overlay, which covers the whole page
@@ -41,6 +41,64 @@ public abstract class BaseTest
         {
             // No Done button (Android, or keyboard already dismissed).
         }
+
+        // A test that ends on a pushed page (e.g. Settings) hides the Shell
+        // tab bar and contaminates every later fixture — NavigateToTab fails
+        // instantly for the rest of the run. Restore a known state: go back
+        // once to pop the pushed page, and relaunch the app as a last resort.
+        if (TabBarVisible()) return;
+
+        try
+        {
+            App.Navigate().Back();
+        }
+        catch
+        {
+            // Driver may not support Navigate().Back() — fall through.
+        }
+        if (TabBarVisible()) return;
+
+        try
+        {
+            // A sleep between terminate and activate: activating while the
+            // old process is still dying can hang the new process at
+            // startup ("failed to complete startup" ANR).
+            App.TerminateApp(AppiumSetup.AppBundleId);
+            Thread.Sleep(2000);
+            App.ActivateApp(AppiumSetup.AppBundleId);
+        }
+        catch
+        {
+            // Ignore — the next test's NavigateToTab will fail with a
+            // clear NoSuchElementException either way.
+        }
+    }
+
+    private bool TabBarVisible()
+    {
+        var deadline = DateTime.UtcNow.AddSeconds(2);
+        while (DateTime.UtcNow < deadline)
+        {
+            if (TryFindUIElement("ExploreMapView") is not null ||
+                TryFindTab("Explore") is not null)
+            {
+                return true;
+            }
+            Thread.Sleep(250);
+        }
+        return false;
+    }
+
+    private IWebElement? TryFindTab(string title)
+    {
+        try
+        {
+            return App.FindElement(MobileBy.AccessibilityId(title));
+        }
+        catch (NoSuchElementException)
+        {
+            return null;
+        }
     }
 
     /// <summary>
@@ -59,13 +117,22 @@ public abstract class BaseTest
     /// </list>
     /// </summary>
     protected IWebElement FindUIElement(string automationId) =>
-        App.FindElement(AutomationIdSelector(automationId));
+        WaitForElement(AutomationIdSelector(automationId), TimeSpan.FromSeconds(5));
+
+    /// <summary>
+    /// Like <see cref="FindUIElement"/> but with an explicit timeout in
+    /// seconds — use when an element needs longer than the default 5s
+    /// poll window (e.g. a pushed-page navigation on a slow emulator).
+    /// </summary>
+    protected IWebElement WaitForUIElement(string automationId, int timeoutSeconds) =>
+        WaitForElement(AutomationIdSelector(automationId), TimeSpan.FromSeconds(timeoutSeconds));
 
     /// <summary>
     /// Like <see cref="FindUIElement"/> but returns null instead of
     /// throwing when the element is not present. Use for conditionally
     /// visible elements (e.g. the place card's CTA, which is only in
-    /// the tree when a search has returned results).
+    /// the tree when a search has returned results). Does NOT poll —
+    /// absence checks must stay instant.
     /// </summary>
     protected IWebElement? TryFindUIElement(string automationId)
     {
@@ -91,7 +158,7 @@ public abstract class BaseTest
     /// <c>UIButton</c>s).
     /// </summary>
     protected IWebElement FindByText(string text) =>
-        App.FindElement(TextSelector(text));
+        WaitForElement(TextSelector(text), TimeSpan.FromSeconds(5));
 
     /// <summary>
     /// Locates a UI element whose visible text contains
@@ -99,7 +166,7 @@ public abstract class BaseTest
     /// <see cref="FindAllContainingText"/> that returns a single match.
     /// </summary>
     protected IWebElement FindByTextContains(string substring) =>
-        App.FindElement(ContainsTextSelector(substring));
+        WaitForElement(ContainsTextSelector(substring), TimeSpan.FromSeconds(5));
 
     /// <summary>
     /// Expands the collapsed "Settings" section on the Tools page
@@ -127,7 +194,11 @@ public abstract class BaseTest
     /// </summary>
     protected void NavigateToTab(string tabTitle)
     {
-        var tab = App.FindElement(MobileBy.AccessibilityId(tabTitle));
+        // Poll instead of a single lookup: right after a session start or a
+        // page transition the tab bar may not be in the accessibility tree
+        // yet, and with no implicit wait a single FindElement returns
+        // instantly on a miss.
+        var tab = WaitForElement(MobileBy.AccessibilityId(tabTitle), TimeSpan.FromSeconds(10));
         tab.Click();
     }
 
@@ -159,6 +230,73 @@ public abstract class BaseTest
         var dir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "screenshots");
         Directory.CreateDirectory(dir);
         App.GetScreenshot().SaveAsFile(Path.Combine(dir, $"{name}.png"));
+    }
+
+    /// <summary>
+    /// Polls for an element every 250ms until the timeout elapses. The
+    /// suite runs with no implicit wait (see AppiumSetup), so presence
+    /// lookups must poll here to survive page-transition races on slow
+    /// emulators — a single FindElement returns instantly on a miss.
+    /// </summary>
+    private IWebElement WaitForElement(By by, TimeSpan timeout)
+    {
+        var deadline = DateTime.UtcNow + timeout;
+        while (true)
+        {
+            try
+            {
+                return App.FindElement(by);
+            }
+            catch (NoSuchElementException)
+            {
+                if (DateTime.UtcNow >= deadline) throw;
+                Thread.Sleep(250);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Taps the map and waits for the place card to slide up, retrying
+    /// the tap once. Handles two races:
+    /// 1. A stale card left open by an earlier test (Shell preserves page
+    ///    state across tab switches) — the first tap only dismisses it, so
+    ///    dismiss up front and wait for the collapse to finish.
+    /// 2. The CTA briefly visible while a stale sheet collapses — confirm
+    ///    the CTA is still there after a settle pause before declaring the
+    ///    card open.
+    /// Returns the card's Get Directions CTA, or null if no card appeared.
+    /// </summary>
+    protected IWebElement? TapMapForPlaceCard(IWebElement map)
+    {
+        if (TryFindUIElement("PlaceCardDirectionsButton") is not null)
+        {
+            map.Click();
+            var settle = DateTime.UtcNow.AddSeconds(5);
+            while (DateTime.UtcNow < settle && TryFindUIElement("PlaceCardDirectionsButton") is not null)
+            {
+                Thread.Sleep(250);
+            }
+        }
+
+        for (var attempt = 0; attempt < 2; attempt++)
+        {
+            map.Click();
+            var deadline = DateTime.UtcNow.AddSeconds(10);
+            while (DateTime.UtcNow < deadline)
+            {
+                if (TryFindUIElement("PlaceCardDirectionsButton") is not null)
+                {
+                    // Settle: the sheet expansion (or a stale card's
+                    // collapse) takes a few hundred ms.
+                    Thread.Sleep(1000);
+                    var cta = TryFindUIElement("PlaceCardDirectionsButton");
+                    if (cta is not null) return cta;
+                    break;
+                }
+                Thread.Sleep(500);
+            }
+        }
+        return null;
     }
 
     private static By AutomationIdSelector(string automationId) =>

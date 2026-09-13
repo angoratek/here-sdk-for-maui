@@ -210,7 +210,7 @@ public class AppiumSetup
         var deadline = DateTime.UtcNow.AddSeconds(180);
 
         Exception? lastError = null;
-        var restarted = false;
+        var restarts = 0;
         while (DateTime.UtcNow < deadline)
         {
             try
@@ -221,16 +221,19 @@ public class AppiumSetup
             catch (Exception ex)
             {
                 lastError = ex;
-                // With noReset=true the app may still be on another tab
-                // (e.g. Traffic) from a previous run's last test. Restart
-                // it once so the session starts on the Explore tab.
-                if (!restarted)
+                // With noReset=true the app may still be on another tab — or
+                // on a pushed page that hides the whole Shell UI — from a
+                // previous run's last test. Restart it (bounded: a restart
+                // can itself hang the app, so never loop on it faster than
+                // the app can die and relaunch).
+                if (restarts < 3)
                 {
                     try
                     {
                         _driver!.TerminateApp(AppBundleId);
+                        Thread.Sleep(2000);
                         _driver!.ActivateApp(AppBundleId);
-                        restarted = true;
+                        restarts++;
                     }
                     catch
                     {

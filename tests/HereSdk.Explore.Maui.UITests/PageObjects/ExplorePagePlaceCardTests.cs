@@ -26,13 +26,9 @@ public class ExplorePagePlaceCardTests : BaseTest
         // Element tap = tap at the map's center (coordinate TouchActions
         // crash WDA on iOS 26). The place card appears via the
         // tap-to-geocode path — a text search only drops result markers
-        // and never opens the card. 8s covers a slow first reverse geocode.
-        map.Click();
-        System.Threading.Thread.Sleep(8000);
-
-        AssertNoElementContains(NotInitializedSignature);
-
-        var directionsCta = TryFindUIElement("PlaceCardDirectionsButton");
+        // and never opens the card. TapMapForPlaceCard polls and retries
+        // the tap once (a tap can be consumed dismissing a stale card).
+        var directionsCta = TapMapForPlaceCard(map);
         if (directionsCta is null)
         {
             Screenshot(nameof(MapTap_PlaceCard_TapGetDirections_NavigatesToDirectionsWithDestination) + "_noCard");
@@ -43,17 +39,13 @@ public class ExplorePagePlaceCardTests : BaseTest
         directionsCta!.Click();
 
         // Shell tab switch + current-location lookup + route calculation.
-        System.Threading.Thread.Sleep(5000);
-
-        var toEntry = TryFindUIElement("DirectionsToEntry");
-        Assert.That(toEntry, Is.Not.Null, "DirectionsToEntry not found after tapping Get Directions");
-        Assert.That(toEntry!.Text, Is.Not.Empty,
+        var toEntry = WaitForUIElement("DirectionsToEntry", 15);
+        Assert.That(toEntry.Text, Is.Not.Empty,
             "DirectionsToEntry was not pre-filled with the destination");
 
         // The origin must be resolved from the device location automatically.
-        var fromEntry = TryFindUIElement("DirectionsFromEntry");
-        Assert.That(fromEntry, Is.Not.Null, "DirectionsFromEntry not found after tapping Get Directions");
-        Assert.That(fromEntry!.Text, Is.Not.Empty,
+        var fromEntry = WaitForUIElement("DirectionsFromEntry", 15);
+        Assert.That(fromEntry.Text, Is.Not.Empty,
             "DirectionsFromEntry was not pre-filled with the current location");
     }
 

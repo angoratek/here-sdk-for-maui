@@ -26,8 +26,10 @@ public class SettingsPageNavigationTests : BaseTest
         Screenshot(nameof(TapMoreSettings_NavigatesToSettingsPage));
 
         // The Settings page has a back button with id SettingsBackButton.
-        // If the navigation worked, the back button is now in the tree.
-        var back = TryFindUIElement("SettingsBackButton");
+        // If the navigation worked, the back button is now in the tree —
+        // poll for it, the pushed-page navigation can take seconds on a
+        // slow emulator.
+        var back = WaitForUIElement("SettingsBackButton", 10);
         Assert.That(back, Is.Not.Null,
             "SettingsBackButton not found — More Settings → did not navigate to SettingsPage");
 
@@ -45,11 +47,10 @@ public class SettingsPageNavigationTests : BaseTest
     public void TapBack_ReturnsToTools()
     {
         FindUIElement("ToolsMoreSettingsButton").Click();
-        // Wait for navigation animation.
-        System.Threading.Thread.Sleep(1500);
 
-        var back = TryFindUIElement("SettingsBackButton");
-        Assert.That(back, Is.Not.Null, "SettingsBackButton not found");
+        // Poll for the pushed page — a fixed sleep races the navigation
+        // animation on a slow emulator.
+        var back = WaitForUIElement("SettingsBackButton", 10);
         back!.Click();
 
         Screenshot(nameof(TapBack_ReturnsToTools));
@@ -57,7 +58,7 @@ public class SettingsPageNavigationTests : BaseTest
         // Back navigation creates a fresh ToolsPage with the Settings
         // section collapsed again — expand it so the button is in the tree.
         ExpandToolsSettings();
-        var moreSettings = TryFindUIElement("ToolsMoreSettingsButton");
+        var moreSettings = WaitForUIElement("ToolsMoreSettingsButton", 10);
         Assert.That(moreSettings, Is.Not.Null,
             "ToolsMoreSettingsButton not found after back — navigation did not return to Tools");
     }

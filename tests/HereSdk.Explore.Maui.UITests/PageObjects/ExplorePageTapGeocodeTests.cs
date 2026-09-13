@@ -21,12 +21,9 @@ public class ExplorePageTapGeocodeTests : BaseTest
         // Element tap = tap at the map's center. Coordinate TouchActions
         // crash WDA on iOS 26 ("unrecognized selector:
         // waitForQuiescenceIncludingAnimationsIdle:"), so avoid them.
-        map.Click();
-
-        // Reverse geocode + card animation. 8s covers a slow first search.
-        System.Threading.Thread.Sleep(8000);
-
-        var directionsCta = TryFindUIElement("PlaceCardDirectionsButton");
+        // TapMapForPlaceCard retries the tap once — a first tap can be
+        // consumed dismissing a stale card left open by an earlier test.
+        var directionsCta = TapMapForPlaceCard(map);
         if (directionsCta is null)
         {
             Screenshot(nameof(MapTap_ReverseGeocodes_ShowsPlaceCard) + "_noCard");
@@ -36,7 +33,11 @@ public class ExplorePageTapGeocodeTests : BaseTest
 
         // Dismiss: tapping the map again should close the card.
         map.Click();
-        System.Threading.Thread.Sleep(3000);
+        var deadline = DateTime.UtcNow.AddSeconds(10);
+        while (DateTime.UtcNow < deadline && TryFindUIElement("PlaceCardDirectionsButton") is not null)
+        {
+            System.Threading.Thread.Sleep(500);
+        }
         Assert.That(TryFindUIElement("PlaceCardDirectionsButton"), Is.Null,
             "Place card should be dismissed after a second map tap");
     }

@@ -162,8 +162,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ui-android-screenshots
+          # BaseTest.Screenshot() writes under TestContext.WorkDirectory —
+          # the test assembly's bin dir — not the project dir.
           path: |
-            tests/HereSdk.Explore.Maui.UITests/screenshots/
+            tests/HereSdk.Explore.Maui.UITests/bin/Release/net10.0/screenshots/
             **/*.trx
 
       - name: Upload emulator + appium logs

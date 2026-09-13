@@ -451,8 +451,13 @@ public partial class ExploreViewModel : ViewModelBase
 
             if (result.Places is { Count: > 0 })
                 await ShowPlaceOnMap(result.Places[0]);
+            else
+                System.Diagnostics.Debug.WriteLine("[REFAPP_DIAG] reverse geocode returned no places");
         }
-        catch { /* ignore reverse-geocode failures */ }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] reverse geocode failed: {ex.Message}");
+        }
     }
 
     private async void OnMapLongPressed(object? sender, MapLongPressedEventArgs e)
