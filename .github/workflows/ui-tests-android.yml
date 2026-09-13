@@ -119,6 +119,30 @@ jobs:
           npm i -g appium@2.5.0
           appium driver install uiautomator2@2.29.5
 
+      - name: Seed HERE credentials for the ref app (optional)
+        # appsettings.Local.json is gitignored, so CI has no HERE app
+        # credentials — search/route calls fail and positive-path tests
+        # (search results, route sheet) degrade to Inconclusive. When the
+        # repo secrets exist, write the local override so it is bundled as
+        # a MauiAsset and the positive paths can actually be asserted.
+        env:
+          HERE_APP_KEY_ID: ${{ secrets.HERE_APP_KEY_ID }}
+          HERE_APP_KEY_SECRET: ${{ secrets.HERE_APP_KEY_SECRET }}
+        run: |
+          if [ -n "$HERE_APP_KEY_ID" ] && [ -n "$HERE_APP_KEY_SECRET" ]; then
+            cat > src/HereSdk.Explore.Maui.RefApp/appsettings.Local.json <<EOF
+          {
+            "HereSdk": {
+              "AccessKeyId": "$HERE_APP_KEY_ID",
+              "AccessKeySecret": "$HERE_APP_KEY_SECRET"
+            }
+          }
+          EOF
+            echo "appsettings.Local.json seeded from secrets."
+          else
+            echo "HERE_APP_KEY_ID/HERE_APP_KEY_SECRET not set — skipping (negative-path tests only)."
+          fi
+
       - name: Build ref app (Debug, no signing required)
         # -p:TargetFrameworks keeps the iOS binding project out of the restore
         # graph on this Linux runner (NETSDK1139) — see build.yml for detail.

@@ -180,20 +180,23 @@
                                     <Label FontFamily="MaterialIcons" Text="&#xe55d;" FontSize="14"
                                            TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
                                            VerticalOptions="Center" />
-                                    <Label Text="{Binding RouteEta}" Style="{StaticResource EtaHero}" />
+                                    <Label Text="{Binding RouteEta}" Style="{StaticResource EtaHero}"
+                                           AutomationId="RouteSheetEta" />
                                 </HorizontalStackLayout>
                                 <Label Text="{Binding RouteDistance}" FontFamily="InterMedium" FontSize="14"
+                                       AutomationId="RouteSheetDistance"
                                        TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                             </VerticalStackLayout>
                         </Grid>
 
                         <!-- Route summary (full, incl. traffic delay when toggled) -->
                         <Label Text="{Binding RouteSummary}" FontFamily="InterMedium" FontSize="12"
+                               AutomationId="RouteSheetSummary"
                                TextColor="{AppThemeBinding Light={StaticResource TextTertiary}, Dark={StaticResource TextTertiaryDark}}" />
 
                         <!-- Route error -->
                         <Label Text="{Binding RouteError}" FontSize="14" TextColor="{StaticResource ErrorRed}"
-                               IsVisible="{Binding RouteError.Length}" />
+                               IsVisible="{Binding RouteError.Length}" AutomationId="RouteErrorLabel" />
 
                         <!-- Maneuver timeline -->
                         <CollectionView ItemsSource="{Binding Maneuvers}">

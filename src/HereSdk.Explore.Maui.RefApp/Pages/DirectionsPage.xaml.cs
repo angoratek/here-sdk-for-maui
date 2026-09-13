@@ -1,6 +1,7 @@
 using System.Globalization;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Search;
+using Here.Explore.Maui.RefApp.Controls;
 using Here.Explore.Maui.RefApp.ViewModels;
 
 namespace Here.Explore.Maui.RefApp.Pages;
@@ -20,6 +21,17 @@ public partial class DirectionsPage : ContentPage, IQueryAttributable
         ModePicker.ModeSelected += (_, mode) =>
         {
             _viewModel.SelectedTransportMode = mode;
+        };
+
+        // Auto-expand the route sheet when a route lands: it starts
+        // Collapsed (height 0), so without this the ETA and maneuver
+        // timeline are invisible until the user drags the sheet up.
+        _viewModel.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName != nameof(DirectionsViewModel.IsRouteVisible)) return;
+            RouteSheet.CurrentState = _viewModel.IsRouteVisible
+                ? BottomSheet.SheetState.HalfExpanded
+                : BottomSheet.SheetState.Collapsed;
         };
     }
 

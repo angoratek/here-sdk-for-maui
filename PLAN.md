@@ -12,13 +12,13 @@
 | iOS NativeBridge | xcframework built; Map, Search, Routing, Traffic, **Isoline** engines exposed |
 | MAUI library | 58 of 361 cross-platform API types (~16%), core services complete |
 | Ref app | 5 pages, 5 VMs (+ViewModelBase), 7 controls, 7 converters; 2026-09-01 Airbnb-style polish pass applied |
-| Unit tests | 253 passing |
-| RefApp UI tests | 201 passing (ViewModel commands + state transitions + error/empty states) |
-| Appium smoke | 15 NUnit tests on Android emulator + iOS XCUITest driver added |
+| Unit tests | 225+ passing (net10.0, no device) |
+| RefApp UI tests | 201+ passing (ViewModel commands + state transitions + error/empty states) |
+| Appium smoke | 33 NUnit tests on Android emulator (iOS XCUITest driver supported) |
 | Device tests | ~180 tests across 10 files (Android builds clean, iOS blocked by AOT/env) |
 | Version | 4.25.5.0 GA |
 | Docs | README, docs/getting-started.md, CHANGELOG, XML docs, DocFX site |
-| CI/CD | **No workflows in repo** (`.github/` absent) — see Backlog |
+| CI/CD | 5 workflows: build, changelog, publish, release-changelog, ui-tests-android |
 
 ## Completed (pruned)
 
@@ -53,6 +53,11 @@
 - **LocationChanged fixed (2026-09-09)**: `StartListeningAsync` now starts the MAUI foreground
   listener (`StartListeningForegroundAsync`) and `StopListeningAsync` stops it — previously only the
   static event was subscribed and `LocationChanged` never fired on either platform.
+- **Appium suite hardening (2026-09-12)**: fixed the 22/22 CI failure cascade — all BaseTest
+  lookups poll (no implicit wait), TearDown restores a known app state (pop pushed pages /
+  relaunch), stale place-card dismissal race fixed in `TapMapForPlaceCard`, bounded
+  TerminateApp→ActivateApp restarts (2s sleep between, else "failed to complete startup" ANR),
+  reverse-geocode failures now logged via REFAPP_DIAG, screenshot upload path corrected.
 
 ## Active Work: RefApp UX polish (continued)
 
@@ -91,26 +96,26 @@ camera animations (`FlyToAnimation`, `KeyframeTracks`), scene lights, mesh build
 ### Community files / CI plumbing
 
 - [ ] `.github/ISSUE_TEMPLATE/feature_request.md` (optional)
-- [ ] Recreate CI workflows (build/publish/ui-tests) — currently absent from repo
+- [x] CI workflows recreated — build.yml, changelog.yml, publish.yml,
+      release-changelog.yml, ui-tests-android.yml
 - [ ] NuGet publish verification + signing in CI
 - [ ] Coverage tooling (`coverlet.collector`), converter/error-mapping test suites
 
 ## Test coverage debt (Appium flows with no regression coverage)
 
+Covered since 2026-09-12: place-card CTA journey (1), incidents/flow toggles (5),
+traffic refresh (6), drawing tools (7), scheme chips (9), style picker (10),
+Tools MapView (11), Settings nav + back (12), map tap reverse geocode.
+
+Still open:
+
 | Priority | Flow |
 |----------|------|
-| 1 | Place card → "Get Directions" CTA (search → route journey) |
-| 2 | Route sheet maneuvers / alternatives |
-| 3 | Origin/destination suggestion selection |
-| 4 | Transport mode selection (5 modes) |
-| 5 | Traffic incidents toggle → list → selection |
-| 6 | Traffic refresh button |
-| 7 | Drawing tools: Polyline / Polygon / Circle |
-| 8 | Demo Gallery preset activation |
-| 9 | Map style scheme change (5 chips) |
-| 10 | Map floating controls (zoom, center, style picker) |
-| 11 | Tools MapView presence |
-| 12 | Settings page navigation + back |
+| 1 | Route sheet maneuvers / alternatives after route calculation |
+| 2 | Origin/destination suggestion selection (autocomplete → route inputs) |
+| 3 | Transport mode selection (5 modes) reflected in calculated route |
+| 4 | Demo Gallery preset activation |
+| 5 | Traffic incident list → selection → map highlight |
 
 ## Risk Register
 

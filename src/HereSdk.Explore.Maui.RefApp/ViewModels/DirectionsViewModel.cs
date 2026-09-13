@@ -102,6 +102,7 @@ public partial class DirectionsViewModel : ViewModelBase
                 {
                     OriginSuggestions = result.Suggestions ?? Array.Empty<Suggestion>();
                     HasOriginSuggestions = OriginSuggestions.Count > 0;
+                    System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] Origin suggest '{query}': {OriginSuggestions.Count} results");
                 }
             }
             catch (TaskCanceledException) { }
@@ -121,6 +122,7 @@ public partial class DirectionsViewModel : ViewModelBase
                 {
                     DestinationSuggestions = result.Suggestions ?? Array.Empty<Suggestion>();
                     HasDestinationSuggestions = DestinationSuggestions.Count > 0;
+                    System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] Destination suggest '{query}': {DestinationSuggestions.Count} results");
                 }
             }
             catch (TaskCanceledException) { }
@@ -224,8 +226,15 @@ public partial class DirectionsViewModel : ViewModelBase
     [RelayCommand]
     private async Task CalculateRoute()
     {
-        if (_mapService is null || OriginPlace is null || DestinationPlace is null) return;
+        if (_mapService is null || OriginPlace is null || DestinationPlace is null)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                $"[REFAPP_DIAG] CalculateRoute skipped: mapService={_mapService is not null} " +
+                $"originSet={OriginPlace is not null} destinationSet={DestinationPlace is not null}");
+            return;
+        }
 
+        System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] CalculateRoute: {OriginPlace.Title} -> {DestinationPlace.Title}");
         IsCalculating = true;
         RouteError = "";
         EmptyStateTitle = null;
@@ -250,6 +259,7 @@ public partial class DirectionsViewModel : ViewModelBase
 
             if (result.Error != RoutingError.None)
             {
+                System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] CalculateRoute failed: {result.Error}");
                 RouteError = $"Routing error: {result.Error}";
                 IsCalculating = false;
                 IsRouteVisible = false;
@@ -295,6 +305,7 @@ public partial class DirectionsViewModel : ViewModelBase
             (RouteEta, RouteDistance) = FormatEtaAndDistance(CurrentRoute);
             Maneuvers = CurrentRoute.Sections?.ToArray() ?? Array.Empty<Section>();
             IsRouteVisible = true;
+            System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] CalculateRoute ok: eta={RouteEta} distance={RouteDistance}");
 
             // Fit camera to route
             if (geometry.Count >= 2)

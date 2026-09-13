@@ -128,6 +128,23 @@ public abstract class BaseTest
         WaitForElement(AutomationIdSelector(automationId), TimeSpan.FromSeconds(timeoutSeconds));
 
     /// <summary>
+    /// Polls for an element for up to <paramref name="timeout"/> but returns
+    /// null instead of throwing — for flows that may legitimately never
+    /// produce the element (e.g. no network / no credentials on the runner).
+    /// </summary>
+    protected IWebElement? TryPollForUIElement(string automationId, TimeSpan timeout)
+    {
+        try
+        {
+            return WaitForElement(AutomationIdSelector(automationId), timeout);
+        }
+        catch (NoSuchElementException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Like <see cref="FindUIElement"/> but returns null instead of
     /// throwing when the element is not present. Use for conditionally
     /// visible elements (e.g. the place card's CTA, which is only in
@@ -297,6 +314,33 @@ public abstract class BaseTest
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// Hides the on-screen keyboard, tolerating drivers/emulators that
+    /// fail HideKeyboard ("The software keyboard cannot be hidden" on
+    /// uiautomator2) — falls back to the BACK key, which dismisses the
+    /// keyboard first before navigating.
+    /// </summary>
+    protected void DismissKeyboard()
+    {
+        try
+        {
+            App.HideKeyboard();
+            return;
+        }
+        catch
+        {
+            // HideKeyboard unsupported or the keyboard refused — fall through.
+        }
+        try
+        {
+            App.Navigate().Back();
+        }
+        catch
+        {
+            // No keyboard to dismiss — nothing to do.
+        }
     }
 
     private static By AutomationIdSelector(string automationId) =>
