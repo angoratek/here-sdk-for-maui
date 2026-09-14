@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
              xmlns:models="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
              xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
              xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
              xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
-             x:Class="Here.Explore.Maui.RefApp.Pages.ExplorePage"
-             x:DataType="viewmodels:ExploreViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True">
+             x:Class="Here.Explore.Maui.RefApp.Panels.ExplorePanel"
+             x:DataType="viewmodels:ExploreViewModel">
 
-    <ContentPage.Resources>
+    <ContentView.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBool" />
             <converters:BoolToOpenColorConverter x:Key="BoolToOpenColor" />
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentView.Resources>
 
+    <!-- Overlays over the shared map (the HereMapView itself lives in MapHomePage).
+         InputTransparent is NOT set: the search pill and cards must stay tappable. -->
     <Grid x:Name="RootGrid" RowDefinitions="*">
-        <!-- HERE SDK: HereMapView is the core map control — renders tiles, markers, routes, and traffic.
-             The handler creates an IMapService instance accessible via MapView.Map for camera, markers, etc. -->
-        <controls:HereMapView x:Name="MapView" Grid.Row="0"
-                               AutomationId="ExploreMapView"
-                               SemanticProperties.Description="Interactive map for exploring places" />
-
         <!-- Top search area -->
         <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
@@ -201,4 +194,4 @@
             </Border>
         </Grid>
     </Grid>
-</ContentPage>
+</ContentView>

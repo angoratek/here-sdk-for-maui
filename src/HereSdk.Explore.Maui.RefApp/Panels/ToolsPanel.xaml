@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
              xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
              xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
-             x:Class="Here.Explore.Maui.RefApp.Pages.ToolsPage"
-             x:DataType="viewmodels:ToolsViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True">
+             x:Class="Here.Explore.Maui.RefApp.Panels.ToolsPanel"
+             x:DataType="viewmodels:ToolsViewModel">
 
-    <ContentPage.Resources>
+    <ContentView.Resources>
         <ResourceDictionary>
             <!-- Button style for selected drawing tool -->
             <Style x:Key="DrawingToolButton" TargetType="Button">
@@ -43,13 +40,10 @@
                 <Setter Property="Text" Value="&#xe5cc;" />
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentView.Resources>
 
+    <!-- Overlays over the shared map (the HereMapView itself lives in MapHomePage). -->
     <Grid x:Name="RootGrid" RowDefinitions="*">
-        <!-- HERE SDK: HereMapView is the target for drawing tools — markers, polylines, polygons, circles
-             are added via IMapService.AddMarker(), AddPolyline(), AddPolygon(), AddCircle(). -->
-        <controls:HereMapView x:Name="MapView" Grid.Row="0" AutomationId="ToolsMapView" />
-
         <!-- Drawing mode banner. Visible whenever the tools section
              is expanded; renders the live DrawingHint (set after a tool
              is picked) and a static "how to draw" tip before any tool
@@ -82,30 +76,6 @@
                         IsVisible="{Binding IsDrawingActive}"
                         Command="{Binding CancelDrawingCommand}" />
             </Grid>
-        </Border>
-
-        <!-- Clear All button -->
-        <Button Grid.Row="0" Text="Clear All" Style="{StaticResource MapFloatingButton}"
-                AutomationId="ToolsClearAllButton"
-                FontFamily="InterSemiBold" FontSize="13"
-                VerticalOptions="End" HorizontalOptions="End"
-                Margin="0,0,12,68" WidthRequest="78"
-                Command="{Binding ClearAllCommand}"
-                IsVisible="{Binding TotalObjectCount}" />
-
-        <!-- Object count badge -->
-        <Border Grid.Row="0" VerticalOptions="End" HorizontalOptions="Center"
-                Margin="0,0,0,68" Padding="12,6"
-                BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceSecondaryDark}}"
-                StrokeShape="RoundRectangle 14" StrokeThickness="0"
-                IsVisible="{Binding TotalObjectCount}">
-            <Border.Shadow>
-                <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColorSubtle}, Dark={StaticResource ShadowColorDark}}"
-                        Offset="0,2" Radius="8" />
-            </Border.Shadow>
-            <Label Text="{Binding TotalObjectCount, StringFormat='{0} objects on map'}"
-                   FontFamily="InterMedium" FontSize="12"
-                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
         </Border>
 
         <!-- Bottom sheet with tools. Lands fully expanded so the user
@@ -156,7 +126,7 @@
                                 </Grid>
 
                                 <VerticalStackLayout Spacing="8" IsVisible="{Binding IsDrawingExpanded}">
-                                    <Label Text="Select a tool, then tap the map to draw. Double-tap to finish lines &amp; polygons."
+                                    <Label Text="Select a tool, then tap the map to draw. Objects appear on the shared map and stay visible on every tab."
                                            FontFamily="InterRegular" FontSize="12"
                                            TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
@@ -405,5 +375,41 @@
                 </ScrollView>
             </local:BottomSheet.SheetContent>
         </local:BottomSheet>
+
+        <!-- Reset Map button: clears drawing objects + route + traffic overlays + search.
+             Declared AFTER the BottomSheet so it is above it in child order — the
+             sheet's ScrollView stretches across the sheet's full footprint (visually
+             transparent below the cards) and would otherwise swallow every touch
+             aimed at these floating buttons. -->
+        <Button Grid.Row="0" Text="Reset Map" Style="{StaticResource MapFloatingButton}"
+                AutomationId="ToolsResetMapButton"
+                FontFamily="InterSemiBold" FontSize="13"
+                VerticalOptions="End" HorizontalOptions="End"
+                Margin="0,0,12,116" WidthRequest="90"
+                Command="{Binding ResetMapCommand}" />
+
+        <!-- Clear All button -->
+        <Button Grid.Row="0" Text="Clear All" Style="{StaticResource MapFloatingButton}"
+                AutomationId="ToolsClearAllButton"
+                FontFamily="InterSemiBold" FontSize="13"
+                VerticalOptions="End" HorizontalOptions="End"
+                Margin="0,0,12,68" WidthRequest="78"
+                Command="{Binding ClearAllCommand}"
+                IsVisible="{Binding TotalObjectCount}" />
+
+        <!-- Object count badge -->
+        <Border Grid.Row="0" VerticalOptions="End" HorizontalOptions="Center"
+                Margin="0,0,0,68" Padding="12,6"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceSecondaryDark}}"
+                StrokeShape="RoundRectangle 14" StrokeThickness="0"
+                IsVisible="{Binding TotalObjectCount}">
+            <Border.Shadow>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColorSubtle}, Dark={StaticResource ShadowColorDark}}"
+                        Offset="0,2" Radius="8" />
+            </Border.Shadow>
+            <Label Text="{Binding TotalObjectCount, StringFormat='{0} objects on map'}"
+                   FontFamily="InterMedium" FontSize="12"
+                   TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+        </Border>
     </Grid>
-</ContentPage>
+</ContentView>

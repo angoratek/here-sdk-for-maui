@@ -2,19 +2,21 @@ using System.ComponentModel;
 using Here.Explore.Maui.RefApp.Controls;
 using Here.Explore.Maui.RefApp.ViewModels;
 
-namespace Here.Explore.Maui.RefApp.Pages;
+namespace Here.Explore.Maui.RefApp.Panels;
 
-public partial class ExplorePage : ContentPage
+/// <summary>
+/// Explore overlays (search, suggestions, place card, style picker) shown
+/// over the shared map — the HereMapView itself lives in MapHomePage.
+/// </summary>
+public partial class ExplorePanel : ContentView
 {
     private readonly ExploreViewModel _viewModel;
 
-    public ExplorePage(ExploreViewModel viewModel)
+    public ExplorePanel(ExploreViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = viewModel;
-
-        MapView.HandlerChanged += OnMapViewHandlerChanged;
 
         CategoryChips.CategorySelected += (_, chip) =>
         {
@@ -49,15 +51,6 @@ public partial class ExplorePage : ContentPage
             PlaceSheet.CurrentState = _viewModel.IsPlaceCardVisible
                 ? BottomSheet.SheetState.HalfExpanded
                 : BottomSheet.SheetState.Collapsed;
-        }
-    }
-
-    private void OnMapViewHandlerChanged(object? sender, EventArgs e)
-    {
-        if (MapView.Handler is not null && MapView.Map is not null)
-        {
-            MapView.HandlerChanged -= OnMapViewHandlerChanged;
-            _viewModel.SetMapService(MapView.Map);
         }
     }
 }

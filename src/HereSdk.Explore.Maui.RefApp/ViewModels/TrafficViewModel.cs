@@ -34,6 +34,14 @@ public partial class TrafficViewModel : ViewModelBase
         _trafficService = trafficService;
     }
 
+    /// <summary>
+    /// Whether this VM's tab panel is the active one over the shared map.
+    /// Defaults to true so unit tests that never switch tabs behave as
+    /// before. (Traffic currently has no map-tap handling; kept for parity
+    /// with the other panel VMs.)
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
     public void SetMapService(IMapService mapService)
     {
         _mapService = mapService;
@@ -191,6 +199,18 @@ public partial class TrafficViewModel : ViewModelBase
         }
         catch (Exception ex) { StatusMessage = ex.Message; }
         finally { IsLoading = false; }
+    }
+
+    /// <summary>
+    /// Removes all traffic overlays and hides both toggles. Called by the
+    /// Tools panel's Reset Map action over the shared map.
+    /// </summary>
+    public void ResetTraffic()
+    {
+        IsFlowVisible = false;
+        IsIncidentsVisible = false;
+        ClearFlows();
+        ClearIncidents();
     }
 
     private void ClearFlows()

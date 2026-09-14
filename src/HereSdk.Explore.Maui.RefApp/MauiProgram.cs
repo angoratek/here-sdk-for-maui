@@ -140,18 +140,21 @@ public static class MauiProgram
         // Connectivity
         builder.Services.AddSingleton<IConnectivityService, ConnectivityService>();
 
-        // ViewModels
-        builder.Services.AddTransient<ExploreViewModel>();
-        builder.Services.AddTransient<DirectionsViewModel>();
-        builder.Services.AddTransient<TrafficViewModel>();
-        builder.Services.AddTransient<ToolsViewModel>();
+        // ViewModels — singletons: with one shared map they outlive panel
+        // swaps (their map objects must persist across tab changes).
+        builder.Services.AddSingleton<ExploreViewModel>();
+        builder.Services.AddSingleton<DirectionsViewModel>();
+        builder.Services.AddSingleton<TrafficViewModel>();
+        builder.Services.AddSingleton<ToolsViewModel>();
+        builder.Services.AddSingleton<PanelNavigationService>();
         builder.Services.AddTransient<SettingsViewModel>();
 
-        // Pages
-        builder.Services.AddTransient<ExplorePage>();
-        builder.Services.AddTransient<DirectionsPage>();
-        builder.Services.AddTransient<TrafficPage>();
-        builder.Services.AddTransient<ToolsPage>();
+        // Panels + pages
+        builder.Services.AddTransient<Panels.ExplorePanel>();
+        builder.Services.AddTransient<Panels.DirectionsPanel>();
+        builder.Services.AddTransient<Panels.TrafficPanel>();
+        builder.Services.AddTransient<Panels.ToolsPanel>();
+        builder.Services.AddTransient<MapHomePage>();
         builder.Services.AddTransient<SettingsPage>();
 
         // Converters

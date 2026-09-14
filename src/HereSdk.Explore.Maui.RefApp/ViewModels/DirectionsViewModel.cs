@@ -66,9 +66,39 @@ public partial class DirectionsViewModel : ViewModelBase
         _permissionsService = permissionsService;
     }
 
+    /// <summary>
+    /// Whether this VM's tab panel is the active one over the shared map.
+    /// All panel VMs receive the same map events from the single map; the
+    /// tap handler early-returns when inactive. Defaults to true so unit
+    /// tests that never switch tabs behave as before.
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
     public void SetMapService(IMapService mapService)
     {
         _mapService = mapService;
+        _mapService.MapTapped += OnMapTappedDismissSuggestions;
+    }
+
+    private void OnMapTappedDismissSuggestions(object? sender, MapTappedEventArgs e)
+    {
+        if (!IsActive) return;
+        DismissSuggestions();
+    }
+
+    /// <summary>
+    /// Closes both suggestion dropdowns and cancels any in-flight debounced
+    /// suggest call — used after a suggestion is picked and when the map is
+    /// tapped, so the popups never linger over the map.
+    /// </summary>
+    public void DismissSuggestions()
+    {
+        _originDebounce?.Cancel();
+        _destDebounce?.Cancel();
+        OriginSuggestions = Array.Empty<Suggestion>();
+        DestinationSuggestions = Array.Empty<Suggestion>();
+        HasOriginSuggestions = false;
+        HasDestinationSuggestions = false;
     }
 
     partial void OnOriginQueryChanged(string value)
@@ -132,7 +162,13 @@ public partial class DirectionsViewModel : ViewModelBase
     [RelayCommand]
     private async Task SelectOriginSuggestion(Suggestion suggestion)
     {
-        OriginQuery = suggestion.Title;
+        // Suppress the query-change suggest trigger AND cancel any pending
+        // debounce: otherwise the debounced call for the selected title
+        // completes after the clear below and re-opens the dropdown.
+        _originDebounce?.Cancel();
+        _suppressOriginSuggestions = true;
+        try { OriginQuery = suggestion.Title; }
+        finally { _suppressOriginSuggestions = false; }
         OriginSuggestions = Array.Empty<Suggestion>();
         HasOriginSuggestions = false;
         var place = await _searchService.GetPlaceByIdAsync(suggestion.Id);
@@ -146,7 +182,11 @@ public partial class DirectionsViewModel : ViewModelBase
     [RelayCommand]
     private async Task SelectDestinationSuggestion(Suggestion suggestion)
     {
-        DestinationQuery = suggestion.Title;
+        // Same suppression as SelectOriginSuggestion — see comment there.
+        _destDebounce?.Cancel();
+        _suppressDestinationSuggestions = true;
+        try { DestinationQuery = suggestion.Title; }
+        finally { _suppressDestinationSuggestions = false; }
         DestinationSuggestions = Array.Empty<Suggestion>();
         HasDestinationSuggestions = false;
         var place = await _searchService.GetPlaceByIdAsync(suggestion.Id);

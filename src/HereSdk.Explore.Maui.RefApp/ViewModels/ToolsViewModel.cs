@@ -47,6 +47,15 @@ public partial class ToolsViewModel : ViewModelBase
     [ObservableProperty] private bool _isGalleryExpanded;
     [ObservableProperty] private bool _isSettingsExpanded;
 
+    /// <summary>
+    /// Whether this VM's tab panel is the active one over the shared map.
+    /// All panel VMs receive the same map events from the single map; the
+    /// drawing tap handlers early-return when inactive so tapping the map on
+    /// another panel does not add drawing points. Defaults to true so unit
+    /// tests that never switch tabs behave as before.
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
     public ToolsViewModel(IThemeService themeService)
     {
         _themeService = themeService;
@@ -174,6 +183,20 @@ public partial class ToolsViewModel : ViewModelBase
         ResetDrawingState();
     }
 
+    /// <summary>
+    /// Invoked by <see cref="ResetMap"/> in addition to ClearAll so the
+    /// other overlays on the shared map (route, traffic, search) reset too.
+    /// Wired by MapHomePage.
+    /// </summary>
+    public Action? ResetExtras { get; set; }
+
+    [RelayCommand]
+    private void ResetMap()
+    {
+        ClearAll();
+        ResetExtras?.Invoke();
+    }
+
     [RelayCommand]
     private void ClearAll()
     {
@@ -236,7 +259,7 @@ public partial class ToolsViewModel : ViewModelBase
 
     private void OnMapTapped(object? sender, MapTappedEventArgs e)
     {
-        if (CurrentDrawingTool == DrawingTool.None) return;
+        if (!IsActive || CurrentDrawingTool == DrawingTool.None) return;
 
         var coordinates = e.Coordinates;
         _drawingPoints.Add(coordinates);
@@ -280,6 +303,8 @@ public partial class ToolsViewModel : ViewModelBase
 
     private void OnMapDoubleTapped(object? sender, MapTappedEventArgs e)
     {
+        if (!IsActive) return;
+
         if (CurrentDrawingTool is DrawingTool.Polyline or DrawingTool.Polygon or DrawingTool.Circle
             && _drawingPoints.Count >= 2)
         {

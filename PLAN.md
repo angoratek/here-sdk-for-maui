@@ -105,7 +105,9 @@ camera animations (`FlyToAnimation`, `KeyframeTracks`), scene lights, mesh build
 
 Covered since 2026-09-12: place-card CTA journey (1), incidents/flow toggles (5),
 traffic refresh (6), drawing tools (7), scheme chips (9), style picker (10),
-Tools MapView (11), Settings nav + back (12), map tap reverse geocode.
+Settings nav + back (12), map tap reverse geocode. (The per-tab "MapView is
+present" checks (11) became panel-control assertions after the single shared
+map restructure — one `HereMapView` now serves all panels.)
 
 Still open:
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+             x:Class="Here.Explore.Maui.RefApp.Pages.MapHomePage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <!-- Flat full-cell tab button; icon + tint set in code-behind. -->
+        <Style x:Key="TabButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderWidth" Value="0" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="ContentLayout" Value="Top,2" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid x:Name="RootGrid" RowDefinitions="*,56">
+
+        <!-- HERE SDK: the ONE shared map. Every panel (Explore, Directions,
+             Traffic, Tools) draws over this single HereMapView — markers,
+             routes, traffic and drawings stay visible across tab switches. -->
+        <controls:HereMapView x:Name="MapView" Grid.Row="0" Grid.RowSpan="2"
+                               AutomationId="ExploreMapView"
+                               SemanticProperties.Description="Interactive map for exploring places" />
+
+        <!-- Overlay panels — one active at a time, swapped by the tab bar.
+             Created in code-behind: XAML instantiation has no DI, and the
+             panels need their view-models in the constructor. -->
+        <Grid x:Name="PanelHost" Grid.Row="0" />
+
+        <!-- Custom bottom tab bar (replaces the Shell TabBar — with one
+             shared page there is no second page to route to). -->
+        <Border x:Name="TabBar" Grid.Row="1"
+                BackgroundColor="{AppThemeBinding Light={StaticResource TabBarBackground}, Dark={StaticResource TabBarBackgroundDark}}"
+                StrokeThickness="0" Padding="4,6">
+            <!-- Buttons (not gesture recognizers): a Button's whole cell is
+                 tappable, and it is reliably clickable via Appium — tap
+                 recognizers on transparent Grid areas pass hits through. -->
+            <Grid ColumnDefinitions="*,*,*,*">
+                <Button x:Name="ExploreTab" Grid.Column="0" AutomationId="Tab-Explore"
+                        Text="Explore" FontFamily="InterMedium" FontSize="11"
+                        Style="{StaticResource TabButton}" />
+                <Button x:Name="DirectionsTab" Grid.Column="1" AutomationId="Tab-Directions"
+                        Text="Directions" FontFamily="InterMedium" FontSize="11"
+                        Style="{StaticResource TabButton}" />
+                <Button x:Name="TrafficTab" Grid.Column="2" AutomationId="Tab-Traffic"
+                        Text="Traffic" FontFamily="InterMedium" FontSize="11"
+                        Style="{StaticResource TabButton}" />
+                <Button x:Name="ToolsTab" Grid.Column="3" AutomationId="Tab-Tools"
+                        Text="Tools" FontFamily="InterMedium" FontSize="11"
+                        Style="{StaticResource TabButton}" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

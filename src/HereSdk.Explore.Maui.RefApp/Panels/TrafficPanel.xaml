@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
              xmlns:traffic="clr-namespace:Here.Explore.Maui.Models.Traffic;assembly=HereSdk.Explore.Maui"
              xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
              xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
              xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
-             x:Class="Here.Explore.Maui.RefApp.Pages.TrafficPage"
-             x:DataType="viewmodels:TrafficViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True">
+             x:Class="Here.Explore.Maui.RefApp.Panels.TrafficPanel"
+             x:DataType="viewmodels:TrafficViewModel">
 
-    <ContentPage.Resources>
+    <ContentView.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBool" />
             <converters:JamFactorToColorConverter x:Key="JamToColor" />
             <converters:TrafficIncidentTypeToIconConverter x:Key="IncidentTypeToIcon" />
             <converters:TrafficIncidentImpactToColorConverter x:Key="ImpactToColor" />
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentView.Resources>
 
+    <!-- Overlays over the shared map (the HereMapView itself lives in MapHomePage). -->
     <Grid x:Name="RootGrid" RowDefinitions="*">
-        <!-- HERE SDK: HereMapView renders traffic flow polylines and incident markers.
-             Toggle flow/incidents via ITrafficService.QueryFlowAsync() and QueryIncidentsAsync(). -->
-        <controls:HereMapView x:Name="MapView" Grid.Row="0"
-                               AutomationId="TrafficMapView"
-                               SemanticProperties.Description="Map showing traffic flow and incidents" />
-
         <!-- Top controls -->
         <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
@@ -180,4 +172,4 @@
             </Border>
         </Grid>
     </Grid>
-</ContentPage>
+</ContentView>

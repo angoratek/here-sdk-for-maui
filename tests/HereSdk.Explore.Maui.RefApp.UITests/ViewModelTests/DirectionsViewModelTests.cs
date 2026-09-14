@@ -95,9 +95,52 @@ public class DirectionsViewModelTests
         Assert.NotNull(_viewModel.OriginPlace);
     }
 
-    #endregion
+    [Fact]
+    public async Task SelectOriginSuggestion_DoesNotReopenSuggestions_AfterDebounceWindow()
+    {
+        // Regression: picking a suggestion sets OriginQuery, whose change
+        // handler scheduled a debounced suggest for the selected title — its
+        // result used to repopulate the list after the clear, re-opening the
+        // dropdown.
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
 
-    #region SelectDestinationSuggestion
+        _searchService.SuggestAsync(Arg.Any<TextQuery>(), Arg.Any<SearchOptions>())
+            .Returns(new SuggestResult(SearchError.None,
+                new List<Suggestion> { new("Berlin", "id1", SuggestionType.Place) }));
+
+        var suggestion = new Suggestion("Berlin", "id1", SuggestionType.Place);
+        _searchService.GetPlaceByIdAsync("id1").Returns(
+            new Place("id1", "Berlin", new GeoCoordinates(52.52, 13.405)));
+
+        _viewModel.SelectOriginSuggestionCommand.Execute(suggestion);
+        await Task.Delay(400); // longer than the 300ms debounce
+
+        Assert.False(_viewModel.HasOriginSuggestions);
+        Assert.Empty(_viewModel.OriginSuggestions);
+    }
+
+    [Fact]
+    public void MapTapped_DismissesOpenSuggestionDropdowns()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        // Open both dropdowns, then tap the map — the VM subscribes to
+        // MapTapped in SetMapService to close them.
+        _viewModel.OriginSuggestions = new List<Suggestion> { new("Berlin", "id1", SuggestionType.Place) };
+        _viewModel.HasOriginSuggestions = true;
+        _viewModel.DestinationSuggestions = new List<Suggestion> { new("Munich", "id2", SuggestionType.Place) };
+        _viewModel.HasDestinationSuggestions = true;
+
+        mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
+            null, new MapTappedEventArgs(new GeoCoordinates(52.5, 13.4), new Point2D(10, 10)));
+
+        Assert.False(_viewModel.HasOriginSuggestions);
+        Assert.Empty(_viewModel.OriginSuggestions);
+        Assert.False(_viewModel.HasDestinationSuggestions);
+        Assert.Empty(_viewModel.DestinationSuggestions);
+    }
 
     [Fact]
     public async Task SelectDestinationSuggestion_SetsDestinationPlace()

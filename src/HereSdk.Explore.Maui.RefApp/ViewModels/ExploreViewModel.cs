@@ -43,6 +43,8 @@ public partial class ExploreViewModel : ViewModelBase
     [ObservableProperty] private bool _hasSearchResults;
 
     private CancellationTokenSource? _debounceCts;
+    private bool _suppressSuggestions;
+    private readonly PanelNavigationService? _panelNavigation;
     private readonly List<MapMarker> _placeMarkers = new();
     private MapMarker? _selectedMarker;
     private MapMarker? _longPressMarker;
@@ -50,12 +52,22 @@ public partial class ExploreViewModel : ViewModelBase
     private const int DebounceMs = 300;
     private const int MinQueryLength = 2;
 
-    public ExploreViewModel(ISearchService searchService, ILocationService locationService, IConnectivityService connectivityService, IPermissionsService permissionsService)
+    /// <summary>
+    /// Whether this VM's tab panel is the active one over the shared map.
+    /// With a single map all VMs receive the same map events; tap handlers
+    /// early-return when inactive so e.g. tapping the map on the Tools panel
+    /// does not drop a reverse-geocode pin for Explore. Defaults to true so
+    /// unit tests that never switch tabs behave as before.
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
+    public ExploreViewModel(ISearchService searchService, ILocationService locationService, IConnectivityService connectivityService, IPermissionsService permissionsService, PanelNavigationService? panelNavigation = null)
     {
         _searchService = searchService;
         _locationService = locationService;
         _connectivityService = connectivityService;
         _permissionsService = permissionsService;
+        _panelNavigation = panelNavigation;
 
         _connectivityService.ConnectivityChanged += OnConnectivityChanged;
         IsOffline = !_connectivityService.IsConnected;
@@ -81,6 +93,10 @@ public partial class ExploreViewModel : ViewModelBase
 
     partial void OnSearchQueryChanged(string value)
     {
+        // True while SearchQuery is set programmatically (suggestion picked)
+        // so the change does not schedule a suggest call for the already-
+        // resolved place — its result would re-open the suggestions panel.
+        if (_suppressSuggestions) return;
         if (value.Length >= MinQueryLength)
             _ = DebouncedSuggestAsync(value);
         else
@@ -126,7 +142,14 @@ public partial class ExploreViewModel : ViewModelBase
     {
         if (_mapService is null) return;
 
-        SearchQuery = suggestion.Title;
+        // Cancel any pending debounced suggest, then set the query with the
+        // suggest trigger suppressed — otherwise the debounce for the
+        // selected title re-opens the suggestions panel right after the
+        // clear below (same fix as SubmitSearch).
+        _debounceCts?.Cancel();
+        _suppressSuggestions = true;
+        try { SearchQuery = suggestion.Title; }
+        finally { _suppressSuggestions = false; }
         Suggestions = Array.Empty<Suggestion>();
         HasSuggestions = false;
         IsSearching = true;
@@ -142,6 +165,19 @@ public partial class ExploreViewModel : ViewModelBase
         {
             IsSearching = false;
         }
+    }
+
+    /// <summary>
+    /// Closes the suggestions dropdown and cancels any in-flight debounced
+    /// suggest call — used when the Explore panel is deactivated, so the
+    /// dropdown never lingers over the shared map while another panel is
+    /// active (same pattern as DirectionsViewModel.DismissSuggestions).
+    /// </summary>
+    public void DismissSuggestions()
+    {
+        _debounceCts?.Cancel();
+        Suggestions = Array.Empty<Suggestion>();
+        HasSuggestions = false;
     }
 
     [RelayCommand]
@@ -421,13 +457,18 @@ public partial class ExploreViewModel : ViewModelBase
     [RelayCommand]
     private void NavigateToDirections()
     {
-        if (SelectedPlace is not null)
-            Shell.Current.GoToAsync(
-                $"//directions?placeId={SelectedPlace.Id}&placeName={Uri.EscapeDataString(SelectedPlace.Title)}&lat={SelectedPlace.Coordinates.Latitude}&lng={SelectedPlace.Coordinates.Longitude}");
+        if (SelectedPlace is null) return;
+
+        // One shared map, no Shell routes: ask the home page to activate the
+        // Directions panel and pass the place along.
+        if (_panelNavigation is not null)
+            _panelNavigation.RequestDirections(SelectedPlace);
     }
 
     private async void OnMapTapped(object? sender, MapTappedEventArgs e)
     {
+        if (!IsActive) return;
+
         // Tap while the place card is showing: dismiss it
         if (IsPlaceCardVisible)
         {
@@ -462,7 +503,7 @@ public partial class ExploreViewModel : ViewModelBase
 
     private async void OnMapLongPressed(object? sender, MapLongPressedEventArgs e)
     {
-        if (_mapService is null) return;
+        if (!IsActive || _mapService is null) return;
 
         if (_longPressMarker is not null)
             _mapService.RemoveMapMarker(_longPressMarker);

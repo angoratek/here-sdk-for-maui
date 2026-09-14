@@ -48,6 +48,7 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\ConnectivityService.cs" Link="RefApp\Services\ConnectivityService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\PermissionsService.cs" Link="RefApp\Services\PermissionsService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\CategoryVisuals.cs" Link="RefApp\Services\CategoryVisuals.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\PanelNavigationService.cs" Link="RefApp\Services\PanelNavigationService.cs" />
     <!-- RefApp ViewModels -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\ViewModels\**\*.cs" LinkBase="RefApp\ViewModels" />
     <!-- RefApp Controls -->

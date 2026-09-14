@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
              xmlns:models="clr-namespace:Here.Explore.Maui.Models.Search;assembly=HereSdk.Explore.Maui"
              xmlns:routing="clr-namespace:Here.Explore.Maui.Models.Routing;assembly=HereSdk.Explore.Maui"
              xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
              xmlns:viewmodels="clr-namespace:Here.Explore.Maui.RefApp.ViewModels"
              xmlns:converters="clr-namespace:Here.Explore.Maui.RefApp.Converters"
-             x:Class="Here.Explore.Maui.RefApp.Pages.DirectionsPage"
-             x:DataType="viewmodels:DirectionsViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True">
+             x:Class="Here.Explore.Maui.RefApp.Panels.DirectionsPanel"
+             x:DataType="viewmodels:DirectionsViewModel">
 
-    <ContentPage.Resources>
+    <ContentView.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBool" />
             <converters:ManeuverActionToIconConverter x:Key="ManeuverIcon" />
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentView.Resources>
 
+    <!-- Overlays over the shared map (the HereMapView itself lives in MapHomePage). -->
     <Grid x:Name="RootGrid" RowDefinitions="*">
-        <!-- HERE SDK: HereMapView renders the calculated route as a polyline + maneuver markers.
-             Access via MapView.Map to add/remove route geometry programmatically. -->
-        <controls:HereMapView x:Name="MapView" Grid.Row="0"
-                               AutomationId="DirectionsMapView"
-                               SemanticProperties.Description="Map showing route and directions" />
-
-        <!-- Top input area -->
+        <!-- Top controls -->
         <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
 
@@ -35,8 +27,8 @@
                                RetryCommand="{Binding CalculateRouteCommand}"
                                RetryText="Retry" />
 
-            <!-- HERE SDK: Origin/Destination entries feed IRoutingService.CalculateRouteAsync().
-                 Suggestions come from ISearchService.SuggestAsync() for each input field independently. -->
+            <!-- HERE SDK: Origin/Destination entries feed ISearchService.SuggestAsync() for each field.
+                 Suggestions come from SearchEngine.suggest() results bound via DirectionsViewModel. -->
             <Border Style="{StaticResource SearchPillBorder}" Padding="16,8">
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*,Auto" RowSpacing="0">
 
@@ -59,7 +51,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Suggestion">
                                 <Grid Padding="8,6" ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                                    <Label FontFamily="MaterialIcons" Text="&#xe55f;" FontSize="15"
+                                    <Label Grid.Column="0" FontFamily="MaterialIcons" Text="&#xe55f;" FontSize="15"
                                            TextColor="{StaticResource AccentGreen}" VerticalOptions="Center" />
                                     <Label Grid.Column="1" Text="{Binding Title}" FontSize="14"
                                            FontFamily="InterRegular" VerticalOptions="Center" />
@@ -109,7 +101,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Suggestion">
                             <Grid Padding="10,8" ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                                <Label FontFamily="MaterialIcons" Text="&#xe55f;" FontSize="15"
+                                <Label Grid.Column="0" FontFamily="MaterialIcons" Text="&#xe55f;" FontSize="15"
                                        TextColor="{StaticResource Primary}" VerticalOptions="Center" />
                                 <Label Grid.Column="1" Text="{Binding Title}" FontSize="14"
                                        FontFamily="InterRegular" VerticalOptions="Center" />
@@ -187,6 +179,14 @@
                                        AutomationId="RouteSheetDistance"
                                        TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                             </VerticalStackLayout>
+                            <!-- Clear route: removes the route polyline + sheet (Part 3 affordance) -->
+                            <Button Grid.Column="1" Text="Clear" FontFamily="InterSemiBold" FontSize="12"
+                                    HeightRequest="32" CornerRadius="16" Padding="14,0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceTertiary}, Dark={StaticResource SurfaceTertiaryDark}}"
+                                    TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}"
+                                    HorizontalOptions="End" VerticalOptions="Center"
+                                    AutomationId="DirectionsClearRouteButton"
+                                    Command="{Binding ClearRouteCommand}" />
                         </Grid>
 
                         <!-- Route summary (full, incl. traffic delay when toggled) -->
@@ -269,4 +269,4 @@
             </Border>
         </Grid>
     </Grid>
-</ContentPage>
+</ContentView>
