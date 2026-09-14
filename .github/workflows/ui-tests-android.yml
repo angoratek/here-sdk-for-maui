@@ -162,7 +162,11 @@ jobs:
           APK=$(find src/HereSdk.Explore.Maui.RefApp/bin/Debug/net10.0-android \
             -maxdepth 1 -name "com.here.explore.maui.refapp-Signed.apk" | head -1)
           test -n "$APK" || { echo "APK not found"; exit 1; }
-          adb install -r "$APK"
+          # -g grants all runtime permissions (location) at install:
+          # uiautomator2's autoGrantPermissions only applies when Appium
+          # installs the app itself, so without -g the system location
+          # dialog pops mid-test and occludes the app.
+          adb install -r -g "$APK"
 
       - name: Start Appium server (background)
         run: |
