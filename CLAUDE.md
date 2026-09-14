@@ -88,6 +88,8 @@ HERE SDK Explore Edition bindings for .NET MAUI. Wraps the HERE Explore SDK v4.2
 
 **Key constraint**: The iOS SDK is Swift-only — its ObjC bridge header exposes only 4 types. We use a Swift wrapper framework (`NativeBridge`) to re-expose all APIs via `@objc` annotations, then bind that with Objective-Sharpie.
 
+**RefApp architecture**: ONE shared `HereMapView` in `Pages/MapHomePage.xaml` sits behind all four overlay panels (`Panels/*.xaml`, switched by `PanelNavigationService` + a custom tab bar). Never create a second map or push new pages over it — drawn objects must persist across panel switches, and every programmatic panel switch must go through `PanelNavigationService.SwitchTo` (never `ApplyTab` directly — leaves `ActiveTab` stale, breaks the Appium suite).
+
 ## Repository Layout
 
 ```
@@ -262,26 +264,11 @@ the [PLAN.md](PLAN.md) backlog.
 
 ## Phased Delivery
 
-| Phase | Scope | Status |
-|-------|-------|--------|
-| 0 | Foundation: scaffolding, Android binding, iOS NativeBridge skeleton | Complete |
-| 1 | MapView + SDK Init: map display, camera, gestures, markers | Complete (Android + iOS xcframework built) |
-| 2 | Search + Routing: full search & routing across both platforms | Complete (Android + iOS NativeBridge functional) |
-| 3 | Traffic + Advanced: traffic, map items, advanced features | Complete (Android + iOS NativeBridge functional) |
-| 4 | Polish + NuGet: coverage audit, packaging, CI/CD, docs, ref app UX | Complete |
-| 5 | Documentation: XML docs, DocFX pipeline, how-to guides | Complete |
-| 6 | Final Release: pre-release gate, artifacts, GA publish | In Progress |
-
-For per-phase task breakdowns see [PLAN.md](PLAN.md). Its Backlog section
-is the active to-do list.
+Phases 0–5 (foundation, bindings, MapView, search/routing, traffic, polish, docs) are
+complete. Current state and the live backlog live in [PLAN.md](PLAN.md) — its Backlog
+section is the active to-do list.
 
 ## Key Discrepancies Found (from verification)
 
-1. `CollectionOf<T>` exists ONLY in iOS, NOT in Android
-2. `RefreshRouteOptions` is sealed AND deprecated (v4.28.0) — do NOT bind
-3. iOS has 189 structs (not ~160), 142 enums (103 top-level + 39 nested), 21 type aliases
-4. `com.here.sdk.core.utilities` is empty — removed from namespace mapping
-5. `FuelType` belongs to Transport module, NOT Search
-6. `AuthenticationMode`, `LogControl`, `SDKBuildInformation`, `SDKLogger` belong to `core.engine`, not `core`
-7. **Map circles** — HERE SDK has no native circle primitive on either platform; implemented as polygon approximation via `CircleGeometryHelper`
-8. **The Explore SDK has no positioning engine on either platform** — `ILocationService` uses MAUI Geolocation on both platforms (by design, not a fallback)
+1. iOS has 189 structs (not ~160), 142 enums (103 top-level + 39 nested), 21 type aliases
+2. **Map circles** — HERE SDK has no native circle primitive on either platform; implemented as polygon approximation via `CircleGeometryHelper`

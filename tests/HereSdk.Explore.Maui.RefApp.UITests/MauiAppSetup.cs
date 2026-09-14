@@ -42,6 +42,9 @@ public static class MauiAppSetup
                 rd.Add("ShadowColor", Color.FromArgb("#40000000"));
                 rd.Add("ShadowColorDark", Color.FromArgb("#80000000"));
                 rd.Add("Primary", Color.FromArgb("#007AFF"));
+                rd.Add("Primary10", Color.FromArgb("#1A007AFF"));
+                rd.Add("Primary30", Color.FromArgb("#4D007AFF"));
+                rd.Add("PrimaryDark", Color.FromArgb("#007AFF"));
 
                 // Styles referenced by XAML controls
                 var cardBorder = new Style(typeof(Border))

@@ -17,6 +17,8 @@ public class ToolsPageTests : BaseTest
     [Test]
     public void MarkerButton_IsPresent()
     {
+        // The floating toolbar only shows in map mode (sheet collapsed).
+        CollapseToolsSheet();
         Screenshot(nameof(MarkerButton_IsPresent));
 
         Assert.That(FindUIElement("ToolsMarkerButton").Displayed, Is.True);

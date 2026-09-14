@@ -1,4 +1,5 @@
 using Here.Explore.Maui.Models.Search;
+using Here.Explore.Maui.RefApp.Converters;
 using Here.Explore.Maui.RefApp.Services;
 
 namespace Here.Explore.Maui.RefApp.Controls;
@@ -41,12 +42,12 @@ public partial class PlaceCard : ContentView
             OpenStatusRow.IsVisible = true;
             if (hours.IsOpenNow)
             {
-                OpenDot.Color = Color.FromArgb("#2FBF71");
+                OpenDot.Color = TokenColor.Get("SuccessGreen", Color.FromArgb("#2FBF71"));
                 OpenLabel.Text = "Open Now";
             }
             else
             {
-                OpenDot.Color = Color.FromArgb("#FFC1CB");
+                OpenDot.Color = TokenColor.Get("ErrorRed", Color.FromArgb("#E33B4E"));
                 OpenLabel.Text = "Closed";
             }
         }

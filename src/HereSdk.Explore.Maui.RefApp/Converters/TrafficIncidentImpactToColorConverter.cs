@@ -10,14 +10,15 @@ public class TrafficIncidentImpactToColorConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        if (value is not TrafficIncidentImpact impact) return Color.FromArgb("#8E8E93");
+        if (value is not TrafficIncidentImpact impact)
+            return TokenColor.Get("TabUnselected", Color.FromArgb("#8E8E93"));
         return impact switch
         {
-            TrafficIncidentImpact.Closed => Color.FromArgb("#E33B4E"),
-            TrafficIncidentImpact.Major => Color.FromArgb("#F5A623"),
-            TrafficIncidentImpact.Moderate => Color.FromArgb("#F5C518"),
-            TrafficIncidentImpact.Minor => Color.FromArgb("#2FBF71"),
-            _ => Color.FromArgb("#8E8E93"),
+            TrafficIncidentImpact.Closed => TokenColor.Get("ErrorRed", Color.FromArgb("#E33B4E")),
+            TrafficIncidentImpact.Major => TokenColor.Get("WarningOrange", Color.FromArgb("#F5A623")),
+            TrafficIncidentImpact.Moderate => TokenColor.Get("TrafficModerate", Color.FromArgb("#F5C518")),
+            TrafficIncidentImpact.Minor => TokenColor.Get("SuccessGreen", Color.FromArgb("#2FBF71")),
+            _ => TokenColor.Get("TabUnselected", Color.FromArgb("#8E8E93")),
         };
     }
 

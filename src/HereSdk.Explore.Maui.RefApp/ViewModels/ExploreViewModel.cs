@@ -25,6 +25,7 @@ public partial class ExploreViewModel : ViewModelBase
         Color? CategoryColor);
 
     [ObservableProperty] private string _searchQuery = "";
+    [ObservableProperty] private bool _hasSearchQuery;
     [ObservableProperty] private IReadOnlyList<Suggestion> _suggestions = Array.Empty<Suggestion>();
     [ObservableProperty] private bool _hasSuggestions;
     [ObservableProperty] private bool _isSearching;
@@ -97,6 +98,7 @@ public partial class ExploreViewModel : ViewModelBase
         // so the change does not schedule a suggest call for the already-
         // resolved place — its result would re-open the suggestions panel.
         if (_suppressSuggestions) return;
+        HasSearchQuery = value.Length > 0;
         if (value.Length >= MinQueryLength)
             _ = DebouncedSuggestAsync(value);
         else

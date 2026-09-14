@@ -3,7 +3,8 @@ namespace Here.Explore.Maui.RefApp.Controls;
 public partial class EmptyStateView : ContentView
 {
     public static readonly BindableProperty IconProperty =
-        BindableProperty.Create(nameof(Icon), typeof(string), typeof(EmptyStateView), defaultValue: "📭");
+        // Default icon is a Material glyph codepoint (near_me) — panels pass their own.
+        BindableProperty.Create(nameof(Icon), typeof(string), typeof(EmptyStateView), defaultValue: "\ue52e");
 
     public static readonly BindableProperty TitleProperty =
         BindableProperty.Create(nameof(Title), typeof(string), typeof(EmptyStateView), defaultValue: null,

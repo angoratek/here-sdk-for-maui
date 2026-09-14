@@ -2,6 +2,7 @@
 <Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         xmlns:local="clr-namespace:Here.Explore.Maui.RefApp.Controls"
+        xmlns:ext="clr-namespace:Here.Explore.Maui.RefApp.Extensions"
         x:Class="Here.Explore.Maui.RefApp.Controls.MapStylePicker"
         x:Name="This"
         VerticalOptions="End"
@@ -15,20 +16,19 @@
         <Border Grid.Row="0"
                 x:Name="DropdownPanel"
                 StrokeShape="RoundRectangle 16"
-                BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2E}"
+                BackgroundColor="{ext:Themed Surface}"
                 IsVisible="{Binding IsDropdownExpanded, Source={x:Reference This}}"
                 Margin="0,0,0,8"
                 Padding="8"
                 InputTransparent="false">
             <Border.Shadow>
-                <Shadow Brush="{AppThemeBinding Light=#60000000, Dark=#90000000}" Offset="0,4" Radius="16" />
+                <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColor}, Dark={StaticResource ShadowColorDark}}" Offset="0,4" Radius="16" />
             </Border.Shadow>
 
             <VerticalStackLayout Spacing="4" InputTransparent="false">
-                <Label Text="Map Style"
-                       FontSize="11"
-                       FontAttributes="Bold"
-                       TextColor="{AppThemeBinding Light=#888888, Dark=#AEAEB2}"
+                <Label Text="MAP STYLE"
+                       FontSize="11" FontFamily="InterSemiBold"
+                       TextColor="{ext:Themed IconMuted}"
                        HorizontalOptions="Center"
                        Margin="0,4,0,4" />
 
@@ -42,16 +42,18 @@
                                     <TapGestureRecognizer Command="{Binding SelectSchemeCommand, Source={x:Reference This}}"
                                                           CommandParameter="{Binding .}" />
                                 </Grid.GestureRecognizers>
-                                <Grid ColumnDefinitions="28,*">
+                                <Grid ColumnDefinitions="28,*" ColumnSpacing="10">
                                     <Label Grid.Column="0"
                                            Text="{Binding Icon}"
+                                           FontFamily="MaterialIcons"
                                            FontSize="16"
+                                           TextColor="{ext:Themed TextSecondary}"
                                            VerticalOptions="Center"
                                            HorizontalOptions="Center" />
                                     <Label Grid.Column="1"
                                            Text="{Binding Label}"
                                            FontSize="13"
-                                           TextColor="{AppThemeBinding Light=#333333, Dark=#FFFFFF}"
+                                           TextColor="{ext:Themed TextPrimary}"
                                            VerticalOptions="Center" />
                                 </Grid>
                             </Grid>
@@ -64,16 +66,18 @@
         <!-- Toggle button -->
         <Button Grid.Row="1"
                 x:Name="ToggleButton"
-                Text="🗺️"
+                Text="&#xe55b;"
+                FontFamily="MaterialIcons"
                 WidthRequest="44"
                 HeightRequest="44"
                 CornerRadius="22"
                 Command="{Binding ToggleDropdownCommand}"
                 FontSize="20"
+                TextColor="{ext:Themed TextPrimary}"
                 Padding="0"
-                BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2E}">
+                BackgroundColor="{ext:Themed Surface}">
             <Button.Shadow>
-                <Shadow Brush="{AppThemeBinding Light=#50000000, Dark=#90000000}" Offset="0,4" Radius="12" />
+                <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColor}, Dark={StaticResource ShadowColorDark}}" Offset="0,4" Radius="12" />
             </Button.Shadow>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>

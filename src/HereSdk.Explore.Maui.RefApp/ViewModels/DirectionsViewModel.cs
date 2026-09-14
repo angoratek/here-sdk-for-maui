@@ -38,6 +38,9 @@ public partial class DirectionsViewModel : ViewModelBase
     [ObservableProperty] private string _maneuverItems = "";
     [ObservableProperty] private bool _isRouteVisible;
     [ObservableProperty] private bool _isIsolineMode;
+    /// <summary>Material glyph for the isoline toggle (circle → place when active).</summary>
+    public string IsolineButtonGlyph => IsIsolineMode ? "\ue55f" : "\ue39e";
+    partial void OnIsIsolineModeChanged(bool value) => OnPropertyChanged(nameof(IsolineButtonGlyph));
     [ObservableProperty] private bool _hasTrafficOnRoute;
     [ObservableProperty] private string _routeError = "";
     [ObservableProperty] private string? _emptyStateTitle;

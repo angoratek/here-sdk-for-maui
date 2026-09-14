@@ -154,9 +154,17 @@ public class IntegrationFlowTests
         mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
             null, new MapTappedEventArgs(new GeoCoordinates(37.77, -122.42), new Point2D(100, 200)));
 
-        // After marker placement (single tap = finish), tool is done
-        Assert.False(vm.IsDrawingActive);
+        // Marker placed per tap; the session STAYS active for multi-drop —
+        // only Done (or ✕) ends it.
+        Assert.True(vm.IsDrawingActive);
+        Assert.True(vm.CanFinish);
+        Assert.Equal(1, vm.DrawingObjects.Count);
         mockMap.Received(1).AddMapMarker(Arg.Any<MapMarker>());
+
+        // Step 3: Done ends the session, the placed marker persists
+        vm.FinishDrawingCommand.Execute(null);
+        Assert.False(vm.IsDrawingActive);
+        Assert.Equal(1, vm.TotalObjectCount);
     }
 
     [Fact]

@@ -2,18 +2,26 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Here.Explore.Maui.RefApp.Controls.EmptyStateView"
-             x:Name="EmptyState">
-    <VerticalStackLayout Spacing="8"
+             x:Name="EmptyState"
+             InputTransparent="True">
+    <VerticalStackLayout Spacing="12"
                          HorizontalOptions="Center" VerticalOptions="Center"
                          Padding="24">
-        <Label FontSize="40"
-               HorizontalOptions="Center"
-               Text="{Binding Source={x:Reference EmptyState}, Path=Icon}" />
-        <Label FontSize="17" FontAttributes="Bold"
+        <!-- Icon disc: 56dp circle, Primary10 tint, Material glyph -->
+        <Border WidthRequest="56" HeightRequest="56"
+                StrokeShape="RoundRectangle 28" StrokeThickness="0"
+                HorizontalOptions="Center"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary10}, Dark={StaticResource Primary30}}">
+            <Label FontFamily="MaterialIcons" FontSize="26"
+                   Text="{Binding Source={x:Reference EmptyState}, Path=Icon}"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
+        </Border>
+        <Label FontSize="17" FontFamily="InterSemiBold"
                HorizontalOptions="Center" HorizontalTextAlignment="Center"
                Text="{Binding Source={x:Reference EmptyState}, Path=Title}"
                TextColor="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimaryDark}}" />
-        <Label FontSize="14"
+        <Label FontSize="14" FontFamily="InterRegular"
                HorizontalOptions="Center" HorizontalTextAlignment="Center"
                Text="{Binding Source={x:Reference EmptyState}, Path=Subtitle}"
                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />

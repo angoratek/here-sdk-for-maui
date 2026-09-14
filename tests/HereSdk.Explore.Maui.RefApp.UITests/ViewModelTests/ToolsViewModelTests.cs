@@ -132,6 +132,158 @@ public class ToolsViewModelTests
 
     #endregion
 
+    #region Undo / Finish / Delete (drawing session)
+
+    private IMapService MapTap(ToolsViewModel vm, IMapService mockMap, double lat, double lon)
+    {
+        mockMap.MapTapped += Raise.Event<EventHandler<MapTappedEventArgs>>(
+            null, new MapTappedEventArgs(new GeoCoordinates(lat, lon), new Point2D(100, 200)));
+        return mockMap;
+    }
+
+    [Fact]
+    public void SetDrawingTool_ResetsCanFinishAndCanUndo()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Polyline");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+        MapTap(_viewModel, mockMap, 37.79, -122.44);
+        Assert.True(_viewModel.CanFinish);
+        Assert.True(_viewModel.CanUndo);
+
+        // Switching tools resets the point stack — flags must drop
+        _viewModel.SetDrawingToolCommand.Execute("Circle");
+        Assert.False(_viewModel.CanFinish);
+        Assert.False(_viewModel.CanUndo);
+        Assert.Equal(0, _viewModel.DrawingPointCount);
+    }
+
+    [Fact]
+    public void FinishDrawing_BelowMinPoints_DoesNotAddObject()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Polygon");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+        MapTap(_viewModel, mockMap, 37.79, -122.44); // polygon needs 3
+
+        _viewModel.FinishDrawingCommand.Execute(null);
+
+        mockMap.DidNotReceive().AddMapPolygon(Arg.Any<MapPolygon>());
+        // Session stays active — nothing silently discarded
+        Assert.True(_viewModel.IsDrawingActive);
+    }
+
+    [Fact]
+    public void FinishDrawing_Polygon_AddsObject_AndResets()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Polygon");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+        MapTap(_viewModel, mockMap, 37.79, -122.44);
+        MapTap(_viewModel, mockMap, 37.80, -122.40);
+
+        // Ignore the preview-shape calls; count only the committed object.
+        mockMap.ClearReceivedCalls();
+        _viewModel.FinishDrawingCommand.Execute(null);
+
+        mockMap.Received(1).AddMapPolygon(Arg.Any<MapPolygon>());
+        Assert.False(_viewModel.IsDrawingActive);
+        Assert.Equal(1, _viewModel.TotalObjectCount);
+        Assert.Equal(1, _viewModel.DrawingObjects.Count);
+        Assert.False(_viewModel.CanFinish);
+    }
+
+    [Fact]
+    public void UndoLastPoint_RemovesLastVertex()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Polyline");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+        MapTap(_viewModel, mockMap, 37.79, -122.44);
+        Assert.Equal(2, _viewModel.DrawingPointCount);
+
+        _viewModel.UndoLastPointCommand.Execute(null);
+
+        Assert.Equal(1, _viewModel.DrawingPointCount);
+        Assert.False(_viewModel.CanFinish);
+        Assert.True(_viewModel.CanUndo);
+        Assert.True(_viewModel.IsDrawingActive);
+    }
+
+    [Fact]
+    public void UndoLastPoint_OnEmpty_CancelsDrawing()
+    {
+        _viewModel.SetDrawingToolCommand.Execute("Polyline");
+        Assert.True(_viewModel.IsDrawingActive);
+
+        _viewModel.UndoLastPointCommand.Execute(null);
+
+        Assert.False(_viewModel.IsDrawingActive);
+        Assert.Equal(DrawingTool.None, _viewModel.CurrentDrawingTool);
+    }
+
+    [Fact]
+    public void UndoLastPoint_Marker_RemovesLastPlacedMarker()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Marker");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+        MapTap(_viewModel, mockMap, 37.79, -122.44);
+        Assert.Equal(2, _viewModel.TotalObjectCount);
+
+        _viewModel.UndoLastPointCommand.Execute(null);
+
+        Assert.Equal(1, _viewModel.TotalObjectCount);
+        Assert.Equal(1, _viewModel.DrawingObjects.Count);
+        mockMap.Received(1).RemoveMapMarker(Arg.Any<MapMarker>());
+    }
+
+    [Fact]
+    public void DeleteObject_RemovesFromMapAndList()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Marker");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+
+        var row = Assert.Single(_viewModel.DrawingObjects);
+        row.DeleteCommand.Execute(null);
+
+        Assert.Empty(_viewModel.DrawingObjects);
+        Assert.Equal(0, _viewModel.TotalObjectCount);
+        mockMap.Received(1).RemoveMapMarker(Arg.Any<MapMarker>());
+    }
+
+    [Fact]
+    public void Marker_MultiDrop_PlacesOneMarkerPerTap()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        _viewModel.SetMapService(mockMap);
+
+        _viewModel.SetDrawingToolCommand.Execute("Marker");
+        MapTap(_viewModel, mockMap, 37.77, -122.42);
+        MapTap(_viewModel, mockMap, 37.79, -122.44);
+        MapTap(_viewModel, mockMap, 37.80, -122.40);
+
+        mockMap.Received(3).AddMapMarker(Arg.Any<MapMarker>());
+        Assert.Equal(3, _viewModel.TotalObjectCount);
+        Assert.Equal(3, _viewModel.DrawingObjects.Count);
+        Assert.True(_viewModel.IsDrawingActive);
+    }
+
+    #endregion
+
     #region Dark Mode
 
     [Fact]

@@ -16,6 +16,15 @@ public record CameraAnimation(
 /// <summary>
 /// A map marker at geographic coordinates.
 /// </summary>
+/// <summary>
+/// A map marker at geographic coordinates.
+/// </summary>
+/// <remarks>
+/// <see cref="AnchorX"/>/<see cref="AnchorY"/> position the image relative to
+/// the coordinates, as percentages of the image size (0–100): 50/50 centers
+/// the image on the coordinate, 50/100 puts the bottom-center there (typical
+/// pin). Anchoring is applied on Android; the iOS bridge does not expose it.
+/// </remarks>
 public record MapMarker(
     GeoCoordinates Coordinates,
     string? ImagePath = null,
@@ -99,15 +108,22 @@ public enum LocationIndicatorStyle
 public record MapPolyline(
     IReadOnlyList<GeoCoordinates> Vertices,
     uint Color = 0xFF0000FF,
-    int WidthInPixels = 5
+    int WidthInPixels = 5,
+    LineCap Cap = LineCap.Round
 );
 
 /// <summary>
 /// A polygon drawn on the map.
 /// </summary>
+/// <remarks>
+/// The outline is rendered only when <see cref="StrokeWidthInPixels"/> is
+/// greater than 0; a zero width (the default) keeps the outline disabled.
+/// </remarks>
 public record MapPolygon(
     IReadOnlyList<GeoCoordinates> Vertices,
-    uint FillColor = 0x330000FF
+    uint FillColor = 0x330000FF,
+    uint StrokeColor = 0,
+    int StrokeWidthInPixels = 0
 );
 
 /// <summary>

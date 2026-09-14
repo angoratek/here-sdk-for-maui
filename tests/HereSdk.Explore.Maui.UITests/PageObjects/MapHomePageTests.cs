@@ -11,7 +11,13 @@ namespace Here.Explore.Maui.UITests.PageObjects;
 public class MapHomePageTests : BaseTest
 {
     [SetUp]
-    public void NavigateToTools() => NavigateToTab("Tools");
+    public void NavigateToTools()
+    {
+        NavigateToTab("Tools");
+        // The floating toolbar (marker/reset buttons) is only visible in map
+        // mode — collapse the sheet so the tools are tappable.
+        CollapseToolsSheet();
+    }
 
     [Test]
     public void SharedMap_DrawMarker_SwitchTabs_ObjectPersists()

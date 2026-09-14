@@ -127,4 +127,55 @@ public class BottomSheetTests
         Assert.Equal(300.0, sheet.HalfExpandedHeight);
         Assert.Equal(500.0, sheet.FullyExpandedHeight);
     }
+
+    [Fact]
+    public void Chrome_HasRoundedTopCornersAndBackground()
+    {
+        var sheet = new BottomSheet();
+        var shape = Assert.IsType<Microsoft.Maui.Controls.Shapes.RoundRectangle>(sheet.StrokeShape);
+        Assert.Equal(20.0, shape.CornerRadius.TopLeft);
+        Assert.Equal(20.0, shape.CornerRadius.TopRight);
+        Assert.Equal(0.0, shape.CornerRadius.BottomLeft);
+        Assert.NotEqual(Colors.Transparent, sheet.BackgroundColor);
+        Assert.NotNull(sheet.Shadow);
+    }
+
+    [Fact]
+    public void BodyDragAndScrim_DefaultOff()
+    {
+        var sheet = new BottomSheet();
+        Assert.False(sheet.BodyDragEnabled);
+        Assert.False(sheet.IsScrimEnabled);
+    }
+
+    [Fact]
+    public void Scrim_TogglesVisibilityWithState()
+    {
+        var sheet = new BottomSheet { IsScrimEnabled = true };
+        var scrim = FindScrim(sheet);
+        Assert.NotNull(scrim);
+        Assert.False(scrim!.IsVisible);
+
+        sheet.CurrentState = SheetState.HalfExpanded;
+        Assert.True(scrim.IsVisible);
+        Assert.False(scrim.InputTransparent);
+
+        sheet.CurrentState = SheetState.Collapsed;
+        Assert.False(scrim.IsVisible);
+        Assert.True(scrim.InputTransparent);
+    }
+
+    [Fact]
+    public void Scrim_HasTapToCollapseRecognizer()
+    {
+        var sheet = new BottomSheet { IsScrimEnabled = true };
+        var scrim = FindScrim(sheet);
+        Assert.Single(scrim!.GestureRecognizers);
+        Assert.IsType<TapGestureRecognizer>(scrim.GestureRecognizers[0]);
+    }
+
+    private static Border? FindScrim(BottomSheet sheet)
+        => sheet.Content is Grid grid
+            ? grid.Children.OfType<Border>().FirstOrDefault()
+            : null;
 }

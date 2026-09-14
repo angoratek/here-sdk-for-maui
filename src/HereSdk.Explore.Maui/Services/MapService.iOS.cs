@@ -115,6 +115,8 @@ public partial class MapService
         if (_mapBridgeView is null) throw new InvalidOperationException("MapService not initialized.");
         var vertices = polyline.Vertices.Select(v => v.ToiOS()).ToArray();
         var color = ColorFromHex(polyline.Color);
+        // polyline.Cap has no iOS bridge surface — the NativeBridge always
+        // renders round caps, so it's ignored here.
         var iosPolyline = new HereMapPolyline(vertices, color, polyline.WidthInPixels);
         iosPolyline.AddToMapView(_mapBridgeView);
         _polylines[polyline] = iosPolyline;
@@ -135,7 +137,10 @@ public partial class MapService
         if (_mapBridgeView is null) throw new InvalidOperationException("MapService not initialized.");
         var vertices = polygon.Vertices.Select(v => v.ToiOS()).ToArray();
         var fillColor = ColorFromHex(polygon.FillColor);
-        var iosPolygon = new HereMapPolygon(vertices, fillColor);
+        var iosPolygon = polygon.StrokeWidthInPixels > 0
+            ? new HereMapPolygon(vertices, fillColor,
+                ColorFromHex(polygon.StrokeColor), polygon.StrokeWidthInPixels)
+            : new HereMapPolygon(vertices, fillColor);
         iosPolygon.AddToMapView(_mapBridgeView);
         _polygons[polygon] = iosPolygon;
     }
@@ -213,7 +218,12 @@ public partial class MapService
         var vertices = CircleGeometryHelper.GenerateCircleVertices(circle.Center, circle.RadiusInMeters);
         var iosVertices = vertices.Select(v => v.ToiOS()).ToArray();
         var fillColor = ColorFromHex(circle.FillColor);
-        var iosPolygon = new HereMapPolygon(iosVertices, fillColor);
+        // Circles are polygon approximations, so the outline works through
+        // the same outline-taking polygon ctor.
+        var iosPolygon = circle.StrokeWidthInPixels > 0
+            ? new HereMapPolygon(iosVertices, fillColor,
+                ColorFromHex(circle.StrokeColor), circle.StrokeWidthInPixels)
+            : new HereMapPolygon(iosVertices, fillColor);
         iosPolygon.AddToMapView(_mapBridgeView);
         _circles[circle] = iosPolygon;
     }

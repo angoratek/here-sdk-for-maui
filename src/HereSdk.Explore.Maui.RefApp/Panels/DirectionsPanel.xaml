@@ -47,7 +47,8 @@
                     <CollectionView Grid.Row="1" Grid.Column="1"
                                     ItemsSource="{Binding OriginSuggestions}"
                                     IsVisible="{Binding HasOriginSuggestions}"
-                                    HeightRequest="120" SelectionMode="Single">
+                                    HeightRequest="{Binding OriginSuggestions, Converter={StaticResource SuggestionHeight}, ConverterParameter='34,120'}"
+                                    SelectionMode="Single">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Suggestion">
                                 <Grid Padding="8,6" ColumnDefinitions="Auto,*" ColumnSpacing="10">
@@ -79,9 +80,9 @@
                                 VerticalOptions="Center" />
                     </Grid>
 
-                    <!-- Destination -->
+                    <!-- Destination (square dot distinguishes it from the circular origin) -->
                     <Border Grid.Row="3" Grid.Column="0" WidthRequest="12" HeightRequest="12"
-                            StrokeShape="RoundRectangle 6" StrokeThickness="0"
+                            StrokeShape="RoundRectangle 3" StrokeThickness="0"
                             BackgroundColor="{StaticResource Primary}"
                             VerticalOptions="Center" HorizontalOptions="Center" Margin="4,0,0,0" />
                     <Entry Grid.Row="3" Grid.Column="1"
@@ -97,7 +98,8 @@
             <Border Style="{StaticResource CardBorder}" Padding="4"
                     IsVisible="{Binding HasDestinationSuggestions}">
                 <CollectionView ItemsSource="{Binding DestinationSuggestions}"
-                                HeightRequest="120" SelectionMode="Single">
+                                HeightRequest="{Binding DestinationSuggestions, Converter={StaticResource SuggestionHeight}, ConverterParameter='36,120'}"
+                                SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Suggestion">
                             <Grid Padding="10,8" ColumnDefinitions="Auto,*" ColumnSpacing="10">
@@ -136,17 +138,7 @@
                     Style="{StaticResource MapFloatingButton}"
                     AutomationId="DirectionsIsolineButton"
                     Command="{Binding ToggleIsolineModeCommand}"
-                    Text="{Binding IsIsolineMode, Converter={StaticResource InverseBool}}">
-                <Button.Triggers>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsIsolineMode}" Value="False">
-                        <Setter Property="Text" Value="&#xe39e;" />
-                        <Setter Property="Style" Value="{StaticResource MapFloatingButton}" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsIsolineMode}" Value="True">
-                        <Setter Property="Text" Value="&#xe55f;" />
-                    </DataTrigger>
-                </Button.Triggers>
-            </Button>
+                    Text="{Binding IsolineButtonGlyph}" />
 
             <!-- Traffic on route -->
             <Button FontFamily="MaterialIcons" Text="&#xe565;" FontSize="18"
@@ -199,6 +191,7 @@
                                IsVisible="{Binding RouteError.Length}" AutomationId="RouteErrorLabel" />
 
                         <!-- Maneuver timeline -->
+                        <Border Style="{StaticResource SheetCardBorder}" Padding="8">
                         <CollectionView ItemsSource="{Binding Maneuvers}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="routing:Section">
@@ -240,6 +233,7 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                        </Border>
                     </VerticalStackLayout>
                 </ScrollView>
             </local:BottomSheet.SheetContent>
@@ -247,7 +241,7 @@
 
         <!-- Empty state -->
         <local:EmptyStateView Grid.Row="0"
-                               Icon="🛣"
+                               Icon="&#xe52e;"
                                Title="{Binding EmptyStateTitle}"
                                Subtitle="{Binding EmptyStateSubtitle}" />
 

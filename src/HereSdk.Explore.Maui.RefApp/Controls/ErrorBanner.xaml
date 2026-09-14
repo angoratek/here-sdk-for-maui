@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ext="clr-namespace:Here.Explore.Maui.RefApp.Extensions"
              x:Class="Here.Explore.Maui.RefApp.Controls.ErrorBanner"
              x:Name="Banner">
     <Border Style="{StaticResource CardBorder}"
-            BackgroundColor="{AppThemeBinding Light=#FFF3CD, Dark=#332D00}"
-            StrokeShape="RoundRectangle 8" StrokeThickness="0"
+            BackgroundColor="{ext:Themed BannerErrorBg}"
+            StrokeShape="RoundRectangle 12" StrokeThickness="0"
             Padding="12,10">
         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-            <Label Grid.Column="0" Text="&#x26A0;" FontSize="18"
+            <Label Grid.Column="0" Text="&#xe001;" FontFamily="MaterialIcons" FontSize="18"
+                   TextColor="{ext:Themed BannerErrorText}"
                    VerticalOptions="Center" />
             <Label Grid.Column="1" FontSize="13"
                    VerticalOptions="Center"
                    Text="{Binding Source={x:Reference Banner}, Path=ErrorMessage}"
-                   TextColor="{AppThemeBinding Light=#856404, Dark=#FFE69C}" />
+                   TextColor="{ext:Themed BannerErrorText}" />
             <Button Grid.Column="2" x:Name="RetryButton"
                     Text="{Binding Source={x:Reference Banner}, Path=RetryText}"
-                    FontSize="12"
+                    FontSize="12" FontFamily="InterSemiBold"
                     Command="{Binding Source={x:Reference Banner}, Path=RetryCommand}"
-                    BackgroundColor="{AppThemeBinding Light=#856404, Dark=#FFE69C}"
-                    TextColor="{AppThemeBinding Light=White, Dark=#332D00}"
-                    CornerRadius="12" HeightRequest="28"
+                    BackgroundColor="{ext:Themed BannerErrorText}"
+                    TextColor="White"
+                    CornerRadius="14" HeightRequest="28"
                     MinimumWidthRequest="60"
                     VerticalOptions="Center" />
         </Grid>

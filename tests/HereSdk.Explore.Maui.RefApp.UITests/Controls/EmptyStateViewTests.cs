@@ -6,10 +6,10 @@ namespace Here.Explore.Maui.RefApp.UITests.Controls;
 public class EmptyStateViewTests
 {
     [Fact]
-    public void DefaultIcon_IsMailboxEmoji()
+    public void DefaultIcon_IsMaterialNearMeGlyph()
     {
         var view = new EmptyStateView();
-        Assert.Equal("\U0001f4ed", view.Icon);
+        Assert.Equal("\ue52e", view.Icon);
     }
 
     [Fact]
@@ -37,6 +37,6 @@ public class EmptyStateViewTests
     public void IconViaBindableProperty_DefaultValue()
     {
         var defaultValue = EmptyStateView.IconProperty.DefaultValue;
-        Assert.Equal("\U0001f4ed", defaultValue);
+        Assert.Equal("\ue52e", defaultValue);
     }
 }

@@ -49,7 +49,7 @@ builder.UseHereSdkExplore(new HereSdkOptions
 ### 3. Add the map to your XAML
 
 ```xml
-<xmlns:here="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
+xmlns:here="clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui"
 
 <here:HereMapView
     x:Name="Map"
@@ -75,37 +75,29 @@ var location = await locationService.GetCurrentLocationAsync();
 
 ## Reference App
 
-The included reference app (`HereSdk.Explore.Maui.RefApp`) demonstrates:
+The included reference app (`HereSdk.Explore.Maui.RefApp`) shows the library end-to-end: one shared map with overlay panels switched by a bottom tab bar, so routes, markers, and traffic drawn on one panel stay visible on all others.
 
-- **Explore** — Text and category search with autocomplete suggestions, place details card
+- **Explore** — Text and category search with autocomplete suggestions, reverse-geocode place card on map tap
 - **Directions** — Dual-input origin/destination routing with transport mode picker (car, truck, pedestrian, etc.), maneuver list, and isoline mode
 - **Traffic** — Real-time traffic flow overlay with jam-factor color legend, incident list with severity indicators
-- **Tools** — Drawing tools (Marker, Polyline, Polygon, Circle) added via tap gestures on the map, demo gallery presets, map style switching (5 schemes), dark mode toggle
+- **Tools** — Drawing tools (Marker, Polyline, Polygon, Circle) added via tap gestures on the map, demo gallery presets, map style switching (5 schemes), dark mode toggle, Reset Map
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────┐
-│           HereSdk.Explore.Maui              │
-│     Unified idiomatic C# API               │
-│  (Models, Services, Controls, Handlers)     │
-└──────────┬──────────────────┬───────────────┘
-           │                  │
-  ┌────────▼────────┐  ┌─────▼──────────────┐
-  │  Android Binding │  │  iOS Binding         │
-  │  (AAR → C#)     │  │  (NativeBridge →    │
-  │                  │  │   Sharpie → C#)      │
-  └────────┬────────┘  └─────┬───────────────┘
-           │                  │
-  ┌────────▼────────┐  ┌─────▼──────────────┐
-  │  HERE Android    │  │  NativeBridge Swift  │
-  │  SDK (AAR)       │  │  wrapper framework   │
-  │                  │  └─────┬───────────────┘
-  │                  │        │
-  │                  │  ┌─────▼──────────────┐
-  │                  │  │  HERE iOS SDK        │
-  │                  │  │  (Swift-only)        │
-  └──────────────────┘  └─────────────────────┘
+```mermaid
+flowchart TD
+    MAUI["HereSdk.Explore.Maui<br/>Unified idiomatic C# API<br/>(Models, Services, Controls, Handlers)"]
+    AND["Android Binding<br/>(AAR → C#)"]
+    IOS["iOS Binding<br/>(NativeBridge → Sharpie → C#)"]
+    AAR["HERE Android SDK (AAR)"]
+    NB["NativeBridge Swift wrapper framework"]
+    SWIFT["HERE iOS SDK (Swift-only)"]
+
+    MAUI --> AND
+    MAUI --> IOS
+    AND --> AAR
+    IOS --> NB
+    NB --> SWIFT
 ```
 
 ### NuGet Packages
@@ -217,7 +209,6 @@ here-sdk-for-maui/
 │   ├── HereSdk.Explore.Maui.UITests/          # NUnit Appium Android smoke tests
 │   └── HereSdk.Explore.Maui.DeviceTests/      # Platform device tests
 ├── scripts/                                    # Build, test, pack, docs scripts
-├── plan/                                       # Design documents
 ├── docs/                                       # DocFX site (rendered to /site by DocFX)
 ├── Version.props                               # Centralized version numbers
 └── tmp/                                        # SDK archives (gitignored; use HERE_SDK_CACHE)

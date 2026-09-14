@@ -95,7 +95,8 @@ public class HereMapMarker: NSObject {
             inner.addLine(to: CGPoint(x: headCenter.x + 6.5, y: headCenter.y + 8))
             inner.closeSubpath()
             cg.addPath(inner)
-            UIColor(red: 0.90, green: 0.22, blue: 0.18, alpha: 1).setFill()
+            // Coral #FF385C — the brand accent, same color as the Android pin.
+            UIColor(red: 1.0, green: 0.22, blue: 0.36, alpha: 1).setFill()
             cg.fillPath()
 
             // White inner dot.

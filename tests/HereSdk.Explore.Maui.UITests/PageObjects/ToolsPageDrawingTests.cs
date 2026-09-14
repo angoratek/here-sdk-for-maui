@@ -4,17 +4,21 @@ namespace Here.Explore.Maui.UITests.PageObjects;
 
 /// <summary>
 /// Tests for the Tools page drawing tools and Demo Gallery. Taps each
-/// drawing tool button and asserts no error appears. The drawing tools
-/// are now visible by default (CurrentState="FullyExpanded" on
-/// <c>ToolsSheet</c>) — this test is the regression guard against
-/// the page landing in a near-empty collapsed sheet.
+/// drawing tool button and asserts no error appears. The floating drawing
+/// toolbar is visible only in map mode (sheet collapsed), so the fixture
+/// collapses the sheet first — this is also the regression guard that the
+/// toolbar is reachable from the sheet's resting (half-expanded) state.
 /// </summary>
 public class ToolsPageDrawingTests : BaseTest
 {
     private const string NotInitializedSignature = "not initialized";
 
     [SetUp]
-    public void NavigateToTools() => NavigateToTab("Tools");
+    public void NavigateToTools()
+    {
+        NavigateToTab("Tools");
+        CollapseToolsSheet();
+    }
 
     [Test]
     public void TapMarkerButton_DoesNotError()
@@ -51,10 +55,26 @@ public class ToolsPageDrawingTests : BaseTest
         // shared across panels (ExploreMapView) and asserted there.
         // (Tapping a scheme chip is tested in ToolsPageSchemeTests.)
         Assert.That(FindUIElement("ToolsMarkerButton").Displayed, Is.True,
-            "ToolsMarkerButton should be visible (sheet is fully expanded by default)");
+            "ToolsMarkerButton should be visible in map mode (sheet collapsed)");
         // ToolsClearAllButton is intentionally not asserted: it is
         // IsVisible=false until a drawing exists, so it is not in the
         // Android accessibility tree and a lookup would throw.
+    }
+
+    [Test]
+    public void PickTool_ShowsHintAndCollapsesSheet()
+    {
+        // Drawing flow: picking a tool activates the session over the map
+        // (the fixture already collapsed the sheet into map mode) and shows
+        // the floating hint pill with Undo/Done/Cancel.
+        FindUIElement("ToolsMarkerButton").Click();
+        Screenshot("PickTool_ShowsHintAndCollapsesSheet");
+
+        Assert.That(WaitForUIElement("ToolsDrawingHint", 5).Displayed, Is.True,
+            "Drawing hint pill did not appear after picking a tool");
+
+        // Clean up: cancel the session so later tests start idle.
+        FindUIElement("ToolsCancelButton").Click();
     }
 
     private void TapDrawingTool(string buttonId)

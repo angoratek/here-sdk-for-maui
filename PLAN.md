@@ -2,7 +2,7 @@
 
 > Single living plan document. Consolidates the former `plan/gap-analysis.md` and
 > `plan/07-public-release-gaps.md` (removed 2026-09-01 — history preserved in git).
-> Last refreshed 2026-09-01 against `main`.
+> Last refreshed 2026-09-13 against `main`.
 
 ## Current State
 
@@ -11,10 +11,10 @@
 | Android binding | Full AAR binding; known unified-wrap gaps: `AddMapMarker3D` stub throws, `RemoveMapMarkerCluster` removes ALL markers (destructive), `MapDoubleTapped` listener never wired |
 | iOS NativeBridge | xcframework built; Map, Search, Routing, Traffic, **Isoline** engines exposed |
 | MAUI library | 58 of 361 cross-platform API types (~16%), core services complete |
-| Ref app | 5 pages, 5 VMs (+ViewModelBase), 7 controls, 7 converters; 2026-09-01 Airbnb-style polish pass applied |
-| Unit tests | 225+ passing (net10.0, no device) |
-| RefApp UI tests | 201+ passing (ViewModel commands + state transitions + error/empty states) |
-| Appium smoke | 33 NUnit tests on Android emulator (iOS XCUITest driver supported) |
+| Ref app | One shared map (`MapHomePage`) with 4 overlay panels + custom tab bar; 5 VMs (+ViewModelBase), 7 controls, 7 converters; panel restructure 2026-09-13 |
+| Unit tests | 261 passing (net10.0, no device) |
+| RefApp UI tests | 212 passing (ViewModel commands + state transitions + error/empty states) |
+| Appium smoke | 37 NUnit tests on Android emulator, green locally (iOS XCUITest driver supported) |
 | Device tests | ~180 tests across 10 files (Android builds clean, iOS blocked by AOT/env) |
 | Version | 4.25.5.0 GA |
 | Docs | README, docs/getting-started.md, CHANGELOG, XML docs, DocFX site |
@@ -58,15 +58,31 @@
   relaunch), stale place-card dismissal race fixed in `TapMapForPlaceCard`, bounded
   TerminateApp→ActivateApp restarts (2s sleep between, else "failed to complete startup" ANR),
   reverse-geocode failures now logged via REFAPP_DIAG, screenshot upload path corrected.
+- **RefApp single shared map (2026-09-13)**: one `HereMapView` in `MapHomePage` behind 4 overlay
+  panels + custom bottom tab bar (`PanelNavigationService`); per-tab private maps removed —
+  drawn objects now persist across tab switches; map-tap gated by active panel; Reset Map in
+  Tools; suggestion dropdowns dismiss on selection/map tap (debounce-cancel + suppress flags).
+- **Appium place-card journey CI-green (2026-09-13/14)**: three CI-only failures fixed — stale
+  `.Text` reads (`GetTextStaleSafe` retry), swallowed CTA tap during sheet collapse
+  (`WaitForDirectionsPanelAfterCta` re-tap) + `adb emu geo fix` on the fresh AVD, and ungranted
+  runtime permissions (`adb install -r -g`; uiautomator2 autoGrantPermissions only applies when
+  Appium installs the app). Suite now 36/36 in CI.
 
-## Active Work: RefApp UX polish (continued)
+## Active Work: RefApp UX polish round 2 (Airbnb-style)
 
-- [x] Top safe-area margin — MAUI already applies the iOS safe-area inset, so the 60px top
-      margin doubled it (~120px gap). `TopSafeMargin` iOS top reduced to 8. Verify on both
-      platforms (screenshots) that the search bar sits tight under the status bar.
-- [x] Loading overlays — full-screen dark scrim replaced by a centered rounded pill
-      (spinner + label, themed, soft shadow, `InputTransparent` so the map stays
-      interactive) on Explore, Directions, and Traffic pages.
+Phases 0–5 implemented (2026-09-14): token foundation (`Themed` markup extension, implicit
+styles, dark-mode-reactive code-built controls), BottomSheet chrome + scrim + body-drag,
+drawn-object visuals (coral palette via `DrawingPalette`, polygon/circle outlines, polyline
+cap, branded `marker_pin`), and the drawing-UX redesign (floating toolbar with Undo/Done/
+Cancel, multi-drop markers, per-object delete list, sheet auto-collapse). Panel polish:
+ErrorBanner/EmptyStateView/MapStylePicker tokens + Material glyphs, tab-bar hairline +
+shadow, auto-height suggestion dropdowns, VM properties replacing text-converter hacks
+(`HasSearchQuery`, `IsolineButtonGlyph`). Suites: 264 unit + 224 in-process + 37 Appium green
+(2026-09-14). BottomSheet drag reworked onto PointerGestureRecognizer: Android's pan pipeline
+delivers two Running events per move, stalls TotalY once the finger leaves the view bounds, and
+suppresses pointer events when attached alongside them — the sheet now snaps from absolute
+pressed/released positions (snap-at-release instead of live follow). Manual visual pass
+light+dark done on Android emulator (all four tabs); iOS pass pending.
 
 ## Backlog
 

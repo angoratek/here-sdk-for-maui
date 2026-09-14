@@ -4,12 +4,12 @@ public class JamFactorToColorConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
-        if (value is not double jamFactor) return Color.FromArgb("#34C759");
+        if (value is not double jamFactor) return TokenColor.Get("TrafficFreeFlow", Color.FromArgb("#2FBF71"));
         return jamFactor switch
         {
-            < 4 => Color.FromArgb("#34C759"),   // Free flow
-            < 7 => Color.FromArgb("#FFCC02"),   // Moderate
-            _   => Color.FromArgb("#FF3B30"),   // Heavy
+            < 4 => TokenColor.Get("TrafficFreeFlow", Color.FromArgb("#2FBF71")),
+            < 7 => TokenColor.Get("TrafficModerate", Color.FromArgb("#F5C518")),   // Moderate
+            _   => TokenColor.Get("TrafficHeavy", Color.FromArgb("#FF385C")),      // Heavy
         };
     }
 

@@ -1,5 +1,7 @@
 using System.Windows.Input;
 
+using Here.Explore.Maui.RefApp.Extensions;
+
 namespace Here.Explore.Maui.RefApp.Controls;
 
 public partial class BottomSheet : Border
@@ -32,11 +34,21 @@ public partial class BottomSheet : Border
         BindableProperty.Create(nameof(HeaderContent), typeof(View), typeof(BottomSheet),
             propertyChanged: (b, _, v) => ((BottomSheet)b)._headerSlot.Content = (View)v);
 
+    public static readonly BindableProperty BodyDragEnabledProperty =
+        BindableProperty.Create(nameof(BodyDragEnabled), typeof(bool), typeof(BottomSheet), false,
+            propertyChanged: (b, _, v) => ((BottomSheet)b).OnBodyDragEnabledChanged((bool)v));
+
+    public static readonly BindableProperty IsScrimEnabledProperty =
+        BindableProperty.Create(nameof(IsScrimEnabled), typeof(bool), typeof(BottomSheet), false,
+            propertyChanged: (b, _, _) => ((BottomSheet)b).UpdateSheetLayout());
+
     private readonly Grid _rootGrid;
     private readonly ContentView _headerSlot;
     private readonly ContentView _contentSlot;
-    private double _dragStartY;
-    private double _sheetStartY;
+    private readonly Border _scrim;
+    // Pointer pressed/released positions are the authoritative drag signal.
+    private double _pressY;
+    private bool _pressActive;
     private double _availableHeight;
     private double _deviceHeight;
 
@@ -76,21 +88,80 @@ public partial class BottomSheet : Border
         set => SetValue(HeaderContentProperty, value);
     }
 
+    /// <summary>
+    /// Also attach the drag gesture to the sheet body, not just the handle
+    /// and header. Opt-in: a container-level pan recognizer fights the
+    /// scroll gesture on Android, so only enable it for sheets whose body
+    /// is short (e.g. the Explore place-card sheet).
+    /// </summary>
+    public bool BodyDragEnabled
+    {
+        get => (bool)GetValue(BodyDragEnabledProperty);
+        set => SetValue(BodyDragEnabledProperty, value);
+    }
+
+    /// <summary>
+    /// Shows a dim scrim over the sheet's own footprint while expanded;
+    /// tapping it collapses the sheet.
+    /// </summary>
+    public bool IsScrimEnabled
+    {
+        get => (bool)GetValue(IsScrimEnabledProperty);
+        set => SetValue(IsScrimEnabledProperty, value);
+    }
+
     public BottomSheet()
     {
+        // Sheet chrome — the control owns its own surface so the panels
+        // don't have to hand-roll backgrounds, radius, or shadows.
+        StrokeThickness = 0;
+        StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle
+        {
+            CornerRadius = new CornerRadius(20, 20, 0, 0)
+        };
+        Padding = 0;
+        var (surfaceLight, surfaceDark) = Application.Current.GetThemedPair("Surface", "SurfaceDark");
+        this.SetAppThemeColor(BackgroundColorProperty, surfaceLight, surfaceDark);
+        var (shadowLight, shadowDark) = Application.Current.GetThemedPair("ShadowColor", "ShadowColorDark");
+        Shadow = new Shadow
+        {
+            Offset = new Point(0, -2),
+            Radius = 16,
+            // Shadow brush is resolved per current theme at construction; a
+            // live shadow re-tint on dark-mode flip is not worth an event
+            // subscription.
+            Brush = new SolidColorBrush(Application.Current?.RequestedTheme == AppTheme.Dark ? shadowDark : shadowLight)
+        };
+
+        // Handle: small visual bar inside a ≥36dp-tall touch target, so
+        // dragging (and Appium handle taps) are reliable.
         var handle = new BoxView
         {
             HeightRequest = 4,
-            WidthRequest = 44,
+            WidthRequest = 36,
             CornerRadius = 2,
             HorizontalOptions = LayoutOptions.Center,
-            Margin = new Thickness(0, 10, 0, 6)
+            VerticalOptions = LayoutOptions.Center
         };
         handle.SetAppThemeColor(BoxView.ColorProperty, Color.FromArgb("#E1E1E4"), Color.FromArgb("#48484A"));
 
-        var panGesture = new PanGestureRecognizer();
-        panGesture.PanUpdated += OnPanUpdated;
-        handle.GestureRecognizers.Add(panGesture);
+        var handleRow = new Grid { HeightRequest = 36, Padding = new Thickness(0, 6, 0, 2) };
+        handleRow.Children.Add(handle);
+
+        // Drag handling uses a PointerGestureRecognizer only. A
+        // PanGestureRecognizer cannot be used for the snap decision on
+        // Android: its cumulative TotalY stalls once the finger leaves the
+        // view's bounds (a 600px drag past the sheet edge tracks as ~120px)
+        // and it fires two Running events per move, and attaching one
+        // alongside a pointer recognizer suppresses the pointer events
+        // entirely. Pointer Pressed/Released positions are absolute and
+        // bounds-independent — the cost is that the sheet snaps at release
+        // instead of following the finger live (pointer Moved never fires
+        // for touch on Android).
+        AttachDragHandlers(handleRow);
+
+        // Dragging from the header row too (title area) — same handlers,
+        // own recognizer instance (attached below, after _headerSlot).
 
         // On iOS, the first navigation to a page hosting this BottomSheet can
         // land before OnSizeAllocated gets a real parent height, leaving the
@@ -117,6 +188,13 @@ public partial class BottomSheet : Border
         _headerSlot = new ContentView();
         _contentSlot = new ContentView();
 
+        _scrim = new Border { IsVisible = false, InputTransparent = true };
+        var scrimColor = Application.Current.GetThemedPair("Scrim", "Scrim").Light;
+        _scrim.BackgroundColor = scrimColor;
+        var scrimTap = new TapGestureRecognizer();
+        scrimTap.Tapped += (_, _) => CurrentState = SheetState.Collapsed;
+        _scrim.GestureRecognizers.Add(scrimTap);
+
         _rootGrid = new Grid
         {
             RowDefinitions =
@@ -127,10 +205,14 @@ public partial class BottomSheet : Border
             }
         };
 
-        Grid.SetRow(handle, 0);
-        _rootGrid.Children.Add(handle);
+        _rootGrid.Children.Add(_scrim);
+        Grid.SetRowSpan(_scrim, 3);
+
+        Grid.SetRow(handleRow, 0);
+        _rootGrid.Children.Add(handleRow);
 
         Grid.SetRow(_headerSlot, 1);
+        AttachDragHandlers(_headerSlot);
         _rootGrid.Children.Add(_headerSlot);
 
         Grid.SetRow(_contentSlot, 2);
@@ -193,67 +275,84 @@ public partial class BottomSheet : Border
 
     private static void OnStateChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        ((BottomSheet)bindable).UpdateSheetLayout();
+        var sheet = (BottomSheet)bindable;
+        // Scrim visibility is cheap and synchronous — apply it immediately so
+        // state changes are observable without waiting for the async layout
+        // path (which awaits when no parent height is available, e.g. in
+        // unit tests).
+        sheet.UpdateScrim();
+        sheet.UpdateSheetLayout();
     }
 
-    private void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
+    private void UpdateScrim()
     {
-        switch (e.StatusType)
+        if (_scrim is null)
         {
-            case GestureStatus.Started:
-                _dragStartY = e.TotalY;
-                _sheetStartY = this.TranslationY;
-                this.CancelAnimations();
-                break;
-
-            case GestureStatus.Running:
-                var deltaY = e.TotalY - _dragStartY;
-                var newY = _sheetStartY + deltaY;
-                var maxY = GetTargetTranslation(SheetState.Collapsed);
-                var minY = GetTargetTranslation(SheetState.FullyExpanded);
-                newY = Math.Clamp(newY, minY, maxY);
-                this.TranslationY = newY;
-                break;
-
-            case GestureStatus.Completed:
-            case GestureStatus.Canceled:
-                var velocity = e.TotalY;
-                var state = DetermineSnapState(velocity);
-                CurrentState = state;
-                break;
+            return;
         }
+        var showScrim = IsScrimEnabled && CurrentState != SheetState.Collapsed;
+        _scrim.IsVisible = showScrim;
+        _scrim.InputTransparent = !showScrim;
     }
 
-    private SheetState DetermineSnapState(double velocityY)
+    private void AttachDragHandlers(View target)
     {
-        var currentY = this.TranslationY;
+        var drag = new PointerGestureRecognizer();
+        drag.PointerPressed += OnDragPointerPressed;
+        drag.PointerReleased += OnDragPointerReleased;
+        target.GestureRecognizers.Add(drag);
+    }
+
+    private void OnDragPointerPressed(object? sender, PointerEventArgs e)
+    {
+        var y = e.GetPosition(null)?.Y;
+        if (y is null) return;
+        _pressY = y.Value;
+        _pressActive = true;
+        this.CancelAnimations();
+    }
+
+    private void OnDragPointerReleased(object? sender, PointerEventArgs e)
+    {
+        if (!_pressActive) return;
+        _pressActive = false;
+        var y = e.GetPosition(null)?.Y;
+        if (y is null) return;
+        CurrentState = DetermineSnapState(y.Value - _pressY);
+    }
+
+    /// <summary>
+    /// Snaps to the state nearest to where the finger released. When the
+    /// nearest state is the one the drag started from but the finger still
+    /// travelled a deliberate distance, advance one state in the drag
+    /// direction (flick responsiveness — pointer events carry no velocity).
+    /// </summary>
+    private SheetState DetermineSnapState(double dragDelta)
+    {
+        var minY = GetTargetTranslation(SheetState.FullyExpanded);
+        var maxY = GetTargetTranslation(SheetState.Collapsed);
+        var start = GetTargetTranslation(CurrentState);
+        var releasedY = Math.Clamp(start + dragDelta, minY, maxY);
+
         var collapsedY = GetTargetTranslation(SheetState.Collapsed);
         var halfY = GetTargetTranslation(SheetState.HalfExpanded);
         var fullY = GetTargetTranslation(SheetState.FullyExpanded);
 
-        if (velocityY < -30)
-            return CurrentState switch
-            {
-                SheetState.Collapsed => SheetState.HalfExpanded,
-                SheetState.HalfExpanded => SheetState.FullyExpanded,
-                _ => SheetState.FullyExpanded
-            };
+        var distCollapsed = Math.Abs(releasedY - collapsedY);
+        var distHalf = Math.Abs(releasedY - halfY);
+        var distFull = Math.Abs(releasedY - fullY);
 
-        if (velocityY > 30)
-            return CurrentState switch
-            {
-                SheetState.FullyExpanded => SheetState.HalfExpanded,
-                SheetState.HalfExpanded => SheetState.Collapsed,
-                _ => SheetState.Collapsed
-            };
+        var nearest = distCollapsed < distHalf && distCollapsed < distFull ? SheetState.Collapsed
+            : distHalf < distFull ? SheetState.HalfExpanded
+            : SheetState.FullyExpanded;
 
-        var distCollapsed = Math.Abs(currentY - collapsedY);
-        var distHalf = Math.Abs(currentY - halfY);
-        var distFull = Math.Abs(currentY - fullY);
-
-        if (distCollapsed < distHalf && distCollapsed < distFull) return SheetState.Collapsed;
-        if (distHalf < distFull) return SheetState.HalfExpanded;
-        return SheetState.FullyExpanded;
+        if (nearest == CurrentState && Math.Abs(dragDelta) >= 60)
+        {
+            return dragDelta < 0
+                ? (CurrentState == SheetState.Collapsed ? SheetState.HalfExpanded : SheetState.FullyExpanded)
+                : (CurrentState == SheetState.FullyExpanded ? SheetState.HalfExpanded : SheetState.Collapsed);
+        }
+        return nearest;
     }
 
     private double GetTargetTranslation(SheetState state)
@@ -277,7 +376,11 @@ public partial class BottomSheet : Border
         // times for a real parent height, and fall back to the cached
         // DeviceDisplay height so the sheet always snaps to its target
         // state instead of staying collapsed.
-        if (_availableHeight <= 0)
+        // A null parent means the sheet is not attached to a visual tree
+        // (unit-test construction) — there is nothing to poll for, so fall
+        // back synchronously instead of leaving an async continuation that
+        // would mutate HeightRequest off the caller's thread.
+        if (_availableHeight <= 0 && Parent is not null)
         {
             for (var i = 0; i < 10; i++)
             {
@@ -314,6 +417,23 @@ public partial class BottomSheet : Border
         if (_contentSlot is not null)
         {
             _contentSlot.IsVisible = CurrentState != SheetState.Collapsed;
+        }
+
+        UpdateScrim();
+    }
+
+    private void OnBodyDragEnabledChanged(bool enabled)
+    {
+        if (_rootGrid is null) return;
+        var existing = _rootGrid.GestureRecognizers.OfType<PointerGestureRecognizer>().ToList();
+        if (enabled && existing.Count == 0)
+        {
+            AttachDragHandlers(_rootGrid);
+        }
+        else if (!enabled)
+        {
+            foreach (var g in existing)
+                _rootGrid.GestureRecognizers.Remove(g);
         }
     }
 }

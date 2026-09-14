@@ -36,11 +36,11 @@ public partial class MapStylePicker : Border
 
     public List<MapSchemeItem> MapSchemes { get; } = new()
     {
-        new(MapScheme.NormalDay, "Normal Day", "☀️"),
-        new(MapScheme.NormalNight, "Normal Night", "🌙"),
-        new(MapScheme.HybridDay, "Hybrid Day", "🛰️"),
-        new(MapScheme.SatelliteDay, "Satellite", "🌍"),
-        new(MapScheme.TerrainDay, "Terrain", "🏔"),
+        new(MapScheme.NormalDay, "Normal Day", "\ue430"),      // wb_sunny
+        new(MapScheme.NormalNight, "Normal Night", "\uf03c"),  // dark_mode
+        new(MapScheme.HybridDay, "Hybrid Day", "\ue1ac"),      // satellite_alt
+        new(MapScheme.SatelliteDay, "Satellite", "\ue2ea"),    // public
+        new(MapScheme.TerrainDay, "Terrain", "\ue53b"),        // terrain
     };
 
     public ICommand ToggleDropdownCommand { get; }

@@ -18,6 +18,8 @@ public partial class ToolsViewModel : ViewModelBase
     [ObservableProperty] private DrawingTool _currentDrawingTool = DrawingTool.None;
     [ObservableProperty] private string _drawingHint = "";
     [ObservableProperty] private int _drawingPointCount;
+    [ObservableProperty] private bool _canFinish;
+    [ObservableProperty] private bool _canUndo;
 
     public bool IsDrawingActive => CurrentDrawingTool != DrawingTool.None;
 
@@ -26,12 +28,20 @@ public partial class ToolsViewModel : ViewModelBase
     private MapPolygon? _drawingPreviewPolygon;
     private MapCircle? _drawingPreviewCircle;
     private MapMarker? _drawingCenterMarker;
+    // Markers placed in the current marker session (one per tap), aligned
+    // with the marker entries in _drawingPoints so Undo can remove them.
+    private readonly List<MapMarker> _sessionMarkers = new();
 
     // --- Map objects ---
     private readonly List<MapMarker> _userMarkers = new();
     private readonly List<MapPolyline> _userPolylines = new();
     private readonly List<MapPolygon> _userPolygons = new();
     private readonly List<MapCircle> _userCircles = new();
+
+    /// <summary>Objects currently on the map, listed in the Tools sheet's
+    /// "On map" section. Each row carries its own delete command.</summary>
+    public ObservableCollection<DrawingObjectVm> DrawingObjects { get; } = new();
+    private int _markerCount, _polylineCount, _polygonCount, _circleCount;
 
     // --- Demo gallery ---
     public ObservableCollection<DemoPreset> DemoPresets { get; } = new();
@@ -99,6 +109,25 @@ public partial class ToolsViewModel : ViewModelBase
     partial void OnCurrentDrawingToolChanged(DrawingTool value)
     {
         OnPropertyChanged(nameof(IsDrawingActive));
+        RefreshDrawingUi();
+    }
+
+    /// <summary>Minimum tap count before <see cref="FinishDrawing"/> can commit
+    /// the current tool's object (Marker 1, Polygon 3, others 2).</summary>
+    public static int MinPointsFor(DrawingTool tool) => tool switch
+    {
+        DrawingTool.None => 0,
+        DrawingTool.Marker => 1,
+        DrawingTool.Polygon => 3,
+        _ => 2
+    };
+
+    private void RefreshDrawingUi()
+    {
+        DrawingPointCount = _drawingPoints.Count;
+        CanFinish = CurrentDrawingTool != DrawingTool.None &&
+                    _drawingPoints.Count >= MinPointsFor(CurrentDrawingTool);
+        CanUndo = _drawingPoints.Count > 0;
     }
 
     partial void OnIsDarkModeChanged(bool value)
@@ -124,7 +153,7 @@ public partial class ToolsViewModel : ViewModelBase
             CancelDrawing();
             CurrentDrawingTool = tool;
             _drawingPoints.Clear();
-            DrawingPointCount = 0;
+            _sessionMarkers.Clear();
 
             DrawingHint = tool switch
             {
@@ -134,46 +163,108 @@ public partial class ToolsViewModel : ViewModelBase
                 DrawingTool.Circle => "Tap to set center, then tap again for radius",
                 _ => ""
             };
+
+            RefreshDrawingUi();
         }
     }
 
     [RelayCommand]
     private void FinishDrawing()
     {
-        var minPoints = CurrentDrawingTool == DrawingTool.Polygon ? 3 : 2;
+        // Below the minimum tap count there is nothing to commit — a no-op
+        // instead of silently discarding the drawn points.
+        if (!CanFinish) return;
 
-        if (CurrentDrawingTool == DrawingTool.Marker && _drawingPoints.Count >= 1)
+        switch (CurrentDrawingTool)
         {
-            var marker = new MapMarker(_drawingPoints[0]);
-            _mapService?.AddMapMarker(marker);
-            _userMarkers.Add(marker);
-        }
-        else if (CurrentDrawingTool == DrawingTool.Polyline && _drawingPoints.Count >= minPoints)
-        {
-            ClearPreview();
-            var polyline = new MapPolyline(new List<GeoCoordinates>(_drawingPoints), Color: 0xFF007AFF, WidthInPixels: 4);
-            _mapService?.AddMapPolyline(polyline);
-            _userPolylines.Add(polyline);
-        }
-        else if (CurrentDrawingTool == DrawingTool.Polygon && _drawingPoints.Count >= minPoints)
-        {
-            ClearPreview();
-            var polygon = new MapPolygon(new List<GeoCoordinates>(_drawingPoints), FillColor: 0x44007AFF);
-            _mapService?.AddMapPolygon(polygon);
-            _userPolygons.Add(polygon);
-        }
-        else if (CurrentDrawingTool == DrawingTool.Circle && _drawingPoints.Count >= 2)
-        {
-            ClearPreview();
-            var center = _drawingPoints[0];
-            var edge = _drawingPoints[1];
-            var radius = ComputeDistanceMeters(center, edge);
-            var circle = new MapCircle(center, radius, FillColor: 0x33007AFF, StrokeColor: 0xFF007AFF);
-            _mapService?.AddMapCircle(circle);
-            _userCircles.Add(circle);
+            case DrawingTool.Marker:
+                // Markers are placed (and listed) per tap; Done just ends the session.
+                break;
+
+            case DrawingTool.Polyline:
+                ClearPreview();
+                var polyline = new MapPolyline(new List<GeoCoordinates>(_drawingPoints), Color: DrawingPalette.Stroke, WidthInPixels: DrawingPalette.StrokeWidthPixels);
+                _mapService?.AddMapPolyline(polyline);
+                _userPolylines.Add(polyline);
+                AddDrawingObject(polyline, "Polyline", DrawingGlyph.Polyline);
+                UpdateObjectCount();
+                break;
+
+            case DrawingTool.Polygon:
+                ClearPreview();
+                var polygon = new MapPolygon(new List<GeoCoordinates>(_drawingPoints), FillColor: DrawingPalette.Fill);
+                _mapService?.AddMapPolygon(polygon);
+                _userPolygons.Add(polygon);
+                AddDrawingObject(polygon, "Polygon", DrawingGlyph.Polygon);
+                UpdateObjectCount();
+                break;
+
+            case DrawingTool.Circle:
+                ClearPreview();
+                var center = _drawingPoints[0];
+                var edge = _drawingPoints[1];
+                var radius = ComputeDistanceMeters(center, edge);
+                var circle = new MapCircle(center, radius, FillColor: DrawingPalette.Fill, StrokeColor: DrawingPalette.Stroke, StrokeWidthInPixels: DrawingPalette.CircleStrokeWidthPixels);
+                _mapService?.AddMapCircle(circle);
+                _userCircles.Add(circle);
+                AddDrawingObject(circle, "Circle", DrawingGlyph.Circle);
+                UpdateObjectCount();
+                break;
         }
 
         ResetDrawingState();
+    }
+
+    /// <summary>
+    /// Removes the last tapped point from the in-progress drawing (and, in
+    /// marker mode, the last placed marker). When nothing is left the session
+    /// is cancelled.
+    /// </summary>
+    [RelayCommand]
+    private void UndoLastPoint()
+    {
+        if (_drawingPoints.Count == 0)
+        {
+            CancelDrawing();
+            return;
+        }
+
+        _drawingPoints.RemoveAt(_drawingPoints.Count - 1);
+
+        switch (CurrentDrawingTool)
+        {
+            case DrawingTool.Marker:
+                if (_sessionMarkers.Count > 0)
+                {
+                    var last = _sessionMarkers[^1];
+                    _sessionMarkers.RemoveAt(_sessionMarkers.Count - 1);
+                    RemoveMarker(last);
+                }
+                break;
+
+            case DrawingTool.Polyline:
+            case DrawingTool.Polygon:
+                UpdatePreviewShape();
+                DrawingHint = _drawingPoints.Count >= 2
+                    ? $"Tap to add more. {_drawingPoints.Count} points. Double-tap to finish"
+                    : "Tap to add vertices. Double-tap to finish";
+                break;
+
+            case DrawingTool.Circle:
+                ClearPreview();
+                if (_drawingPoints.Count == 1)
+                {
+                    DrawingHint = "Now tap to set the circle radius";
+                }
+                else if (_drawingPoints.Count == 0)
+                {
+                    CancelDrawing();
+                    return;
+                }
+                break;
+        }
+
+        RefreshDrawingUi();
     }
 
     [RelayCommand]
@@ -213,6 +304,9 @@ public partial class ToolsViewModel : ViewModelBase
         _userPolylines.Clear();
         _userPolygons.Clear();
         _userCircles.Clear();
+        _objectRows.Clear();
+        DrawingObjects.Clear();
+        _markerCount = _polylineCount = _polygonCount = _circleCount = 0;
 
         UpdateObjectCount();
     }
@@ -271,8 +365,10 @@ public partial class ToolsViewModel : ViewModelBase
         switch (CurrentDrawingTool)
         {
             case DrawingTool.Marker:
-                // Immediately finish — single tap places the marker
-                FinishDrawing();
+                // Place and stay active — a session can drop several markers
+                // before Done (or ✕) ends it.
+                PlaceMarker(coordinates);
+                DrawingHint = "Marker placed — tap to add more, or tap Done";
                 break;
 
             case DrawingTool.Polyline:
@@ -299,6 +395,8 @@ public partial class ToolsViewModel : ViewModelBase
                 }
                 break;
         }
+
+        RefreshDrawingUi();
     }
 
     private void OnMapDoubleTapped(object? sender, MapTappedEventArgs e)
@@ -320,14 +418,14 @@ public partial class ToolsViewModel : ViewModelBase
         {
             _drawingPreviewPolyline = new MapPolyline(
                 new List<GeoCoordinates>(_drawingPoints),
-                Color: 0x88007AFF, WidthInPixels: 3);
+                Color: DrawingPalette.PreviewStroke, WidthInPixels: DrawingPalette.PreviewWidthPixels);
             _mapService?.AddMapPolyline(_drawingPreviewPolyline);
         }
         else if (CurrentDrawingTool == DrawingTool.Polygon && _drawingPoints.Count >= 3)
         {
             _drawingPreviewPolygon = new MapPolygon(
                 new List<GeoCoordinates>(_drawingPoints),
-                FillColor: 0x22007AFF);
+                FillColor: DrawingPalette.PreviewFill);
             _mapService?.AddMapPolygon(_drawingPreviewPolygon);
         }
     }
@@ -341,7 +439,7 @@ public partial class ToolsViewModel : ViewModelBase
             var center = _drawingPoints[0];
             var edge = _drawingPoints[1];
             var radius = ComputeDistanceMeters(center, edge);
-            _drawingPreviewCircle = new MapCircle(center, radius, FillColor: 0x22007AFF, StrokeColor: 0x88007AFF);
+            _drawingPreviewCircle = new MapCircle(center, radius, FillColor: DrawingPalette.PreviewFill, StrokeColor: DrawingPalette.PreviewStroke, StrokeWidthInPixels: DrawingPalette.PreviewWidthPixels);
             _mapService?.AddMapCircle(_drawingPreviewCircle);
         }
     }
@@ -376,9 +474,63 @@ public partial class ToolsViewModel : ViewModelBase
     {
         CurrentDrawingTool = DrawingTool.None;
         _drawingPoints.Clear();
-        DrawingPointCount = 0;
+        _sessionMarkers.Clear();
         DrawingHint = "";
+        RefreshDrawingUi();
         UpdateObjectCount();
+    }
+
+    // =========================================================================
+    // Drawing object bookkeeping (map item + list row kept in sync)
+    // =========================================================================
+
+    // Map item → list row, by reference (records have value equality, so two
+    // distinct objects could otherwise collide as dictionary keys).
+    private readonly Dictionary<object, DrawingObjectVm> _objectRows =
+        new(ReferenceEqualityComparer.Instance);
+
+    private void PlaceMarker(GeoCoordinates at)
+    {
+        var marker = new MapMarker(at);
+        _mapService?.AddMapMarker(marker);
+        _userMarkers.Add(marker);
+        _sessionMarkers.Add(marker);
+        AddDrawingObject(marker, "Marker", DrawingGlyph.Marker);
+        UpdateObjectCount();
+    }
+
+    private void AddDrawingObject(object mapItem, string type, string glyph)
+    {
+        var name = type switch
+        {
+            "Marker" => $"Marker {++_markerCount}",
+            "Polyline" => $"Polyline {++_polylineCount}",
+            "Polygon" => $"Polygon {++_polygonCount}",
+            "Circle" => $"Circle {++_circleCount}",
+            _ => type
+        };
+        var row = new DrawingObjectVm(name, glyph, () => RemoveObject(mapItem));
+        _objectRows[mapItem] = row;
+        DrawingObjects.Add(row);
+    }
+
+    private void RemoveObject(object mapItem)
+    {
+        switch (mapItem)
+        {
+            case MapMarker m: RemoveMarker(m); break;
+            case MapPolyline p: RemovePolyline(p); break;
+            case MapPolygon p: RemovePolygon(p); break;
+            case MapCircle c: RemoveCircle(c); break;
+        }
+    }
+
+    private void RemoveRow(object mapItem)
+    {
+        if (_objectRows.Remove(mapItem, out var row))
+        {
+            DrawingObjects.Remove(row);
+        }
     }
 
     private void UpdateObjectCount()
@@ -434,7 +586,7 @@ public partial class ToolsViewModel : ViewModelBase
             new[] { hub, new GeoCoordinates(37.784, -122.411), new GeoCoordinates(37.780, -122.413) },
         };
 
-        var colors = new uint[] { 0xFF007AFF, 0xFFFF9500, 0xFF34C759, 0xFFFF3B30 };
+        var colors = DrawingPalette.SeriesColors;
 
         for (int i = 0; i < routes.Length; i++)
         {
@@ -475,7 +627,7 @@ public partial class ToolsViewModel : ViewModelBase
             new GeoCoordinates(37.782, -122.408),
         };
 
-        var dist1 = new MapPolygon(new List<GeoCoordinates>(financialDistrict), FillColor: 0x33007AFF);
+        var dist1 = new MapPolygon(new List<GeoCoordinates>(financialDistrict), FillColor: DrawingPalette.Fill);
         var dist2 = new MapPolygon(new List<GeoCoordinates>(soma), FillColor: 0x33FF9500);
 
         _mapService.AddMapPolygon(dist1);
@@ -493,7 +645,7 @@ public partial class ToolsViewModel : ViewModelBase
 
         var center = new GeoCoordinates(37.787, -122.408);
         double[] radii = { 300, 600, 1000, 1600, 2500 };
-        uint[] colors = { 0x33007AFF, 0x335850FF, 0x33FF3B30, 0x33FF9500, 0x3334C759 };
+        uint[] colors = DrawingPalette.SeriesFills;
 
         for (int i = 0; i < radii.Length; i++)
         {
@@ -529,6 +681,39 @@ public partial class ToolsViewModel : ViewModelBase
     // =========================================================================
     // Helpers
     // =========================================================================
+
+    private void RemoveMarker(MapMarker marker)
+    {
+        _mapService?.RemoveMapMarker(marker);
+        _userMarkers.Remove(marker);
+        _sessionMarkers.Remove(marker);
+        RemoveRow(marker);
+        UpdateObjectCount();
+    }
+
+    private void RemovePolyline(MapPolyline polyline)
+    {
+        _mapService?.RemoveMapPolyline(polyline);
+        _userPolylines.Remove(polyline);
+        RemoveRow(polyline);
+        UpdateObjectCount();
+    }
+
+    private void RemovePolygon(MapPolygon polygon)
+    {
+        _mapService?.RemoveMapPolygon(polygon);
+        _userPolygons.Remove(polygon);
+        RemoveRow(polygon);
+        UpdateObjectCount();
+    }
+
+    private void RemoveCircle(MapCircle circle)
+    {
+        _mapService?.RemoveMapCircle(circle);
+        _userCircles.Remove(circle);
+        RemoveRow(circle);
+        UpdateObjectCount();
+    }
 
     private static double ComputeDistanceMeters(GeoCoordinates a, GeoCoordinates b)
     {
@@ -577,5 +762,32 @@ public class DemoPreset
         Name = name;
         Description = description;
         ActivateCommand = new RelayCommand(activate);
+    }
+}
+
+/// <summary>Material icon codepoints for drawing object rows and toolbar pills.</summary>
+public static class DrawingGlyph
+{
+    public const string Marker = "\ue55c";   // place
+    public const string Polyline = "\ue922"; // timeline
+    public const string Polygon = "\ue88b";  // change_history (triangle)
+    public const string Circle = "\ue1c4";   // trip_origin (hollow circle)
+    public const string Delete = "\ue872";   // delete
+    public const string Undo = "\ue166";     // undo
+    public const string Close = "\ue5cd";    // close
+}
+
+/// <summary>One row in the Tools sheet's "On map" object list.</summary>
+public class DrawingObjectVm
+{
+    public string Name { get; }
+    public string Glyph { get; }
+    public IRelayCommand DeleteCommand { get; }
+
+    public DrawingObjectVm(string name, string glyph, Action delete)
+    {
+        Name = name;
+        Glyph = glyph;
+        DeleteCommand = new RelayCommand(delete);
     }
 }

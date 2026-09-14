@@ -125,4 +125,11 @@
     <Color x:Key="BannerErrorBgDark">#3A1F24</Color>
     <Color x:Key="BannerErrorText">#8A1B2E</Color>
     <Color x:Key="BannerErrorTextDark">#FFC1CB</Color>
+
+    <!-- Floating toolbar / scrim (drawing toolbar, sheet backdrop) -->
+    <Color x:Key="ToolbarBackground">#FFFFFF</Color>
+    <Color x:Key="ToolbarBackgroundDark">#1C1C1E</Color>
+    <Color x:Key="Scrim">#59000000</Color>
+    <Color x:Key="IconMuted">#B0B0B3</Color>
+    <Color x:Key="IconMutedDark">#545456</Color>
 </ResourceDictionary>

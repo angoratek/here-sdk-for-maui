@@ -49,6 +49,22 @@ public abstract class BaseTest
             // No keyboard, or the driver cannot hide it — fall through.
         }
 
+        // A drawing session left active (a tool was picked but Done/✕ never
+        // tapped) keeps the Tools sheet collapsed for every later fixture:
+        // the Settings section is hidden and ExpandToolsSettings' swipes
+        // land on the map instead. Cancel the session so the sheet restores.
+        // The ✕ button only exists in the tree while a session is active,
+        // so idle tests pay a single fast lookup.
+        try
+        {
+            TryFindUIElement("ToolsCancelButton")?.Click();
+        }
+        catch
+        {
+            // Best-effort — a stuck session surfaces in the next test's
+            // failure with a clear screenshot either way.
+        }
+
         try
         {
             // iOS input accessory bar's Done button — HideKeyboard alone can
@@ -260,21 +276,73 @@ public abstract class BaseTest
     /// the tools bottom sheet's content. Swipes (not TapGestureRecognizers
     /// or element clicks) because the sheet's ScrollView is the target.
     /// </summary>
-    protected void SwipeSheetUp()
-    {
-        var size = App.Manage().Window.Size;
-        var x = size.Width / 2;
-        var startY = (int)(size.Height * 0.75);
-        var endY = (int)(size.Height * 0.35);
+    protected void SwipeSheetUp() => Swipe((int)(App.Manage().Window.Size.Width / 2),
+        (int)(App.Manage().Window.Size.Height * 0.75),
+        (int)(App.Manage().Window.Size.Width / 2),
+        (int)(App.Manage().Window.Size.Height * 0.35));
 
+    /// <summary>
+    /// W3C vertical touch swipe between two absolute viewport points.
+    /// The Tools bottom sheet snaps state only from a drag that starts on
+    /// its header row — the content ScrollView otherwise consumes the
+    /// gesture — so sheet-state drags start on the header element.
+    /// </summary>
+    private void Swipe(int startX, int startY, int endX, int endY)
+    {
         var finger = new PointerInputDevice(PointerKind.Touch);
         var sequence = new ActionSequence(finger);
-        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, x, startY, TimeSpan.Zero));
+        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, startX, startY, TimeSpan.Zero));
         sequence.AddAction(finger.CreatePointerDown(MouseButton.Left));
-        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, x, endY, TimeSpan.FromMilliseconds(400)));
+        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, endX, endY, TimeSpan.FromMilliseconds(600)));
         sequence.AddAction(finger.CreatePointerUp(MouseButton.Left));
         App.PerformActions(new[] { sequence });
         Thread.Sleep(500);
+    }
+
+    /// <summary>
+    /// Drags vertically from the center of the Tools sheet's header row
+    /// ("Tools &amp; Settings" — visible in every sheet state). Downward
+    /// drags snap Collapsed-ward, upward draps Half/Fully-ward.
+    /// </summary>
+    private bool DragToolsSheetHeader(int deltaY)
+    {
+        var header = TryFindByText("Tools & Settings");
+        if (header is null)
+        {
+            return false;
+        }
+
+        var x = header.Location.X + header.Size.Width / 2;
+        var y = header.Location.Y + header.Size.Height / 2;
+        Swipe(x, y, x, y + deltaY);
+        return true;
+    }
+
+    /// <summary>
+    /// Collapses the Tools bottom sheet (map mode: the floating drawing
+    /// toolbar becomes visible). Each downward header drag snaps one state
+    /// toward Collapsed (FullyExpanded → HalfExpanded → Collapsed); polls
+    /// for the toolbar as confirmation.
+    /// </summary>
+    protected void CollapseToolsSheet()
+    {
+        for (var attempt = 0; attempt < 4 && TryFindUIElement("ToolsMarkerButton") is null; attempt++)
+        {
+            DragToolsSheetHeader(+600);
+        }
+    }
+
+    /// <summary>
+    /// Ensures the Tools bottom sheet is not collapsed (expanded enough for
+    /// ExpandToolsSettings to scroll its content). An upward header drag
+    /// snaps the sheet toward Half/Fully-expanded.
+    /// </summary>
+    protected void ExpandToolsSheet()
+    {
+        for (var attempt = 0; attempt < 3 && TryFindUIElement("ToolsMarkerButton") is not null; attempt++)
+        {
+            DragToolsSheetHeader(-600);
+        }
     }
 
     /// <summary>
@@ -320,6 +388,10 @@ public abstract class BaseTest
             return; // already expanded and in view
         }
 
+        // A prior test may have left the sheet collapsed (map mode, floating
+        // toolbar shown) — its content is not scrollable from that state.
+        ExpandToolsSheet();
+
         // Scroll until the Settings header is on screen (or the chips
         // appear, if a prior test already expanded the section).
         IWebElement? header = null;
@@ -352,6 +424,21 @@ public abstract class BaseTest
                 TryFindByText("Settings")?.Click();
                 reTapAt = DateTime.UtcNow.AddSeconds(5);
             }
+        }
+
+        // SettingsPageNavigationTests tap ToolsMoreSettingsButton, which sits
+        // at the very bottom of the expanded Settings section — below the
+        // fold while the sheet is only half-expanded (340dp can't show both
+        // the scheme chips and the section bottom). Drag the header up hard:
+        // the drag clamps at the fully-expanded position, so the sheet snaps
+        // to FullyExpanded (640dp) where the whole section is visible.
+        for (var attempt = 0; attempt < 4 && TryFindUIElement("ToolsMoreSettingsButton") is null; attempt++)
+        {
+            if (!DragToolsSheetHeader(-1500))
+            {
+                break; // sheet header gone — nothing left to drag
+            }
+            SwipeSheetUp();
         }
     }
 

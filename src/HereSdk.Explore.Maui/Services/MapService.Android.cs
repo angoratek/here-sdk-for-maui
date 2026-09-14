@@ -113,15 +113,18 @@ public partial class MapService
             throw new InvalidOperationException("MapService not initialized.");
         }
         var androidCoords = new Here.Explore.Core.GeoCoordinates(marker.Coordinates.Latitude, marker.Coordinates.Longitude);
-        // MapImage requires an Android drawable resource — attempt to load custom marker, fallback to system icon
+        // MapImage requires an Android drawable resource — honor the app-provided
+        // ImagePath name first, then the branded "marker_pin" drawable, then the
+        // system compass icon as a last resort.
         Here.Explore.Maps.MapImage? mapImage = null;
+        if (marker.ImagePath is not null)
+            mapImage = TryLoadNamedDrawable(marker.ImagePath);
+
         try
         {
-            var resId = Platform.AppContext.Resources?.GetIdentifier("marker", "drawable", Platform.AppContext.PackageName) ?? 0;
-            if (resId != 0)
-                mapImage = Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, resId);
+            mapImage ??= TryLoadNamedDrawable("marker_pin");
         }
-        catch (Exception ex) { Android.Util.Log.Warn("REFAPP_DIAG", $"AddMapMarker: custom marker load failed: {ex.Message}"); }
+        catch (Exception ex) { Android.Util.Log.Warn("REFAPP_DIAG", $"AddMapMarker: marker_pin load failed: {ex.Message}"); }
 
         try
         {
@@ -133,7 +136,12 @@ public partial class MapService
             throw;
         }
 
-        var androidMarker = new Here.Explore.Maps.MapMarker(androidCoords, mapImage!);
+        // AnchorX/AnchorY are percentages (0–100) of the image size; Android's
+        // Anchor2D is 0–1 normalized.
+        var androidMarker = marker.AnchorX is not null && marker.AnchorY is not null
+            ? new Here.Explore.Maps.MapMarker(androidCoords, mapImage!,
+                new Here.Explore.Core.Anchor2D(marker.AnchorX.Value / 100.0, marker.AnchorY.Value / 100.0))
+            : new Here.Explore.Maps.MapMarker(androidCoords, mapImage!);
         _mapScene.AddMapMarker(androidMarker);
         _markers[marker] = androidMarker;
         Android.Util.Log.Debug("REFAPP_DIAG", "AddMapMarker: success");
@@ -171,7 +179,12 @@ public partial class MapService
                 Here.Explore.Maps.RenderSize.Unit.Pixels!,
                 polyline.WidthInPixels);
             var color = ToCoreColor(polyline.Color);
-            var cap = Here.Explore.Maps.LineCap.Round;
+            var cap = polyline.Cap switch
+            {
+                Models.Maps.LineCap.Square => Here.Explore.Maps.LineCap.Square,
+                Models.Maps.LineCap.Butt => Here.Explore.Maps.LineCap.Butt,
+                _ => Here.Explore.Maps.LineCap.Round,
+            };
             Android.Util.Log.Debug("REFAPP_DIAG", $"lineWidth: sizeUnit={(lineWidth.SizeUnit?.ToString() ?? "null")}, measureKind={(lineWidth.MeasureKind?.ToString() ?? "null")}, sizes count={(lineWidth.Sizes is null ? -1 : lineWidth.Sizes.Count)}, width={polyline.WidthInPixels}");
             Android.Util.Log.Debug("REFAPP_DIAG", $"polyline color argb={polyline.Color:X}, cap={(cap?.ToString() ?? "null")}");
             if (cap is null) throw new InvalidOperationException("LineCap is null");
@@ -217,7 +230,12 @@ public partial class MapService
             var vertices = polygon.Vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList();
             var geoPolygon = new Here.Explore.Core.GeoPolygon(vertices);
             var fillColor = ToCoreColor(polygon.FillColor);
-            var androidPolygon = new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
+            // Outline is disabled by default (zero width) — same ctor shape
+            // as the SDK's "outline visualization disabled" variant.
+            var androidPolygon = polygon.StrokeWidthInPixels > 0
+                ? new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor,
+                    ToCoreColor(polygon.StrokeColor), polygon.StrokeWidthInPixels)
+                : new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
             _mapScene.AddMapPolygon(androidPolygon);
             _polygons[polygon] = androidPolygon;
             Android.Util.Log.Debug("REFAPP_DIAG", "AddMapPolygon: success");
@@ -285,14 +303,7 @@ public partial class MapService
 
     private Here.Explore.Maps.MapImage? TryLoadMarkerImage()
     {
-        Here.Explore.Maps.MapImage? mapImage = null;
-        try
-        {
-            var resId = Platform.AppContext.Resources?.GetIdentifier("marker", "drawable", Platform.AppContext.PackageName) ?? 0;
-            if (resId != 0)
-                mapImage = Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, resId);
-        }
-        catch (Exception ex) { Android.Util.Log.Warn("REFAPP_DIAG", $"TryLoadMarkerImage: custom marker load failed: {ex.Message}"); }
+        Here.Explore.Maps.MapImage? mapImage = TryLoadNamedDrawable("marker_pin");
 
         try
         {
@@ -303,6 +314,19 @@ public partial class MapService
             Android.Util.Log.Error("REFAPP_DIAG", $"TryLoadMarkerImage: fallback marker load failed: {ex.Message}");
         }
         return mapImage;
+    }
+
+    /// <summary>
+    /// Loads a drawable by resource name (the shared model's ImagePath is a
+    /// drawable name, not a file path, on Android). Returns null when no
+    /// drawable with that name exists in the app package.
+    /// </summary>
+    private static Here.Explore.Maps.MapImage? TryLoadNamedDrawable(string name)
+    {
+        var resId = Platform.AppContext.Resources?.GetIdentifier(name, "drawable", Platform.AppContext.PackageName) ?? 0;
+        return resId != 0
+            ? Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, resId)
+            : null;
     }
 
     public void RemoveMapMarker3D(Here.Explore.Maui.Models.Maps.MapMarker3D marker)
@@ -343,7 +367,12 @@ public partial class MapService
             var vertices = CircleGeometryHelper.GenerateCircleVertices(circle.Center, circle.RadiusInMeters);
             var geoPolygon = new Here.Explore.Core.GeoPolygon(vertices.Select(v => new Here.Explore.Core.GeoCoordinates(v.Latitude, v.Longitude)).ToList());
             var fillColor = ToCoreColor(circle.FillColor);
-            var androidPolygon = new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
+            // Circles are polygon approximations, so the outline works through
+            // the same outline-taking polygon ctor.
+            var androidPolygon = circle.StrokeWidthInPixels > 0
+                ? new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor,
+                    ToCoreColor(circle.StrokeColor), circle.StrokeWidthInPixels)
+                : new Here.Explore.Maps.MapPolygon(geoPolygon, fillColor);
             _mapScene.AddMapPolygon(androidPolygon);
             _circles[circle] = androidPolygon;
             Android.Util.Log.Debug("REFAPP_DIAG", "AddMapCircle: success");

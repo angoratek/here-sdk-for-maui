@@ -61,12 +61,12 @@
 
         <!-- HERE SDK: Traffic flow legend — colors map to JamFactor values returned by ITrafficService.
              Free (green), Moderate (yellow), Heavy (red) as rendered by JamFactorToColorConverter. -->
-        <Border Grid.Row="0" Style="{StaticResource CardBorder}" Padding="10"
+        <Border Grid.Row="0" Style="{StaticResource HintPillBorder}" Padding="12"
                 VerticalOptions="End" HorizontalOptions="Start"
                 Margin="12,0,0,12"
                 IsVisible="{Binding IsFlowVisible}">
             <VerticalStackLayout Spacing="4">
-                <Label Text="Traffic Flow" FontSize="11" FontAttributes="Bold"
+                <Label Text="TRAFFIC FLOW" FontSize="11" FontFamily="InterSemiBold"
                        TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
                 <HorizontalStackLayout Spacing="6">
                     <BoxView WidthRequest="30" HeightRequest="6" Color="{StaticResource TrafficFreeFlow}" CornerRadius="3" />
@@ -83,10 +83,12 @@
             </VerticalStackLayout>
         </Border>
 
-        <!-- Status message -->
+        <!-- Status message: bottom-center while the incident sheet is down;
+             once it is up the sheet header carries the same text. -->
         <Label Grid.Row="0" Text="{Binding StatusMessage}" FontSize="12"
                VerticalOptions="End" HorizontalOptions="Center"
-               Margin="0,0,0,200"
+               Margin="0,0,0,12"
+               IsVisible="{Binding IsIncidentsVisible, Converter={StaticResource InverseBool}}"
                TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
 
         <!-- HERE SDK: Incident list populated from ITrafficService.QueryIncidentsAsync().
@@ -150,7 +152,7 @@
 
         <!-- Empty state -->
         <local:EmptyStateView Grid.Row="0"
-                               Icon="🚦"
+                               Icon="&#xe564;"
                                Title="{Binding EmptyStateTitle}"
                                Subtitle="{Binding EmptyStateSubtitle}" />
 

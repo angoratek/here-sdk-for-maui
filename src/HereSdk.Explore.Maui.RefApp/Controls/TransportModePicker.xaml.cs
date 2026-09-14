@@ -1,3 +1,5 @@
+using Here.Explore.Maui.RefApp.Extensions;
+
 namespace Here.Explore.Maui.RefApp.Controls;
 
 public partial class TransportModePicker : ContentView
@@ -66,9 +68,9 @@ public partial class TransportModePicker : ContentView
                 StrokeThickness = 0,
                 Padding = new Thickness(13, 8),
                 HeightRequest = 40,
-                Content = content,
-                BackgroundColor = ThemeColor("SurfaceTertiary", "SurfaceTertiaryDark"),
+                Content = content
             };
+            ApplyUnselectedStyle(border, icon, label);
 
             var modeIndex = mode.ModeKey;
             var tap = new TapGestureRecognizer();
@@ -82,40 +84,42 @@ public partial class TransportModePicker : ContentView
         }
     }
 
-    private static Color ThemeColor(string lightKey, string darkKey)
+    /// <summary>
+    /// Applies the unselected chip look with AppThemeColor bindings so the
+    /// picker re-tints live when dark mode flips (previously the colors were
+    /// snapshotted once at construction time).
+    /// </summary>
+    private void ApplyUnselectedStyle(Border border, Label icon, Label label)
     {
-        var app = Application.Current;
-        if (app?.Resources.TryGetValue(lightKey, out var light) == true &&
-            app.RequestedTheme == AppTheme.Light)
-            return (Color)light;
-        if (app?.Resources.TryGetValue(darkKey, out var dark) == true)
-            return (Color)dark;
-        if (app?.Resources.TryGetValue(lightKey, out var fallback) == true)
-            return (Color)fallback;
-        return Color.FromArgb("#EBEBEB");
+        var (stLight, stDark) = Application.Current.GetThemedPair("SurfaceTertiary", "SurfaceTertiaryDark");
+        border.SetAppThemeColor(Border.BackgroundColorProperty, stLight, stDark);
+        border.Stroke = border.BackgroundColor;
+
+        var (tpLight, tpDark) = Application.Current.GetThemedPair("TextPrimary", "TextPrimaryDark");
+        label.SetAppThemeColor(Label.TextColorProperty, tpLight, tpDark);
+
+        var (secLight, secDark) = Application.Current.GetThemedPair("TextSecondary", "TextSecondaryDark");
+        icon.SetAppThemeColor(Label.TextColorProperty, secLight, secDark);
     }
 
     public void SelectMode(int modeKey)
     {
         _selectedModeKey = modeKey;
-        var primary = ThemeColor("Primary", "PrimaryDark");
-        var textPrimary = ThemeColor("TextPrimary", "TextPrimaryDark");
-        var textSecondary = ThemeColor("TextSecondary", "TextSecondaryDark");
         for (int i = 0; i < _chipBorders.Count; i++)
         {
             if (i == modeKey)
             {
-                _chipBorders[i].BackgroundColor = primary;
-                _chipBorders[i].Stroke = primary;
+                // Primary is coral in both themes; the selected state needs
+                // no theme binding.
+                var (pLight, pDark) = Application.Current.GetThemedPair("Primary", "PrimaryDark");
+                _chipBorders[i].SetAppThemeColor(Border.BackgroundColorProperty, pLight, pDark);
+                _chipBorders[i].Stroke = _chipBorders[i].BackgroundColor;
                 _chipLabels[i].TextColor = Colors.White;
                 _iconLabels[i].TextColor = Colors.White;
             }
             else
             {
-                _chipBorders[i].BackgroundColor = ThemeColor("SurfaceTertiary", "SurfaceTertiaryDark");
-                _chipBorders[i].Stroke = _chipBorders[i].BackgroundColor;
-                _chipLabels[i].TextColor = textPrimary;
-                _iconLabels[i].TextColor = textSecondary;
+                ApplyUnselectedStyle(_chipBorders[i], _iconLabels[i], _chipLabels[i]);
             }
         }
         ModeSelected?.Invoke(this, modeKey);

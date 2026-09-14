@@ -60,6 +60,35 @@ public class MapModelExtendedTests
     }
 
     [Fact]
+    public void MapPolygon_StrokeDefaults_AreDisabled()
+    {
+        var vertices = new List<GeoCoordinates> { new(52.5, 13.4), new(52.6, 13.5), new(52.55, 13.3) };
+        var polygon = new MapPolygon(vertices);
+
+        Assert.Equal(0u, polygon.StrokeColor);
+        Assert.Equal(0, polygon.StrokeWidthInPixels);
+    }
+
+    [Fact]
+    public void MapPolygon_WithStroke_ParamsAppendPositionally()
+    {
+        var vertices = new List<GeoCoordinates> { new(52.5, 13.4), new(52.6, 13.5), new(52.55, 13.3) };
+        var polygon = new MapPolygon(vertices, FillColor: 0x33000000, StrokeColor: 0xFFFF385C, StrokeWidthInPixels: 3);
+
+        Assert.Equal((uint)0xFFFF385C, polygon.StrokeColor);
+        Assert.Equal(3, polygon.StrokeWidthInPixels);
+    }
+
+    [Fact]
+    public void MapPolyline_Cap_DefaultsToRound()
+    {
+        var vertices = new List<GeoCoordinates> { new(52.5, 13.4), new(52.6, 13.5) };
+
+        Assert.Equal(LineCap.Round, new MapPolyline(vertices).Cap);
+        Assert.Equal(LineCap.Butt, new MapPolyline(vertices, Cap: LineCap.Butt).Cap);
+    }
+
+    [Fact]
     public void MapArrow_CustomColorAndWidth()
     {
         var vertices = new List<GeoCoordinates> { new(52.5, 13.4), new(52.6, 13.5) };

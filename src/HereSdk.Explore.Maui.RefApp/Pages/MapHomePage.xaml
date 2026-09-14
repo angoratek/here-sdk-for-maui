@@ -7,7 +7,7 @@
 
     <ContentPage.Resources>
         <!-- Flat full-cell tab button; icon + tint set in code-behind. -->
-        <Style x:Key="TabButton" TargetType="Button">
+        <Style x:Key="TabButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="BorderWidth" Value="0" />
             <Setter Property="CornerRadius" Value="0" />
@@ -31,26 +31,37 @@
         <Grid x:Name="PanelHost" Grid.Row="0" />
 
         <!-- Custom bottom tab bar (replaces the Shell TabBar — with one
-             shared page there is no second page to route to). -->
+             shared page there is no second page to route to).
+             Hairline top divider + soft shadow lift it off the map;
+             extra bottom padding on iOS clears the home indicator. -->
         <Border x:Name="TabBar" Grid.Row="1"
                 BackgroundColor="{AppThemeBinding Light={StaticResource TabBarBackground}, Dark={StaticResource TabBarBackgroundDark}}"
-                StrokeThickness="0" Padding="4,6">
-            <!-- Buttons (not gesture recognizers): a Button's whole cell is
-                 tappable, and it is reliably clickable via Appium — tap
-                 recognizers on transparent Grid areas pass hits through. -->
-            <Grid ColumnDefinitions="*,*,*,*">
-                <Button x:Name="ExploreTab" Grid.Column="0" AutomationId="Tab-Explore"
-                        Text="Explore" FontFamily="InterMedium" FontSize="11"
-                        Style="{StaticResource TabButton}" />
-                <Button x:Name="DirectionsTab" Grid.Column="1" AutomationId="Tab-Directions"
-                        Text="Directions" FontFamily="InterMedium" FontSize="11"
-                        Style="{StaticResource TabButton}" />
-                <Button x:Name="TrafficTab" Grid.Column="2" AutomationId="Tab-Traffic"
-                        Text="Traffic" FontFamily="InterMedium" FontSize="11"
-                        Style="{StaticResource TabButton}" />
-                <Button x:Name="ToolsTab" Grid.Column="3" AutomationId="Tab-Tools"
-                        Text="Tools" FontFamily="InterMedium" FontSize="11"
-                        Style="{StaticResource TabButton}" />
+                StrokeThickness="0" Padding="0">
+            <Border.Shadow>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource ShadowColor}, Dark={StaticResource ShadowColorDark}}"
+                        Offset="0,-1" Radius="8" />
+            </Border.Shadow>
+            <Grid RowDefinitions="1,*" RowSpacing="0">
+                <BoxView Grid.Row="0" HeightRequest="1"
+                         Color="{AppThemeBinding Light=#14000000, Dark=#2EFFFFFF}" />
+                <!-- Buttons (not gesture recognizers): a Button's whole cell is
+                     tappable, and it is reliably clickable via Appium — tap
+                     recognizers on transparent Grid areas pass hits through. -->
+                <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*"
+                      Padding="{OnPlatform iOS='4,6,4,24', Default='4,6'}">
+                    <Button x:Name="ExploreTab" Grid.Column="0" AutomationId="Tab-Explore"
+                            Text="Explore" FontFamily="InterMedium" FontSize="11"
+                            Style="{StaticResource TabButton}" />
+                    <Button x:Name="DirectionsTab" Grid.Column="1" AutomationId="Tab-Directions"
+                            Text="Directions" FontFamily="InterMedium" FontSize="11"
+                            Style="{StaticResource TabButton}" />
+                    <Button x:Name="TrafficTab" Grid.Column="2" AutomationId="Tab-Traffic"
+                            Text="Traffic" FontFamily="InterMedium" FontSize="11"
+                            Style="{StaticResource TabButton}" />
+                    <Button x:Name="ToolsTab" Grid.Column="3" AutomationId="Tab-Tools"
+                            Text="Tools" FontFamily="InterMedium" FontSize="11"
+                            Style="{StaticResource TabButton}" />
+                </Grid>
             </Grid>
         </Border>
     </Grid>

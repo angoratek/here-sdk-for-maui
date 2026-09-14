@@ -1,3 +1,4 @@
+using Here.Explore.Maui.RefApp.Extensions;
 using Here.Explore.Maui.RefApp.Services;
 
 namespace Here.Explore.Maui.RefApp.Controls;
@@ -49,19 +50,14 @@ public partial class CategoryChipBar : ContentView
                 Text = chip.Icon,
                 FontFamily = "MaterialIcons",
                 FontSize = 15,
-                VerticalOptions = LayoutOptions.Center,
-                TextColor = CategoryVisuals.ColorFor(chip.CategoryId)
-                    ?? (Application.Current?.RequestedTheme == AppTheme.Dark
-                        ? Colors.White
-                        : Color.FromArgb("#6A6A6A"))
+                VerticalOptions = LayoutOptions.Center
             };
             var textLabel = new Label
             {
                 Text = chip.Label,
                 FontSize = 13,
                 FontFamily = "InterMedium",
-                VerticalOptions = LayoutOptions.Center,
-                TextColor = GetThemeColor("TextPrimary", "TextPrimaryDark")
+                VerticalOptions = LayoutOptions.Center
             };
             chipContent.Children.Add(iconLabel);
             chipContent.Children.Add(textLabel);
@@ -75,9 +71,10 @@ public partial class CategoryChipBar : ContentView
                 StrokeThickness = 0,
                 Padding = new Thickness(12, 7),
                 HeightRequest = 36,
-                Content = chipContent,
-                BackgroundColor = GetThemeColor(SurfaceTertiaryLight, SurfaceTertiaryDark)
+                Content = chipContent
             };
+
+            ApplyUnselectedStyle(chipBorder, iconLabel, textLabel, chip.CategoryId);
 
             var tap = new TapGestureRecognizer();
             tap.Tapped += (_, _) => OnChipTapped(chip, chipBorder, iconLabel, textLabel);
@@ -92,17 +89,25 @@ public partial class CategoryChipBar : ContentView
     private const string SurfaceTertiaryLight = "SurfaceTertiary";
     private const string SurfaceTertiaryDark = "SurfaceTertiaryDark";
 
-    private static Color GetThemeColor(string lightKey, string darkKey)
+    /// <summary>
+    /// Applies the unselected chip look with AppThemeColor bindings so the
+    /// chips re-tint live when dark mode flips (previously the colors were
+    /// snapshotted once at construction time).
+    /// </summary>
+    private void ApplyUnselectedStyle(Border border, Label iconLabel, Label textLabel, string categoryId)
     {
-        var app = Application.Current;
-        if (app?.Resources.TryGetValue(lightKey, out var light) == true &&
-            app.RequestedTheme == AppTheme.Light)
-            return (Color)light;
-        if (app?.Resources.TryGetValue(darkKey, out var dark) == true)
-            return (Color)dark;
-        if (app?.Resources.TryGetValue(lightKey, out var fallback) == true)
-            return (Color)fallback;
-        return Color.FromArgb("#EBEBEB");
+        var (stLight, stDark) = Application.Current.GetThemedPair(SurfaceTertiaryLight, SurfaceTertiaryDark);
+        border.SetAppThemeColor(Border.BackgroundColorProperty, stLight, stDark);
+
+        var (tsLight, tsDark) = Application.Current.GetThemedPair("TextPrimary", "TextPrimaryDark");
+        textLabel.SetAppThemeColor(Label.TextColorProperty, tsLight, tsDark);
+
+        var categoryColor = CategoryVisuals.ColorFor(categoryId);
+        var (secLight, secDark) = Application.Current.GetThemedPair("TextSecondary", "TextSecondaryDark");
+        if (categoryColor is not null)
+            iconLabel.TextColor = categoryColor;
+        else
+            iconLabel.SetAppThemeColor(Label.TextColorProperty, secLight, secDark);
     }
 
     /// <summary>
@@ -119,20 +124,21 @@ public partial class CategoryChipBar : ContentView
         // Deselect all — surface chip, category-tinted icon
         foreach (var b in _chipBorders)
         {
-            b.BackgroundColor = GetThemeColor(SurfaceTertiaryLight, SurfaceTertiaryDark);
             if (b.Content is HorizontalStackLayout content)
             {
                 var icon = (Label)content.Children[0];
                 var text = (Label)content.Children[1];
-                text.TextColor = GetThemeColor("TextPrimary", "TextPrimaryDark");
                 var other = DefaultCategories.First(c => ChipIdFromLabel(c.Label) ==
                     b.AutomationId.Replace("ExploreCategory", string.Empty, StringComparison.Ordinal));
-                icon.TextColor = CategoryVisuals.ColorFor(other.CategoryId) ?? GetThemeColor("TextSecondary", "TextSecondaryDark");
+                ApplyUnselectedStyle(b, icon, text, other.CategoryId);
             }
         }
 
-        // Select tapped — solid coral pill, white icon + text
-        border.BackgroundColor = GetThemeColor("Primary", "PrimaryDark");
+        // Select tapped — solid coral pill, white icon + text.
+        // Primary is coral in both themes (PrimaryDark is a lighter tint),
+        // so the selected state itself needs no theme binding.
+        var (pLight, pDark) = Application.Current.GetThemedPair("Primary", "PrimaryDark");
+        border.SetAppThemeColor(Border.BackgroundColorProperty, pLight, pDark);
         iconLabel.TextColor = Colors.White;
         textLabel.TextColor = Colors.White;
 

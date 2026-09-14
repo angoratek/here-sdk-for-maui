@@ -48,6 +48,7 @@
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\ConnectivityService.cs" Link="RefApp\Services\ConnectivityService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\PermissionsService.cs" Link="RefApp\Services\PermissionsService.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\CategoryVisuals.cs" Link="RefApp\Services\CategoryVisuals.cs" />
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\DrawingPalette.cs" Link="RefApp\Services\DrawingPalette.cs" />
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Services\PanelNavigationService.cs" Link="RefApp\Services\PanelNavigationService.cs" />
     <!-- RefApp ViewModels -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\ViewModels\**\*.cs" LinkBase="RefApp\ViewModels" />
@@ -56,5 +57,7 @@
     <MauiXaml Include="..\..\src\HereSdk.Explore.Maui.RefApp\Controls\**\*.xaml" LinkBase="RefApp\Controls" />
     <!-- RefApp Converters -->
     <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Converters\**\*.cs" LinkBase="RefApp\Converters" />
+    <!-- RefApp Extensions (helpers used by controls/converters above) -->
+    <Compile Include="..\..\src\HereSdk.Explore.Maui.RefApp\Extensions\**\*.cs" LinkBase="RefApp\Extensions" />
   </ItemGroup>
 </Project>

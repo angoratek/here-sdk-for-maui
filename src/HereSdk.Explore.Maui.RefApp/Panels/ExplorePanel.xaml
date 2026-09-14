@@ -47,7 +47,7 @@
                             FontFamily="MaterialIcons" Text="&#xe5cd;" FontSize="16"
                             Style="{StaticResource MapFloatingButton}"
                             WidthRequest="32" HeightRequest="32" CornerRadius="16"
-                            IsVisible="{Binding SearchQuery.Length, Converter={StaticResource InverseBool}}"
+                            IsVisible="{Binding HasSearchQuery}"
                             Command="{Binding ClearSearchCommand}"
                             AutomationId="ExploreClearSearchButton"
                             VerticalOptions="Center" Margin="0,0,2,0" />
@@ -59,7 +59,7 @@
                     IsVisible="{Binding HasSuggestions}">
                 <CollectionView ItemsSource="{Binding Suggestions}"
                                 SelectionMode="Single"
-                                HeightRequest="240">
+                                HeightRequest="{Binding Suggestions, Converter={StaticResource SuggestionHeight}, ConverterParameter='54,240'}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Suggestion">
                             <Grid Padding="14,10" ColumnDefinitions="Auto,*" ColumnSpacing="12">
@@ -96,7 +96,7 @@
 
         <!-- Empty state (no results) -->
         <local:EmptyStateView Grid.Row="0"
-                               Icon="🔍"
+                               Icon="&#xe8b6;"
                                Title="{Binding EmptyStateTitle}"
                                Subtitle="{Binding EmptyStateSubtitle}" />
 
@@ -169,6 +169,7 @@
                            CollapsedHeight="0"
                            HalfExpandedHeight="340"
                            CurrentState="Collapsed"
+                           BodyDragEnabled="True"
                            IsVisible="{Binding IsPlaceCardVisible}">
             <local:BottomSheet.SheetContent>
                 <ScrollView>
