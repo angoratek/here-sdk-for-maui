@@ -169,6 +169,31 @@ public abstract class BaseTest
     }
 
     /// <summary>
+    /// Reads an element's text with a stale-element retry: a native view
+    /// can be recreated between <c>FindElement</c> and <c>.Text</c> (e.g.
+    /// the Directions panel's sheet is still settling its layout after a
+    /// tab switch), which surfaces as
+    /// <see cref="StaleElementReferenceException"/>. Re-finds and re-reads
+    /// until the deadline, then rethrows the last stale error.
+    /// </summary>
+    protected string GetTextStaleSafe(string automationId, int timeoutSeconds)
+    {
+        var deadline = DateTime.UtcNow.AddSeconds(timeoutSeconds);
+        while (true)
+        {
+            var element = WaitForUIElement(automationId, timeoutSeconds);
+            try
+            {
+                return element.Text;
+            }
+            catch (StaleElementReferenceException) when (DateTime.UtcNow < deadline)
+            {
+                // Native view recreated mid-read — poll for the fresh one.
+            }
+        }
+    }
+
+    /// <summary>
     /// Like <see cref="FindUIElement"/> but returns null instead of
     /// throwing when the element is not present. Use for conditionally
     /// visible elements (e.g. the place card's CTA, which is only in

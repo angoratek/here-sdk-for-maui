@@ -39,13 +39,15 @@ public class ExplorePagePlaceCardTests : BaseTest
         directionsCta!.Click();
 
         // Shell tab switch + current-location lookup + route calculation.
-        var toEntry = WaitForUIElement("DirectionsToEntry", 15);
-        Assert.That(toEntry.Text, Is.Not.Empty,
+        // Text is read via GetTextStaleSafe: the sheet's native views can be
+        // recreated while the tab switch + route layout settle, which makes
+        // a plain .Text read throw StaleElementReferenceException (seen on
+        // CI's slower emulator).
+        Assert.That(GetTextStaleSafe("DirectionsToEntry", 15), Is.Not.Empty,
             "DirectionsToEntry was not pre-filled with the destination");
 
         // The origin must be resolved from the device location automatically.
-        var fromEntry = WaitForUIElement("DirectionsFromEntry", 15);
-        Assert.That(fromEntry.Text, Is.Not.Empty,
+        Assert.That(GetTextStaleSafe("DirectionsFromEntry", 15), Is.Not.Empty,
             "DirectionsFromEntry was not pre-filled with the current location");
     }
 
