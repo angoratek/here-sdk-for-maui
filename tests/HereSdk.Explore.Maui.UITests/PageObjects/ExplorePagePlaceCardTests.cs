@@ -37,6 +37,7 @@ public class ExplorePagePlaceCardTests : BaseTest
         }
 
         directionsCta!.Click();
+        WaitForDirectionsPanelAfterCta();
 
         // Shell tab switch + current-location lookup + route calculation.
         // Text is read via GetTextStaleSafe: the sheet's native views can be
@@ -49,6 +50,35 @@ public class ExplorePagePlaceCardTests : BaseTest
         // The origin must be resolved from the device location automatically.
         Assert.That(GetTextStaleSafe("DirectionsFromEntry", 15), Is.Not.Empty,
             "DirectionsFromEntry was not pre-filled with the current location");
+    }
+
+    /// <summary>
+    /// Waits until the Directions panel appears after the CTA tap, re-tapping
+    /// the CTA if the tap was swallowed: a click can land while the place-card
+    /// sheet is mid-collapse (the CTA lingers in the accessibility tree for a
+    /// few hundred ms — see BaseTest stale-card notes) and register on nothing.
+    /// On CI's slower emulator that race window is wide enough to lose taps.
+    /// </summary>
+    private void WaitForDirectionsPanelAfterCta()
+    {
+        const int maxClicks = 3;
+        var deadline = DateTime.UtcNow.AddSeconds(15);
+        for (var clicks = 1; clicks <= maxClicks && DateTime.UtcNow < deadline; clicks++)
+        {
+            // The panel switch is fast when the click registered — poll
+            // briefly before concluding the tap was swallowed.
+            var window = DateTime.UtcNow.AddSeconds(5);
+            while (DateTime.UtcNow < window && DateTime.UtcNow < deadline)
+            {
+                if (TryFindUIElement("DirectionsToEntry") is not null) return;
+                Thread.Sleep(250);
+            }
+
+            // Tap swallowed — the card is still up if its CTA still is.
+            var cta = TryFindUIElement("PlaceCardDirectionsButton");
+            if (cta is null) break;
+            cta.Click();
+        }
     }
 
     private void AssertNoElementContains(string substring)

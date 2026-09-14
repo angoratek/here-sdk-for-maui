@@ -105,6 +105,10 @@ jobs:
             "adb shell 'while [[ -z \$(getprop sys.boot_completed) ]]; do sleep 2; done'" \
             || { echo "BOOT TIMEOUT — emulator.log:"; tail -50 "$GITHUB_WORKSPACE/emulator.log"; exit 1; }
           echo "Emulator boot complete."
+          # A fresh AVD has no GPS fix, so GetCurrentLocationAsync returns
+          # null and the Directions origin pre-fill (which the place-card →
+          # Get Directions test asserts) can never populate. Inject a fix.
+          adb emu geo fix -122.0840 37.4220
 
       - name: Setup Node 20
         uses: actions/setup-node@v4
