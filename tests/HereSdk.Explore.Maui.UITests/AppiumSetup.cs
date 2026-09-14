@@ -122,6 +122,17 @@ public class AppiumSetup
         androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, AppPackage);
         androidOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, AppActivity);
 
+        // Grant runtime permissions (location) at session start: on a fresh
+        // install the place-card → Get Directions flow triggers the Android
+        // permission dialog, which covers the whole app and breaks every
+        // lookup until it is answered.
+        androidOptions.AddAdditionalAppiumOption("autoGrantPermissions", "true");
+
+        // A freshly-booted emulator's first cold start of the RefApp (HERE
+        // SDK init) can exceed uiautomator2's default 20s adb timeout and
+        // fail the whole run in OneTimeSetUp. 60s covers the cold start.
+        androidOptions.AddAdditionalAppiumOption("adbExecTimeout", "60000");
+
         // `avd` is set by the CI workflow (testavd) so the emulator boots
         // automatically. On a local dev box, start your emulator manually and
         // comment this out.

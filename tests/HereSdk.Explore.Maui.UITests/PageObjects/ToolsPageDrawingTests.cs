@@ -47,10 +47,9 @@ public class ToolsPageDrawingTests : BaseTest
     [Test]
     public void MapStylePickerToggle_DoesNotError()
     {
-        // Just verify the page renders with all 4 new ids present.
+        // Just verify the panel renders with its ids present. The map is
+        // shared across panels (ExploreMapView) and asserted there.
         // (Tapping a scheme chip is tested in ToolsPageSchemeTests.)
-        Assert.That(FindUIElement("ToolsMapView").Displayed, Is.True,
-            "ToolsMapView should be present at the top of the page");
         Assert.That(FindUIElement("ToolsMarkerButton").Displayed, Is.True,
             "ToolsMarkerButton should be visible (sheet is fully expanded by default)");
         // ToolsClearAllButton is intentionally not asserted: it is

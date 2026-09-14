@@ -2,6 +2,7 @@ using NUnit.Framework;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Interactions;
 
 namespace Here.Explore.Maui.UITests;
 
@@ -17,6 +18,23 @@ public abstract class BaseTest
     [TearDown]
     public void RestoreAppStateAfterTest()
     {
+        // A failed test leaves no trace of what the screen actually looked
+        // like (most failures throw before the test's own Screenshot call).
+        // Capture one before any state restoration so CI/local debugging
+        // shows the exact UI at failure time.
+        if (TestContext.CurrentContext.Result.Outcome == NUnit.Framework.Interfaces.ResultState.Failure ||
+            TestContext.CurrentContext.Result.Outcome == NUnit.Framework.Interfaces.ResultState.Error)
+        {
+            try
+            {
+                Screenshot("FAIL_" + TestContext.CurrentContext.Test.Name);
+            }
+            catch
+            {
+                // Screenshot is best-effort — never mask the real failure.
+            }
+        }
+
         // Typing tests leave the on-screen keyboard (and on iOS 26 the
         // autocomplete/suggestion overlay, which covers the whole page
         // including the Shell tab bar) open. Every later test then fails
@@ -40,6 +58,24 @@ public abstract class BaseTest
         catch
         {
             // No Done button (Android, or keyboard already dismissed).
+        }
+
+        // uiautomator2 sometimes refuses HideKeyboard ("The software keyboard
+        // cannot be hidden"). A keyboard left open covers the shared tab bar,
+        // so the next test's NavigateToTab tap lands on the keyboard and the
+        // tab never switches. BACK dismisses the keyboard first — only press
+        // it when the keyboard is actually up, or it would pop the page.
+        try
+        {
+            if (App.IsKeyboardShown())
+            {
+                App.Navigate().Back();
+            }
+        }
+        catch
+        {
+            // Best-effort — the next test's NavigateToTab will fail with a
+            // clear NoSuchElementException either way.
         }
 
         // A test that ends on a pushed page (e.g. Settings) hides the Shell
@@ -80,25 +116,13 @@ public abstract class BaseTest
         while (DateTime.UtcNow < deadline)
         {
             if (TryFindUIElement("ExploreMapView") is not null ||
-                TryFindTab("Explore") is not null)
+                TryLocateTab("Explore") is not null)
             {
                 return true;
             }
             Thread.Sleep(250);
         }
         return false;
-    }
-
-    private IWebElement? TryFindTab(string title)
-    {
-        try
-        {
-            return App.FindElement(MobileBy.AccessibilityId(title));
-        }
-        catch (NoSuchElementException)
-        {
-            return null;
-        }
     }
 
     /// <summary>
@@ -186,28 +210,132 @@ public abstract class BaseTest
         WaitForElement(ContainsTextSelector(substring), TimeSpan.FromSeconds(5));
 
     /// <summary>
-    /// Expands the collapsed "Settings" section on the Tools page
-    /// (tap on the section header) when it is not already open. The
-    /// scheme chips and the "More Settings →" button only exist in
-    /// the accessibility tree while the section is expanded, so tests
-    /// that target them must call this first.
+    /// Polls for an element by visible text but returns null instead of
+    /// throwing — for sections that may be scrolled out of the sheet's
+    /// viewport (off-screen content is not in the accessibility tree).
+    /// </summary>
+    protected IWebElement? TryFindByText(string text)
+    {
+        try
+        {
+            return WaitForElement(TextSelector(text), TimeSpan.FromSeconds(1));
+        }
+        catch (NoSuchElementException)
+        {
+            return null;
+        }
+        catch (WebDriverTimeoutException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// W3C touch swipe upward over the lower half of the screen — scrolls
+    /// the tools bottom sheet's content. Swipes (not TapGestureRecognizers
+    /// or element clicks) because the sheet's ScrollView is the target.
+    /// </summary>
+    protected void SwipeSheetUp()
+    {
+        var size = App.Manage().Window.Size;
+        var x = size.Width / 2;
+        var startY = (int)(size.Height * 0.75);
+        var endY = (int)(size.Height * 0.35);
+
+        var finger = new PointerInputDevice(PointerKind.Touch);
+        var sequence = new ActionSequence(finger);
+        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, x, startY, TimeSpan.Zero));
+        sequence.AddAction(finger.CreatePointerDown(MouseButton.Left));
+        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, x, endY, TimeSpan.FromMilliseconds(400)));
+        sequence.AddAction(finger.CreatePointerUp(MouseButton.Left));
+        App.PerformActions(new[] { sequence });
+        Thread.Sleep(500);
+    }
+
+    /// <summary>
+    /// W3C touch tap at absolute screen coordinates. Used on the shared
+    /// map from the Tools tab, where the fully expanded bottom sheet
+    /// covers the map element's center — an element click would hit the
+    /// sheet instead of the map.
+    /// </summary>
+    protected void TapScreen(int x, int y)
+    {
+        var finger = new PointerInputDevice(PointerKind.Touch);
+        var sequence = new ActionSequence(finger);
+        sequence.AddAction(finger.CreatePointerMove(CoordinateOrigin.Viewport, x, y, TimeSpan.Zero));
+        sequence.AddAction(finger.CreatePointerDown(MouseButton.Left));
+        sequence.AddAction(finger.CreatePointerUp(MouseButton.Left));
+        App.PerformActions(new[] { sequence });
+    }
+
+    /// <summary>
+    /// Taps the shared map at a point that is visible above the fully
+    /// expanded tools sheet (upper ~20% of the screen), so the tap lands
+    /// on the map and not on the sheet.
+    /// </summary>
+    protected void TapMapAboveSheet()
+    {
+        var size = App.Manage().Window.Size;
+        TapScreen(size.Width / 2, (int)(size.Height * 0.2));
+    }
+
+    /// <summary>
+    /// Expands the collapsed "Settings" section on the Tools panel (tap
+    /// on the section header) when it is not already open. The scheme
+    /// chips and the "More Settings →" button only exist in the
+    /// accessibility tree while the section is expanded — and the whole
+    /// section sits below the Demo Gallery cards, off the bottom of the
+    /// fully expanded sheet, so it must first be scrolled into view.
+    /// Leaves the section scrolled so its controls are tappable.
     /// </summary>
     protected void ExpandToolsSettings()
     {
         if (TryFindUIElement("ToolsSchemeNormalDay") is not null)
         {
-            return; // already expanded
+            return; // already expanded and in view
         }
 
-        FindByText("Settings").Click();
+        // Scroll until the Settings header is on screen (or the chips
+        // appear, if a prior test already expanded the section).
+        IWebElement? header = null;
+        for (var attempt = 0; attempt < 6; attempt++)
+        {
+            header = TryFindByText("Settings");
+            if (header is not null || TryFindUIElement("ToolsSchemeNormalDay") is not null)
+            {
+                break;
+            }
+            SwipeSheetUp();
+        }
+
+        if (TryFindUIElement("ToolsSchemeNormalDay") is null)
+        {
+            (header ?? FindByText("Settings")).Click();
+        }
+
+        // The expanded section (scheme chips, dark-mode toggle) renders
+        // below the header — scroll until the chips are on screen. If the
+        // chips never show, the tap above collapsed an already-expanded
+        // section (view-model state persists across tests), so re-tap.
+        var reTapAt = DateTime.UtcNow.AddSeconds(5);
+        var deadline = DateTime.UtcNow.AddSeconds(15);
+        while (TryFindUIElement("ToolsSchemeNormalDay") is null && DateTime.UtcNow < deadline)
+        {
+            SwipeSheetUp();
+            if (DateTime.UtcNow >= reTapAt)
+            {
+                TryFindByText("Settings")?.Click();
+                reTapAt = DateTime.UtcNow.AddSeconds(5);
+            }
+        }
     }
 
     /// <summary>
-    /// Switches to the named Shell tab by tapping its bottom-bar entry.
-    /// Tabs are surfaced as <c>content-desc</c> (Android) /
-    /// <c>accessibility identifier</c> (iOS) with the tab Title (e.g.
-    /// "Directions", "Traffic"), so <see cref="MobileBy.AccessibilityId"/>
-    /// matches on both platforms.
+    /// Switches to the named tab by tapping its bottom-bar entry on the
+    /// single-map home page. The custom tab bar buttons carry the
+    /// <c>AutomationId</c> "Tab-{title}" (e.g. "Tab-Directions"); the
+    /// legacy Shell <c>content-desc</c> / accessibility-identifier form
+    /// is kept as a fallback.
     /// </summary>
     protected void NavigateToTab(string tabTitle)
     {
@@ -215,8 +343,38 @@ public abstract class BaseTest
         // page transition the tab bar may not be in the accessibility tree
         // yet, and with no implicit wait a single FindElement returns
         // instantly on a miss.
-        var tab = WaitForElement(MobileBy.AccessibilityId(tabTitle), TimeSpan.FromSeconds(10));
-        tab.Click();
+        var deadline = DateTime.UtcNow.AddSeconds(10);
+        while (true)
+        {
+            var tab = TryLocateTab(tabTitle);
+            if (tab is not null)
+            {
+                tab.Click();
+                return;
+            }
+            if (DateTime.UtcNow >= deadline)
+            {
+                throw new OpenQA.Selenium.NoSuchElementException(
+                    $"Tab '{tabTitle}' not found in the accessibility tree after 10s");
+            }
+            Thread.Sleep(250);
+        }
+    }
+
+    private IWebElement? TryLocateTab(string title)
+    {
+        foreach (var by in new[] { AutomationIdSelector($"Tab-{title}"), MobileBy.AccessibilityId(title) })
+        {
+            try
+            {
+                return App.FindElement(by);
+            }
+            catch (NoSuchElementException)
+            {
+                // Try the next selector.
+            }
+        }
+        return null;
     }
 
     /// <summary>

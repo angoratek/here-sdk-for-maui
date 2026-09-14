@@ -13,11 +13,14 @@ public class DirectionsPageTests : BaseTest
     public void NavigateToDirections() => NavigateToTab("Directions");
 
     [Test]
-    public void DirectionsMapView_IsPresent()
+    public void DirectionsPanel_IsPresent()
     {
-        Screenshot(nameof(DirectionsMapView_IsPresent));
+        Screenshot(nameof(DirectionsPanel_IsPresent));
 
-        Assert.That(FindUIElement("DirectionsMapView").Displayed, Is.True);
+        // One shared map lives behind all panels (ExploreMapView); the
+        // Directions panel is asserted through its own controls.
+        Assert.That(FindUIElement("DirectionsFromEntry").Displayed, Is.True);
+        Assert.That(FindUIElement("DirectionsToEntry").Displayed, Is.True);
     }
 
     [Test]

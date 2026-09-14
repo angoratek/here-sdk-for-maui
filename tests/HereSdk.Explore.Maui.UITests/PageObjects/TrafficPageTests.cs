@@ -13,11 +13,13 @@ public class TrafficPageTests : BaseTest
     public void NavigateToTraffic() => NavigateToTab("Traffic");
 
     [Test]
-    public void TrafficMapView_IsPresent()
+    public void TrafficPanel_IsPresent()
     {
-        Screenshot(nameof(TrafficMapView_IsPresent));
+        Screenshot(nameof(TrafficPanel_IsPresent));
 
-        Assert.That(FindUIElement("TrafficMapView").Displayed, Is.True);
+        // One shared map lives behind all panels (ExploreMapView); the
+        // Traffic panel is asserted through its toggle chips.
+        Assert.That(FindUIElement("TrafficFlowButton").Displayed, Is.True);
     }
 
     [Test]
