@@ -25,12 +25,12 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20'
 
@@ -49,7 +49,7 @@ jobs:
             --sha "$SHA"
 
       - name: Open PR with changelog update
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: chore/changelog-${{ github.event.pull_request.number }}
           title: 'docs(changelog): ${{ github.event.pull_request.title }}'
