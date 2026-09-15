@@ -18,10 +18,10 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
@@ -39,7 +39,7 @@ jobs:
         run: ./scripts/build-android.sh
 
       - name: Setup Android SDK (cached)
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
           # packages must be a single space-delimited string — the action
           # passes it to sdkmanager verbatim, so multi-line lists break.
@@ -111,7 +111,7 @@ jobs:
           adb emu geo fix -122.0840 37.4220
 
       - name: Setup Node 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20'
 
@@ -191,7 +191,7 @@ jobs:
 
       - name: Upload screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ui-android-screenshots
           # BaseTest.Screenshot() writes under TestContext.WorkDirectory —
@@ -203,7 +203,7 @@ jobs:
       - name: Upload emulator + appium logs
         # failure() alone doesn't fire on cancelled jobs (e.g. boot timeout).
         if: failure() || cancelled()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ui-android-logs
           path: |
