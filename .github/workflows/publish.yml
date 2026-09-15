@@ -10,6 +10,10 @@ concurrency:
   group: publish-${{ github.ref_name }}
   cancel-in-progress: false
 
+# Deploying docs to the gh-pages branch needs contents write.
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: macos-latest
@@ -63,6 +67,8 @@ jobs:
         run: |
           dotnet tool install docfx --version 2.78.3 --tool-path "$RUNNER_TEMP/.dotnet-tools"
           "$RUNNER_TEMP/.dotnet-tools/docfx" docfx.json
+      - name: Use README as the site index
+        run: cp artifacts/docs/_site/README.html artifacts/docs/_site/index.html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

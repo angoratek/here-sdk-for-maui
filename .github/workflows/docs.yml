@@ -1,0 +1,53 @@
+name: Docs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'docfx.json'
+      - 'README.md'
+      - 'docs/**'
+      - 'src/HereSdk.Explore.Maui/**'
+
+# Cancel queued runs on rapid successive pushes to main.
+concurrency:
+  group: docs-main
+  cancel-in-progress: true
+
+# Deploying to the gh-pages branch needs contents write.
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+    env:
+      HERE_SDK_DIST_TOKEN: ${{ secrets.HERE_SDK_DIST_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: dotnet workload install maui
+      - name: Fetch HERE SDK archives
+        run: ./scripts/fetch-sdk.sh
+      # docfx metadata runs MSBuild on the MAUI library, which references both
+      # platform bindings — the Android AAR and the iOS NativeBridge xcframework
+      # must be in place first (same sequence as publish.yml).
+      - name: Build Android binding
+        run: ./scripts/build-android.sh
+      - name: Build iOS NativeBridge
+        run: ./scripts/build-ios-native.sh
+      - name: Generate documentation
+        run: |
+          dotnet tool install docfx --version 2.78.3 --tool-path "$RUNNER_TEMP/.dotnet-tools"
+          "$RUNNER_TEMP/.dotnet-tools/docfx" docfx.json
+      - name: Use README as the site index
+        # docfx emits README.html; GitHub Pages serves index.html at the site root.
+        run: cp artifacts/docs/_site/README.html artifacts/docs/_site/index.html
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./artifacts/docs

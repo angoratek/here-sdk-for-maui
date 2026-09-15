@@ -2,9 +2,12 @@
 
 [![Build & Test](https://github.com/angoratek/here-sdk-for-maui/actions/workflows/build.yml/badge.svg)](https://github.com/angoratek/here-sdk-for-maui/actions/workflows/build.yml)
 [![NuGet](https://img.shields.io/badge/nuget-v4.25.5.0-blue)](https://www.nuget.org/packages/HereSdk.Explore.Maui)
+[![Documentation](https://img.shields.io/badge/docs-online-blue)](https://angoratek.github.io/here-sdk-for-maui/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 Cross-platform .NET MAUI bindings for the [HERE SDK](https://www.here.com/) Explore Edition v4.25.5.0, supporting Android (API 24+) and iOS (15.2+).
+
+📖 **[Full documentation](https://angoratek.github.io/here-sdk-for-maui/)** — guides, architecture, and the complete API reference (DocFX).
 
 ## Features
 
