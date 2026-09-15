@@ -121,6 +121,42 @@
             <!-- HERE SDK: TransportModePicker sets RoutingOptions.TransportMode (car, truck, pedestrian, etc.)
                  before calling IRoutingService.CalculateRouteAsync(). -->
             <local:TransportModePicker x:Name="ModePicker" />
+
+            <!-- HERE SDK: TruckVehicleSpecifications on RoutingOptions.Truck
+                 (VehicleSpecification.TruckBuilder). Visible only in truck
+                 mode; leaving a field empty uses the SDK default. -->
+            <Border Style="{StaticResource SearchPillBorder}" Padding="12,8"
+                    IsVisible="{Binding IsTruckMode}"
+                    AutomationId="TruckSpecsCard">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="TRUCK SPECIFICATION" FontSize="10" FontFamily="InterSemiBold"
+                           TextColor="{AppThemeBinding Light={StaticResource TextSecondary}, Dark={StaticResource TextSecondaryDark}}" />
+                    <ScrollView HorizontalScrollBarVisibility="Never">
+                        <HorizontalStackLayout Spacing="6">
+                            <Entry x:Name="TruckHeightEntry" AutomationId="TruckHeightEntry"
+                                   Placeholder="Height cm" Keyboard="Numeric" FontSize="12"
+                                   Text="{Binding TruckHeightCm, Mode=TwoWay}"
+                                   Style="{StaticResource EntryField}" WidthRequest="100" />
+                            <Entry x:Name="TruckWidthEntry" AutomationId="TruckWidthEntry"
+                                   Placeholder="Width cm" Keyboard="Numeric" FontSize="12"
+                                   Text="{Binding TruckWidthCm, Mode=TwoWay}"
+                                   Style="{StaticResource EntryField}" WidthRequest="100" />
+                            <Entry x:Name="TruckLengthEntry" AutomationId="TruckLengthEntry"
+                                   Placeholder="Length cm" Keyboard="Numeric" FontSize="12"
+                                   Text="{Binding TruckLengthCm, Mode=TwoWay}"
+                                   Style="{StaticResource EntryField}" WidthRequest="100" />
+                            <Entry x:Name="TruckWeightEntry" AutomationId="TruckWeightEntry"
+                                   Placeholder="Weight kg" Keyboard="Numeric" FontSize="12"
+                                   Text="{Binding TruckGrossWeightKg, Mode=TwoWay}"
+                                   Style="{StaticResource EntryField}" WidthRequest="100" />
+                            <Entry x:Name="TruckAxlesEntry" AutomationId="TruckAxlesEntry"
+                                   Placeholder="Axles" Keyboard="Numeric" FontSize="12"
+                                   Text="{Binding TruckAxles, Mode=TwoWay}"
+                                   Style="{StaticResource EntryField}" WidthRequest="70" />
+                        </HorizontalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </Border>
         </VerticalStackLayout>
 
         <!-- Floating buttons (right) -->

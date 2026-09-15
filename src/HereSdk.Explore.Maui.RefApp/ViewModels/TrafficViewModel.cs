@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Models.Traffic;
+using Here.Explore.Maui.RefApp.Controls;
+using Here.Explore.Maui.RefApp.Services;
 using Here.Explore.Maui.Services;
 
 namespace Here.Explore.Maui.RefApp.ViewModels;
@@ -19,6 +21,9 @@ public partial class TrafficViewModel : ViewModelBase
     [ObservableProperty] private TrafficIncident? _selectedIncident;
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private string _statusMessage = "";
+    // Success/status notifications ("N incidents found") render as a green
+    // info banner; only real failures render red.
+    [ObservableProperty] private BannerSeverity _statusSeverity = BannerSeverity.Info;
     [ObservableProperty] private int _incidentCount;
     [ObservableProperty] private int _flowCount;
     [ObservableProperty] private string? _emptyStateTitle;
@@ -100,7 +105,7 @@ public partial class TrafficViewModel : ViewModelBase
             if (_selectedMarker is not null)
                 _mapService.RemoveMapMarker(_selectedMarker);
             // Show info marker at center
-            _selectedMarker = new MapMarker(_lastQueryArea.Center);
+            _selectedMarker = new MapMarker(_lastQueryArea.Center, Color: MarkerVisuals.Neutral, Glyph: MarkerVisuals.GlyphPlace);
             _mapService.AddMapMarker(_selectedMarker);
         }
     }
@@ -141,13 +146,15 @@ public partial class TrafficViewModel : ViewModelBase
                     }
                 }
                 StatusMessage = $"{FlowCount} flow segments rendered";
+                StatusSeverity = BannerSeverity.Info;
             }
             else
             {
                 StatusMessage = $"Flow query error: {result.Error}";
+                StatusSeverity = BannerSeverity.Error;
             }
         }
-        catch (Exception ex) { StatusMessage = ex.Message; }
+        catch (Exception ex) { StatusMessage = ex.Message; StatusSeverity = BannerSeverity.Error; }
         finally { IsLoading = false; }
     }
 
@@ -185,19 +192,22 @@ public partial class TrafficViewModel : ViewModelBase
                         // markers stacked on the same spot and were not
                         // distinguishable from each other on the map.
                         var position = incident.Location ?? _lastQueryArea.Center;
-                        var marker = new MapMarker(position);
+                        var (glyph, tint) = MarkerVisuals.ForIncident(incident);
+                        var marker = new MapMarker(position, Color: tint, Glyph: glyph);
                         _mapService.AddMapMarker(marker);
                         _incidentMarkers.Add(marker);
                     }
                 }
                 StatusMessage = $"{IncidentCount} incidents found";
+                StatusSeverity = BannerSeverity.Info;
             }
             else
             {
                 StatusMessage = $"Incident query error: {result.Error}";
+                StatusSeverity = BannerSeverity.Error;
             }
         }
-        catch (Exception ex) { StatusMessage = ex.Message; }
+        catch (Exception ex) { StatusMessage = ex.Message; StatusSeverity = BannerSeverity.Error; }
         finally { IsLoading = false; }
     }
 

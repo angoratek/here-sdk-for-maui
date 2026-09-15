@@ -3,6 +3,7 @@ using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Models.Traffic;
 using Here.Explore.Maui.Services;
+using Here.Explore.Maui.RefApp.Controls;
 using Here.Explore.Maui.RefApp.ViewModels;
 using NSubstitute;
 
@@ -165,4 +166,60 @@ public class TrafficViewModelTests
     }
 
     #endregion
+
+    #region StatusSeverity
+
+    [Fact]
+    public async Task QueryIncidents_Success_ShowsInfoSeverity()
+    {
+        var incident = new TrafficIncident("i1", "Closed road", TrafficIncidentType.RoadClosure,
+            TrafficIncidentImpact.Closed);
+        _trafficService.QueryIncidentsAsync(Arg.Any<GeoCircle>(), Arg.Any<TrafficIncidentsQueryOptions>())
+            .Returns(new TrafficIncidentsResult(TrafficQueryError.None, new List<TrafficIncident> { incident }));
+
+        _viewModel.ToggleIncidentsCommand.Execute(null); // visible=true → hide first
+        _viewModel.ToggleIncidentsCommand.Execute(null); // visible=false → query
+        await Task.Delay(50);
+
+        Assert.Equal(BannerSeverity.Info, _viewModel.StatusSeverity);
+        Assert.Contains("incidents found", _viewModel.StatusMessage);
+    }
+
+    [Fact]
+    public async Task QueryIncidents_Error_ShowsErrorSeverity()
+    {
+        _trafficService.QueryIncidentsAsync(Arg.Any<GeoCircle>(), Arg.Any<TrafficIncidentsQueryOptions>())
+            .Returns(new TrafficIncidentsResult(TrafficQueryError.NetworkError, null));
+
+        _viewModel.ToggleIncidentsCommand.Execute(null); // hide
+        _viewModel.ToggleIncidentsCommand.Execute(null); // show → query
+        await Task.Delay(50);
+
+        Assert.Equal(BannerSeverity.Error, _viewModel.StatusSeverity);
+    }
+
+    [Fact]
+    public async Task QueryIncidents_ErrorThenSuccess_RestoresInfoSeverity()
+    {
+        _trafficService.QueryIncidentsAsync(Arg.Any<GeoCircle>(), Arg.Any<TrafficIncidentsQueryOptions>())
+            .Returns(new TrafficIncidentsResult(TrafficQueryError.NetworkError, null));
+        _viewModel.ToggleIncidentsCommand.Execute(null); // hide
+        _viewModel.ToggleIncidentsCommand.Execute(null); // show → query
+        await Task.Delay(50);
+        Assert.Equal(BannerSeverity.Error, _viewModel.StatusSeverity);
+
+        var incident = new TrafficIncident("i1", "Closed road", TrafficIncidentType.RoadClosure,
+            TrafficIncidentImpact.Closed);
+        _trafficService.QueryIncidentsAsync(Arg.Any<GeoCircle>(), Arg.Any<TrafficIncidentsQueryOptions>())
+            .Returns(new TrafficIncidentsResult(TrafficQueryError.None, new List<TrafficIncident> { incident }));
+        await Task.Delay(50);
+        _viewModel.ToggleIncidentsCommand.Execute(null); // hide
+        _viewModel.ToggleIncidentsCommand.Execute(null); // show again → query
+        await Task.Delay(50);
+
+        Assert.Equal(BannerSeverity.Info, _viewModel.StatusSeverity);
+    }
+
+    #endregion
 }
+

@@ -126,6 +126,12 @@
     <Color x:Key="BannerErrorText">#8A1B2E</Color>
     <Color x:Key="BannerErrorTextDark">#FFC1CB</Color>
 
+    <!-- Info banner (soft green — success/status notifications, not errors) -->
+    <Color x:Key="BannerInfoBg">#E3F7EC</Color>
+    <Color x:Key="BannerInfoBgDark">#1F3329</Color>
+    <Color x:Key="BannerInfoText">#1E7A4F</Color>
+    <Color x:Key="BannerInfoTextDark">#9FE8C3</Color>
+
     <!-- Floating toolbar / scrim (drawing toolbar, sheet backdrop) -->
     <Color x:Key="ToolbarBackground">#FFFFFF</Color>
     <Color x:Key="ToolbarBackgroundDark">#1C1C1E</Color>

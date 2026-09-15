@@ -217,7 +217,8 @@ public partial class ExploreViewModel : ViewModelBase
             {
                 foreach (var place in result.Places)
                 {
-                    var marker = new MapMarker(place.Coordinates);
+                    var (glyph, tint) = MarkerVisuals.ForPlace(place);
+                    var marker = new MapMarker(place.Coordinates, Color: tint, Glyph: glyph);
                     _mapService.AddMapMarker(marker);
                     _placeMarkers.Add(marker);
                 }
@@ -271,7 +272,8 @@ public partial class ExploreViewModel : ViewModelBase
             {
                 foreach (var place in result.Places)
                 {
-                    var marker = new MapMarker(place.Coordinates);
+                    var (glyph, tint) = MarkerVisuals.ForPlace(place);
+                    var marker = new MapMarker(place.Coordinates, Color: tint, Glyph: glyph);
                     _mapService.AddMapMarker(marker);
                     _placeMarkers.Add(marker);
                 }
@@ -311,7 +313,7 @@ public partial class ExploreViewModel : ViewModelBase
 
         ClearPlaceMarkers();
 
-        _selectedMarker = new MapMarker(place.Coordinates);
+        _selectedMarker = new MapMarker(place.Coordinates, Color: MarkerVisuals.Accent, Glyph: MarkerVisuals.GlyphPlace);
         _mapService.AddMapMarker(_selectedMarker);
 
         SelectedPlace = place;
@@ -454,6 +456,11 @@ public partial class ExploreViewModel : ViewModelBase
             _mapService.RemoveMapMarker(_tapMarker);
             _tapMarker = null;
         }
+        if (_longPressMarker is not null && _mapService is not null)
+        {
+            _mapService.RemoveMapMarker(_longPressMarker);
+            _longPressMarker = null;
+        }
     }
 
     [RelayCommand]
@@ -483,7 +490,7 @@ public partial class ExploreViewModel : ViewModelBase
 
         if (_tapMarker is not null)
             _mapService.RemoveMapMarker(_tapMarker);
-        _tapMarker = new MapMarker(e.Coordinates);
+        _tapMarker = new MapMarker(e.Coordinates, Color: MarkerVisuals.Selected, Glyph: MarkerVisuals.GlyphTap);
         _mapService.AddMapMarker(_tapMarker);
 
         try
@@ -510,7 +517,7 @@ public partial class ExploreViewModel : ViewModelBase
         if (_longPressMarker is not null)
             _mapService.RemoveMapMarker(_longPressMarker);
 
-        _longPressMarker = new MapMarker(e.Coordinates);
+        _longPressMarker = new MapMarker(e.Coordinates, Color: MarkerVisuals.Selected, Glyph: MarkerVisuals.GlyphLongPress);
         _mapService.AddMapMarker(_longPressMarker);
 
         // Try to find nearby places

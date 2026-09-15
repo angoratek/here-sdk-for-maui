@@ -21,7 +21,22 @@ public partial class DirectionsPanel : ContentView
         ModePicker.ModeSelected += (_, mode) =>
         {
             _viewModel.SelectedTransportMode = mode;
+            // A visible route recalculates immediately so the effect of the
+            // mode change (e.g. car ↔ truck restrictions) is visible.
+            if (_viewModel.IsRouteVisible)
+                _viewModel.CalculateRouteCommand.Execute(null);
         };
+
+        // Editing a truck spec re-routes on completion (return key) so the
+        // route change from the new restrictions is visible without extra taps.
+        foreach (var entry in new[] { TruckHeightEntry, TruckWidthEntry, TruckLengthEntry, TruckWeightEntry, TruckAxlesEntry })
+        {
+            entry.Completed += (_, _) =>
+            {
+                if (_viewModel.IsRouteVisible)
+                    _viewModel.CalculateRouteCommand.Execute(null);
+            };
+        }
 
         // Auto-expand the route sheet when a route lands: it starts
         // Collapsed (height 0), so without this the ETA and maneuver

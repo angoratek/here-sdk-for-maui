@@ -23,6 +23,7 @@
         <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="{StaticResource TopSafeMargin}"
                              VerticalOptions="Start">
         <local:ErrorBanner ErrorMessage="{Binding StatusMessage}"
+                           Severity="{Binding StatusSeverity}"
                            RetryCommand="{Binding RefreshTrafficCommand}"
                            RetryText="Retry" />
         <Border Style="{StaticResource SearchPillBorder}"

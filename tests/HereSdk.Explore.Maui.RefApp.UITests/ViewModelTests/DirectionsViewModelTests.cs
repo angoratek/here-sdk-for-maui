@@ -366,4 +366,73 @@ public class DirectionsViewModelTests
     }
 
     #endregion
+
+    #region TruckSpecifications
+
+    [Fact]
+    public void SelectedTransportMode_Truck_ShowsSpecEditor()
+    {
+        _viewModel.SelectedTransportMode = 1; // truck
+
+        Assert.True(_viewModel.IsTruckMode);
+
+        _viewModel.SelectedTransportMode = 0; // car
+        Assert.False(_viewModel.IsTruckMode);
+    }
+
+    [Fact]
+    public async Task CalculateRoute_InTruckMode_PassesVehicleSpecsToService()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        mockMap.SetCameraTargetAsync(Arg.Any<GeoCoordinates>(), Arg.Any<double>()).Returns(Task.CompletedTask);
+        _viewModel.SetMapService(mockMap);
+        typeof(DirectionsViewModel).GetProperty(nameof(DirectionsViewModel.OriginPlace))!
+            .SetValue(_viewModel, new Place("id1", "Origin", new GeoCoordinates(52.52, 13.405)));
+        typeof(DirectionsViewModel).GetProperty(nameof(DirectionsViewModel.DestinationPlace))!
+            .SetValue(_viewModel, new Place("id2", "Destination", new GeoCoordinates(48.135, 11.582)));
+
+        _viewModel.SelectedTransportMode = 1; // truck
+        _viewModel.TruckHeightCm = "400";
+        _viewModel.TruckGrossWeightKg = "12000";
+        _viewModel.TruckAxles = "4";
+
+        RoutingOptions? captured = null;
+        _routingService.CalculateRouteAsync(Arg.Any<List<Waypoint>>(), Arg.Do<RoutingOptions>(o => captured = o))
+            .Returns(new RoutingResult(RoutingError.NoRouteFound, null));
+
+        _viewModel.CalculateRouteCommand.Execute(null);
+        await Task.Delay(50);
+
+        Assert.NotNull(captured);
+        Assert.NotNull(captured!.Truck);
+        Assert.Equal(400, captured.Truck!.HeightInCentimeters);
+        Assert.Equal(12000, captured.Truck.GrossWeightInKilograms);
+        Assert.Equal(4, captured.Truck.AxleCount);
+        Assert.Null(captured.Truck.WidthInCentimeters); // empty field → SDK default
+    }
+
+    [Fact]
+    public async Task CalculateRoute_InCarMode_PassesNoTruckSpecs()
+    {
+        var mockMap = Substitute.For<IMapService>();
+        mockMap.SetCameraTargetAsync(Arg.Any<GeoCoordinates>(), Arg.Any<double>()).Returns(Task.CompletedTask);
+        _viewModel.SetMapService(mockMap);
+        typeof(DirectionsViewModel).GetProperty(nameof(DirectionsViewModel.OriginPlace))!
+            .SetValue(_viewModel, new Place("id1", "Origin", new GeoCoordinates(52.52, 13.405)));
+        typeof(DirectionsViewModel).GetProperty(nameof(DirectionsViewModel.DestinationPlace))!
+            .SetValue(_viewModel, new Place("id2", "Destination", new GeoCoordinates(48.135, 11.582)));
+
+        RoutingOptions? captured = null;
+        _routingService.CalculateRouteAsync(Arg.Any<List<Waypoint>>(), Arg.Do<RoutingOptions>(o => captured = o))
+            .Returns(new RoutingResult(RoutingError.NoRouteFound, null));
+
+        _viewModel.CalculateRouteCommand.Execute(null);
+        await Task.Delay(50);
+
+        Assert.NotNull(captured);
+        Assert.Null(captured!.Truck);
+    }
+
+    #endregion
 }
+

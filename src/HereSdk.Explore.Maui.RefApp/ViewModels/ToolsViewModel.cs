@@ -768,10 +768,10 @@ public class DemoPreset
 /// <summary>Material icon codepoints for drawing object rows and toolbar pills.</summary>
 public static class DrawingGlyph
 {
-    public const string Marker = "\ue55c";   // place
-    public const string Polyline = "\ue922"; // timeline
-    public const string Polygon = "\ue88b";  // change_history (triangle)
-    public const string Circle = "\ue1c4";   // trip_origin (hollow circle)
+    public const string Marker = "\ue55f";   // place (solid pin)
+    public const string Polyline = "\ueacd"; // route (road segment)
+    public const string Polygon = "\ue863";  // change_history (triangle)
+    public const string Circle = "\ue40c";   // panorama_fish_eye (hollow circle)
     public const string Delete = "\ue872";   // delete
     public const string Undo = "\ue166";     // undo
     public const string Close = "\ue5cd";    // close

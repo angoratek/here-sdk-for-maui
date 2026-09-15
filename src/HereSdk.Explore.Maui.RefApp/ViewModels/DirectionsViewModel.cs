@@ -26,6 +26,8 @@ public partial class DirectionsViewModel : ViewModelBase
     [ObservableProperty] private Place? _originPlace;
     [ObservableProperty] private Place? _destinationPlace;
     [ObservableProperty] private int _selectedTransportMode;
+    /// <summary>Truck-spec editor is only relevant in truck mode (index 1).</summary>
+    [ObservableProperty] private bool _isTruckMode;
     [ObservableProperty] private bool _isCalculating;
     [ObservableProperty] private Route? _currentRoute;
     [ObservableProperty] private IReadOnlyList<Route> _alternativeRoutes = Array.Empty<Route>();
@@ -41,10 +43,30 @@ public partial class DirectionsViewModel : ViewModelBase
     /// <summary>Material glyph for the isoline toggle (circle → place when active).</summary>
     public string IsolineButtonGlyph => IsIsolineMode ? "\ue55f" : "\ue39e";
     partial void OnIsIsolineModeChanged(bool value) => OnPropertyChanged(nameof(IsolineButtonGlyph));
+    partial void OnSelectedTransportModeChanged(int value) => IsTruckMode = value == 1;
     [ObservableProperty] private bool _hasTrafficOnRoute;
     [ObservableProperty] private string _routeError = "";
     [ObservableProperty] private string? _emptyStateTitle;
     [ObservableProperty] private string? _emptyStateSubtitle;
+
+    // Truck vehicle specification editor (truck mode only; empty = SDK default).
+    [ObservableProperty] private string _truckHeightCm = "";
+    [ObservableProperty] private string _truckWidthCm = "";
+    [ObservableProperty] private string _truckLengthCm = "";
+    [ObservableProperty] private string _truckGrossWeightKg = "";
+    [ObservableProperty] private string _truckAxles = "";
+
+    private TruckVehicleSpecifications? ParseTruckSpecs() => IsTruckMode
+        ? new TruckVehicleSpecifications(
+            GrossWeightInKilograms: ParseIntOrNull(TruckGrossWeightKg),
+            HeightInCentimeters: ParseIntOrNull(TruckHeightCm),
+            WidthInCentimeters: ParseIntOrNull(TruckWidthCm),
+            LengthInCentimeters: ParseIntOrNull(TruckLengthCm),
+            AxleCount: ParseIntOrNull(TruckAxles))
+        : null;
+
+    private static int? ParseIntOrNull(string? text) =>
+        int.TryParse(text?.Trim(), out var value) ? value : null;
 
     private CancellationTokenSource? _originDebounce;
     private CancellationTokenSource? _destDebounce;
@@ -282,21 +304,30 @@ public partial class DirectionsViewModel : ViewModelBase
         RouteError = "";
         EmptyStateTitle = null;
         ClearRoute();
+        // ClearRoute drops the A/B pins too — restore them so the freshly
+        // calculated route still shows its endpoints (camera re-fits below).
+        var originPlace = OriginPlace;
+        var destinationPlace = DestinationPlace;
+        if (originPlace is not null) UpdateOriginMarker(originPlace);
+        if (destinationPlace is not null) UpdateDestMarker(destinationPlace);
 
         try
         {
             var waypoints = new List<Waypoint>
             {
-                new(OriginPlace.Coordinates),
-                new(DestinationPlace.Coordinates)
+                new(originPlace!.Coordinates),
+                new(destinationPlace!.Coordinates)
             };
 
             var mode = TransportModeFromInt(SelectedTransportMode);
             var options = new RoutingOptions
             {
                 TransportMode = mode,
-                MaxAlternatives = 2
+                MaxAlternatives = 2,
+                Truck = ParseTruckSpecs()
             };
+            if (options.Truck is not null)
+                System.Diagnostics.Debug.WriteLine($"[REFAPP_DIAG] Truck specs: {options.Truck}");
 
             var result = await _routingService.CalculateRouteAsync(waypoints, options);
 
@@ -382,7 +413,7 @@ public partial class DirectionsViewModel : ViewModelBase
         var center = OriginPlace?.Coordinates ?? DestinationPlace?.Coordinates ?? new GeoCoordinates(37.7749, -122.4194);
 
         // Mark center
-        _isolineCenterMarker = new MapMarker(center);
+        _isolineCenterMarker = new MapMarker(center, Color: MarkerVisuals.Neutral, Glyph: MarkerVisuals.GlyphPlace);
         _mapService.AddMapMarker(_isolineCenterMarker);
 
         try
@@ -437,6 +468,15 @@ public partial class DirectionsViewModel : ViewModelBase
     private void ClearRoute()
     {
         ClearRouteInternal();
+        // Explicit clear also drops the A/B pins (Reset Map relies on this);
+        // CalculateRoute uses ClearRouteInternal only, so its pins survive.
+        if (_mapService is not null)
+        {
+            if (_originMarker is not null) _mapService.RemoveMapMarker(_originMarker);
+            if (_destMarker is not null) _mapService.RemoveMapMarker(_destMarker);
+        }
+        _originMarker = null;
+        _destMarker = null;
         IsRouteVisible = false;
         RouteSummary = "";
         RouteEta = "";
@@ -470,7 +510,7 @@ public partial class DirectionsViewModel : ViewModelBase
     {
         if (_mapService is null) return;
         if (_originMarker is not null) _mapService.RemoveMapMarker(_originMarker);
-        _originMarker = new MapMarker(place.Coordinates);
+        _originMarker = new MapMarker(place.Coordinates, Color: MarkerVisuals.Origin, Glyph: MarkerVisuals.GlyphOrigin);
         _mapService.AddMapMarker(_originMarker);
         _ = _mapService.SetCameraTargetAsync(place.Coordinates, 14);
     }
@@ -479,7 +519,7 @@ public partial class DirectionsViewModel : ViewModelBase
     {
         if (_mapService is null) return;
         if (_destMarker is not null) _mapService.RemoveMapMarker(_destMarker);
-        _destMarker = new MapMarker(place.Coordinates);
+        _destMarker = new MapMarker(place.Coordinates, Color: MarkerVisuals.Accent, Glyph: MarkerVisuals.GlyphDestination);
         _mapService.AddMapMarker(_destMarker);
     }
 

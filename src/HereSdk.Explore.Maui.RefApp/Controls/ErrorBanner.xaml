@@ -4,26 +4,28 @@
              xmlns:ext="clr-namespace:Here.Explore.Maui.RefApp.Extensions"
              x:Class="Here.Explore.Maui.RefApp.Controls.ErrorBanner"
              x:Name="Banner">
-    <Border Style="{StaticResource CardBorder}"
+    <Border x:Name="RootBorder"
+            Style="{StaticResource CardBorder}"
             BackgroundColor="{ext:Themed BannerErrorBg}"
             StrokeShape="RoundRectangle 12" StrokeThickness="0"
             Padding="12,10">
         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-            <Label Grid.Column="0" Text="&#xe001;" FontFamily="MaterialIcons" FontSize="18"
+            <Label x:Name="IconLabel" Grid.Column="0" Text="&#xe001;" FontFamily="MaterialIcons" FontSize="18"
                    TextColor="{ext:Themed BannerErrorText}"
                    VerticalOptions="Center" />
-            <Label Grid.Column="1" FontSize="13"
-                   VerticalOptions="Center"
+            <Label x:Name="MessageLabel" Grid.Column="1" FontSize="13"
+                   VerticalOptions="Center" LineBreakMode="TailTruncation" MaxLines="2"
                    Text="{Binding Source={x:Reference Banner}, Path=ErrorMessage}"
                    TextColor="{ext:Themed BannerErrorText}" />
             <Button Grid.Column="2" x:Name="RetryButton"
                     Text="{Binding Source={x:Reference Banner}, Path=RetryText}"
                     FontSize="12" FontFamily="InterSemiBold"
+                    Padding="10,0"
+                    WidthRequest="64"
                     Command="{Binding Source={x:Reference Banner}, Path=RetryCommand}"
                     BackgroundColor="{ext:Themed BannerErrorText}"
                     TextColor="White"
                     CornerRadius="14" HeightRequest="28"
-                    MinimumWidthRequest="60"
                     VerticalOptions="Center" />
         </Grid>
     </Border>
