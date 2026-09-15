@@ -80,6 +80,45 @@ public class RoutingServiceiOSTests
     }
 
     [Fact]
+    public void RoutingOptions_WithTruckVehicleSpecifications_CanBeCreated()
+    {
+        var options = new RoutingOptions(
+            TransportMode: SectionTransportMode.Truck,
+            MaxAlternatives: 2,
+            Truck: new TruckVehicleSpecifications(GrossWeightInKilograms: 12000, HeightInCentimeters: 400));
+        Assert.Equal(SectionTransportMode.Truck, options.TransportMode);
+        Assert.Equal(2, options.MaxAlternatives);
+        Assert.Equal(12000, options.Truck!.GrossWeightInKilograms);
+        Assert.Equal(400, options.Truck.HeightInCentimeters);
+    }
+
+    [Fact(Skip = "Requires HERE SDK credentials and network access")]
+    public async Task CalculateRouteAsync_TruckWithVehicleSpecification_ReturnsRoute()
+    {
+        // End-to-end truck route with an explicit vehicle specification
+        // (height 400cm, gross weight 12000kg). The specification is mapped
+        // into HereTruckSpecifications and passed via the NativeBridge.
+        var service = new RoutingService();
+        service.Initialize();
+
+        var waypoints = new[] {
+            new Waypoint(new GeoCoordinates(52.5, 13.4)),
+            new Waypoint(new GeoCoordinates(52.6, 13.5)) };
+        var options = new RoutingOptions(
+            TransportMode: SectionTransportMode.Truck,
+            Truck: new TruckVehicleSpecifications(
+                GrossWeightInKilograms: 12000,
+                HeightInCentimeters: 400,
+                AxleCount: 3));
+
+        var result = await service.CalculateRouteAsync(waypoints, options);
+
+        Assert.Equal(RoutingError.None, result.Error);
+        Assert.NotNull(result.Routes);
+        Assert.NotEmpty(result.Routes!);
+    }
+
+    [Fact]
     public void Section_CanBeCreated_WithManeuvers()
     {
         var maneuvers = new[] {

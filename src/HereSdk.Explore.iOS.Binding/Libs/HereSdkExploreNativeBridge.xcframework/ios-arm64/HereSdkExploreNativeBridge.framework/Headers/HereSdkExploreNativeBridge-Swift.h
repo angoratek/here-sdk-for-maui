@@ -692,6 +692,7 @@ typedef SWIFT_ENUM_NAMED(NSInteger, HereMapScheme, "HereMapScheme", open) {
   HereMapSchemeRoadNetworkNight = 14,
 };
 
+@class HerePlaceCategory;
 /// ObjC-visible wrapper for Place (search result).
 SWIFT_CLASS_NAMED("HerePlace")
 @interface HerePlace : NSObject
@@ -700,7 +701,18 @@ SWIFT_CLASS_NAMED("HerePlace")
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 @property (nonatomic, strong) HereAddress * _Nullable address;
-- (nonnull instancetype)initWithId:(NSString * _Nonnull)id title:(NSString * _Nonnull)title latitude:(double)latitude longitude:(double)longitude address:(HereAddress * _Nullable)address OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, copy) NSArray<HerePlaceCategory *> * _Nonnull primaryCategories;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id title:(NSString * _Nonnull)title latitude:(double)latitude longitude:(double)longitude address:(HereAddress * _Nullable)address primaryCategories:(NSArray<HerePlaceCategory *> * _Nonnull)primaryCategories OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// ObjC-visible wrapper for PlaceCategory (search result category).
+SWIFT_CLASS_NAMED("HerePlaceCategory")
+@interface HerePlaceCategory : NSObject
+@property (nonatomic, copy) NSString * _Nonnull id;
+@property (nonatomic, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithId:(NSString * _Nonnull)id name:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -755,12 +767,17 @@ SWIFT_CLASS_NAMED("HereRoutingEngine")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class HereTruckSpecifications;
 /// ObjC-visible wrapper for RoutingOptions.
 /// Uses TransportSpecification (the new v4.28+ pattern).
 SWIFT_CLASS_NAMED("HereRoutingOptions")
 @interface HereRoutingOptions : NSObject
 @property (nonatomic) NSInteger transportMode;
-- (nonnull instancetype)initWithTransportMode:(NSInteger)transportMode OBJC_DESIGNATED_INITIALIZER;
+/// Maximum number of alternative routes in addition to the best one.
+/// 0 leaves the SDK default untouched.
+@property (nonatomic) int32_t maxAlternatives;
+@property (nonatomic, strong) HereTruckSpecifications * _Nullable truckSpecifications;
+- (nonnull instancetype)initWithTransportMode:(NSInteger)transportMode maxAlternatives:(int32_t)maxAlternatives OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -954,6 +971,22 @@ SWIFT_CLASS_NAMED("HereTrafficOnSpan")
 @property (nonatomic) int32_t geometryOffset;
 @property (nonatomic, copy) NSArray<NSNumber *> * _Nullable incidentIndices;
 - (nonnull instancetype)initWithJamFactor:(double)jamFactor lengthInMeters:(double)lengthInMeters baseSpeedInMetersPerSecond:(double)baseSpeedInMetersPerSecond trafficSpeedInMetersPerSecond:(double)trafficSpeedInMetersPerSecond trafficDelayInSeconds:(double)trafficDelayInSeconds durationInSeconds:(double)durationInSeconds geometryOffset:(int32_t)geometryOffset incidentIndices:(NSArray<NSNumber *> * _Nullable)incidentIndices OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// ObjC-visible wrapper for truck vehicle specifications.
+/// Uses the 0/absent convention for optional numerics (a 0 value means
+/// “not set” and is left at the SDK default).
+SWIFT_CLASS_NAMED("HereTruckSpecifications")
+@interface HereTruckSpecifications : NSObject
+@property (nonatomic) NSInteger grossWeightInKilograms;
+@property (nonatomic) NSInteger heightInCentimeters;
+@property (nonatomic) NSInteger widthInCentimeters;
+@property (nonatomic) NSInteger lengthInCentimeters;
+@property (nonatomic) NSInteger axleCount;
+@property (nonatomic) NSInteger trailerCount;
+- (nonnull instancetype)initWithGrossWeightInKilograms:(NSInteger)grossWeightInKilograms heightInCentimeters:(NSInteger)heightInCentimeters widthInCentimeters:(NSInteger)widthInCentimeters lengthInCentimeters:(NSInteger)lengthInCentimeters axleCount:(NSInteger)axleCount trailerCount:(NSInteger)trailerCount OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

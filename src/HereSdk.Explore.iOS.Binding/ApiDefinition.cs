@@ -438,10 +438,24 @@ namespace Here.Explore.iOS
 
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
+    interface HerePlaceCategory
+    {
+        [Export("initWithId:name:")]
+        IntPtr Constructor(string id, string name);
+
+        [Export("id")]
+        string Id { get; set; }
+
+        [Export("name")]
+        string Name { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
     interface HerePlace
     {
-        [Export("initWithId:title:latitude:longitude:address:")]
-        IntPtr Constructor(string id, string title, double latitude, double longitude, [NullAllowed] HereAddress? address);
+        [Export("initWithId:title:latitude:longitude:address:primaryCategories:")]
+        IntPtr Constructor(string id, string title, double latitude, double longitude, [NullAllowed] HereAddress? address, HerePlaceCategory[] primaryCategories);
 
         [Export("id")]
         string Id { get; set; }
@@ -458,6 +472,9 @@ namespace Here.Explore.iOS
         [Export("address", ArgumentSemantic.Retain)]
         [NullAllowed]
         HereAddress Address { get; set; }
+
+        [Export("primaryCategories")]
+        HerePlaceCategory[] PrimaryCategories { get; set; }
     }
 
     [BaseType(typeof(NSObject))]
@@ -527,13 +544,48 @@ namespace Here.Explore.iOS
 
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
+    interface HereTruckSpecifications
+    {
+        // 0 means "not set" (falls back to the SDK default) — Swift optionals
+        // of Int are not ObjC-representable, so the wrapper uses 0/absent.
+        [Export("initWithGrossWeightInKilograms:heightInCentimeters:widthInCentimeters:lengthInCentimeters:axleCount:trailerCount:")]
+        IntPtr Constructor(int grossWeightInKilograms, int heightInCentimeters, int widthInCentimeters, int lengthInCentimeters, int axleCount, int trailerCount);
+
+        [Export("grossWeightInKilograms")]
+        int GrossWeightInKilograms { get; set; }
+
+        [Export("heightInCentimeters")]
+        int HeightInCentimeters { get; set; }
+
+        [Export("widthInCentimeters")]
+        int WidthInCentimeters { get; set; }
+
+        [Export("lengthInCentimeters")]
+        int LengthInCentimeters { get; set; }
+
+        [Export("axleCount")]
+        int AxleCount { get; set; }
+
+        [Export("trailerCount")]
+        int TrailerCount { get; set; }
+    }
+
+    [BaseType(typeof(NSObject))]
+    [DisableDefaultCtor]
     interface HereRoutingOptions
     {
-        [Export("initWithTransportMode:")]
-        IntPtr Constructor(nint transportMode);
+        [Export("initWithTransportMode:maxAlternatives:")]
+        IntPtr Constructor(nint transportMode, int maxAlternatives);
 
         [Export("transportMode")]
         nint TransportMode { get; set; }
+
+        [Export("maxAlternatives")]
+        int MaxAlternatives { get; set; }
+
+        [Export("truckSpecifications", ArgumentSemantic.Retain)]
+        [NullAllowed]
+        HereTruckSpecifications? TruckSpecifications { get; set; }
     }
 
     [BaseType(typeof(NSObject))]

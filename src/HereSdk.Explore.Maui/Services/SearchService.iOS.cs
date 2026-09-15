@@ -184,11 +184,18 @@ public partial class SearchService
                 iosPlace.Address.CountryName,
                 iosPlace.Address.PostalCode);
 
+        var categories = iosPlace.PrimaryCategories?
+            .Where(c => c is not null)
+            .Select(c => new PlaceCategory(c.Id, c.Name ?? string.Empty))
+            .ToList();
+
         return new Place(
             iosPlace.Id,
             iosPlace.Title,
             new GeoCoordinates(iosPlace.Latitude, iosPlace.Longitude),
-            address);
+            address,
+            PrimaryCategory: categories?.FirstOrDefault(),
+            Categories: categories);
     }
 
     private static Suggestion ToSharedSuggestion(HereSuggestion iosSuggestion)

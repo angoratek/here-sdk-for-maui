@@ -46,7 +46,20 @@ public partial class RoutingService
             w.Coordinates.Longitude,
             (nint)ToIOSWaypointType(w.Type))).ToArray();
 
-        var iosOptions = new HereRoutingOptions((nint)ToIOSTransportMode(options.TransportMode));
+        var iosOptions = new HereRoutingOptions(
+            (nint)ToIOSTransportMode(options.TransportMode),
+            (int)(options.MaxAlternatives ?? 0));
+
+        if (options.Truck is TruckVehicleSpecifications truck)
+        {
+            iosOptions.TruckSpecifications = new HereTruckSpecifications(
+                truck.GrossWeightInKilograms ?? 0,
+                truck.HeightInCentimeters ?? 0,
+                truck.WidthInCentimeters ?? 0,
+                truck.LengthInCentimeters ?? 0,
+                truck.AxleCount ?? 0,
+                truck.TrailerCount ?? 0);
+        }
 
         _engine.CalculateRoute(iosWaypoints, iosOptions, result =>
         {

@@ -179,7 +179,14 @@ public partial class SearchService
         if (androidPlace.DistanceInMeters is not null)
             distance = (int)androidPlace.DistanceInMeters;
 
-        return new Place(androidPlace.Id, androidPlace.Title, coords, address, distance);
+        var categories = androidPlace.Details?.PrimaryCategories?
+            .Where(c => c is not null)
+            .Select(c => new PlaceCategory(c.Id, c.Name ?? string.Empty))
+            .ToList();
+
+        return new Place(androidPlace.Id, androidPlace.Title, coords, address, distance,
+            PrimaryCategory: categories?.FirstOrDefault(),
+            Categories: categories);
     }
 
     internal static Suggestion ToSharedSuggestion(Here.Explore.Search.Suggestion androidSuggestion)

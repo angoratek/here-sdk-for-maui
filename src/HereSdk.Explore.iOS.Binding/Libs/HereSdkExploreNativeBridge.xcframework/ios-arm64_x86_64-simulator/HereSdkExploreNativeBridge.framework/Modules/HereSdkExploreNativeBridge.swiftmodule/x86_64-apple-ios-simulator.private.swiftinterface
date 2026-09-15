@@ -247,9 +247,21 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public init(latitude: Swift.Double, longitude: Swift.Double, type: Swift.Int = 0)
   @objc deinit
 }
+@objc(HereTruckSpecifications) public class HereTruckSpecifications : ObjectiveC.NSObject {
+  @objc public var grossWeightInKilograms: Swift.Int
+  @objc public var heightInCentimeters: Swift.Int
+  @objc public var widthInCentimeters: Swift.Int
+  @objc public var lengthInCentimeters: Swift.Int
+  @objc public var axleCount: Swift.Int
+  @objc public var trailerCount: Swift.Int
+  @objc public init(grossWeightInKilograms: Swift.Int = 0, heightInCentimeters: Swift.Int = 0, widthInCentimeters: Swift.Int = 0, lengthInCentimeters: Swift.Int = 0, axleCount: Swift.Int = 0, trailerCount: Swift.Int = 0)
+  @objc deinit
+}
 @objc(HereRoutingOptions) public class HereRoutingOptions : ObjectiveC.NSObject {
   @objc public var transportMode: Swift.Int
-  @objc public init(transportMode: Swift.Int = 0)
+  @objc public var maxAlternatives: Swift.Int32
+  @objc public var truckSpecifications: HereSdkExploreNativeBridge.HereTruckSpecifications?
+  @objc public init(transportMode: Swift.Int = 0, maxAlternatives: Swift.Int32 = 0)
   @objc deinit
 }
 @objc(HereRouteResult) public class HereRouteResult : ObjectiveC.NSObject {
@@ -364,13 +376,20 @@ extension HereSdkExploreNativeBridge.HereMapCamera : heresdk.MapCameraDelegate {
   @objc public init(street: Swift.String, houseNumber: Swift.String, city: Swift.String, district: Swift.String, state: Swift.String, countryCode: Swift.String, countryName: Swift.String, postalCode: Swift.String)
   @objc deinit
 }
+@objc(HerePlaceCategory) public class HerePlaceCategory : ObjectiveC.NSObject {
+  @objc public var id: Swift.String
+  @objc public var name: Swift.String
+  @objc public init(id: Swift.String, name: Swift.String)
+  @objc deinit
+}
 @objc(HerePlace) public class HerePlace : ObjectiveC.NSObject {
   @objc public var id: Swift.String
   @objc public var title: Swift.String
   @objc public var latitude: Swift.Double
   @objc public var longitude: Swift.Double
   @objc public var address: HereSdkExploreNativeBridge.HereAddress?
-  @objc public init(id: Swift.String, title: Swift.String, latitude: Swift.Double, longitude: Swift.Double, address: HereSdkExploreNativeBridge.HereAddress?)
+  @objc public var primaryCategories: [HereSdkExploreNativeBridge.HerePlaceCategory]
+  @objc public init(id: Swift.String, title: Swift.String, latitude: Swift.Double, longitude: Swift.Double, address: HereSdkExploreNativeBridge.HereAddress?, primaryCategories: [HereSdkExploreNativeBridge.HerePlaceCategory])
   @objc deinit
 }
 @objc(HereSuggestion) public class HereSuggestion : ObjectiveC.NSObject {

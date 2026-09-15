@@ -25,12 +25,22 @@ public record CameraAnimation(
 /// the image on the coordinate, 50/100 puts the bottom-center there (typical
 /// pin). Anchoring is applied on Android; the iOS bridge does not expose it.
 /// </remarks>
+/// <remarks>
+/// When <see cref="Glyph"/> (a Material Icons codepoint string, e.g.
+/// <c>"\ue56c"</c> for restaurant) and/or <see cref="Color"/> are set,
+/// a tinted teardrop pin with that glyph instead of using
+/// <see cref="ImagePath"/> — pins become visually distinct per item type
+/// (restaurant, incident, origin, …). Glyph pins are bottom-anchored
+/// (50/100) unless <see cref="AnchorX"/>/<see cref="AnchorY"/> say otherwise.
+/// </remarks>
 public record MapMarker(
     GeoCoordinates Coordinates,
     string? ImagePath = null,
     string? Text = null,
     int? AnchorX = null,
-    int? AnchorY = null
+    int? AnchorY = null,
+    uint? Color = null,
+    string? Glyph = null
 );
 
 /// <summary>

@@ -1,6 +1,13 @@
 #pragma warning disable CS1591
 #if ANDROID
 using Android.Runtime;
+using ABitmap = Android.Graphics.Bitmap;
+using ACanvas = Android.Graphics.Canvas;
+using AColor = Android.Graphics.Color;
+using APath = Android.Graphics.Path;
+using APaint = Android.Graphics.Paint;
+using ATextPaint = Android.Text.TextPaint;
+using ATypeface = Android.Graphics.Typeface;
 using Here.Explore.Maui.Models;
 using Here.Explore.Maui.Models.Maps;
 using Here.Explore.Maui.Helpers;
@@ -113,11 +120,16 @@ public partial class MapService
             throw new InvalidOperationException("MapService not initialized.");
         }
         var androidCoords = new Here.Explore.Core.GeoCoordinates(marker.Coordinates.Latitude, marker.Coordinates.Longitude);
-        // MapImage requires an Android drawable resource — honor the app-provided
-        // ImagePath name first, then the branded "marker_pin" drawable, then the
-        // system compass icon as a last resort.
+        // Glyph/Color pins are rendered programmatically (tinted teardrop +
+        // icon glyph) so callers can make markers distinct per item type.
+        // Otherwise MapImage requires an Android drawable resource — honor the
+        // app-provided ImagePath name first, then the branded "marker_pin"
+        // drawable, then the system compass icon as a last resort.
+        var useGlyphPin = marker.Glyph is not null || marker.Color is not null;
         Here.Explore.Maps.MapImage? mapImage = null;
-        if (marker.ImagePath is not null)
+        if (useGlyphPin)
+            mapImage = TryRenderGlyphPin(marker);
+        else if (marker.ImagePath is not null)
             mapImage = TryLoadNamedDrawable(marker.ImagePath);
 
         try
@@ -137,10 +149,13 @@ public partial class MapService
         }
 
         // AnchorX/AnchorY are percentages (0–100) of the image size; Android's
-        // Anchor2D is 0–1 normalized.
-        var androidMarker = marker.AnchorX is not null && marker.AnchorY is not null
+        // Anchor2D is 0–1 normalized. Glyph pins are bottom-anchored by default
+        // so the pin tip points at the coordinate.
+        var anchorX = marker.AnchorX ?? (useGlyphPin ? 50 : null);
+        var anchorY = marker.AnchorY ?? (useGlyphPin ? 100 : null);
+        var androidMarker = anchorX is not null && anchorY is not null
             ? new Here.Explore.Maps.MapMarker(androidCoords, mapImage!,
-                new Here.Explore.Core.Anchor2D(marker.AnchorX.Value / 100.0, marker.AnchorY.Value / 100.0))
+                new Here.Explore.Core.Anchor2D(anchorX.Value / 100.0, anchorY.Value / 100.0))
             : new Here.Explore.Maps.MapMarker(androidCoords, mapImage!);
         _mapScene.AddMapMarker(androidMarker);
         _markers[marker] = androidMarker;
@@ -327,6 +342,106 @@ public partial class MapService
         return resId != 0
             ? Here.Explore.Maps.MapImageFactory.FromResource(Platform.AppContext.Resources, resId)
             : null;
+    }
+
+    // MaterialIcons typeface is expensive to load — cache it per process.
+    private static ATypeface? _materialTypeface;
+    private static bool _materialTypefaceResolved;
+
+    /// <summary>
+    /// Renders the shared model's Glyph/Color as a teardrop pin bitmap
+    /// (white silhouette, tinted fill, white Material Icons glyph) so markers
+    /// can be visually distinct per item type without shipping PNG assets.
+    /// Returns null when rendering fails (no glyph font) — the caller then
+    /// falls back to the plain drawable chain.
+    /// </summary>
+    private static Here.Explore.Maps.MapImage? TryRenderGlyphPin(Here.Explore.Maui.Models.Maps.MapMarker marker)
+    {
+        try
+        {
+            var density = Platform.AppContext.Resources?.DisplayMetrics?.Density ?? 1f;
+            var width = (int)(44 * density);
+            var height = (int)(56 * density);
+            var bitmap = ABitmap.CreateBitmap(width, height, ABitmap.Config.Argb8888!)!;
+            using var canvas = new ACanvas(bitmap);
+            float headCx = width / 2f, headCy = height * 0.40f;
+            float headRadius = width / 2f - 3 * density;
+            float border = 2.5f * density;
+            var paintColor = new AColor(unchecked((int)(marker.Color ?? 0xFFFF385C)));
+
+            // White silhouette (border): circle + tapered tail.
+            using var white = new APaint { AntiAlias = true };
+            white.Color = AColor.White;
+            canvas.DrawCircle(headCx, headCy, headRadius + border, white);
+            using var tailWhite = new APath();
+            tailWhite.MoveTo(headCx, height - 2 * density);
+            tailWhite.LineTo(headCx - (headRadius + border) * 0.62f, headCy + headRadius * 0.70f);
+            tailWhite.LineTo(headCx + (headRadius + border) * 0.62f, headCy + headRadius * 0.70f);
+            tailWhite.Close();
+            canvas.DrawPath(tailWhite, white);
+
+            // Tinted fill: same shapes, slightly smaller.
+            using var fill = new APaint { AntiAlias = true };
+            fill.Color = paintColor;
+            canvas.DrawCircle(headCx, headCy, headRadius, fill);
+            using var tail = new APath();
+            tail.MoveTo(headCx, height - 2 * density);
+            tail.LineTo(headCx - headRadius * 0.55f, headCy + headRadius * 0.70f);
+            tail.LineTo(headCx + headRadius * 0.55f, headCy + headRadius * 0.70f);
+            tail.Close();
+            canvas.DrawPath(tail, fill);
+
+            // Glyph in white, vertically centered in the head.
+            var glyph = marker.Glyph;
+            if (!string.IsNullOrEmpty(glyph))
+            {
+                var typeface = ResolveMaterialTypeface();
+                if (typeface is null)
+                {
+                    Android.Util.Log.Warn("REFAPP_DIAG", "Glyph pin skipped: no MaterialIcons typeface");
+                    return null; // tofu boxes are worse than no glyph pin
+                }
+                using var tp = new ATextPaint { AntiAlias = true, TextAlign = APaint.Align.Center };
+                tp.TextSize = (int)(15 * density);
+                tp.Color = AColor.White;
+                tp.SetTypeface(typeface);
+                var fm = new APaint.FontMetrics();
+                tp.GetFontMetrics(fm);
+                canvas.DrawText(glyph, headCx, headCy - (fm.Ascent + fm.Descent) / 2f, tp);
+            }
+
+            return Here.Explore.Maps.MapImageFactory.FromBitmap(bitmap);
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Warn("REFAPP_DIAG", $"TryRenderGlyphPin failed: {ex.Message}");
+            return null;
+        }
+    }
+
+    private static ATypeface? ResolveMaterialTypeface()
+    {
+        if (_materialTypefaceResolved) return _materialTypeface;
+        _materialTypefaceResolved = true;
+        try
+        {
+            // MAUI's font asset path varies by project setup (assets root here,
+            // assets/fonts/ in the default template) — try both.
+            _materialTypeface = ATypeface.CreateFromAsset(Platform.AppContext.Assets, "fonts/MaterialIcons-Regular.ttf");
+        }
+        catch (Exception ex)
+        {
+            Android.Util.Log.Warn("REFAPP_DIAG", $"fonts/ asset miss: {ex.Message}");
+            try
+            {
+                _materialTypeface = ATypeface.CreateFromAsset(Platform.AppContext.Assets, "MaterialIcons-Regular.ttf");
+            }
+            catch (Exception ex2)
+            {
+                Android.Util.Log.Warn("REFAPP_DIAG", $"MaterialIcons typeface load failed: {ex2.Message}");
+            }
+        }
+        return _materialTypeface;
     }
 
     public void RemoveMapMarker3D(Here.Explore.Maui.Models.Maps.MapMarker3D marker)

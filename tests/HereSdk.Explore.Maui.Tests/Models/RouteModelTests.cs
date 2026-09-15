@@ -60,6 +60,70 @@ public class RouteModelTests
     }
 
     [Fact]
+    public void RoutingOptions_DefaultTruckIsNull()
+    {
+        var opts = new RoutingOptions();
+
+        Assert.Null(opts.Truck);
+    }
+
+    [Fact]
+    public void RoutingOptions_WithTruck_PreservesOtherDefaults()
+    {
+        var truck = new TruckVehicleSpecifications(GrossWeightInKilograms: 12000, HeightInCentimeters: 400);
+        var opts = new RoutingOptions(TransportMode: SectionTransportMode.Truck, Truck: truck);
+
+        Assert.Equal(SectionTransportMode.Truck, opts.TransportMode);
+        Assert.Equal(OptimizationMode.Fastest, opts.Optimization);
+        Assert.Null(opts.MaxAlternatives);
+        Assert.Null(opts.DepartureTime);
+        Assert.Same(truck, opts.Truck);
+    }
+
+    [Fact]
+    public void TruckVehicleSpecifications_DefaultsAreNull()
+    {
+        var spec = new TruckVehicleSpecifications();
+
+        Assert.Null(spec.GrossWeightInKilograms);
+        Assert.Null(spec.HeightInCentimeters);
+        Assert.Null(spec.WidthInCentimeters);
+        Assert.Null(spec.LengthInCentimeters);
+        Assert.Null(spec.AxleCount);
+        Assert.Null(spec.TrailerCount);
+    }
+
+    [Fact]
+    public void TruckVehicleSpecifications_WithAllFields_CanBeCreated()
+    {
+        var spec = new TruckVehicleSpecifications(
+            GrossWeightInKilograms: 12000,
+            HeightInCentimeters: 400,
+            WidthInCentimeters: 255,
+            LengthInCentimeters: 1650,
+            AxleCount: 3,
+            TrailerCount: 1);
+
+        Assert.Equal(12000, spec.GrossWeightInKilograms);
+        Assert.Equal(400, spec.HeightInCentimeters);
+        Assert.Equal(255, spec.WidthInCentimeters);
+        Assert.Equal(1650, spec.LengthInCentimeters);
+        Assert.Equal(3, spec.AxleCount);
+        Assert.Equal(1, spec.TrailerCount);
+    }
+
+    [Fact]
+    public void TruckVehicleSpecifications_Equality_Works()
+    {
+        Assert.Equal(
+            new TruckVehicleSpecifications(HeightInCentimeters: 400),
+            new TruckVehicleSpecifications(HeightInCentimeters: 400));
+        Assert.NotEqual(
+            new TruckVehicleSpecifications(HeightInCentimeters: 400),
+            new TruckVehicleSpecifications(HeightInCentimeters: 350));
+    }
+
+    [Fact]
     public void IsolineOptions_Defaults()
     {
         var opts = new IsolineOptions();

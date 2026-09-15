@@ -93,11 +93,32 @@ public partial class MapService
     {
         if (_scene is null) throw new InvalidOperationException("MapService not initialized.");
         var iosCoords = marker.Coordinates.ToiOS();
-        var iosMarker = marker.ImagePath is not null
-            ? new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude, marker.ImagePath)
-            : new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude);
+        var iosMarker = CreateIosMarker(iosCoords, marker);
         _scene.AddMapMarker(iosMarker);
         _markers[marker] = iosMarker;
+    }
+
+    /// <summary>
+    /// Glyph/Color pins are passed to the Swift wrapper via an image-name
+    /// convention ("hereglyph:&lt;codepoint&gt;:&lt;RRGGBB&gt;") that
+    /// <c>NativeMapMarker.createMapImage()</c> parses and renders as a tinted
+    /// teardrop pin — the binding has no dedicated surface for glyph pins.
+    /// Any other name is a bundle image lookup as before.
+    /// </summary>
+    private static HereMapMarker CreateIosMarker(HereGeoCoordinates iosCoords, MapMarker marker)
+    {
+        if (marker.Glyph is not null || marker.Color is not null)
+        {
+            var glyphCode = !string.IsNullOrEmpty(marker.Glyph)
+                ? ((int)marker.Glyph[0]).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                : "0";
+            var rgb = (marker.Color ?? 0xFFFF385C) & 0xFFFFFF;
+            return new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude,
+                $"hereglyph:{glyphCode}:{rgb:X6}");
+        }
+        return marker.ImagePath is not null
+            ? new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude, marker.ImagePath)
+            : new HereMapMarker(iosCoords.Latitude, iosCoords.Longitude);
     }
 
     public void RemoveMapMarker(MapMarker marker)

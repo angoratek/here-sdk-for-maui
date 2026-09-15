@@ -10280,6 +10280,735 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "HereTruckSpecifications",
+        "printedName": "HereTruckSpecifications",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "grossWeightInKilograms",
+            "printedName": "grossWeightInKilograms",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(py)grossWeightInKilograms",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC22grossWeightInKilogramsSivp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)grossWeightInKilograms",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC22grossWeightInKilogramsSivg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)setGrossWeightInKilograms:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC22grossWeightInKilogramsSivs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A19TruckSpecificationsC22grossWeightInKilogramsSivM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC22grossWeightInKilogramsSivM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "heightInCentimeters",
+            "printedName": "heightInCentimeters",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(py)heightInCentimeters",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19heightInCentimetersSivp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)heightInCentimeters",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19heightInCentimetersSivg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)setHeightInCentimeters:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19heightInCentimetersSivs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A19TruckSpecificationsC19heightInCentimetersSivM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19heightInCentimetersSivM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "widthInCentimeters",
+            "printedName": "widthInCentimeters",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(py)widthInCentimeters",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC18widthInCentimetersSivp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)widthInCentimeters",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC18widthInCentimetersSivg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)setWidthInCentimeters:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC18widthInCentimetersSivs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A19TruckSpecificationsC18widthInCentimetersSivM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC18widthInCentimetersSivM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "lengthInCentimeters",
+            "printedName": "lengthInCentimeters",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(py)lengthInCentimeters",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19lengthInCentimetersSivp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)lengthInCentimeters",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19lengthInCentimetersSivg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)setLengthInCentimeters:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19lengthInCentimetersSivs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A19TruckSpecificationsC19lengthInCentimetersSivM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC19lengthInCentimetersSivM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "axleCount",
+            "printedName": "axleCount",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(py)axleCount",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC9axleCountSivp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)axleCount",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC9axleCountSivg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)setAxleCount:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC9axleCountSivs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A19TruckSpecificationsC9axleCountSivM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC9axleCountSivM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "trailerCount",
+            "printedName": "trailerCount",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(py)trailerCount",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC12trailerCountSivp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)trailerCount",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC12trailerCountSivg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)setTrailerCount:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC12trailerCountSivs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A19TruckSpecificationsC12trailerCountSivM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC12trailerCountSivM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(grossWeightInKilograms:heightInCentimeters:widthInCentimeters:lengthInCentimeters:axleCount:trailerCount:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereTruckSpecifications",
+                "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)initWithGrossWeightInKilograms:heightInCentimeters:widthInCentimeters:lengthInCentimeters:axleCount:trailerCount:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC22grossWeightInKilograms06heightJ11Centimeters05widthjM006lengthjM09axleCount07trailerQ0ACSi_S5itcfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "initWithGrossWeightInKilograms:heightInCentimeters:widthInCentimeters:lengthInCentimeters:axleCount:trailerCount:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HereTruckSpecifications",
+                "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications(im)init",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsCACycfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications",
+        "mangledName": "$s26HereSdkExploreNativeBridge0A19TruckSpecificationsC",
+        "moduleName": "HereSdkExploreNativeBridge",
+        "objc_name": "HereTruckSpecifications",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "HereRoutingOptions",
         "printedName": "HereRoutingOptions",
         "children": [
@@ -10376,9 +11105,219 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "maxAlternatives",
+            "printedName": "maxAlternatives",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(py)maxAlternatives",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC15maxAlternativess5Int32Vvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int32",
+                    "printedName": "Swift.Int32",
+                    "usr": "s:s5Int32V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(im)maxAlternatives",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC15maxAlternativess5Int32Vvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int32",
+                    "printedName": "Swift.Int32",
+                    "usr": "s:s5Int32V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(im)setMaxAlternatives:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC15maxAlternativess5Int32Vvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A14RoutingOptionsC15maxAlternativess5Int32VvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC15maxAlternativess5Int32VvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "truckSpecifications",
+            "printedName": "truckSpecifications",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HereTruckSpecifications",
+                    "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(py)truckSpecifications",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC19truckSpecificationsAA0a5TruckI0CSgvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereTruckSpecifications",
+                        "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(im)truckSpecifications",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC19truckSpecificationsAA0a5TruckI0CSgvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HereTruckSpecifications",
+                        "printedName": "HereSdkExploreNativeBridge.HereTruckSpecifications",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereTruckSpecifications"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(im)setTruckSpecifications:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC19truckSpecificationsAA0a5TruckI0CSgvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A14RoutingOptionsC19truckSpecificationsAA0a5TruckI0CSgvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC19truckSpecificationsAA0a5TruckI0CSgvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(transportMode:)",
+            "printedName": "init(transportMode:maxAlternatives:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -10392,17 +11331,23 @@
                 "printedName": "Swift.Int",
                 "hasDefaultArg": true,
                 "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "hasDefaultArg": true,
+                "usr": "s:s5Int32V"
               }
             ],
             "declKind": "Constructor",
-            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(im)initWithTransportMode:",
-            "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC13transportModeACSi_tcfc",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HereRoutingOptions(im)initWithTransportMode:maxAlternatives:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A14RoutingOptionsC13transportMode15maxAlternativesACSi_s5Int32Vtcfc",
             "moduleName": "HereSdkExploreNativeBridge",
-            "objc_name": "initWithTransportMode:",
+            "objc_name": "initWithTransportMode:maxAlternatives:",
             "declAttributes": [
               "AccessControl",
-              "ObjC",
-              "RawDocComment"
+              "ObjC"
             ],
             "init_kind": "Designated"
           },
@@ -18900,6 +19845,337 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "HerePlaceCategory",
+        "printedName": "HerePlaceCategory",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(py)id",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC2idSSvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(im)id",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC2idSSvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(im)setId:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC2idSSvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A13PlaceCategoryC2idSSvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC2idSSvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "name",
+            "printedName": "name",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(py)name",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC4nameSSvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(im)name",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC4nameSSvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(im)setName:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC4nameSSvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A13PlaceCategoryC4nameSSvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC4nameSSvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(id:name:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HerePlaceCategory",
+                "printedName": "HereSdkExploreNativeBridge.HerePlaceCategory",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(im)initWithId:name:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC2id4nameACSS_SStcfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "objc_name": "initWithId:name:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "HerePlaceCategory",
+                "printedName": "HereSdkExploreNativeBridge.HerePlaceCategory",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory(im)init",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryCACycfc",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory",
+        "mangledName": "$s26HereSdkExploreNativeBridge0A13PlaceCategoryC",
+        "moduleName": "HereSdkExploreNativeBridge",
+        "objc_name": "HerePlaceCategory",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "HerePlace",
         "printedName": "HerePlace",
         "children": [
@@ -19389,9 +20665,125 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "primaryCategories",
+            "printedName": "primaryCategories",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[HereSdkExploreNativeBridge.HerePlaceCategory]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HerePlaceCategory",
+                    "printedName": "HereSdkExploreNativeBridge.HerePlaceCategory",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlace(py)primaryCategories",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A5PlaceC17primaryCategoriesSayAA0aF8CategoryCGvp",
+            "moduleName": "HereSdkExploreNativeBridge",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HereSdkExploreNativeBridge.HerePlaceCategory]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HerePlaceCategory",
+                        "printedName": "HereSdkExploreNativeBridge.HerePlaceCategory",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlace(im)primaryCategories",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A5PlaceC17primaryCategoriesSayAA0aF8CategoryCGvg",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HereSdkExploreNativeBridge.HerePlaceCategory]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "HerePlaceCategory",
+                        "printedName": "HereSdkExploreNativeBridge.HerePlaceCategory",
+                        "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlace(im)setPrimaryCategories:",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A5PlaceC17primaryCategoriesSayAA0aF8CategoryCGvs",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:26HereSdkExploreNativeBridge0A5PlaceC17primaryCategoriesSayAA0aF8CategoryCGvM",
+                "mangledName": "$s26HereSdkExploreNativeBridge0A5PlaceC17primaryCategoriesSayAA0aF8CategoryCGvM",
+                "moduleName": "HereSdkExploreNativeBridge",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(id:title:latitude:longitude:address:)",
+            "printedName": "init(id:title:latitude:longitude:address:primaryCategories:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -19436,13 +20828,27 @@
                   }
                 ],
                 "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[HereSdkExploreNativeBridge.HerePlaceCategory]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HerePlaceCategory",
+                    "printedName": "HereSdkExploreNativeBridge.HerePlaceCategory",
+                    "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlaceCategory"
+                  }
+                ],
+                "usr": "s:Sa"
               }
             ],
             "declKind": "Constructor",
-            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlace(im)initWithId:title:latitude:longitude:address:",
-            "mangledName": "$s26HereSdkExploreNativeBridge0A5PlaceC2id5title8latitude9longitude7addressACSS_SSS2dAA0A7AddressCSgtcfc",
+            "usr": "c:@M@HereSdkExploreNativeBridge@objc(cs)HerePlace(im)initWithId:title:latitude:longitude:address:primaryCategories:",
+            "mangledName": "$s26HereSdkExploreNativeBridge0A5PlaceC2id5title8latitude9longitude7address17primaryCategoriesACSS_SSS2dAA0A7AddressCSgSayAA0aF8CategoryCGtcfc",
             "moduleName": "HereSdkExploreNativeBridge",
-            "objc_name": "initWithId:title:latitude:longitude:address:",
+            "objc_name": "initWithId:title:latitude:longitude:address:primaryCategories:",
             "declAttributes": [
               "AccessControl",
               "ObjC"
@@ -21858,56 +23264,105 @@
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 4384,
+      "offset": 4654,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 7519,
+      "offset": 4692,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 7554,
+      "offset": 4729,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 7593,
+      "offset": 4767,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 9133,
+      "offset": 4795,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 9197,
+      "offset": 4826,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 9236,
+      "offset": 6576,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
       "kind": "IntegerLiteral",
-      "offset": 9276,
+      "offset": 6604,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 10271,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 10306,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 10345,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 11885,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 11949,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 11988,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/boris\/dev\/here-sdk-for-maui\/src\/HereSdk.Explore.iOS.NativeBridge\/HereSdk.Explore.iOS.NativeBridge\/Routing\/NativeRoutingEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 12028,
       "length": 1,
       "value": "0"
     }

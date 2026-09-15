@@ -292,6 +292,23 @@ public class HereAddress: NSObject {
     }
 }
 
+/// ObjC-visible wrapper for PlaceCategory (search result category).
+@objc(HerePlaceCategory)
+public class HerePlaceCategory: NSObject {
+    @objc public var id: String
+    @objc public var name: String
+
+    @objc public init(id: String, name: String) {
+        self.id = id
+        self.name = name
+        super.init()
+    }
+
+    static func from(_ swift: PlaceCategory) -> HerePlaceCategory {
+        return HerePlaceCategory(id: swift.id, name: swift.name ?? "")
+    }
+}
+
 /// ObjC-visible wrapper for Place (search result).
 @objc(HerePlace)
 public class HerePlace: NSObject {
@@ -300,13 +317,15 @@ public class HerePlace: NSObject {
     @objc public var latitude: Double
     @objc public var longitude: Double
     @objc public var address: HereAddress?
+    @objc public var primaryCategories: [HerePlaceCategory]
 
-    @objc public init(id: String, title: String, latitude: Double, longitude: Double, address: HereAddress?) {
+    @objc public init(id: String, title: String, latitude: Double, longitude: Double, address: HereAddress?, primaryCategories: [HerePlaceCategory]) {
         self.id = id
         self.title = title
         self.latitude = latitude
         self.longitude = longitude
         self.address = address
+        self.primaryCategories = primaryCategories
         super.init()
     }
 
@@ -316,7 +335,8 @@ public class HerePlace: NSObject {
             title: swift.title ?? "",
             latitude: swift.geoCoordinates?.latitude ?? 0,
             longitude: swift.geoCoordinates?.longitude ?? 0,
-            address: HereAddress.from(swift.address)
+            address: HereAddress.from(swift.address),
+            primaryCategories: swift.details.getPrimaryCategories().map { HerePlaceCategory.from($0) }
         )
     }
 }

@@ -36,6 +36,14 @@ public class HereMapMarker: NSObject {
             anchorV = 1.0
             return HereMapMarker.defaultPinImage()
         }
+        // "hereglyph:<codepoint>:<RRGGBB>" is a wrapper-internal convention
+        // (see MapService.iOS.AddMapMarker): draw a tinted teardrop pin with
+        // a Material Icons glyph so markers can be distinct per item type.
+        if imageName.hasPrefix("hereglyph:") {
+            anchorU = 0.5
+            anchorV = 1.0
+            return HereMapMarker.glyphPinImage(spec: imageName)
+        }
         // Look in the framework bundle first, then the main app bundle.
         let frameworkBundle = Bundle(for: HereMapMarker.self)
         do {
@@ -110,5 +118,99 @@ public class HereMapMarker: NSObject {
             NSLog("REFAPP_DIAG: HereMapMarker default image creation failed: %@", String(describing: error))
             return nil
         }
+    }
+
+    /// Parses a "hereglyph:<decimal-codepoint>:<RRGGBB>" spec and draws the
+    /// tinted glyph pin. Falls back to the coral default pin on malformed
+    /// input so a marker is never silently invisible.
+    private static func glyphPinImage(spec: String) -> MapImage? {
+        let parts = spec.split(separator: ":")
+        guard parts.count == 3, let codepoint = Int(parts[1]), codepoint > 0,
+              let scalar = Unicode.Scalar(codepoint),
+              let rgb = UInt32(parts[2], radix: 16), rgb <= 0xFFFFFF else {
+            NSLog("REFAPP_DIAG: HereMapMarker malformed glyph spec '%@', using default pin", spec)
+            return defaultPinImage()
+        }
+        let color = UIColor(
+            red: CGFloat((rgb >> 16) & 0xFF) / 255.0,
+            green: CGFloat((rgb >> 8) & 0xFF) / 255.0,
+            blue: CGFloat(rgb & 0xFF) / 255.0,
+            alpha: 1)
+        return glyphPinImage(glyph: String(Character(scalar)), color: color)
+    }
+
+    /// Draws the default pin silhouette, tinted, with a white Material Icons
+    /// glyph in the head instead of the plain white dot. Mirrors the Android
+    /// TryRenderGlyphPin so both platforms render matching pins.
+    private static func glyphPinImage(glyph: String, color: UIColor) -> MapImage? {
+        let width: CGFloat = 44
+        let height: CGFloat = 56
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 3
+        let renderer = UIGraphicsImageRenderer(
+            size: CGSize(width: width, height: height),
+            format: format)
+        let image = renderer.image { context in
+            let cg = context.cgContext
+            let headCenter = CGPoint(x: width / 2, y: height * 0.40)
+            let headRadius: CGFloat = width / 2 - 3
+            let tip = CGPoint(x: width / 2, y: height - 1)
+
+            // Outer white silhouette: circle + tail, unioned.
+            let silhouette = CGMutablePath()
+            silhouette.addArc(center: headCenter, radius: headRadius + 2.5, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+            silhouette.move(to: CGPoint(x: headCenter.x - (headRadius + 2.5) * 0.62, y: headCenter.y + headRadius * 0.70))
+            silhouette.addLine(to: tip)
+            silhouette.addLine(to: CGPoint(x: headCenter.x + (headRadius + 2.5) * 0.62, y: headCenter.y + headRadius * 0.70))
+            silhouette.closeSubpath()
+            cg.addPath(silhouette)
+            UIColor.white.setFill()
+            cg.fillPath()
+
+            // Inner tinted silhouette (same tip → white border tapers to the tip).
+            let inner = CGMutablePath()
+            inner.addArc(center: headCenter, radius: headRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+            inner.move(to: CGPoint(x: headCenter.x - headRadius * 0.55, y: headCenter.y + headRadius * 0.70))
+            inner.addLine(to: tip)
+            inner.addLine(to: CGPoint(x: headCenter.x + headRadius * 0.55, y: headCenter.y + headRadius * 0.70))
+            inner.closeSubpath()
+            cg.addPath(inner)
+            color.setFill()
+            cg.fillPath()
+
+            // White glyph, vertically centered in the head. The MaterialIcons
+            // font ships with the MAUI app (UIAppFonts), so UIFont can load it.
+            let fontSize: CGFloat = 15
+            if let font = materialIconFont(ofSize: fontSize) {
+                let attributes: [NSAttributedString.Key: Any] = [
+                    .font: font,
+                    .foregroundColor: UIColor.white
+                ]
+                let text = NSAttributedString(string: glyph, attributes: attributes)
+                let size = text.size()
+                text.draw(at: CGPoint(x: headCenter.x - size.width / 2,
+                                      y: headCenter.y - size.height / 2))
+            } else {
+                NSLog("REFAPP_DIAG: HereMapMarker MaterialIcons font unavailable, drawing white dot")
+                UIColor.white.setFill()
+                cg.addArc(center: headCenter, radius: 4.5, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+                cg.fillPath()
+            }
+        }
+        do {
+            return try MapImage(from: image)
+        } catch {
+            NSLog("REFAPP_DIAG: HereMapMarker glyph image creation failed: %@", String(describing: error))
+            return defaultPinImage()
+        }
+    }
+
+    private static func materialIconFont(ofSize size: CGFloat) -> UIFont? {
+        for name in ["MaterialIcons-Regular", "MaterialIcons", "Material Icons"] {
+            if let font = UIFont(name: name, size: size) {
+                return font
+            }
+        }
+        return nil
     }
 }

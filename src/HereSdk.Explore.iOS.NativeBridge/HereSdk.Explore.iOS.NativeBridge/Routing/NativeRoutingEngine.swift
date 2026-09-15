@@ -108,27 +108,99 @@ public class HereWaypoint: NSObject {
     }
 }
 
+/// ObjC-visible wrapper for truck vehicle specifications.
+/// Uses the 0/absent convention for optional numerics (a 0 value means
+/// "not set" and is left at the SDK default).
+@objc(HereTruckSpecifications)
+public class HereTruckSpecifications: NSObject {
+    @objc public var grossWeightInKilograms: Int
+    @objc public var heightInCentimeters: Int
+    @objc public var widthInCentimeters: Int
+    @objc public var lengthInCentimeters: Int
+    @objc public var axleCount: Int
+    @objc public var trailerCount: Int
+
+    @objc public init(
+        grossWeightInKilograms: Int = 0,
+        heightInCentimeters: Int = 0,
+        widthInCentimeters: Int = 0,
+        lengthInCentimeters: Int = 0,
+        axleCount: Int = 0,
+        trailerCount: Int = 0
+    ) {
+        self.grossWeightInKilograms = grossWeightInKilograms
+        self.heightInCentimeters = heightInCentimeters
+        self.widthInCentimeters = widthInCentimeters
+        self.lengthInCentimeters = lengthInCentimeters
+        self.axleCount = axleCount
+        self.trailerCount = trailerCount
+        super.init()
+    }
+
+    func toSwift() -> VehicleSpecification {
+        var builder = VehicleSpecification.TruckBuilder()
+        if grossWeightInKilograms > 0 {
+            builder = builder.withGrossWeightInKilograms(Int32(grossWeightInKilograms))
+        }
+        if heightInCentimeters > 0 {
+            builder = builder.withHeightInCentimeters(Int32(heightInCentimeters))
+        }
+        if widthInCentimeters > 0 {
+            builder = builder.withWidthInCentimeters(Int32(widthInCentimeters))
+        }
+        if lengthInCentimeters > 0 {
+            builder = builder.withLengthInCentimeters(Int32(lengthInCentimeters))
+        }
+        if axleCount > 0 {
+            builder = builder.withAxleCount(Int32(axleCount))
+        }
+        if trailerCount > 0 {
+            builder = builder.withTrailerCount(Int32(trailerCount))
+        }
+        return builder.build()
+    }
+}
+
 /// ObjC-visible wrapper for RoutingOptions.
 /// Uses TransportSpecification (the new v4.28+ pattern).
 @objc(HereRoutingOptions)
 public class HereRoutingOptions: NSObject {
     @objc public var transportMode: Int // 0=Car, 1=Truck, 2=Pedestrian, 3=Bicycle, 4=Scooter
+    /// Maximum number of alternative routes in addition to the best one.
+    /// 0 leaves the SDK default untouched.
+    @objc public var maxAlternatives: Int32
+    @objc public var truckSpecifications: HereTruckSpecifications?
 
-    @objc public init(transportMode: Int = 0) {
+    @objc public init(transportMode: Int = 0, maxAlternatives: Int32 = 0) {
         self.transportMode = transportMode
+        self.maxAlternatives = maxAlternatives
         super.init()
     }
 
     func toSwift() -> RoutingOptions {
         let transportSpec: TransportSpecification
         switch transportMode {
-        case 1: transportSpec = TransportSpecification.TruckBuilder().build()
+        case 1:
+            if let truckSpecifications = truckSpecifications {
+                transportSpec = TransportSpecification.TruckBuilder()
+                    .withVehicleSpecification(truckSpecifications.toSwift())
+                    .build()
+            } else {
+                transportSpec = TransportSpecification.TruckBuilder().build()
+            }
         case 2: transportSpec = TransportSpecification.PedestrianBuilder().build()
         case 3: transportSpec = TransportSpecification.BicycleBuilder().build()
         case 4: transportSpec = TransportSpecification.ScooterBuilder().build()
         default: transportSpec = TransportSpecification.CarBuilder().build()
         }
-        return RoutingOptions(transportSpecification: transportSpec)
+
+        var routeOptions = RouteOptions()
+        if maxAlternatives > 0 {
+            routeOptions.alternatives = maxAlternatives
+        }
+        return RoutingOptions(
+            transportSpecification: transportSpec,
+            routeOptions: routeOptions)
     }
 }
 

@@ -29,13 +29,30 @@ public record IsolineResult(RoutingError Error, IReadOnlyList<Isoline>? Isolines
 public record Isoline(IReadOnlyList<GeoCoordinates> Polygon, double RangeInMeters);
 
 /// <summary>
+/// Truck vehicle specification applied when
+/// <see cref="RoutingOptions.TransportMode"/> is
+/// <see cref="SectionTransportMode.Truck"/>. Fields left <c>null</c> fall
+/// back to the HERE SDK defaults. Mirrors the SDK's
+/// <c>VehicleSpecification.TruckBuilder</c>.
+/// </summary>
+public record TruckVehicleSpecifications(
+    int? GrossWeightInKilograms = null,
+    int? HeightInCentimeters = null,
+    int? WidthInCentimeters = null,
+    int? LengthInCentimeters = null,
+    int? AxleCount = null,
+    int? TrailerCount = null
+);
+
+/// <summary>
 /// Options for route calculation.
 /// </summary>
 public record RoutingOptions(
     OptimizationMode Optimization = OptimizationMode.Fastest,
     SectionTransportMode TransportMode = SectionTransportMode.Car,
     int? MaxAlternatives = null,
-    double? DepartureTime = null
+    double? DepartureTime = null,
+    TruckVehicleSpecifications? Truck = null
 );
 
 /// <summary>

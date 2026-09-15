@@ -91,17 +91,21 @@ public partial class RoutingService
         else if (Here.Explore.Routing.OptimizationMode.Fastest is not null)
             androidOptions.RouteOptions.OptimizationMode = Here.Explore.Routing.OptimizationMode.Fastest!;
 
-        var transportSpec = BuildTransportSpecification(options.TransportMode);
+        var transportSpec = BuildTransportSpecification(options.TransportMode, options.Truck);
         androidOptions.TransportSpecification = transportSpec;
+
+        if (options.MaxAlternatives is int maxAlternatives)
+            androidOptions.RouteOptions.Alternatives = maxAlternatives;
 
         return androidOptions;
     }
 
-    private static Here.Explore.Transport.TransportSpecification BuildTransportSpecification(SectionTransportMode mode)
+    private static Here.Explore.Transport.TransportSpecification BuildTransportSpecification(
+        SectionTransportMode mode, TruckVehicleSpecifications? truck = null)
     {
         return mode switch
         {
-            SectionTransportMode.Truck => new Here.Explore.Transport.TransportSpecification.TruckBuilder().Build(),
+            SectionTransportMode.Truck => BuildTruckTransportSpecification(truck),
             SectionTransportMode.Pedestrian => new Here.Explore.Transport.TransportSpecification.PedestrianBuilder().Build(),
             SectionTransportMode.Bicycle => new Here.Explore.Transport.TransportSpecification.BicycleBuilder().Build(),
             SectionTransportMode.Scooter => new Here.Explore.Transport.TransportSpecification.ScooterBuilder().Build(),
@@ -109,6 +113,31 @@ public partial class RoutingService
             SectionTransportMode.Taxi => new Here.Explore.Transport.TransportSpecification.TaxiBuilder().Build(),
             _ => new Here.Explore.Transport.TransportSpecification.CarBuilder().Build(),
         };
+    }
+
+    private static Here.Explore.Transport.TransportSpecification BuildTruckTransportSpecification(
+        TruckVehicleSpecifications? truck)
+    {
+        if (truck is null)
+            return new Here.Explore.Transport.TransportSpecification.TruckBuilder().Build();
+
+        var vehicleBuilder = new Here.Explore.Transport.VehicleSpecification.TruckBuilder();
+        if (truck.GrossWeightInKilograms is int grossWeight)
+            vehicleBuilder = vehicleBuilder.WithGrossWeightInKilograms(grossWeight);
+        if (truck.HeightInCentimeters is int height)
+            vehicleBuilder = vehicleBuilder.WithHeightInCentimeters(height);
+        if (truck.WidthInCentimeters is int width)
+            vehicleBuilder = vehicleBuilder.WithWidthInCentimeters(width);
+        if (truck.LengthInCentimeters is int length)
+            vehicleBuilder = vehicleBuilder.WithLengthInCentimeters(length);
+        if (truck.AxleCount is int axleCount)
+            vehicleBuilder = vehicleBuilder.WithAxleCount(axleCount);
+        if (truck.TrailerCount is int trailerCount)
+            vehicleBuilder = vehicleBuilder.WithTrailerCount(trailerCount);
+
+        return new Here.Explore.Transport.TransportSpecification.TruckBuilder()
+            .WithVehicleSpecification(vehicleBuilder.Build())
+            .Build();
     }
 
     private static Here.Explore.Routing.IsolineOptions ToAndroidIsolineOptions(IsolineOptions options)
