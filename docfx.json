@@ -27,6 +27,18 @@
           "docs/**/*.md",
           "README.md"
         ]
+      },
+      {
+        "files": [
+          "toc.yml"
+        ],
+        "src": "docs"
+      },
+      {
+        "files": [
+          "toc.yml"
+        ],
+        "src": "."
       }
     ],
     "resource": [
