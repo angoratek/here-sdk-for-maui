@@ -34,6 +34,7 @@ All notable changes to the HERE SDK for MAUI project.
 - `ConfigLoadingTests` updated: the committed `appsettings.json` ships with placeholder credentials, so the test now asserts the placeholder values are present (previously asserted they were *not* present, which contradicted the security fix in `6d9398b`).
 - `Controls/CategoryChipBar.xaml.cs` — replaced placeholder category IDs (`"restaurant"`, `"hotel"`, …) with real HERE Place Category taxonomy codes (`"100-1000"`, `"500-5000"`, …). The HERE Places API rejected the friendly names with `400 Illegal input for parameter 'categories'`, causing all category chip searches to fail with empty results even after the "not initialized" fix.
 
+- docs site sidebar navigation (toc.json for all pages) (@angoratek) [#5](https://github.com/angoratek/here-sdk-for-maui/pull/5)
 ## [4.25.5.0] — 2026-06-11
 
 ### Added
