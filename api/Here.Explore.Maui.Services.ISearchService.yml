@@ -1,0 +1,654 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Services.ISearchService
+  commentId: T:Here.Explore.Maui.Services.ISearchService
+  id: ISearchService
+  parent: Here.Explore.Maui.Services
+  children:
+  - Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync(System.String)
+  - Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Search.SearchOptions)
+  - Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.AddressQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  - Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.CategoryQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  - Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  - Here.Explore.Maui.Services.ISearchService.SuggestAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  langs:
+  - csharp
+  - vb
+  name: ISearchService
+  nameWithType: ISearchService
+  fullName: Here.Explore.Maui.Services.ISearchService
+  type: Interface
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ISearchService
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 8
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Service for place search and discovery.
+  example: []
+  syntax:
+    content: 'public interface ISearchService : IHereSdkService, IDisposable'
+    content.vb: Public Interface ISearchService Inherits IHereSdkService, IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+- uid: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  commentId: M:Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  id: SearchAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  parent: Here.Explore.Maui.Services.ISearchService
+  langs:
+  - csharp
+  - vb
+  name: SearchAsync(TextQuery, SearchOptions)
+  nameWithType: ISearchService.SearchAsync(TextQuery, SearchOptions)
+  fullName: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.TextQuery, Here.Explore.Maui.Models.Search.SearchOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SearchAsync
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 14
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Searches for places matching a text query (e.g., "pizza in Berlin").
+  example: []
+  syntax:
+    content: Task<SearchResult> SearchAsync(TextQuery query, SearchOptions options)
+    parameters:
+    - id: query
+      type: Here.Explore.Maui.Models.Search.TextQuery
+      description: The text query with optional area center for bias.
+    - id: options
+      type: Here.Explore.Maui.Models.Search.SearchOptions
+      description: Search options (max items, language).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SearchResult}
+      description: The search result containing matched places or an error.
+    content.vb: Function SearchAsync(query As TextQuery, options As SearchOptions) As Task(Of SearchResult)
+  overload: Here.Explore.Maui.Services.ISearchService.SearchAsync*
+- uid: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.CategoryQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  commentId: M:Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.CategoryQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  id: SearchAsync(Here.Explore.Maui.Models.Search.CategoryQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  parent: Here.Explore.Maui.Services.ISearchService
+  langs:
+  - csharp
+  - vb
+  name: SearchAsync(CategoryQuery, SearchOptions)
+  nameWithType: ISearchService.SearchAsync(CategoryQuery, SearchOptions)
+  fullName: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.CategoryQuery, Here.Explore.Maui.Models.Search.SearchOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SearchAsync
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 20
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Searches for places in a specific category (e.g., restaurants, hotels).
+  example: []
+  syntax:
+    content: Task<SearchResult> SearchAsync(CategoryQuery query, SearchOptions options)
+    parameters:
+    - id: query
+      type: Here.Explore.Maui.Models.Search.CategoryQuery
+      description: The category query with optional area center.
+    - id: options
+      type: Here.Explore.Maui.Models.Search.SearchOptions
+      description: Search options (max items, language).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SearchResult}
+      description: The search result containing matched places or an error.
+    content.vb: Function SearchAsync(query As CategoryQuery, options As SearchOptions) As Task(Of SearchResult)
+  overload: Here.Explore.Maui.Services.ISearchService.SearchAsync*
+- uid: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.AddressQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  commentId: M:Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.AddressQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  id: SearchAsync(Here.Explore.Maui.Models.Search.AddressQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  parent: Here.Explore.Maui.Services.ISearchService
+  langs:
+  - csharp
+  - vb
+  name: SearchAsync(AddressQuery, SearchOptions)
+  nameWithType: ISearchService.SearchAsync(AddressQuery, SearchOptions)
+  fullName: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.Search.AddressQuery, Here.Explore.Maui.Models.Search.SearchOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SearchAsync
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 26
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Forward-geocodes an address string (e.g., "Invalidenstraße 116, Berlin") to places with coordinates.
+  example: []
+  syntax:
+    content: Task<SearchResult> SearchAsync(AddressQuery query, SearchOptions options)
+    parameters:
+    - id: query
+      type: Here.Explore.Maui.Models.Search.AddressQuery
+      description: The address query with optional area center for bias.
+    - id: options
+      type: Here.Explore.Maui.Models.Search.SearchOptions
+      description: Search options (max items, language).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SearchResult}
+      description: The search result containing matched addresses or an error.
+    content.vb: Function SearchAsync(query As AddressQuery, options As SearchOptions) As Task(Of SearchResult)
+  overload: Here.Explore.Maui.Services.ISearchService.SearchAsync*
+- uid: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Search.SearchOptions)
+  commentId: M:Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Search.SearchOptions)
+  id: SearchAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Search.SearchOptions)
+  parent: Here.Explore.Maui.Services.ISearchService
+  langs:
+  - csharp
+  - vb
+  name: SearchAsync(GeoCoordinates, SearchOptions)
+  nameWithType: ISearchService.SearchAsync(GeoCoordinates, SearchOptions)
+  fullName: Here.Explore.Maui.Services.ISearchService.SearchAsync(Here.Explore.Maui.Models.GeoCoordinates, Here.Explore.Maui.Models.Search.SearchOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SearchAsync
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 32
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Reverse-geocodes coordinates to the place/address at that location.
+  example: []
+  syntax:
+    content: Task<SearchResult> SearchAsync(GeoCoordinates coordinates, SearchOptions options)
+    parameters:
+    - id: coordinates
+      type: Here.Explore.Maui.Models.GeoCoordinates
+      description: The coordinates to look up.
+    - id: options
+      type: Here.Explore.Maui.Models.Search.SearchOptions
+      description: Search options (max items, language).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SearchResult}
+      description: The search result containing the matched place (with address) or an error.
+    content.vb: Function SearchAsync(coordinates As GeoCoordinates, options As SearchOptions) As Task(Of SearchResult)
+  overload: Here.Explore.Maui.Services.ISearchService.SearchAsync*
+- uid: Here.Explore.Maui.Services.ISearchService.SuggestAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  commentId: M:Here.Explore.Maui.Services.ISearchService.SuggestAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  id: SuggestAsync(Here.Explore.Maui.Models.Search.TextQuery,Here.Explore.Maui.Models.Search.SearchOptions)
+  parent: Here.Explore.Maui.Services.ISearchService
+  langs:
+  - csharp
+  - vb
+  name: SuggestAsync(TextQuery, SearchOptions)
+  nameWithType: ISearchService.SuggestAsync(TextQuery, SearchOptions)
+  fullName: Here.Explore.Maui.Services.ISearchService.SuggestAsync(Here.Explore.Maui.Models.Search.TextQuery, Here.Explore.Maui.Models.Search.SearchOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SuggestAsync
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 38
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Gets auto-suggest results for a text query (lightweight, for type-ahead).
+  example: []
+  syntax:
+    content: Task<SuggestResult> SuggestAsync(TextQuery query, SearchOptions options)
+    parameters:
+    - id: query
+      type: Here.Explore.Maui.Models.Search.TextQuery
+      description: The partial text query.
+    - id: options
+      type: Here.Explore.Maui.Models.Search.SearchOptions
+      description: Search options (max items, language).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SuggestResult}
+      description: The suggest result containing suggestions or an error.
+    content.vb: Function SuggestAsync(query As TextQuery, options As SearchOptions) As Task(Of SuggestResult)
+  overload: Here.Explore.Maui.Services.ISearchService.SuggestAsync*
+- uid: Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync(System.String)
+  commentId: M:Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync(System.String)
+  id: GetPlaceByIdAsync(System.String)
+  parent: Here.Explore.Maui.Services.ISearchService
+  langs:
+  - csharp
+  - vb
+  name: GetPlaceByIdAsync(string)
+  nameWithType: ISearchService.GetPlaceByIdAsync(string)
+  fullName: Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync(string)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: GetPlaceByIdAsync
+    path: src/HereSdk.Explore.Maui/Services/ISearchService.cs
+    startLine: 43
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Retrieves a place by its ID (from a suggestion or previous search result).
+  example: []
+  syntax:
+    content: Task<Place?> GetPlaceByIdAsync(string placeId)
+    parameters:
+    - id: placeId
+      type: System.String
+      description: The place identifier returned by search or suggest.
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.Place}
+      description: The place, or null if not found.
+    content.vb: Function GetPlaceByIdAsync(placeId As String) As Task(Of Place)
+  overload: Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync*
+  nameWithType.vb: ISearchService.GetPlaceByIdAsync(String)
+  fullName.vb: Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync(String)
+  name.vb: GetPlaceByIdAsync(String)
+references:
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  href: Here.html
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Here.Explore.Maui.Services.ISearchService.SearchAsync*
+  commentId: Overload:Here.Explore.Maui.Services.ISearchService.SearchAsync
+  href: Here.Explore.Maui.Services.ISearchService.html#Here_Explore_Maui_Services_ISearchService_SearchAsync_Here_Explore_Maui_Models_Search_TextQuery_Here_Explore_Maui_Models_Search_SearchOptions_
+  name: SearchAsync
+  nameWithType: ISearchService.SearchAsync
+  fullName: Here.Explore.Maui.Services.ISearchService.SearchAsync
+- uid: Here.Explore.Maui.Models.Search.TextQuery
+  commentId: T:Here.Explore.Maui.Models.Search.TextQuery
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.TextQuery.html
+  name: TextQuery
+  nameWithType: TextQuery
+  fullName: Here.Explore.Maui.Models.Search.TextQuery
+- uid: Here.Explore.Maui.Models.Search.SearchOptions
+  commentId: T:Here.Explore.Maui.Models.Search.SearchOptions
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.SearchOptions.html
+  name: SearchOptions
+  nameWithType: SearchOptions
+  fullName: Here.Explore.Maui.Models.Search.SearchOptions
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SearchResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SearchResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<SearchResult>
+  nameWithType: Task<SearchResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Search.SearchResult>
+  nameWithType.vb: Task(Of SearchResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Search.SearchResult)
+  name.vb: Task(Of SearchResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Search.SearchResult
+    name: SearchResult
+    href: Here.Explore.Maui.Models.Search.SearchResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Search.SearchResult
+    name: SearchResult
+    href: Here.Explore.Maui.Models.Search.SearchResult.html
+  - name: )
+- uid: Here.Explore.Maui.Models.Search
+  commentId: N:Here.Explore.Maui.Models.Search
+  href: Here.html
+  name: Here.Explore.Maui.Models.Search
+  nameWithType: Here.Explore.Maui.Models.Search
+  fullName: Here.Explore.Maui.Models.Search
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Search
+    name: Search
+    href: Here.Explore.Maui.Models.Search.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Search
+    name: Search
+    href: Here.Explore.Maui.Models.Search.html
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Here.Explore.Maui.Models.Search.CategoryQuery
+  commentId: T:Here.Explore.Maui.Models.Search.CategoryQuery
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.CategoryQuery.html
+  name: CategoryQuery
+  nameWithType: CategoryQuery
+  fullName: Here.Explore.Maui.Models.Search.CategoryQuery
+- uid: Here.Explore.Maui.Models.Search.AddressQuery
+  commentId: T:Here.Explore.Maui.Models.Search.AddressQuery
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.AddressQuery.html
+  name: AddressQuery
+  nameWithType: AddressQuery
+  fullName: Here.Explore.Maui.Models.Search.AddressQuery
+- uid: Here.Explore.Maui.Models.GeoCoordinates
+  commentId: T:Here.Explore.Maui.Models.GeoCoordinates
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.GeoCoordinates.html
+  name: GeoCoordinates
+  nameWithType: GeoCoordinates
+  fullName: Here.Explore.Maui.Models.GeoCoordinates
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: Here.Explore.Maui.Services.ISearchService.SuggestAsync*
+  commentId: Overload:Here.Explore.Maui.Services.ISearchService.SuggestAsync
+  href: Here.Explore.Maui.Services.ISearchService.html#Here_Explore_Maui_Services_ISearchService_SuggestAsync_Here_Explore_Maui_Models_Search_TextQuery_Here_Explore_Maui_Models_Search_SearchOptions_
+  name: SuggestAsync
+  nameWithType: ISearchService.SuggestAsync
+  fullName: Here.Explore.Maui.Services.ISearchService.SuggestAsync
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SuggestResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.SuggestResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<SuggestResult>
+  nameWithType: Task<SuggestResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Search.SuggestResult>
+  nameWithType.vb: Task(Of SuggestResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Search.SuggestResult)
+  name.vb: Task(Of SuggestResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Search.SuggestResult
+    name: SuggestResult
+    href: Here.Explore.Maui.Models.Search.SuggestResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Search.SuggestResult
+    name: SuggestResult
+    href: Here.Explore.Maui.Models.Search.SuggestResult.html
+  - name: )
+- uid: Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync*
+  commentId: Overload:Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync
+  href: Here.Explore.Maui.Services.ISearchService.html#Here_Explore_Maui_Services_ISearchService_GetPlaceByIdAsync_System_String_
+  name: GetPlaceByIdAsync
+  nameWithType: ISearchService.GetPlaceByIdAsync
+  fullName: Here.Explore.Maui.Services.ISearchService.GetPlaceByIdAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.Place}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Search.Place}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Place>
+  nameWithType: Task<Place>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Search.Place>
+  nameWithType.vb: Task(Of Place)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Search.Place)
+  name.vb: Task(Of Place)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Search.Place
+    name: Place
+    href: Here.Explore.Maui.Models.Search.Place.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Search.Place
+    name: Place
+    href: Here.Explore.Maui.Models.Search.Place.html
+  - name: )

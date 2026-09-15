@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.HereSdkCachePolicy
+  commentId: T:Here.Explore.Maui.HereSdkCachePolicy
+  id: HereSdkCachePolicy
+  parent: Here.Explore.Maui
+  children:
+  - Here.Explore.Maui.HereSdkCachePolicy.Default
+  - Here.Explore.Maui.HereSdkCachePolicy.NoCache
+  - Here.Explore.Maui.HereSdkCachePolicy.OfflineOnly
+  langs:
+  - csharp
+  - vb
+  name: HereSdkCachePolicy
+  nameWithType: HereSdkCachePolicy
+  fullName: Here.Explore.Maui.HereSdkCachePolicy
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: HereSdkCachePolicy
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 91
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Cache policy for the HERE SDK.
+  example: []
+  syntax:
+    content: public enum HereSdkCachePolicy
+    content.vb: Public Enum HereSdkCachePolicy
+- uid: Here.Explore.Maui.HereSdkCachePolicy.Default
+  commentId: F:Here.Explore.Maui.HereSdkCachePolicy.Default
+  id: Default
+  parent: Here.Explore.Maui.HereSdkCachePolicy
+  langs:
+  - csharp
+  - vb
+  name: Default
+  nameWithType: HereSdkCachePolicy.Default
+  fullName: Here.Explore.Maui.HereSdkCachePolicy.Default
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Default
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 94
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Default caching — cache map data for offline use.
+  example: []
+  syntax:
+    content: Default = 0
+    return:
+      type: Here.Explore.Maui.HereSdkCachePolicy
+- uid: Here.Explore.Maui.HereSdkCachePolicy.NoCache
+  commentId: F:Here.Explore.Maui.HereSdkCachePolicy.NoCache
+  id: NoCache
+  parent: Here.Explore.Maui.HereSdkCachePolicy
+  langs:
+  - csharp
+  - vb
+  name: NoCache
+  nameWithType: HereSdkCachePolicy.NoCache
+  fullName: Here.Explore.Maui.HereSdkCachePolicy.NoCache
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoCache
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 97
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Disable caching — always fetch from network.
+  example: []
+  syntax:
+    content: NoCache = 1
+    return:
+      type: Here.Explore.Maui.HereSdkCachePolicy
+- uid: Here.Explore.Maui.HereSdkCachePolicy.OfflineOnly
+  commentId: F:Here.Explore.Maui.HereSdkCachePolicy.OfflineOnly
+  id: OfflineOnly
+  parent: Here.Explore.Maui.HereSdkCachePolicy
+  langs:
+  - csharp
+  - vb
+  name: OfflineOnly
+  nameWithType: HereSdkCachePolicy.OfflineOnly
+  fullName: Here.Explore.Maui.HereSdkCachePolicy.OfflineOnly
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: OfflineOnly
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 100
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Offline only — use cached data without network access.
+  example: []
+  syntax:
+    content: OfflineOnly = 2
+    return:
+      type: Here.Explore.Maui.HereSdkCachePolicy
+references:
+- uid: Here.Explore.Maui
+  commentId: N:Here.Explore.Maui
+  href: Here.html
+  name: Here.Explore.Maui
+  nameWithType: Here.Explore.Maui
+  fullName: Here.Explore.Maui
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+- uid: Here.Explore.Maui.HereSdkCachePolicy
+  commentId: T:Here.Explore.Maui.HereSdkCachePolicy
+  parent: Here.Explore.Maui
+  href: Here.Explore.Maui.HereSdkCachePolicy.html
+  name: HereSdkCachePolicy
+  nameWithType: HereSdkCachePolicy
+  fullName: Here.Explore.Maui.HereSdkCachePolicy

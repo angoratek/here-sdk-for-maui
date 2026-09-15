@@ -1,0 +1,137 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  id: Here.Explore.Maui.Services
+  children:
+  - Here.Explore.Maui.Services.IHereSdkService
+  - Here.Explore.Maui.Services.ILocationService
+  - Here.Explore.Maui.Services.IMapService
+  - Here.Explore.Maui.Services.IRoutingService
+  - Here.Explore.Maui.Services.ISearchService
+  - Here.Explore.Maui.Services.ITrafficService
+  - Here.Explore.Maui.Services.LocationService
+  - Here.Explore.Maui.Services.MapService
+  - Here.Explore.Maui.Services.RoutingService
+  - Here.Explore.Maui.Services.SearchService
+  - Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  type: Namespace
+  assemblies:
+  - HereSdk.Explore.Maui
+references:
+- uid: Here.Explore.Maui.Services.IHereSdkService
+  commentId: T:Here.Explore.Maui.Services.IHereSdkService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.IHereSdkService.html
+  name: IHereSdkService
+  nameWithType: IHereSdkService
+  fullName: Here.Explore.Maui.Services.IHereSdkService
+- uid: Here.Explore.Maui.Services.ILocationService
+  commentId: T:Here.Explore.Maui.Services.ILocationService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.ILocationService.html
+  name: ILocationService
+  nameWithType: ILocationService
+  fullName: Here.Explore.Maui.Services.ILocationService
+- uid: Here.Explore.Maui.Services.IMapService
+  commentId: T:Here.Explore.Maui.Services.IMapService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.IMapService.html
+  name: IMapService
+  nameWithType: IMapService
+  fullName: Here.Explore.Maui.Services.IMapService
+- uid: Here.Explore.Maui.Services.IRoutingService
+  commentId: T:Here.Explore.Maui.Services.IRoutingService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.IRoutingService.html
+  name: IRoutingService
+  nameWithType: IRoutingService
+  fullName: Here.Explore.Maui.Services.IRoutingService
+- uid: Here.Explore.Maui.Services.ISearchService
+  commentId: T:Here.Explore.Maui.Services.ISearchService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.ISearchService.html
+  name: ISearchService
+  nameWithType: ISearchService
+  fullName: Here.Explore.Maui.Services.ISearchService
+- uid: Here.Explore.Maui.Services.ITrafficService
+  commentId: T:Here.Explore.Maui.Services.ITrafficService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.ITrafficService.html
+  name: ITrafficService
+  nameWithType: ITrafficService
+  fullName: Here.Explore.Maui.Services.ITrafficService
+- uid: Here.Explore.Maui.Services.LocationService
+  commentId: T:Here.Explore.Maui.Services.LocationService
+  href: Here.Explore.Maui.Services.LocationService.html
+  name: LocationService
+  nameWithType: LocationService
+  fullName: Here.Explore.Maui.Services.LocationService
+- uid: Here.Explore.Maui.Services.MapService
+  commentId: T:Here.Explore.Maui.Services.MapService
+  href: Here.Explore.Maui.Services.MapService.html
+  name: MapService
+  nameWithType: MapService
+  fullName: Here.Explore.Maui.Services.MapService
+- uid: Here.Explore.Maui.Services.RoutingService
+  commentId: T:Here.Explore.Maui.Services.RoutingService
+  href: Here.Explore.Maui.Services.RoutingService.html
+  name: RoutingService
+  nameWithType: RoutingService
+  fullName: Here.Explore.Maui.Services.RoutingService
+- uid: Here.Explore.Maui.Services.SearchService
+  commentId: T:Here.Explore.Maui.Services.SearchService
+  href: Here.Explore.Maui.Services.SearchService.html
+  name: SearchService
+  nameWithType: SearchService
+  fullName: Here.Explore.Maui.Services.SearchService
+- uid: Here.Explore.Maui.Services.TrafficService
+  commentId: T:Here.Explore.Maui.Services.TrafficService
+  href: Here.Explore.Maui.Services.TrafficService.html
+  name: TrafficService
+  nameWithType: TrafficService
+  fullName: Here.Explore.Maui.Services.TrafficService
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  href: Here.html
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html

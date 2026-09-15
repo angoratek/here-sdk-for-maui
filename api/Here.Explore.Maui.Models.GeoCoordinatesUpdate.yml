@@ -1,0 +1,597 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  commentId: T:Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  id: GeoCoordinatesUpdate
+  parent: Here.Explore.Maui.Models
+  children:
+  - Here.Explore.Maui.Models.GeoCoordinatesUpdate.#ctor(System.Nullable{System.Double},System.Nullable{System.Double})
+  - Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo(Here.Explore.Maui.Models.GeoCoordinates)
+  - Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude
+  - Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude
+  langs:
+  - csharp
+  - vb
+  name: GeoCoordinatesUpdate
+  nameWithType: GeoCoordinatesUpdate
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: GeoCoordinatesUpdate
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+    startLine: 5
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Update for geographic coordinates (partial update).
+  example: []
+  syntax:
+    content: 'public record GeoCoordinatesUpdate : IEquatable<GeoCoordinatesUpdate>'
+    content.vb: Public Class GeoCoordinatesUpdate Implements IEquatable(Of GeoCoordinatesUpdate)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.GeoCoordinatesUpdate}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.#ctor(System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:Here.Explore.Maui.Models.GeoCoordinatesUpdate.#ctor(System.Nullable{System.Double},System.Nullable{System.Double})
+  id: '#ctor(System.Nullable{System.Double},System.Nullable{System.Double})'
+  parent: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  langs:
+  - csharp
+  - vb
+  name: GeoCoordinatesUpdate(double?, double?)
+  nameWithType: GeoCoordinatesUpdate.GeoCoordinatesUpdate(double?, double?)
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.GeoCoordinatesUpdate(double?, double?)
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+    startLine: 5
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Update for geographic coordinates (partial update).
+  example: []
+  syntax:
+    content: public GeoCoordinatesUpdate(double? Latitude = null, double? Longitude = null)
+    parameters:
+    - id: Latitude
+      type: System.Nullable{System.Double}
+    - id: Longitude
+      type: System.Nullable{System.Double}
+    content.vb: Public Sub New(Latitude As Double? = Nothing, Longitude As Double? = Nothing)
+  overload: Here.Explore.Maui.Models.GeoCoordinatesUpdate.#ctor*
+  nameWithType.vb: GeoCoordinatesUpdate.New(Double?, Double?)
+  fullName.vb: Here.Explore.Maui.Models.GeoCoordinatesUpdate.New(Double?, Double?)
+  name.vb: New(Double?, Double?)
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude
+  commentId: P:Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude
+  id: Latitude
+  parent: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  langs:
+  - csharp
+  - vb
+  name: Latitude
+  nameWithType: GeoCoordinatesUpdate.Latitude
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Latitude
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+    startLine: 6
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  syntax:
+    content: public double? Latitude { get; init; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Double}
+    content.vb: Public Property Latitude As Double?
+  overload: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude*
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude
+  commentId: P:Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude
+  id: Longitude
+  parent: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  langs:
+  - csharp
+  - vb
+  name: Longitude
+  nameWithType: GeoCoordinatesUpdate.Longitude
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Longitude
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+    startLine: 7
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  syntax:
+    content: public double? Longitude { get; init; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Double}
+    content.vb: Public Property Longitude As Double?
+  overload: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude*
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo(Here.Explore.Maui.Models.GeoCoordinates)
+  commentId: M:Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo(Here.Explore.Maui.Models.GeoCoordinates)
+  id: ApplyTo(Here.Explore.Maui.Models.GeoCoordinates)
+  parent: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+  langs:
+  - csharp
+  - vb
+  name: ApplyTo(GeoCoordinates)
+  nameWithType: GeoCoordinatesUpdate.ApplyTo(GeoCoordinates)
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo(Here.Explore.Maui.Models.GeoCoordinates)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ApplyTo
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinatesUpdate.cs
+    startLine: 13
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Applies this partial update to an existing GeoCoordinates, replacing only non-null values.
+  example: []
+  syntax:
+    content: public GeoCoordinates ApplyTo(GeoCoordinates original)
+    parameters:
+    - id: original
+      type: Here.Explore.Maui.Models.GeoCoordinates
+      description: The original coordinates to update.
+    return:
+      type: Here.Explore.Maui.Models.GeoCoordinates
+      description: A new GeoCoordinates with the specified fields replaced.
+    content.vb: Public Function ApplyTo(original As GeoCoordinates) As GeoCoordinates
+  overload: Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo*
+references:
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.GeoCoordinatesUpdate}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.GeoCoordinatesUpdate}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<GeoCoordinatesUpdate>
+  nameWithType: IEquatable<GeoCoordinatesUpdate>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.GeoCoordinatesUpdate>
+  nameWithType.vb: IEquatable(Of GeoCoordinatesUpdate)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.GeoCoordinatesUpdate)
+  name.vb: IEquatable(Of GeoCoordinatesUpdate)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+    name: GeoCoordinatesUpdate
+    href: Here.Explore.Maui.Models.GeoCoordinatesUpdate.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate
+    name: GeoCoordinatesUpdate
+    href: Here.Explore.Maui.Models.GeoCoordinatesUpdate.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.#ctor*
+  commentId: Overload:Here.Explore.Maui.Models.GeoCoordinatesUpdate.#ctor
+  href: Here.Explore.Maui.Models.GeoCoordinatesUpdate.html#Here_Explore_Maui_Models_GeoCoordinatesUpdate__ctor_System_Nullable_System_Double__System_Nullable_System_Double__
+  name: GeoCoordinatesUpdate
+  nameWithType: GeoCoordinatesUpdate.GeoCoordinatesUpdate
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.GeoCoordinatesUpdate
+  nameWithType.vb: GeoCoordinatesUpdate.New
+  fullName.vb: Here.Explore.Maui.Models.GeoCoordinatesUpdate.New
+  name.vb: New
+- uid: System.Nullable{System.Double}
+  commentId: T:System.Nullable{System.Double}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double?
+  nameWithType: double?
+  fullName: double?
+  nameWithType.vb: Double?
+  fullName.vb: Double?
+  name.vb: Double?
+  spec.csharp:
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
+  spec.vb:
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude*
+  commentId: Overload:Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude
+  href: Here.Explore.Maui.Models.GeoCoordinatesUpdate.html#Here_Explore_Maui_Models_GeoCoordinatesUpdate_Latitude
+  name: Latitude
+  nameWithType: GeoCoordinatesUpdate.Latitude
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Latitude
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude*
+  commentId: Overload:Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude
+  href: Here.Explore.Maui.Models.GeoCoordinatesUpdate.html#Here_Explore_Maui_Models_GeoCoordinatesUpdate_Longitude
+  name: Longitude
+  nameWithType: GeoCoordinatesUpdate.Longitude
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.Longitude
+- uid: Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo*
+  commentId: Overload:Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo
+  href: Here.Explore.Maui.Models.GeoCoordinatesUpdate.html#Here_Explore_Maui_Models_GeoCoordinatesUpdate_ApplyTo_Here_Explore_Maui_Models_GeoCoordinates_
+  name: ApplyTo
+  nameWithType: GeoCoordinatesUpdate.ApplyTo
+  fullName: Here.Explore.Maui.Models.GeoCoordinatesUpdate.ApplyTo
+- uid: Here.Explore.Maui.Models.GeoCoordinates
+  commentId: T:Here.Explore.Maui.Models.GeoCoordinates
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.GeoCoordinates.html
+  name: GeoCoordinates
+  nameWithType: GeoCoordinates
+  fullName: Here.Explore.Maui.Models.GeoCoordinates

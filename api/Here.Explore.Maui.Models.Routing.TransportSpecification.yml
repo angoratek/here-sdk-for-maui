@@ -1,0 +1,819 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification
+  commentId: T:Here.Explore.Maui.Models.Routing.TransportSpecification
+  id: TransportSpecification
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode
+  - Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications
+  langs:
+  - csharp
+  - vb
+  name: TransportSpecification
+  nameWithType: TransportSpecification
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TransportSpecification
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 8
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: >-
+    Transport mode and vehicle specification for route calculation.
+
+    Use factory methods (<xref href="Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)" data-throw-if-not-resolved="false"></xref>, <xref href="Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)" data-throw-if-not-resolved="false"></xref>, etc.) to construct.
+  example: []
+  syntax:
+    content: 'public record TransportSpecification : IEquatable<TransportSpecification>'
+    content.vb: Public Class TransportSpecification Implements IEquatable(Of TransportSpecification)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.Routing.TransportSpecification}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode
+  commentId: P:Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode
+  id: TransportMode
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: TransportMode
+  nameWithType: TransportSpecification.TransportMode
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TransportMode
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 11
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: The transport mode for route calculation.
+  example: []
+  syntax:
+    content: public SectionTransportMode TransportMode { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+    content.vb: Public Property TransportMode As SectionTransportMode
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications
+  commentId: P:Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications
+  id: CarSpecifications
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: CarSpecifications
+  nameWithType: TransportSpecification.CarSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: CarSpecifications
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 14
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Car specifications (when TransportMode is Car).
+  example: []
+  syntax:
+    content: public CarSpecifications? CarSpecifications { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Routing.CarSpecifications
+    content.vb: Public Property CarSpecifications As CarSpecifications
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications
+  commentId: P:Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications
+  id: TruckSpecifications
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: TruckSpecifications
+  nameWithType: TransportSpecification.TruckSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TruckSpecifications
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 17
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Truck specifications (when TransportMode is Truck).
+  example: []
+  syntax:
+    content: public TruckSpecifications? TruckSpecifications { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Routing.TruckSpecifications
+    content.vb: Public Property TruckSpecifications As TruckSpecifications
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions
+  commentId: P:Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions
+  id: AvoidanceOptions
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: AvoidanceOptions
+  nameWithType: TransportSpecification.AvoidanceOptions
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: AvoidanceOptions
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 20
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Avoidance options for the route.
+  example: []
+  syntax:
+    content: public AvoidanceOptions? AvoidanceOptions { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+    content.vb: Public Property AvoidanceOptions As AvoidanceOptions
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  id: ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: ForCar(CarSpecifications?)
+  nameWithType: TransportSpecification.ForCar(CarSpecifications?)
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications?)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ForCar
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 23
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Creates a transport specification for car routing.
+  example: []
+  syntax:
+    content: public static TransportSpecification ForCar(CarSpecifications? specs = null)
+    parameters:
+    - id: specs
+      type: Here.Explore.Maui.Models.Routing.CarSpecifications
+    return:
+      type: Here.Explore.Maui.Models.Routing.TransportSpecification
+    content.vb: Public Shared Function ForCar(specs As CarSpecifications = Nothing) As TransportSpecification
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar*
+  nameWithType.vb: TransportSpecification.ForCar(CarSpecifications)
+  fullName.vb: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  name.vb: ForCar(CarSpecifications)
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  id: ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: ForTruck(TruckSpecifications)
+  nameWithType: TransportSpecification.ForTruck(TruckSpecifications)
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ForTruck
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 27
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Creates a transport specification for truck routing.
+  example: []
+  syntax:
+    content: public static TransportSpecification ForTruck(TruckSpecifications specs)
+    parameters:
+    - id: specs
+      type: Here.Explore.Maui.Models.Routing.TruckSpecifications
+    return:
+      type: Here.Explore.Maui.Models.Routing.TransportSpecification
+    content.vb: Public Shared Function ForTruck(specs As TruckSpecifications) As TransportSpecification
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian
+  id: ForPedestrian
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: ForPedestrian()
+  nameWithType: TransportSpecification.ForPedestrian()
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian()
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ForPedestrian
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 31
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Creates a transport specification for pedestrian routing.
+  example: []
+  syntax:
+    content: public static TransportSpecification ForPedestrian()
+    return:
+      type: Here.Explore.Maui.Models.Routing.TransportSpecification
+    content.vb: Public Shared Function ForPedestrian() As TransportSpecification
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle
+  id: ForBicycle
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: ForBicycle()
+  nameWithType: TransportSpecification.ForBicycle()
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle()
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ForBicycle
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 35
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Creates a transport specification for bicycle routing.
+  example: []
+  syntax:
+    content: public static TransportSpecification ForBicycle()
+    return:
+      type: Here.Explore.Maui.Models.Routing.TransportSpecification
+    content.vb: Public Shared Function ForBicycle() As TransportSpecification
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle*
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter
+  id: ForScooter
+  parent: Here.Explore.Maui.Models.Routing.TransportSpecification
+  langs:
+  - csharp
+  - vb
+  name: ForScooter()
+  nameWithType: TransportSpecification.ForScooter()
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter()
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ForScooter
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 39
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Creates a transport specification for scooter routing.
+  example: []
+  syntax:
+    content: public static TransportSpecification ForScooter()
+    return:
+      type: Here.Explore.Maui.Models.Routing.TransportSpecification
+    content.vb: Public Shared Function ForScooter() As TransportSpecification
+  overload: Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter*
+references:
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForCar_Here_Explore_Maui_Models_Routing_CarSpecifications_
+  name: ForCar(CarSpecifications)
+  nameWithType: TransportSpecification.ForCar(CarSpecifications)
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+  spec.csharp:
+  - uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+    name: ForCar
+    href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForCar_Here_Explore_Maui_Models_Routing_CarSpecifications_
+  - name: (
+  - uid: Here.Explore.Maui.Models.Routing.CarSpecifications
+    name: CarSpecifications
+    href: Here.Explore.Maui.Models.Routing.CarSpecifications.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)
+    name: ForCar
+    href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForCar_Here_Explore_Maui_Models_Routing_CarSpecifications_
+  - name: (
+  - uid: Here.Explore.Maui.Models.Routing.CarSpecifications
+    name: CarSpecifications
+    href: Here.Explore.Maui.Models.Routing.CarSpecifications.html
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  commentId: M:Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForTruck_Here_Explore_Maui_Models_Routing_TruckSpecifications_
+  name: ForTruck(TruckSpecifications)
+  nameWithType: TransportSpecification.ForTruck(TruckSpecifications)
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+  spec.csharp:
+  - uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+    name: ForTruck
+    href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForTruck_Here_Explore_Maui_Models_Routing_TruckSpecifications_
+  - name: (
+  - uid: Here.Explore.Maui.Models.Routing.TruckSpecifications
+    name: TruckSpecifications
+    href: Here.Explore.Maui.Models.Routing.TruckSpecifications.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)
+    name: ForTruck
+    href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForTruck_Here_Explore_Maui_Models_Routing_TruckSpecifications_
+  - name: (
+  - uid: Here.Explore.Maui.Models.Routing.TruckSpecifications
+    name: TruckSpecifications
+    href: Here.Explore.Maui.Models.Routing.TruckSpecifications.html
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.Routing.TransportSpecification}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.Routing.TransportSpecification}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<TransportSpecification>
+  nameWithType: IEquatable<TransportSpecification>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.Routing.TransportSpecification>
+  nameWithType.vb: IEquatable(Of TransportSpecification)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.Routing.TransportSpecification)
+  name.vb: IEquatable(Of TransportSpecification)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.TransportSpecification
+    name: TransportSpecification
+    href: Here.Explore.Maui.Models.Routing.TransportSpecification.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.TransportSpecification
+    name: TransportSpecification
+    href: Here.Explore.Maui.Models.Routing.TransportSpecification.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_TransportMode
+  name: TransportMode
+  nameWithType: TransportSpecification.TransportMode
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.TransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  commentId: T:Here.Explore.Maui.Models.Routing.SectionTransportMode
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.SectionTransportMode.html
+  name: SectionTransportMode
+  nameWithType: SectionTransportMode
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_CarSpecifications
+  name: CarSpecifications
+  nameWithType: TransportSpecification.CarSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.CarSpecifications
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications
+  commentId: T:Here.Explore.Maui.Models.Routing.CarSpecifications
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.CarSpecifications.html
+  name: CarSpecifications
+  nameWithType: CarSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_TruckSpecifications
+  name: TruckSpecifications
+  nameWithType: TransportSpecification.TruckSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.TruckSpecifications
+- uid: Here.Explore.Maui.Models.Routing.TruckSpecifications
+  commentId: T:Here.Explore.Maui.Models.Routing.TruckSpecifications
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.TruckSpecifications.html
+  name: TruckSpecifications
+  nameWithType: TruckSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.TruckSpecifications
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_AvoidanceOptions
+  name: AvoidanceOptions
+  nameWithType: TransportSpecification.AvoidanceOptions
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.AvoidanceOptions
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  commentId: T:Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.AvoidanceOptions.html
+  name: AvoidanceOptions
+  nameWithType: AvoidanceOptions
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForCar_Here_Explore_Maui_Models_Routing_CarSpecifications_
+  name: ForCar
+  nameWithType: TransportSpecification.ForCar
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification
+  commentId: T:Here.Explore.Maui.Models.Routing.TransportSpecification
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html
+  name: TransportSpecification
+  nameWithType: TransportSpecification
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForTruck_Here_Explore_Maui_Models_Routing_TruckSpecifications_
+  name: ForTruck
+  nameWithType: TransportSpecification.ForTruck
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForPedestrian
+  name: ForPedestrian
+  nameWithType: TransportSpecification.ForPedestrian
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForPedestrian
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForBicycle
+  name: ForBicycle
+  nameWithType: TransportSpecification.ForBicycle
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForBicycle
+- uid: Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter
+  href: Here.Explore.Maui.Models.Routing.TransportSpecification.html#Here_Explore_Maui_Models_Routing_TransportSpecification_ForScooter
+  name: ForScooter
+  nameWithType: TransportSpecification.ForScooter
+  fullName: Here.Explore.Maui.Models.Routing.TransportSpecification.ForScooter

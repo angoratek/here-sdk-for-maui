@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Map Objects | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Map Objects | HERE SDK for MAUI ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/map-objects.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="map-objects">Map Objects</h1>
+
+<h2 id="mapmarker">MapMarker</h2>
+<p>A point marker rendered on the map.</p>
+<pre><code class="lang-csharp">var marker = new MapMarker(
+    Coordinates: new GeoCoordinates(52.5200, 13.4050),
+    ImagePath: &quot;marker_pin&quot;,    // optional drawable name (Android) / bundle image (iOS)
+    Text: &quot;Berlin&quot;,              // optional label
+    AnchorX: 50, AnchorY: 100   // anchor as % of image size (50/100 = bottom-center pin tip)
+);
+mapService.AddMapMarker(marker);
+</code></pre>
+<p>Default appearance: coral teardrop pin with white border. On Android,
+<code>ImagePath</code> is a drawable resource name resolved via <code>GetIdentifier</code>; when
+omitted (or not found) a branded <code>marker_pin</code> drawable is used, falling back
+to a system icon. On iOS, <code>ImagePath</code> is an image name in the framework or
+main bundle; when omitted, a pin is drawn programmatically. Anchoring applies
+to Android only (the iOS bridge does not expose it).</p>
+<h2 id="mapmarkercluster">MapMarkerCluster</h2>
+<p>Groups nearby markers at low zoom levels.</p>
+<pre><code class="lang-csharp">var cluster = new MapMarkerCluster(
+    ImageLookup: new Dictionary&lt;int, MapMarkerClusterImage&gt; {
+        [1] = new MapMarkerClusterImage(
+            new MapMarkerClusterImageLookupItem(&quot;small_cluster&quot;)),
+        [10] = new MapMarkerClusterImage(
+            new MapMarkerClusterImageLookupItem(&quot;large_cluster&quot;))
+    },
+    MaxCountNumber: 99
+);
+</code></pre>
+<p>Clusters show a count badge. Tapping expands the cluster at higher zoom.</p>
+<h2 id="mappolyline">MapPolyline</h2>
+<p>A series of connected line segments.</p>
+<pre><code class="lang-csharp">var polyline = new MapPolyline(
+    Vertices: new[] { start, waypoint, end },
+    Color: 0xFF0000FF,    // ARGB blue
+    WidthInPixels: 5,
+    Cap: LineCap.Round    // Round | Square | Butt (iOS bridge always renders round)
+);
+mapService.AddMapPolyline(polyline);
+</code></pre>
+<h2 id="mappolygon">MapPolygon</h2>
+<p>A filled shape defined by vertices. The outline is rendered when
+<code>StrokeWidthInPixels</code> is greater than 0 (default 0 = outline disabled).</p>
+<pre><code class="lang-csharp">var polygon = new MapPolygon(
+    Vertices: new[] { p1, p2, p3, p1 },
+    FillColor: 0x44FF0000,   // semi-transparent red fill
+    StrokeColor: 0xFFFF0000, // red outline
+    StrokeWidthInPixels: 2
+);
+mapService.AddMapPolygon(polygon);
+</code></pre>
+<h2 id="mapcircle">MapCircle</h2>
+<p>A circle approximated as a regular polygon. HERE SDK has no native circle primitive — it's rendered as a 32+ vertex polygon generated by <code>CircleGeometryHelper</code>. Because it is a polygon under the hood, the outline (<code>StrokeColor</code>/<code>StrokeWidthInPixels</code>) renders through the same outline-taking polygon path.</p>
+<pre><code class="lang-csharp">var circle = new MapCircle(
+    Center: new GeoCoordinates(52.5, 13.4),
+    RadiusInMeters: 500,
+    FillColor: 0x3300FF00,      // semi-transparent green
+    StrokeColor: 0xFF00FF00,     // green outline
+    StrokeWidthInPixels: 2
+);
+mapService.AddMapCircle(circle);
+</code></pre>
+<h2 id="maparrow">MapArrow</h2>
+<p>A directional arrow (for showing bearing/heading).</p>
+<pre><code class="lang-csharp">var arrow = new MapArrow(
+    Coordinates: new GeoCoordinates(52.5, 13.4),
+    DirectionInDegrees: 45,
+    WidthInMeters: 20,
+    Color: 0xFFFF6600
+);
+mapService.AddMapArrow(arrow);
+</code></pre>
+<h2 id="locationindicator">LocationIndicator</h2>
+<p>Shows the user's position on the map.</p>
+<pre><code class="lang-csharp">var indicator = new LocationIndicator(
+    Location: new GeoCoordinates(52.5, 13.4),
+    Bearing: 90.0,
+    Style: LocationIndicatorStyle.Navigation,
+    IsVisible: true
+);
+mapService.SetLocationIndicator(indicator);
+</code></pre>
+<p>Two styles: <code>Pedestrian</code> (dot with accuracy ring) and <code>Navigation</code> (arrow with heading).</p>
+<h2 id="clearing-map-items">Clearing Map Items</h2>
+<pre><code class="lang-csharp">mapService.ClearMap();  // removes all markers, polylines, polygons, circles, arrows
+</code></pre>
+<p>Individual removal methods are available on the platform-specific <code>IMapService</code> implementation.</p>
+<h2 id="camera">Camera</h2>
+<pre><code class="lang-csharp">// Animate to location
+await mapService.SetCameraTargetAsync(new GeoCoordinates(52.5, 13.4), zoomLevel: 14);
+
+// Get current camera position
+var target = await mapService.GetCameraTargetAsync();
+double zoom = mapService.ZoomLevel;
+double bearing = mapService.Bearing;
+double tilt = mapService.Tilt;
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/map-objects.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

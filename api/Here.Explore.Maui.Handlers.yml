@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Handlers
+  commentId: N:Here.Explore.Maui.Handlers
+  id: Here.Explore.Maui.Handlers
+  children:
+  - Here.Explore.Maui.Handlers.HereMapViewHandler
+  langs:
+  - csharp
+  - vb
+  name: Here.Explore.Maui.Handlers
+  nameWithType: Here.Explore.Maui.Handlers
+  fullName: Here.Explore.Maui.Handlers
+  type: Namespace
+  assemblies:
+  - HereSdk.Explore.Maui
+references:
+- uid: Here.Explore.Maui.Handlers.HereMapViewHandler
+  commentId: T:Here.Explore.Maui.Handlers.HereMapViewHandler
+  href: Here.Explore.Maui.Handlers.HereMapViewHandler.html
+  name: HereMapViewHandler
+  nameWithType: HereMapViewHandler
+  fullName: Here.Explore.Maui.Handlers.HereMapViewHandler

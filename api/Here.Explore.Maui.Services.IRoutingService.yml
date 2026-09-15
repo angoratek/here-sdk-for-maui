@@ -1,0 +1,677 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Services.IRoutingService
+  commentId: T:Here.Explore.Maui.Services.IRoutingService
+  id: IRoutingService
+  parent: Here.Explore.Maui.Services
+  children:
+  - Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Routing.IsolineOptions)
+  - Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+  - Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync(Here.Explore.Maui.Models.Routing.Route)
+  langs:
+  - csharp
+  - vb
+  name: IRoutingService
+  nameWithType: IRoutingService
+  fullName: Here.Explore.Maui.Services.IRoutingService
+  type: Interface
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: IRoutingService
+    path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+    startLine: 8
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Service for route calculation and management.
+  example: []
+  syntax:
+    content: 'public interface IRoutingService : IHereSdkService, IDisposable'
+    content.vb: Public Interface IRoutingService Inherits IHereSdkService, IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+- uid: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+  commentId: M:Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+  id: CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+  parent: Here.Explore.Maui.Services.IRoutingService
+  langs:
+  - csharp
+  - vb
+  name: CalculateRouteAsync(IReadOnlyList<Waypoint>, RoutingOptions)
+  nameWithType: IRoutingService.CalculateRouteAsync(IReadOnlyList<Waypoint>, RoutingOptions)
+  fullName: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.Routing.Waypoint>, Here.Explore.Maui.Models.Routing.RoutingOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: CalculateRouteAsync
+    path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+    startLine: 14
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Calculates routes between the specified waypoints.
+  example: []
+  syntax:
+    content: Task<RoutingResult> CalculateRouteAsync(IReadOnlyList<Waypoint> waypoints, RoutingOptions options)
+    parameters:
+    - id: waypoints
+      type: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint}
+      description: 'Ordered list of waypoints (at least 2: start and destination).'
+    - id: options
+      type: Here.Explore.Maui.Models.Routing.RoutingOptions
+      description: Routing options (transport mode, optimization, alternatives).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.RoutingResult}
+      description: The routing result containing calculated routes or an error.
+    content.vb: Function CalculateRouteAsync(waypoints As IReadOnlyList(Of Waypoint), options As RoutingOptions) As Task(Of RoutingResult)
+  overload: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync*
+  nameWithType.vb: IRoutingService.CalculateRouteAsync(IReadOnlyList(Of Waypoint), RoutingOptions)
+  fullName.vb: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.Routing.Waypoint), Here.Explore.Maui.Models.Routing.RoutingOptions)
+  name.vb: CalculateRouteAsync(IReadOnlyList(Of Waypoint), RoutingOptions)
+- uid: Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Routing.IsolineOptions)
+  commentId: M:Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Routing.IsolineOptions)
+  id: CalculateIsolineAsync(Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Routing.IsolineOptions)
+  parent: Here.Explore.Maui.Services.IRoutingService
+  langs:
+  - csharp
+  - vb
+  name: CalculateIsolineAsync(GeoCoordinates, IsolineOptions)
+  nameWithType: IRoutingService.CalculateIsolineAsync(GeoCoordinates, IsolineOptions)
+  fullName: Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync(Here.Explore.Maui.Models.GeoCoordinates, Here.Explore.Maui.Models.Routing.IsolineOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: CalculateIsolineAsync
+    path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+    startLine: 20
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Calculates an isoline (reachability polygon) from a center point.
+  example: []
+  syntax:
+    content: Task<IsolineResult> CalculateIsolineAsync(GeoCoordinates center, IsolineOptions options)
+    parameters:
+    - id: center
+      type: Here.Explore.Maui.Models.GeoCoordinates
+      description: The center point for the isoline calculation.
+    - id: options
+      type: Here.Explore.Maui.Models.Routing.IsolineOptions
+      description: Isoline options (transport mode, range, max points).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.IsolineResult}
+      description: The isoline result containing reachable area polygons or an error.
+    content.vb: Function CalculateIsolineAsync(center As GeoCoordinates, options As IsolineOptions) As Task(Of IsolineResult)
+  overload: Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync*
+- uid: Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync(Here.Explore.Maui.Models.Routing.Route)
+  commentId: M:Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync(Here.Explore.Maui.Models.Routing.Route)
+  id: GetTrafficOnRouteAsync(Here.Explore.Maui.Models.Routing.Route)
+  parent: Here.Explore.Maui.Services.IRoutingService
+  langs:
+  - csharp
+  - vb
+  name: GetTrafficOnRouteAsync(Route)
+  nameWithType: IRoutingService.GetTrafficOnRouteAsync(Route)
+  fullName: Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync(Here.Explore.Maui.Models.Routing.Route)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: GetTrafficOnRouteAsync
+    path: src/HereSdk.Explore.Maui/Services/IRoutingService.cs
+    startLine: 25
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Gets real-time traffic information along a previously calculated route.
+  example: []
+  syntax:
+    content: Task<TrafficOnRouteResult> GetTrafficOnRouteAsync(Route route)
+    parameters:
+    - id: route
+      type: Here.Explore.Maui.Models.Routing.Route
+      description: The route to query traffic for (from <xref href="Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList%7bHere.Explore.Maui.Models.Routing.Waypoint%7d%2cHere.Explore.Maui.Models.Routing.RoutingOptions)" data-throw-if-not-resolved="false"></xref>).
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.TrafficOnRouteResult}
+      description: 'Traffic information: spans, incidents and per-section geometry.'
+    content.vb: Function GetTrafficOnRouteAsync(route As Route) As Task(Of TrafficOnRouteResult)
+  overload: Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync*
+references:
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  href: Here.html
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync*
+  commentId: Overload:Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync
+  href: Here.Explore.Maui.Services.IRoutingService.html#Here_Explore_Maui_Services_IRoutingService_CalculateRouteAsync_System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_Routing_Waypoint__Here_Explore_Maui_Models_Routing_RoutingOptions_
+  name: CalculateRouteAsync
+  nameWithType: IRoutingService.CalculateRouteAsync
+  fullName: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync
+- uid: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<Waypoint>
+  nameWithType: IReadOnlyList<Waypoint>
+  fullName: System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.Routing.Waypoint>
+  nameWithType.vb: IReadOnlyList(Of Waypoint)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.Routing.Waypoint)
+  name.vb: IReadOnlyList(Of Waypoint)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.Waypoint
+    name: Waypoint
+    href: Here.Explore.Maui.Models.Routing.Waypoint.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.Waypoint
+    name: Waypoint
+    href: Here.Explore.Maui.Models.Routing.Waypoint.html
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.RoutingOptions
+  commentId: T:Here.Explore.Maui.Models.Routing.RoutingOptions
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.RoutingOptions.html
+  name: RoutingOptions
+  nameWithType: RoutingOptions
+  fullName: Here.Explore.Maui.Models.Routing.RoutingOptions
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.RoutingResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.RoutingResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<RoutingResult>
+  nameWithType: Task<RoutingResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Routing.RoutingResult>
+  nameWithType.vb: Task(Of RoutingResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Routing.RoutingResult)
+  name.vb: Task(Of RoutingResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.RoutingResult
+    name: RoutingResult
+    href: Here.Explore.Maui.Models.Routing.RoutingResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.RoutingResult
+    name: RoutingResult
+    href: Here.Explore.Maui.Models.Routing.RoutingResult.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync*
+  commentId: Overload:Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync
+  href: Here.Explore.Maui.Services.IRoutingService.html#Here_Explore_Maui_Services_IRoutingService_CalculateIsolineAsync_Here_Explore_Maui_Models_GeoCoordinates_Here_Explore_Maui_Models_Routing_IsolineOptions_
+  name: CalculateIsolineAsync
+  nameWithType: IRoutingService.CalculateIsolineAsync
+  fullName: Here.Explore.Maui.Services.IRoutingService.CalculateIsolineAsync
+- uid: Here.Explore.Maui.Models.GeoCoordinates
+  commentId: T:Here.Explore.Maui.Models.GeoCoordinates
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.GeoCoordinates.html
+  name: GeoCoordinates
+  nameWithType: GeoCoordinates
+  fullName: Here.Explore.Maui.Models.GeoCoordinates
+- uid: Here.Explore.Maui.Models.Routing.IsolineOptions
+  commentId: T:Here.Explore.Maui.Models.Routing.IsolineOptions
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.IsolineOptions.html
+  name: IsolineOptions
+  nameWithType: IsolineOptions
+  fullName: Here.Explore.Maui.Models.Routing.IsolineOptions
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.IsolineResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.IsolineResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<IsolineResult>
+  nameWithType: Task<IsolineResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Routing.IsolineResult>
+  nameWithType.vb: Task(Of IsolineResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Routing.IsolineResult)
+  name.vb: Task(Of IsolineResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.IsolineResult
+    name: IsolineResult
+    href: Here.Explore.Maui.Models.Routing.IsolineResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.IsolineResult
+    name: IsolineResult
+    href: Here.Explore.Maui.Models.Routing.IsolineResult.html
+  - name: )
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+  commentId: M:Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+  parent: Here.Explore.Maui.Services.IRoutingService
+  isExternal: true
+  href: Here.Explore.Maui.Services.IRoutingService.html#Here_Explore_Maui_Services_IRoutingService_CalculateRouteAsync_System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_Routing_Waypoint__Here_Explore_Maui_Models_Routing_RoutingOptions_
+  name: CalculateRouteAsync(IReadOnlyList<Waypoint>, RoutingOptions)
+  nameWithType: IRoutingService.CalculateRouteAsync(IReadOnlyList<Waypoint>, RoutingOptions)
+  fullName: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.Routing.Waypoint>, Here.Explore.Maui.Models.Routing.RoutingOptions)
+  nameWithType.vb: IRoutingService.CalculateRouteAsync(IReadOnlyList(Of Waypoint), RoutingOptions)
+  fullName.vb: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.Routing.Waypoint), Here.Explore.Maui.Models.Routing.RoutingOptions)
+  name.vb: CalculateRouteAsync(IReadOnlyList(Of Waypoint), RoutingOptions)
+  spec.csharp:
+  - uid: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+    name: CalculateRouteAsync
+    href: Here.Explore.Maui.Services.IRoutingService.html#Here_Explore_Maui_Services_IRoutingService_CalculateRouteAsync_System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_Routing_Waypoint__Here_Explore_Maui_Models_Routing_RoutingOptions_
+  - name: (
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.Waypoint
+    name: Waypoint
+    href: Here.Explore.Maui.Models.Routing.Waypoint.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.RoutingOptions
+    name: RoutingOptions
+    href: Here.Explore.Maui.Models.Routing.RoutingOptions.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Services.IRoutingService.CalculateRouteAsync(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.Waypoint},Here.Explore.Maui.Models.Routing.RoutingOptions)
+    name: CalculateRouteAsync
+    href: Here.Explore.Maui.Services.IRoutingService.html#Here_Explore_Maui_Services_IRoutingService_CalculateRouteAsync_System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_Routing_Waypoint__Here_Explore_Maui_Models_Routing_RoutingOptions_
+  - name: (
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.Waypoint
+    name: Waypoint
+    href: Here.Explore.Maui.Models.Routing.Waypoint.html
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.RoutingOptions
+    name: RoutingOptions
+    href: Here.Explore.Maui.Models.Routing.RoutingOptions.html
+  - name: )
+- uid: Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync*
+  commentId: Overload:Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync
+  href: Here.Explore.Maui.Services.IRoutingService.html#Here_Explore_Maui_Services_IRoutingService_GetTrafficOnRouteAsync_Here_Explore_Maui_Models_Routing_Route_
+  name: GetTrafficOnRouteAsync
+  nameWithType: IRoutingService.GetTrafficOnRouteAsync
+  fullName: Here.Explore.Maui.Services.IRoutingService.GetTrafficOnRouteAsync
+- uid: Here.Explore.Maui.Models.Routing.Route
+  commentId: T:Here.Explore.Maui.Models.Routing.Route
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.Route.html
+  name: Route
+  nameWithType: Route
+  fullName: Here.Explore.Maui.Models.Routing.Route
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.TrafficOnRouteResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Routing.TrafficOnRouteResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TrafficOnRouteResult>
+  nameWithType: Task<TrafficOnRouteResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Routing.TrafficOnRouteResult>
+  nameWithType.vb: Task(Of TrafficOnRouteResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Routing.TrafficOnRouteResult)
+  name.vb: Task(Of TrafficOnRouteResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+    name: TrafficOnRouteResult
+    href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+    name: TrafficOnRouteResult
+    href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html
+  - name: )
+- uid: Here.Explore.Maui.Services.IRoutingService
+  commentId: T:Here.Explore.Maui.Services.IRoutingService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.IRoutingService.html
+  name: IRoutingService
+  nameWithType: IRoutingService
+  fullName: Here.Explore.Maui.Services.IRoutingService

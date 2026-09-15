@@ -1,0 +1,171 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.WaypointType
+  commentId: T:Here.Explore.Maui.Models.Routing.WaypointType
+  id: WaypointType
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.WaypointType.Start
+  - Here.Explore.Maui.Models.Routing.WaypointType.Stop
+  - Here.Explore.Maui.Models.Routing.WaypointType.Through
+  langs:
+  - csharp
+  - vb
+  name: WaypointType
+  nameWithType: WaypointType
+  fullName: Here.Explore.Maui.Models.Routing.WaypointType
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: WaypointType
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 122
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Type of waypoint in a route.
+  example: []
+  syntax:
+    content: public enum WaypointType
+    content.vb: Public Enum WaypointType
+- uid: Here.Explore.Maui.Models.Routing.WaypointType.Stop
+  commentId: F:Here.Explore.Maui.Models.Routing.WaypointType.Stop
+  id: Stop
+  parent: Here.Explore.Maui.Models.Routing.WaypointType
+  langs:
+  - csharp
+  - vb
+  name: Stop
+  nameWithType: WaypointType.Stop
+  fullName: Here.Explore.Maui.Models.Routing.WaypointType.Stop
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Stop
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 125
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: A stop waypoint (the route stops here).
+  example: []
+  syntax:
+    content: Stop = 0
+    return:
+      type: Here.Explore.Maui.Models.Routing.WaypointType
+- uid: Here.Explore.Maui.Models.Routing.WaypointType.Start
+  commentId: F:Here.Explore.Maui.Models.Routing.WaypointType.Start
+  id: Start
+  parent: Here.Explore.Maui.Models.Routing.WaypointType
+  langs:
+  - csharp
+  - vb
+  name: Start
+  nameWithType: WaypointType.Start
+  fullName: Here.Explore.Maui.Models.Routing.WaypointType.Start
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Start
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 127
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: A start waypoint.
+  example: []
+  syntax:
+    content: Start = 1
+    return:
+      type: Here.Explore.Maui.Models.Routing.WaypointType
+- uid: Here.Explore.Maui.Models.Routing.WaypointType.Through
+  commentId: F:Here.Explore.Maui.Models.Routing.WaypointType.Through
+  id: Through
+  parent: Here.Explore.Maui.Models.Routing.WaypointType
+  langs:
+  - csharp
+  - vb
+  name: Through
+  nameWithType: WaypointType.Through
+  fullName: Here.Explore.Maui.Models.Routing.WaypointType.Through
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Through
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 129
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: A pass-through waypoint (the route passes through without stopping).
+  example: []
+  syntax:
+    content: Through = 2
+    return:
+      type: Here.Explore.Maui.Models.Routing.WaypointType
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: Here.Explore.Maui.Models.Routing.WaypointType
+  commentId: T:Here.Explore.Maui.Models.Routing.WaypointType
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.WaypointType.html
+  name: WaypointType
+  nameWithType: WaypointType
+  fullName: Here.Explore.Maui.Models.Routing.WaypointType

@@ -1,0 +1,519 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+  commentId: T:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+  id: TrafficOnRouteResult
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.#ctor(Here.Explore.Maui.Models.Routing.RoutingError,Here.Explore.Maui.Models.Routing.TrafficOnRoute)
+  - Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error
+  - Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute
+  langs:
+  - csharp
+  - vb
+  name: TrafficOnRouteResult
+  nameWithType: TrafficOnRouteResult
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TrafficOnRouteResult
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 69
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Result of a traffic-along-route calculation.
+  example: []
+  syntax:
+    content: 'public record TrafficOnRouteResult : IEquatable<TrafficOnRouteResult>'
+    content.vb: Public Class TrafficOnRouteResult Implements IEquatable(Of TrafficOnRouteResult)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.Routing.TrafficOnRouteResult}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.#ctor(Here.Explore.Maui.Models.Routing.RoutingError,Here.Explore.Maui.Models.Routing.TrafficOnRoute)
+  commentId: M:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.#ctor(Here.Explore.Maui.Models.Routing.RoutingError,Here.Explore.Maui.Models.Routing.TrafficOnRoute)
+  id: '#ctor(Here.Explore.Maui.Models.Routing.RoutingError,Here.Explore.Maui.Models.Routing.TrafficOnRoute)'
+  parent: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+  langs:
+  - csharp
+  - vb
+  name: TrafficOnRouteResult(RoutingError, TrafficOnRoute?)
+  nameWithType: TrafficOnRouteResult.TrafficOnRouteResult(RoutingError, TrafficOnRoute?)
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRouteResult(Here.Explore.Maui.Models.Routing.RoutingError, Here.Explore.Maui.Models.Routing.TrafficOnRoute?)
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 69
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Result of a traffic-along-route calculation.
+  example: []
+  syntax:
+    content: public TrafficOnRouteResult(RoutingError Error, TrafficOnRoute? TrafficOnRoute)
+    parameters:
+    - id: Error
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+    - id: TrafficOnRoute
+      type: Here.Explore.Maui.Models.Routing.TrafficOnRoute
+    content.vb: Public Sub New([Error] As RoutingError, TrafficOnRoute As TrafficOnRoute)
+  overload: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.#ctor*
+  nameWithType.vb: TrafficOnRouteResult.New(RoutingError, TrafficOnRoute)
+  fullName.vb: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.New(Here.Explore.Maui.Models.Routing.RoutingError, Here.Explore.Maui.Models.Routing.TrafficOnRoute)
+  name.vb: New(RoutingError, TrafficOnRoute)
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error
+  commentId: P:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error
+  id: Error
+  parent: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+  langs:
+  - csharp
+  - vb
+  name: Error
+  nameWithType: TrafficOnRouteResult.Error
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Error
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 69
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public RoutingError Error { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+    content.vb: Public Property [Error] As RoutingError
+  overload: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error*
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute
+  commentId: P:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute
+  id: TrafficOnRoute
+  parent: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+  langs:
+  - csharp
+  - vb
+  name: TrafficOnRoute
+  nameWithType: TrafficOnRouteResult.TrafficOnRoute
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TrafficOnRoute
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 69
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public TrafficOnRoute? TrafficOnRoute { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Routing.TrafficOnRoute
+    content.vb: Public Property TrafficOnRoute As TrafficOnRoute
+  overload: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute*
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.Routing.TrafficOnRouteResult}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.Routing.TrafficOnRouteResult}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<TrafficOnRouteResult>
+  nameWithType: IEquatable<TrafficOnRouteResult>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.Routing.TrafficOnRouteResult>
+  nameWithType.vb: IEquatable(Of TrafficOnRouteResult)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.Routing.TrafficOnRouteResult)
+  name.vb: IEquatable(Of TrafficOnRouteResult)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+    name: TrafficOnRouteResult
+    href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult
+    name: TrafficOnRouteResult
+    href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.#ctor*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.#ctor
+  href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html#Here_Explore_Maui_Models_Routing_TrafficOnRouteResult__ctor_Here_Explore_Maui_Models_Routing_RoutingError_Here_Explore_Maui_Models_Routing_TrafficOnRoute_
+  name: TrafficOnRouteResult
+  nameWithType: TrafficOnRouteResult.TrafficOnRouteResult
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRouteResult
+  nameWithType.vb: TrafficOnRouteResult.New
+  fullName.vb: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.New
+  name.vb: New
+- uid: Here.Explore.Maui.Models.Routing.RoutingError
+  commentId: T:Here.Explore.Maui.Models.Routing.RoutingError
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.RoutingError.html
+  name: RoutingError
+  nameWithType: RoutingError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRoute
+  commentId: T:Here.Explore.Maui.Models.Routing.TrafficOnRoute
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.TrafficOnRoute.html
+  name: TrafficOnRoute
+  nameWithType: TrafficOnRoute
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRoute
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error
+  href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html#Here_Explore_Maui_Models_Routing_TrafficOnRouteResult_Error
+  name: Error
+  nameWithType: TrafficOnRouteResult.Error
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.Error
+- uid: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute
+  href: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html#Here_Explore_Maui_Models_Routing_TrafficOnRouteResult_TrafficOnRoute
+  name: TrafficOnRoute
+  nameWithType: TrafficOnRouteResult.TrafficOnRoute
+  fullName: Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.TrafficOnRoute

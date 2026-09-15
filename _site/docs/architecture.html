@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Architecture | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Architecture | HERE SDK for MAUI ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/architecture.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="architecture">Architecture</h1>
+
+<h2 id="layer-model">Layer Model</h2>
+<pre><code>┌──────────────────────────────┐
+│   Your App (.NET MAUI)       │
+├──────────────────────────────┤
+│   HereSdk.Explore.Maui        │  ← Unified C# API (controls, services, models)
+├──────────┬───────────────────┤
+│ Android  │   iOS Binding      │  ← Platform bindings (AAR → C#, NativeBridge → C#)
+│ Binding  │                    │
+├──────────┼───────────────────┤
+│ HERE     │   NativeBridge     │  ← Swift wrapper (re-exposes API via @objc)
+│ Android  ├───────────────────┤
+│ SDK      │   HERE iOS SDK     │  ← Swift-only SDK
+└──────────┴───────────────────┘
+</code></pre>
+<h2 id="key-patterns">Key Patterns</h2>
+<h3 id="handler-pattern-for-mapview">Handler Pattern for MapView</h3>
+<p><code>HereMapView</code> uses the MAUI handler pattern (not legacy custom renderers). The handler creates a platform-specific native view and connects it to the cross-platform <code>IMapService</code>.</p>
+<ul>
+<li><strong>Android</strong>: <code>HereMapViewHandler.Android.cs</code> creates an Android <code>MapView</code> and bridges it via <code>MapService.Android.cs</code></li>
+<li><strong>iOS</strong>: <code>HereMapViewHandler.iOS.cs</code> creates a <code>HereMapBridgeView</code> (UIView subclass from NativeBridge) and bridges it via <code>MapService.iOS.cs</code></li>
+</ul>
+<h3 id="service-pattern">Service Pattern</h3>
+<p>Each service follows this structure:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IService.cs</code></td>
+<td>Interface definition (public contract)</td>
+</tr>
+<tr>
+<td><code>Service.cs</code></td>
+<td>Shared partial class (events, Dispose, stubs)</td>
+</tr>
+<tr>
+<td><code>Service.Android.cs</code></td>
+<td>Platform implementation with <code>#pragma warning disable CS1591</code></td>
+</tr>
+<tr>
+<td><code>Service.iOS.cs</code></td>
+<td>Platform implementation with <code>#pragma warning disable CS1591</code></td>
+</tr>
+</tbody>
+</table>
+<p>Platform partials use <code>#if ANDROID</code> / <code>#if IOS</code> preprocessor directives. The shared partial provides non-platform stubs (under <code>#if !ANDROID &amp;&amp; !IOS</code>) so unit tests can compile without device targets.</p>
+<h3 id="platform-converters">Platform Converters</h3>
+<p>Extension methods in <code>PlatformConverters/</code> translate between platform types and shared types:</p>
+<pre><code>GeoCoordinatesConverter.ToShared()      // Android GeoCoordinates   → shared GeoCoordinates
+GeoCoordinatesConverter.ToAndroid()     // shared GeoCoordinates   → Android GeoCoordinates
+GeoCoordinatesConverter.ToiOS()         // shared GeoCoordinates   → iOS HereGeoCoordinates
+</code></pre>
+<h3 id="async-bridge">Async Bridge</h3>
+<p>Java callbacks and Swift completion handlers are bridged to C# <code>async/await</code> via <code>TaskCompletionSource&lt;T&gt;</code>:</p>
+<pre><code class="lang-csharp">var tcs = new TaskCompletionSource&lt;RoutingResult&gt;();
+nativeEngine.calculateRoute(waypoints, options, (routingError, routes) =&gt; {
+    tcs.SetResult(new RoutingResult(MapRoutingError(routingError), MapRoutes(routes)));
+});
+return tcs.Task;
+</code></pre>
+<h3 id="memory-model">Memory Model</h3>
+<ul>
+<li>All platform wrapper types implement <code>IDisposable</code></li>
+<li>Native resources (Android <code>MapView</code>, iOS <code>MapBridgeView</code>) are created in the handler and disposed in <code>DisconnectHandler</code></li>
+<li>Service instances are DI singletons — they live for the app lifetime</li>
+<li>Model types are C# <code>record</code> types (immutable, value semantics)</li>
+</ul>
+<h2 id="dependency-injection">Dependency Injection</h2>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Registration</th>
+<th>Lifetime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IMapService</code></td>
+<td>Created by <code>HereMapViewHandler</code></td>
+<td>Per MapView</td>
+</tr>
+<tr>
+<td><code>IRoutingService</code></td>
+<td><code>builder.Services.AddSingleton</code></td>
+<td>Singleton</td>
+</tr>
+<tr>
+<td><code>ISearchService</code></td>
+<td><code>builder.Services.AddSingleton</code></td>
+<td>Singleton</td>
+</tr>
+<tr>
+<td><code>ITrafficService</code></td>
+<td><code>builder.Services.AddSingleton</code></td>
+<td>Singleton</td>
+</tr>
+<tr>
+<td><code>ILocationService</code></td>
+<td><code>builder.Services.AddSingleton</code></td>
+<td>Singleton</td>
+</tr>
+</tbody>
+</table>
+<p><code>IMapService</code> is NOT in DI — each <code>HereMapView</code> creates its own instance via the handler.
+Access it through <code>mapView.Map</code>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/architecture.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

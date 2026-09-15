@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Services | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Services | HERE SDK for MAUI ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/services.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="services">Services</h1>
+
+<h2 id="imapservice">IMapService</h2>
+<p>The map service manages the map view: camera, map items, gestures, and display.</p>
+<pre><code class="lang-csharp">IMapService map = mapView.Map;
+
+// Camera
+await map.SetCameraTargetAsync(center, zoomLevel);
+await map.LoadSceneAsync(MapScheme.NormalDay);
+var target = await map.GetCameraTargetAsync();
+
+// Map items
+map.AddMapMarker(marker);
+map.AddMapPolyline(polyline);
+map.AddMapPolygon(polygon);
+map.AddMapCircle(circle);
+map.ClearMap();
+
+// Current state
+MapScheme scheme = map.CurrentScheme;  // NormalDay, HybridDay, SatelliteDay
+double zoom = map.ZoomLevel;
+double bearing = map.Bearing;
+double tilt = map.Tilt;
+</code></pre>
+<h3 id="events">Events</h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Args</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CameraStateChanged</code></td>
+<td><code>CameraStateChangedEventArgs</code></td>
+<td>Camera moved (pan, zoom, tilt, bearing)</td>
+</tr>
+<tr>
+<td><code>MapIdle</code></td>
+<td><code>EventArgs</code></td>
+<td>Map becomes idle after interaction</td>
+</tr>
+<tr>
+<td><code>MapTapped</code></td>
+<td><code>MapTappedEventArgs</code></td>
+<td>Single tap on map</td>
+</tr>
+<tr>
+<td><code>MapLongPressed</code></td>
+<td><code>MapLongPressedEventArgs</code></td>
+<td>Long press on map</td>
+</tr>
+<tr>
+<td><code>MapDoubleTapped</code></td>
+<td><code>MapTappedEventArgs</code></td>
+<td>Double tap on map</td>
+</tr>
+<tr>
+<td><code>MapPinched</code></td>
+<td><code>MapPinchedEventArgs</code></td>
+<td>Pinch gesture</td>
+</tr>
+</tbody>
+</table>
+<h2 id="iroutingservice">IRoutingService</h2>
+<p>Calculates routes and isolines between waypoints.</p>
+<pre><code class="lang-csharp">// Route calculation
+var waypoints = new[] {
+    new Waypoint(origin, WaypointType.Start),
+    new Waypoint(destination, WaypointType.Stop)
+};
+var result = await routingService.CalculateRouteAsync(waypoints, new RoutingOptions());
+if (result.Error == RoutingError.None) {
+    var route = result.Routes![0];
+    Console.WriteLine($&quot;{route.LengthInMeters}m, {route.DurationText}&quot;);
+    foreach (var section in route.Sections) {
+        foreach (var maneuver in section.Maneuvers) {
+            Console.WriteLine(maneuver.Instruction);
+        }
+    }
+}
+
+// Isoline (reachable area)
+var isolineResult = await routingService.CalculateIsolineAsync(
+    center, new IsolineOptions(SectionTransportMode.Car, 5000));
+</code></pre>
+<h3 id="routingoptions">RoutingOptions</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TransportMode</code></td>
+<td><code>Car</code></td>
+<td>Car, Truck, Pedestrian, Bicycle, Scooter, Bus, Taxi, Transit</td>
+</tr>
+<tr>
+<td><code>Optimization</code></td>
+<td><code>Fastest</code></td>
+<td>Fastest or Shortest route</td>
+</tr>
+<tr>
+<td><code>MaxAlternatives</code></td>
+<td><code>null</code></td>
+<td>Maximum number of alternative routes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="isearchservice">ISearchService</h2>
+<p>Text search, category search, auto-suggest, and place details.</p>
+<pre><code class="lang-csharp">// Text search
+var result = await searchService.SearchAsync(
+    new TextQuery(&quot;coffee near Alexanderplatz&quot;),
+    new SearchOptions { MaxItems = 20 });
+
+// Category search
+var categoryResult = await searchService.SearchAsync(
+    new CategoryQuery(PlaceCategory.Restaurant),
+    new SearchOptions());
+
+// Auto-suggest
+var suggestions = await searchService.SuggestAsync(
+    new TextQuery(&quot;Brandenburger Tor&quot;),
+    new SearchOptions());
+
+// Place details
+var place = await searchService.GetPlaceByIdAsync(&quot;here:pds:place:...&quot;);
+</code></pre>
+<h3 id="searchoptions">SearchOptions</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MaxItems</code></td>
+<td><code>10</code></td>
+<td>Maximum results to return</td>
+</tr>
+<tr>
+<td><code>SearchArea</code></td>
+<td><code>null</code></td>
+<td><code>GeoCircle</code> to restrict search</td>
+</tr>
+<tr>
+<td><code>LanguageCode</code></td>
+<td><code>null</code></td>
+<td>BCP-47 language code for results</td>
+</tr>
+</tbody>
+</table>
+<h2 id="itrafficservice">ITrafficService</h2>
+<p>Real-time traffic flow and incident data.</p>
+<pre><code class="lang-csharp">// Traffic flow (congestion levels on roads)
+var flow = await trafficService.QueryFlowAsync(
+    new GeoCircle(center, 5000),
+    new TrafficFlowQueryOptions());
+
+// Traffic incidents (accidents, closures, construction)
+var incidents = await trafficService.QueryIncidentsAsync(
+    new GeoCircle(center, 5000),
+    new TrafficIncidentsQueryOptions());
+
+// Incident details
+var detail = await trafficService.LookupIncidentAsync(
+    incidentId, new TrafficIncidentLookupOptions());
+</code></pre>
+<h2 id="ilocationservice">ILocationService</h2>
+<p>Cross-platform device location using <code>Microsoft.Maui.Devices.Sensors.Geolocation</code>.</p>
+<pre><code class="lang-csharp">// One-shot location
+var location = await locationService.GetCurrentLocationAsync();
+
+// Continuous updates
+await locationService.StartListeningAsync();
+locationService.LocationChanged += (_, loc) =&gt;
+    Console.WriteLine($&quot;{loc.Coordinates.Latitude}, {loc.Coordinates.Longitude}&quot;);
+await locationService.StopListeningAsync();
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/services.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

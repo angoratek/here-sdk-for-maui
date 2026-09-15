@@ -1,0 +1,668 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  commentId: T:Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  id: AvoidanceOptions
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor
+  - Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType},System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox})
+  - Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas
+  - Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes
+  langs:
+  - csharp
+  - vb
+  name: AvoidanceOptions
+  nameWithType: AvoidanceOptions
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: AvoidanceOptions
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 70
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Route avoidance options (roads, areas, or features to avoid).
+  example: []
+  syntax:
+    content: 'public record AvoidanceOptions : IEquatable<AvoidanceOptions>'
+    content.vb: Public Class AvoidanceOptions Implements IEquatable(Of AvoidanceOptions)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.Routing.AvoidanceOptions}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType},System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox})
+  commentId: M:Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType},System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox})
+  id: '#ctor(System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType},System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox})'
+  parent: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  langs:
+  - csharp
+  - vb
+  name: AvoidanceOptions(IReadOnlyList<AvoidType>, IReadOnlyList<GeoBox>)
+  nameWithType: AvoidanceOptions.AvoidanceOptions(IReadOnlyList<AvoidType>, IReadOnlyList<GeoBox>)
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidanceOptions(System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.Routing.AvoidType>, System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.GeoBox>)
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 70
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Route avoidance options (roads, areas, or features to avoid).
+  example: []
+  syntax:
+    content: public AvoidanceOptions(IReadOnlyList<AvoidType> AvoidTypes, IReadOnlyList<GeoBox> AvoidAreas)
+    parameters:
+    - id: AvoidTypes
+      type: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType}
+    - id: AvoidAreas
+      type: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox}
+    content.vb: Public Sub New(AvoidTypes As IReadOnlyList(Of AvoidType), AvoidAreas As IReadOnlyList(Of GeoBox))
+  overload: Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor*
+  nameWithType.vb: AvoidanceOptions.New(IReadOnlyList(Of AvoidType), IReadOnlyList(Of GeoBox))
+  fullName.vb: Here.Explore.Maui.Models.Routing.AvoidanceOptions.New(System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.Routing.AvoidType), System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.GeoBox))
+  name.vb: New(IReadOnlyList(Of AvoidType), IReadOnlyList(Of GeoBox))
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes
+  commentId: P:Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes
+  id: AvoidTypes
+  parent: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  langs:
+  - csharp
+  - vb
+  name: AvoidTypes
+  nameWithType: AvoidanceOptions.AvoidTypes
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: AvoidTypes
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 71
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public IReadOnlyList<AvoidType> AvoidTypes { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType}
+    content.vb: Public Property AvoidTypes As IReadOnlyList(Of AvoidType)
+  overload: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes*
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas
+  commentId: P:Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas
+  id: AvoidAreas
+  parent: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  langs:
+  - csharp
+  - vb
+  name: AvoidAreas
+  nameWithType: AvoidanceOptions.AvoidAreas
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: AvoidAreas
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 72
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public IReadOnlyList<GeoBox> AvoidAreas { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox}
+    content.vb: Public Property AvoidAreas As IReadOnlyList(Of GeoBox)
+  overload: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas*
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor
+  commentId: M:Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor
+  id: '#ctor'
+  parent: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+  langs:
+  - csharp
+  - vb
+  name: AvoidanceOptions()
+  nameWithType: AvoidanceOptions.AvoidanceOptions()
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidanceOptions()
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 76
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Creates empty avoidance options (no restrictions).
+  example: []
+  syntax:
+    content: public AvoidanceOptions()
+    content.vb: Public Sub New()
+  overload: Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor*
+  nameWithType.vb: AvoidanceOptions.New()
+  fullName.vb: Here.Explore.Maui.Models.Routing.AvoidanceOptions.New()
+  name.vb: New()
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.Routing.AvoidanceOptions}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.Routing.AvoidanceOptions}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<AvoidanceOptions>
+  nameWithType: IEquatable<AvoidanceOptions>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.Routing.AvoidanceOptions>
+  nameWithType.vb: IEquatable(Of AvoidanceOptions)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.Routing.AvoidanceOptions)
+  name.vb: IEquatable(Of AvoidanceOptions)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+    name: AvoidanceOptions
+    href: Here.Explore.Maui.Models.Routing.AvoidanceOptions.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions
+    name: AvoidanceOptions
+    href: Here.Explore.Maui.Models.Routing.AvoidanceOptions.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.AvoidanceOptions.#ctor
+  href: Here.Explore.Maui.Models.Routing.AvoidanceOptions.html#Here_Explore_Maui_Models_Routing_AvoidanceOptions__ctor_System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_Routing_AvoidType__System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_GeoBox__
+  name: AvoidanceOptions
+  nameWithType: AvoidanceOptions.AvoidanceOptions
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidanceOptions
+  nameWithType.vb: AvoidanceOptions.New
+  fullName.vb: Here.Explore.Maui.Models.Routing.AvoidanceOptions.New
+  name.vb: New
+- uid: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Routing.AvoidType}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<AvoidType>
+  nameWithType: IReadOnlyList<AvoidType>
+  fullName: System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.Routing.AvoidType>
+  nameWithType.vb: IReadOnlyList(Of AvoidType)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.Routing.AvoidType)
+  name.vb: IReadOnlyList(Of AvoidType)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.AvoidType
+    name: AvoidType
+    href: Here.Explore.Maui.Models.Routing.AvoidType.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.AvoidType
+    name: AvoidType
+    href: Here.Explore.Maui.Models.Routing.AvoidType.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.GeoBox}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<GeoBox>
+  nameWithType: IReadOnlyList<GeoBox>
+  fullName: System.Collections.Generic.IReadOnlyList<Here.Explore.Maui.Models.GeoBox>
+  nameWithType.vb: IReadOnlyList(Of GeoBox)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Here.Explore.Maui.Models.GeoBox)
+  name.vb: IReadOnlyList(Of GeoBox)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.GeoBox
+    name: GeoBox
+    href: Here.Explore.Maui.Models.GeoBox.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.GeoBox
+    name: GeoBox
+    href: Here.Explore.Maui.Models.GeoBox.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes
+  href: Here.Explore.Maui.Models.Routing.AvoidanceOptions.html#Here_Explore_Maui_Models_Routing_AvoidanceOptions_AvoidTypes
+  name: AvoidTypes
+  nameWithType: AvoidanceOptions.AvoidTypes
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidTypes
+- uid: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas
+  href: Here.Explore.Maui.Models.Routing.AvoidanceOptions.html#Here_Explore_Maui_Models_Routing_AvoidanceOptions_AvoidAreas
+  name: AvoidAreas
+  nameWithType: AvoidanceOptions.AvoidAreas
+  fullName: Here.Explore.Maui.Models.Routing.AvoidanceOptions.AvoidAreas

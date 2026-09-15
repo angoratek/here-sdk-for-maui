@@ -1,0 +1,511 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Services.ILocationService
+  commentId: T:Here.Explore.Maui.Services.ILocationService
+  id: ILocationService
+  parent: Here.Explore.Maui.Services
+  children:
+  - Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync(System.Threading.CancellationToken)
+  - Here.Explore.Maui.Services.ILocationService.IsListening
+  - Here.Explore.Maui.Services.ILocationService.LocationChanged
+  - Here.Explore.Maui.Services.ILocationService.StartListeningAsync(System.Threading.CancellationToken)
+  - Here.Explore.Maui.Services.ILocationService.StopListeningAsync
+  langs:
+  - csharp
+  - vb
+  name: ILocationService
+  nameWithType: ILocationService
+  fullName: Here.Explore.Maui.Services.ILocationService
+  type: Interface
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ILocationService
+    path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+    startLine: 9
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: >-
+    Service for retrieving the device location.
+
+    Uses Microsoft.Maui.Devices.Sensors.Geolocation as the primary source
+
+    (HERE SDK positioning is not yet exposed in the iOS NativeBridge).
+  example: []
+  syntax:
+    content: 'public interface ILocationService : IHereSdkService, IDisposable'
+    content.vb: Public Interface ILocationService Inherits IHereSdkService, IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+- uid: Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync(System.Threading.CancellationToken)
+  commentId: M:Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync(System.Threading.CancellationToken)
+  id: GetCurrentLocationAsync(System.Threading.CancellationToken)
+  parent: Here.Explore.Maui.Services.ILocationService
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentLocationAsync(CancellationToken)
+  nameWithType: ILocationService.GetCurrentLocationAsync(CancellationToken)
+  fullName: Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: GetCurrentLocationAsync
+    path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+    startLine: 12
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Gets the current device location, or null if unavailable.
+  example: []
+  syntax:
+    content: Task<Location?> GetCurrentLocationAsync(CancellationToken cancellationToken = default)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Location}
+    content.vb: Function GetCurrentLocationAsync(cancellationToken As CancellationToken = Nothing) As Task(Of Location)
+  overload: Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync*
+- uid: Here.Explore.Maui.Services.ILocationService.LocationChanged
+  commentId: E:Here.Explore.Maui.Services.ILocationService.LocationChanged
+  id: LocationChanged
+  parent: Here.Explore.Maui.Services.ILocationService
+  langs:
+  - csharp
+  - vb
+  name: LocationChanged
+  nameWithType: ILocationService.LocationChanged
+  fullName: Here.Explore.Maui.Services.ILocationService.LocationChanged
+  type: Event
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: LocationChanged
+    path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+    startLine: 15
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Raised when the location changes (if continuous listening is active).
+  example: []
+  syntax:
+    content: event EventHandler<Location>? LocationChanged
+    return:
+      type: System.EventHandler{Here.Explore.Maui.Models.Location}
+    content.vb: Event LocationChanged As EventHandler(Of Location)
+- uid: Here.Explore.Maui.Services.ILocationService.StartListeningAsync(System.Threading.CancellationToken)
+  commentId: M:Here.Explore.Maui.Services.ILocationService.StartListeningAsync(System.Threading.CancellationToken)
+  id: StartListeningAsync(System.Threading.CancellationToken)
+  parent: Here.Explore.Maui.Services.ILocationService
+  langs:
+  - csharp
+  - vb
+  name: StartListeningAsync(CancellationToken)
+  nameWithType: ILocationService.StartListeningAsync(CancellationToken)
+  fullName: Here.Explore.Maui.Services.ILocationService.StartListeningAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: StartListeningAsync
+    path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+    startLine: 18
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Starts continuous location updates.
+  example: []
+  syntax:
+    content: Task StartListeningAsync(CancellationToken cancellationToken = default)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function StartListeningAsync(cancellationToken As CancellationToken = Nothing) As Task
+  overload: Here.Explore.Maui.Services.ILocationService.StartListeningAsync*
+- uid: Here.Explore.Maui.Services.ILocationService.StopListeningAsync
+  commentId: M:Here.Explore.Maui.Services.ILocationService.StopListeningAsync
+  id: StopListeningAsync
+  parent: Here.Explore.Maui.Services.ILocationService
+  langs:
+  - csharp
+  - vb
+  name: StopListeningAsync()
+  nameWithType: ILocationService.StopListeningAsync()
+  fullName: Here.Explore.Maui.Services.ILocationService.StopListeningAsync()
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: StopListeningAsync
+    path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+    startLine: 21
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Stops continuous location updates.
+  example: []
+  syntax:
+    content: Task StopListeningAsync()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function StopListeningAsync() As Task
+  overload: Here.Explore.Maui.Services.ILocationService.StopListeningAsync*
+- uid: Here.Explore.Maui.Services.ILocationService.IsListening
+  commentId: P:Here.Explore.Maui.Services.ILocationService.IsListening
+  id: IsListening
+  parent: Here.Explore.Maui.Services.ILocationService
+  langs:
+  - csharp
+  - vb
+  name: IsListening
+  nameWithType: ILocationService.IsListening
+  fullName: Here.Explore.Maui.Services.ILocationService.IsListening
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: IsListening
+    path: src/HereSdk.Explore.Maui/Services/ILocationService.cs
+    startLine: 24
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Whether location services are currently listening.
+  example: []
+  syntax:
+    content: bool IsListening { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property IsListening As Boolean
+  overload: Here.Explore.Maui.Services.ILocationService.IsListening*
+references:
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  href: Here.html
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync*
+  commentId: Overload:Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync
+  href: Here.Explore.Maui.Services.ILocationService.html#Here_Explore_Maui_Services_ILocationService_GetCurrentLocationAsync_System_Threading_CancellationToken_
+  name: GetCurrentLocationAsync
+  nameWithType: ILocationService.GetCurrentLocationAsync
+  fullName: Here.Explore.Maui.Services.ILocationService.GetCurrentLocationAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Location}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Location}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Location>
+  nameWithType: Task<Location>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Location>
+  nameWithType.vb: Task(Of Location)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Location)
+  name.vb: Task(Of Location)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Location
+    name: Location
+    href: Here.Explore.Maui.Models.Location.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Location
+    name: Location
+    href: Here.Explore.Maui.Models.Location.html
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: System.EventHandler{Here.Explore.Maui.Models.Location}
+  commentId: T:System.EventHandler{Here.Explore.Maui.Models.Location}
+  parent: System
+  definition: System.EventHandler`1
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<Location>
+  nameWithType: EventHandler<Location>
+  fullName: System.EventHandler<Here.Explore.Maui.Models.Location>
+  nameWithType.vb: EventHandler(Of Location)
+  fullName.vb: System.EventHandler(Of Here.Explore.Maui.Models.Location)
+  name.vb: EventHandler(Of Location)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Location
+    name: Location
+    href: Here.Explore.Maui.Models.Location.html
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Location
+    name: Location
+    href: Here.Explore.Maui.Models.Location.html
+  - name: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: Here.Explore.Maui.Services.ILocationService.StartListeningAsync*
+  commentId: Overload:Here.Explore.Maui.Services.ILocationService.StartListeningAsync
+  href: Here.Explore.Maui.Services.ILocationService.html#Here_Explore_Maui_Services_ILocationService_StartListeningAsync_System_Threading_CancellationToken_
+  name: StartListeningAsync
+  nameWithType: ILocationService.StartListeningAsync
+  fullName: Here.Explore.Maui.Services.ILocationService.StartListeningAsync
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: Here.Explore.Maui.Services.ILocationService.StopListeningAsync*
+  commentId: Overload:Here.Explore.Maui.Services.ILocationService.StopListeningAsync
+  href: Here.Explore.Maui.Services.ILocationService.html#Here_Explore_Maui_Services_ILocationService_StopListeningAsync
+  name: StopListeningAsync
+  nameWithType: ILocationService.StopListeningAsync
+  fullName: Here.Explore.Maui.Services.ILocationService.StopListeningAsync
+- uid: Here.Explore.Maui.Services.ILocationService.IsListening*
+  commentId: Overload:Here.Explore.Maui.Services.ILocationService.IsListening
+  href: Here.Explore.Maui.Services.ILocationService.html#Here_Explore_Maui_Services_ILocationService_IsListening
+  name: IsListening
+  nameWithType: ILocationService.IsListening
+  fullName: Here.Explore.Maui.Services.ILocationService.IsListening
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

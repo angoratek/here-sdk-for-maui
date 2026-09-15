@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>SDK Initialization | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="SDK Initialization | HERE SDK for MAUI ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/initialization.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="sdk-initialization">SDK Initialization</h1>
+
+<h2 id="setup">Setup</h2>
+<p>In <code>MauiProgram.cs</code>, call <code>UseHereSdkExplore</code> with your HERE platform credentials:</p>
+<pre><code class="lang-csharp">using Here.Explore.Maui;
+
+public static class MauiProgram
+{
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder.UseMauiApp&lt;App&gt;();
+
+        builder.UseHereSdkExplore(new HereSdkOptions
+        {
+            AccessKeyId = &quot;YOUR_ACCESS_KEY_ID&quot;,
+            AccessKeySecret = &quot;YOUR_ACCESS_KEY_SECRET&quot;
+        });
+
+        return builder.Build();
+    }
+}
+</code></pre>
+<h2 id="heresdkoptions">HereSdkOptions</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AccessKeyId</code></td>
+<td>Yes</td>
+<td>HERE platform access key ID</td>
+</tr>
+<tr>
+<td><code>AccessKeySecret</code></td>
+<td>Yes</td>
+<td>HERE platform access key secret</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-happens-during-initialization">What Happens During Initialization</h2>
+<ol>
+<li><strong>Platform SDK init</strong>: The Android and iOS HERE SDKs are initialized with your credentials</li>
+<li><strong>Service registration</strong>: <code>IRoutingService</code>, <code>ISearchService</code>, <code>ITrafficService</code>, <code>ILocationService</code> are registered as DI singletons</li>
+<li><strong>Handler registration</strong>: <code>HereMapViewHandler</code> is registered for <code>HereMapView</code></li>
+</ol>
+<h2 id="getting-credentials">Getting Credentials</h2>
+<ol>
+<li>Go to <a href="https://developer.here.com/">developer.here.com</a></li>
+<li>Create a project or use an existing one</li>
+<li>Generate an access key pair (Key ID + Secret)</li>
+<li>Enable the services you need (Map, Search, Routing, Traffic)</li>
+</ol>
+<p>The free tier includes 10,000 transactions/month for most services.</p>
+<h2 id="credential-storage">Credential Storage</h2>
+<p><strong>Do not hardcode credentials in source code.</strong> Use one of:</p>
+<pre><code class="lang-csharp">// Option 1: appsettings.json (embedded resource)
+builder.Configuration.AddJsonStream(
+    Assembly.GetExecutingAssembly()
+        .GetManifestResourceStream(&quot;MyApp.appsettings.json&quot;)!);
+
+var options = builder.Configuration.GetSection(&quot;HereSdk&quot;).Get&lt;HereSdkOptions&gt;();
+
+// Option 2: Environment variables
+var options = new HereSdkOptions
+{
+    AccessKeyId = Environment.GetEnvironmentVariable(&quot;HERE_ACCESS_KEY_ID&quot;)!,
+    AccessKeySecret = Environment.GetEnvironmentVariable(&quot;HERE_ACCESS_KEY_SECRET&quot;)!
+};
+
+// Option 3: Secure storage (after first launch)
+var options = new HereSdkOptions
+{
+    AccessKeyId = await SecureStorage.GetAsync(&quot;here_key_id&quot;),
+    AccessKeySecret = await SecureStorage.GetAsync(&quot;here_key_secret&quot;)
+};
+</code></pre>
+<h2 id="logging">Logging</h2>
+<p>HERE SDK internal logging uses the platform-native logger:</p>
+<ul>
+<li><strong>Android</strong>: <code>android.util.Log</code> with tag <code>HERESDK</code></li>
+<li><strong>iOS</strong>: <code>NSLog</code> with prefix <code>HERESDK</code></li>
+</ul>
+<p>Enable debug logging by setting the log level before initialization:</p>
+<pre><code class="lang-csharp">// Android only
+Com.Here.Sdk.Core.Engine.SDKLogger.SetLogLevel(
+    Com.Here.Sdk.Core.Engine.LogLevel.Debug);
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/initialization.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

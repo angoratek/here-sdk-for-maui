@@ -1,0 +1,163 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.UnitSystem
+  commentId: T:Here.Explore.Maui.Models.UnitSystem
+  id: UnitSystem
+  parent: Here.Explore.Maui.Models
+  children:
+  - Here.Explore.Maui.Models.UnitSystem.ImperialUk
+  - Here.Explore.Maui.Models.UnitSystem.ImperialUs
+  - Here.Explore.Maui.Models.UnitSystem.Metric
+  langs:
+  - csharp
+  - vb
+  name: UnitSystem
+  nameWithType: UnitSystem
+  fullName: Here.Explore.Maui.Models.UnitSystem
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: UnitSystem
+    path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+    startLine: 49
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Unit system for measurements.
+  example: []
+  syntax:
+    content: public enum UnitSystem
+    content.vb: Public Enum UnitSystem
+- uid: Here.Explore.Maui.Models.UnitSystem.Metric
+  commentId: F:Here.Explore.Maui.Models.UnitSystem.Metric
+  id: Metric
+  parent: Here.Explore.Maui.Models.UnitSystem
+  langs:
+  - csharp
+  - vb
+  name: Metric
+  nameWithType: UnitSystem.Metric
+  fullName: Here.Explore.Maui.Models.UnitSystem.Metric
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Metric
+    path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+    startLine: 52
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Metric system (kilometers, meters).
+  example: []
+  syntax:
+    content: Metric = 0
+    return:
+      type: Here.Explore.Maui.Models.UnitSystem
+- uid: Here.Explore.Maui.Models.UnitSystem.ImperialUk
+  commentId: F:Here.Explore.Maui.Models.UnitSystem.ImperialUk
+  id: ImperialUk
+  parent: Here.Explore.Maui.Models.UnitSystem
+  langs:
+  - csharp
+  - vb
+  name: ImperialUk
+  nameWithType: UnitSystem.ImperialUk
+  fullName: Here.Explore.Maui.Models.UnitSystem.ImperialUk
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ImperialUk
+    path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+    startLine: 54
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Imperial UK (miles, yards).
+  example: []
+  syntax:
+    content: ImperialUk = 1
+    return:
+      type: Here.Explore.Maui.Models.UnitSystem
+- uid: Here.Explore.Maui.Models.UnitSystem.ImperialUs
+  commentId: F:Here.Explore.Maui.Models.UnitSystem.ImperialUs
+  id: ImperialUs
+  parent: Here.Explore.Maui.Models.UnitSystem
+  langs:
+  - csharp
+  - vb
+  name: ImperialUs
+  nameWithType: UnitSystem.ImperialUs
+  fullName: Here.Explore.Maui.Models.UnitSystem.ImperialUs
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ImperialUs
+    path: src/HereSdk.Explore.Maui/Models/Core/EngineEnums.cs
+    startLine: 56
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: Imperial US (miles, feet).
+  example: []
+  syntax:
+    content: ImperialUs = 2
+    return:
+      type: Here.Explore.Maui.Models.UnitSystem
+references:
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: Here.Explore.Maui.Models.UnitSystem
+  commentId: T:Here.Explore.Maui.Models.UnitSystem
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.UnitSystem.html
+  name: UnitSystem
+  nameWithType: UnitSystem
+  fullName: Here.Explore.Maui.Models.UnitSystem

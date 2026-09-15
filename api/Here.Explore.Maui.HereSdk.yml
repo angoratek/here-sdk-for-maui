@@ -1,0 +1,476 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.HereSdk
+  commentId: T:Here.Explore.Maui.HereSdk
+  id: HereSdk
+  parent: Here.Explore.Maui
+  children:
+  - Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  - Here.Explore.Maui.HereSdk.IsInitialized
+  - Here.Explore.Maui.HereSdk.Shutdown
+  langs:
+  - csharp
+  - vb
+  name: HereSdk
+  nameWithType: HereSdk
+  fullName: Here.Explore.Maui.HereSdk
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: HereSdk
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 6
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: >-
+    Entry point for HERE SDK Explore Edition initialization.
+
+    Call <xref href="Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)" data-throw-if-not-resolved="false"></xref> once at app startup before using any other API.
+  example: []
+  syntax:
+    content: public static class HereSdk
+    content.vb: Public Module HereSdk
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.HereSdk.IsInitialized
+  commentId: P:Here.Explore.Maui.HereSdk.IsInitialized
+  id: IsInitialized
+  parent: Here.Explore.Maui.HereSdk
+  langs:
+  - csharp
+  - vb
+  name: IsInitialized
+  nameWithType: HereSdk.IsInitialized
+  fullName: Here.Explore.Maui.HereSdk.IsInitialized
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: IsInitialized
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 11
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Gets whether the HERE SDK has been initialized.
+  example: []
+  syntax:
+    content: public static bool IsInitialized { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Shared ReadOnly Property IsInitialized As Boolean
+  overload: Here.Explore.Maui.HereSdk.IsInitialized*
+- uid: Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  commentId: M:Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  id: Initialize(Here.Explore.Maui.HereSdkOptions)
+  parent: Here.Explore.Maui.HereSdk
+  langs:
+  - csharp
+  - vb
+  name: Initialize(HereSdkOptions)
+  nameWithType: HereSdk.Initialize(HereSdkOptions)
+  fullName: Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Initialize
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 18
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Initialize the HERE SDK for Explore edition.
+  example: []
+  syntax:
+    content: public static void Initialize(HereSdkOptions options)
+    parameters:
+    - id: options
+      type: Here.Explore.Maui.HereSdkOptions
+      description: SDK initialization options including credentials.
+    content.vb: Public Shared Sub Initialize(options As HereSdkOptions)
+  overload: Here.Explore.Maui.HereSdk.Initialize*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: Thrown if already initialized.
+- uid: Here.Explore.Maui.HereSdk.Shutdown
+  commentId: M:Here.Explore.Maui.HereSdk.Shutdown
+  id: Shutdown
+  parent: Here.Explore.Maui.HereSdk
+  langs:
+  - csharp
+  - vb
+  name: Shutdown()
+  nameWithType: HereSdk.Shutdown()
+  fullName: Here.Explore.Maui.HereSdk.Shutdown()
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/HereSdk.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Shutdown
+    path: src/HereSdk.Explore.Maui/HereSdk.cs
+    startLine: 57
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui
+  summary: Shut down the HERE SDK and release resources.
+  example: []
+  syntax:
+    content: public static void Shutdown()
+    content.vb: Public Shared Sub Shutdown()
+  overload: Here.Explore.Maui.HereSdk.Shutdown*
+references:
+- uid: Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  commentId: M:Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  href: Here.Explore.Maui.HereSdk.html#Here_Explore_Maui_HereSdk_Initialize_Here_Explore_Maui_HereSdkOptions_
+  name: Initialize(HereSdkOptions)
+  nameWithType: HereSdk.Initialize(HereSdkOptions)
+  fullName: Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+  spec.csharp:
+  - uid: Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+    name: Initialize
+    href: Here.Explore.Maui.HereSdk.html#Here_Explore_Maui_HereSdk_Initialize_Here_Explore_Maui_HereSdkOptions_
+  - name: (
+  - uid: Here.Explore.Maui.HereSdkOptions
+    name: HereSdkOptions
+    href: Here.Explore.Maui.HereSdkOptions.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)
+    name: Initialize
+    href: Here.Explore.Maui.HereSdk.html#Here_Explore_Maui_HereSdk_Initialize_Here_Explore_Maui_HereSdkOptions_
+  - name: (
+  - uid: Here.Explore.Maui.HereSdkOptions
+    name: HereSdkOptions
+    href: Here.Explore.Maui.HereSdkOptions.html
+  - name: )
+- uid: Here.Explore.Maui
+  commentId: N:Here.Explore.Maui
+  href: Here.html
+  name: Here.Explore.Maui
+  nameWithType: Here.Explore.Maui
+  fullName: Here.Explore.Maui
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Here.Explore.Maui.HereSdk.IsInitialized*
+  commentId: Overload:Here.Explore.Maui.HereSdk.IsInitialized
+  href: Here.Explore.Maui.HereSdk.html#Here_Explore_Maui_HereSdk_IsInitialized
+  name: IsInitialized
+  nameWithType: HereSdk.IsInitialized
+  fullName: Here.Explore.Maui.HereSdk.IsInitialized
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.InvalidOperationException
+  commentId: T:System.InvalidOperationException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.invalidoperationexception
+  name: InvalidOperationException
+  nameWithType: InvalidOperationException
+  fullName: System.InvalidOperationException
+- uid: Here.Explore.Maui.HereSdk.Initialize*
+  commentId: Overload:Here.Explore.Maui.HereSdk.Initialize
+  href: Here.Explore.Maui.HereSdk.html#Here_Explore_Maui_HereSdk_Initialize_Here_Explore_Maui_HereSdkOptions_
+  name: Initialize
+  nameWithType: HereSdk.Initialize
+  fullName: Here.Explore.Maui.HereSdk.Initialize
+- uid: Here.Explore.Maui.HereSdkOptions
+  commentId: T:Here.Explore.Maui.HereSdkOptions
+  parent: Here.Explore.Maui
+  href: Here.Explore.Maui.HereSdkOptions.html
+  name: HereSdkOptions
+  nameWithType: HereSdkOptions
+  fullName: Here.Explore.Maui.HereSdkOptions
+- uid: Here.Explore.Maui.HereSdk.Shutdown*
+  commentId: Overload:Here.Explore.Maui.HereSdk.Shutdown
+  href: Here.Explore.Maui.HereSdk.html#Here_Explore_Maui_HereSdk_Shutdown
+  name: Shutdown
+  nameWithType: HereSdk.Shutdown
+  fullName: Here.Explore.Maui.HereSdk.Shutdown

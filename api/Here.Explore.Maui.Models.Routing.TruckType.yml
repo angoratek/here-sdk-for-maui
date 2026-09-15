@@ -1,0 +1,142 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.TruckType
+  commentId: T:Here.Explore.Maui.Models.Routing.TruckType
+  id: TruckType
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.TruckType.Straight
+  - Here.Explore.Maui.Models.Routing.TruckType.Tractor
+  langs:
+  - csharp
+  - vb
+  name: TruckType
+  nameWithType: TruckType
+  fullName: Here.Explore.Maui.Models.Routing.TruckType
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TruckType
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 82
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Type of truck (affects routing restrictions).
+  example: []
+  syntax:
+    content: public enum TruckType
+    content.vb: Public Enum TruckType
+- uid: Here.Explore.Maui.Models.Routing.TruckType.Straight
+  commentId: F:Here.Explore.Maui.Models.Routing.TruckType.Straight
+  id: Straight
+  parent: Here.Explore.Maui.Models.Routing.TruckType
+  langs:
+  - csharp
+  - vb
+  name: Straight
+  nameWithType: TruckType.Straight
+  fullName: Here.Explore.Maui.Models.Routing.TruckType.Straight
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Straight
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 85
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Straight truck (rigid body).
+  example: []
+  syntax:
+    content: Straight = 0
+    return:
+      type: Here.Explore.Maui.Models.Routing.TruckType
+- uid: Here.Explore.Maui.Models.Routing.TruckType.Tractor
+  commentId: F:Here.Explore.Maui.Models.Routing.TruckType.Tractor
+  id: Tractor
+  parent: Here.Explore.Maui.Models.Routing.TruckType
+  langs:
+  - csharp
+  - vb
+  name: Tractor
+  nameWithType: TruckType.Tractor
+  fullName: Here.Explore.Maui.Models.Routing.TruckType.Tractor
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Tractor
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 87
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Tractor-trailer (articulated).
+  example: []
+  syntax:
+    content: Tractor = 1
+    return:
+      type: Here.Explore.Maui.Models.Routing.TruckType
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: Here.Explore.Maui.Models.Routing.TruckType
+  commentId: T:Here.Explore.Maui.Models.Routing.TruckType
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.TruckType.html
+  name: TruckType
+  nameWithType: TruckType
+  fullName: Here.Explore.Maui.Models.Routing.TruckType

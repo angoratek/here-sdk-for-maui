@@ -1,0 +1,655 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications
+  commentId: T:Here.Explore.Maui.Models.Routing.CarSpecifications
+  id: CarSpecifications
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.CarSpecifications.#ctor(System.Nullable{System.Int32},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})
+  - Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters
+  - Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters
+  - Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour
+  - Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms
+  langs:
+  - csharp
+  - vb
+  name: CarSpecifications
+  nameWithType: CarSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: CarSpecifications
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 46
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Car vehicle specifications for route calculation.
+  example: []
+  syntax:
+    content: 'public record CarSpecifications : IEquatable<CarSpecifications>'
+    content.vb: Public Class CarSpecifications Implements IEquatable(Of CarSpecifications)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.Routing.CarSpecifications}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.#ctor(System.Nullable{System.Int32},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:Here.Explore.Maui.Models.Routing.CarSpecifications.#ctor(System.Nullable{System.Int32},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})
+  id: '#ctor(System.Nullable{System.Int32},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})'
+  parent: Here.Explore.Maui.Models.Routing.CarSpecifications
+  langs:
+  - csharp
+  - vb
+  name: CarSpecifications(int?, double?, double?, double?)
+  nameWithType: CarSpecifications.CarSpecifications(int?, double?, double?, double?)
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.CarSpecifications(int?, double?, double?, double?)
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 46
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Car vehicle specifications for route calculation.
+  example: []
+  syntax:
+    content: public CarSpecifications(int? MaxSpeedInKilometersPerHour = null, double? WeightInKilograms = null, double? HeightInMeters = null, double? LengthInMeters = null)
+    parameters:
+    - id: MaxSpeedInKilometersPerHour
+      type: System.Nullable{System.Int32}
+    - id: WeightInKilograms
+      type: System.Nullable{System.Double}
+    - id: HeightInMeters
+      type: System.Nullable{System.Double}
+    - id: LengthInMeters
+      type: System.Nullable{System.Double}
+    content.vb: Public Sub New(MaxSpeedInKilometersPerHour As Integer? = Nothing, WeightInKilograms As Double? = Nothing, HeightInMeters As Double? = Nothing, LengthInMeters As Double? = Nothing)
+  overload: Here.Explore.Maui.Models.Routing.CarSpecifications.#ctor*
+  nameWithType.vb: CarSpecifications.New(Integer?, Double?, Double?, Double?)
+  fullName.vb: Here.Explore.Maui.Models.Routing.CarSpecifications.New(Integer?, Double?, Double?, Double?)
+  name.vb: New(Integer?, Double?, Double?, Double?)
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour
+  commentId: P:Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour
+  id: MaxSpeedInKilometersPerHour
+  parent: Here.Explore.Maui.Models.Routing.CarSpecifications
+  langs:
+  - csharp
+  - vb
+  name: MaxSpeedInKilometersPerHour
+  nameWithType: CarSpecifications.MaxSpeedInKilometersPerHour
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: MaxSpeedInKilometersPerHour
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 47
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public int? MaxSpeedInKilometersPerHour { get; init; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Int32}
+    content.vb: Public Property MaxSpeedInKilometersPerHour As Integer?
+  overload: Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour*
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms
+  commentId: P:Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms
+  id: WeightInKilograms
+  parent: Here.Explore.Maui.Models.Routing.CarSpecifications
+  langs:
+  - csharp
+  - vb
+  name: WeightInKilograms
+  nameWithType: CarSpecifications.WeightInKilograms
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: WeightInKilograms
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 48
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public double? WeightInKilograms { get; init; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Double}
+    content.vb: Public Property WeightInKilograms As Double?
+  overload: Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms*
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters
+  commentId: P:Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters
+  id: HeightInMeters
+  parent: Here.Explore.Maui.Models.Routing.CarSpecifications
+  langs:
+  - csharp
+  - vb
+  name: HeightInMeters
+  nameWithType: CarSpecifications.HeightInMeters
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: HeightInMeters
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 49
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public double? HeightInMeters { get; init; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Double}
+    content.vb: Public Property HeightInMeters As Double?
+  overload: Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters*
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters
+  commentId: P:Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters
+  id: LengthInMeters
+  parent: Here.Explore.Maui.Models.Routing.CarSpecifications
+  langs:
+  - csharp
+  - vb
+  name: LengthInMeters
+  nameWithType: CarSpecifications.LengthInMeters
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: LengthInMeters
+    path: src/HereSdk.Explore.Maui/Models/Routing/TransportModels.cs
+    startLine: 50
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  syntax:
+    content: public double? LengthInMeters { get; init; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Double}
+    content.vb: Public Property LengthInMeters As Double?
+  overload: Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters*
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.Routing.CarSpecifications}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.Routing.CarSpecifications}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<CarSpecifications>
+  nameWithType: IEquatable<CarSpecifications>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.Routing.CarSpecifications>
+  nameWithType.vb: IEquatable(Of CarSpecifications)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.Routing.CarSpecifications)
+  name.vb: IEquatable(Of CarSpecifications)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Routing.CarSpecifications
+    name: CarSpecifications
+    href: Here.Explore.Maui.Models.Routing.CarSpecifications.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Routing.CarSpecifications
+    name: CarSpecifications
+    href: Here.Explore.Maui.Models.Routing.CarSpecifications.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.#ctor*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.CarSpecifications.#ctor
+  href: Here.Explore.Maui.Models.Routing.CarSpecifications.html#Here_Explore_Maui_Models_Routing_CarSpecifications__ctor_System_Nullable_System_Int32__System_Nullable_System_Double__System_Nullable_System_Double__System_Nullable_System_Double__
+  name: CarSpecifications
+  nameWithType: CarSpecifications.CarSpecifications
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.CarSpecifications
+  nameWithType.vb: CarSpecifications.New
+  fullName.vb: Here.Explore.Maui.Models.Routing.CarSpecifications.New
+  name.vb: New
+- uid: System.Nullable{System.Int32}
+  commentId: T:System.Nullable{System.Int32}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int?
+  nameWithType: int?
+  fullName: int?
+  nameWithType.vb: Integer?
+  fullName.vb: Integer?
+  name.vb: Integer?
+  spec.csharp:
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '?'
+  spec.vb:
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '?'
+- uid: System.Nullable{System.Double}
+  commentId: T:System.Nullable{System.Double}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double?
+  nameWithType: double?
+  fullName: double?
+  nameWithType.vb: Double?
+  fullName.vb: Double?
+  name.vb: Double?
+  spec.csharp:
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
+  spec.vb:
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour
+  href: Here.Explore.Maui.Models.Routing.CarSpecifications.html#Here_Explore_Maui_Models_Routing_CarSpecifications_MaxSpeedInKilometersPerHour
+  name: MaxSpeedInKilometersPerHour
+  nameWithType: CarSpecifications.MaxSpeedInKilometersPerHour
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.MaxSpeedInKilometersPerHour
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms
+  href: Here.Explore.Maui.Models.Routing.CarSpecifications.html#Here_Explore_Maui_Models_Routing_CarSpecifications_WeightInKilograms
+  name: WeightInKilograms
+  nameWithType: CarSpecifications.WeightInKilograms
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.WeightInKilograms
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters
+  href: Here.Explore.Maui.Models.Routing.CarSpecifications.html#Here_Explore_Maui_Models_Routing_CarSpecifications_HeightInMeters
+  name: HeightInMeters
+  nameWithType: CarSpecifications.HeightInMeters
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.HeightInMeters
+- uid: Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters*
+  commentId: Overload:Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters
+  href: Here.Explore.Maui.Models.Routing.CarSpecifications.html#Here_Explore_Maui_Models_Routing_CarSpecifications_LengthInMeters
+  name: LengthInMeters
+  nameWithType: CarSpecifications.LengthInMeters
+  fullName: Here.Explore.Maui.Models.Routing.CarSpecifications.LengthInMeters

@@ -1,0 +1,185 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Search
+  commentId: N:Here.Explore.Maui.Models.Search
+  id: Here.Explore.Maui.Models.Search
+  children:
+  - Here.Explore.Maui.Models.Search.Address
+  - Here.Explore.Maui.Models.Search.AddressQuery
+  - Here.Explore.Maui.Models.Search.CategoryQuery
+  - Here.Explore.Maui.Models.Search.Contact
+  - Here.Explore.Maui.Models.Search.OpeningHours
+  - Here.Explore.Maui.Models.Search.Place
+  - Here.Explore.Maui.Models.Search.PlaceCategory
+  - Here.Explore.Maui.Models.Search.SearchError
+  - Here.Explore.Maui.Models.Search.SearchLanguage
+  - Here.Explore.Maui.Models.Search.SearchOptions
+  - Here.Explore.Maui.Models.Search.SearchResult
+  - Here.Explore.Maui.Models.Search.SuggestResult
+  - Here.Explore.Maui.Models.Search.Suggestion
+  - Here.Explore.Maui.Models.Search.SuggestionType
+  - Here.Explore.Maui.Models.Search.TextQuery
+  - Here.Explore.Maui.Models.Search.TimeRange
+  langs:
+  - csharp
+  - vb
+  name: Here.Explore.Maui.Models.Search
+  nameWithType: Here.Explore.Maui.Models.Search
+  fullName: Here.Explore.Maui.Models.Search
+  type: Namespace
+  assemblies:
+  - HereSdk.Explore.Maui
+references:
+- uid: Here.Explore.Maui.Models.Search.TextQuery
+  commentId: T:Here.Explore.Maui.Models.Search.TextQuery
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.TextQuery.html
+  name: TextQuery
+  nameWithType: TextQuery
+  fullName: Here.Explore.Maui.Models.Search.TextQuery
+- uid: Here.Explore.Maui.Models.Search.AddressQuery
+  commentId: T:Here.Explore.Maui.Models.Search.AddressQuery
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.AddressQuery.html
+  name: AddressQuery
+  nameWithType: AddressQuery
+  fullName: Here.Explore.Maui.Models.Search.AddressQuery
+- uid: Here.Explore.Maui.Models.Search.CategoryQuery
+  commentId: T:Here.Explore.Maui.Models.Search.CategoryQuery
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.CategoryQuery.html
+  name: CategoryQuery
+  nameWithType: CategoryQuery
+  fullName: Here.Explore.Maui.Models.Search.CategoryQuery
+- uid: Here.Explore.Maui.Models.Search.SearchOptions
+  commentId: T:Here.Explore.Maui.Models.Search.SearchOptions
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.SearchOptions.html
+  name: SearchOptions
+  nameWithType: SearchOptions
+  fullName: Here.Explore.Maui.Models.Search.SearchOptions
+- uid: Here.Explore.Maui.Models.Search.SearchResult
+  commentId: T:Here.Explore.Maui.Models.Search.SearchResult
+  href: Here.Explore.Maui.Models.Search.SearchResult.html
+  name: SearchResult
+  nameWithType: SearchResult
+  fullName: Here.Explore.Maui.Models.Search.SearchResult
+- uid: Here.Explore.Maui.Models.Search.SuggestResult
+  commentId: T:Here.Explore.Maui.Models.Search.SuggestResult
+  href: Here.Explore.Maui.Models.Search.SuggestResult.html
+  name: SuggestResult
+  nameWithType: SuggestResult
+  fullName: Here.Explore.Maui.Models.Search.SuggestResult
+- uid: Here.Explore.Maui.Models.Search.Place
+  commentId: T:Here.Explore.Maui.Models.Search.Place
+  href: Here.Explore.Maui.Models.Search.Place.html
+  name: Place
+  nameWithType: Place
+  fullName: Here.Explore.Maui.Models.Search.Place
+- uid: Here.Explore.Maui.Models.Search.PlaceCategory
+  commentId: T:Here.Explore.Maui.Models.Search.PlaceCategory
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.PlaceCategory.html
+  name: PlaceCategory
+  nameWithType: PlaceCategory
+  fullName: Here.Explore.Maui.Models.Search.PlaceCategory
+- uid: Here.Explore.Maui.Models.Search.Suggestion
+  commentId: T:Here.Explore.Maui.Models.Search.Suggestion
+  href: Here.Explore.Maui.Models.Search.Suggestion.html
+  name: Suggestion
+  nameWithType: Suggestion
+  fullName: Here.Explore.Maui.Models.Search.Suggestion
+- uid: Here.Explore.Maui.Models.Search.Address
+  commentId: T:Here.Explore.Maui.Models.Search.Address
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.Address.html
+  name: Address
+  nameWithType: Address
+  fullName: Here.Explore.Maui.Models.Search.Address
+- uid: Here.Explore.Maui.Models.Search.Contact
+  commentId: T:Here.Explore.Maui.Models.Search.Contact
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.Contact.html
+  name: Contact
+  nameWithType: Contact
+  fullName: Here.Explore.Maui.Models.Search.Contact
+- uid: Here.Explore.Maui.Models.Search.OpeningHours
+  commentId: T:Here.Explore.Maui.Models.Search.OpeningHours
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.OpeningHours.html
+  name: OpeningHours
+  nameWithType: OpeningHours
+  fullName: Here.Explore.Maui.Models.Search.OpeningHours
+- uid: Here.Explore.Maui.Models.Search.TimeRange
+  commentId: T:Here.Explore.Maui.Models.Search.TimeRange
+  href: Here.Explore.Maui.Models.Search.TimeRange.html
+  name: TimeRange
+  nameWithType: TimeRange
+  fullName: Here.Explore.Maui.Models.Search.TimeRange
+- uid: Here.Explore.Maui.Models.Search.SearchError
+  commentId: T:Here.Explore.Maui.Models.Search.SearchError
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.SearchError.html
+  name: SearchError
+  nameWithType: SearchError
+  fullName: Here.Explore.Maui.Models.Search.SearchError
+- uid: Here.Explore.Maui.Models.Search.SuggestionType
+  commentId: T:Here.Explore.Maui.Models.Search.SuggestionType
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.SuggestionType.html
+  name: SuggestionType
+  nameWithType: SuggestionType
+  fullName: Here.Explore.Maui.Models.Search.SuggestionType
+- uid: Here.Explore.Maui.Models.Search.SearchLanguage
+  commentId: T:Here.Explore.Maui.Models.Search.SearchLanguage
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.SearchLanguage.html
+  name: SearchLanguage
+  nameWithType: SearchLanguage
+  fullName: Here.Explore.Maui.Models.Search.SearchLanguage
+- uid: Here.Explore.Maui.Models.Search
+  commentId: N:Here.Explore.Maui.Models.Search
+  href: Here.html
+  name: Here.Explore.Maui.Models.Search
+  nameWithType: Here.Explore.Maui.Models.Search
+  fullName: Here.Explore.Maui.Models.Search
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Search
+    name: Search
+    href: Here.Explore.Maui.Models.Search.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Search
+    name: Search
+    href: Here.Explore.Maui.Models.Search.html

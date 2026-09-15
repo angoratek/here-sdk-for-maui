@@ -1,0 +1,287 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  commentId: T:Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  id: TrafficQueryError
+  parent: Here.Explore.Maui.Models.Traffic
+  children:
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.EngineNotInitialized
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.HttpError
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.InsufficientMemory
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.InvalidQuery
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.NetworkError
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.NoResults
+  - Here.Explore.Maui.Models.Traffic.TrafficQueryError.None
+  langs:
+  - csharp
+  - vb
+  name: TrafficQueryError
+  nameWithType: TrafficQueryError
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TrafficQueryError
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 72
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: Traffic query error codes.
+  example: []
+  syntax:
+    content: public enum TrafficQueryError
+    content.vb: Public Enum TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.None
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.None
+  id: None
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: TrafficQueryError.None
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.None
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: None
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 75
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: No error — query succeeded.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.NetworkError
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.NetworkError
+  id: NetworkError
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: NetworkError
+  nameWithType: TrafficQueryError.NetworkError
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.NetworkError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NetworkError
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 77
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: Network error during query.
+  example: []
+  syntax:
+    content: NetworkError = 1
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.HttpError
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.HttpError
+  id: HttpError
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: HttpError
+  nameWithType: TrafficQueryError.HttpError
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.HttpError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: HttpError
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 79
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: HTTP error from the traffic service.
+  example: []
+  syntax:
+    content: HttpError = 2
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.NoResults
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.NoResults
+  id: NoResults
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: NoResults
+  nameWithType: TrafficQueryError.NoResults
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.NoResults
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoResults
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 81
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: Query completed but returned no results.
+  example: []
+  syntax:
+    content: NoResults = 3
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.InvalidQuery
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.InvalidQuery
+  id: InvalidQuery
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: InvalidQuery
+  nameWithType: TrafficQueryError.InvalidQuery
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.InvalidQuery
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: InvalidQuery
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 83
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: The query parameters are invalid.
+  example: []
+  syntax:
+    content: InvalidQuery = 4
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.EngineNotInitialized
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.EngineNotInitialized
+  id: EngineNotInitialized
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: EngineNotInitialized
+  nameWithType: TrafficQueryError.EngineNotInitialized
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.EngineNotInitialized
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: EngineNotInitialized
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 85
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: Traffic engine is not initialized.
+  example: []
+  syntax:
+    content: EngineNotInitialized = 5
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError.InsufficientMemory
+  commentId: F:Here.Explore.Maui.Models.Traffic.TrafficQueryError.InsufficientMemory
+  id: InsufficientMemory
+  parent: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  langs:
+  - csharp
+  - vb
+  name: InsufficientMemory
+  nameWithType: TrafficQueryError.InsufficientMemory
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError.InsufficientMemory
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: InsufficientMemory
+    path: src/HereSdk.Explore.Maui/Models/Traffic/TrafficModels.cs
+    startLine: 87
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Traffic
+  summary: Insufficient memory for the query.
+  example: []
+  syntax:
+    content: InsufficientMemory = 6
+    return:
+      type: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+references:
+- uid: Here.Explore.Maui.Models.Traffic
+  commentId: N:Here.Explore.Maui.Models.Traffic
+  href: Here.html
+  name: Here.Explore.Maui.Models.Traffic
+  nameWithType: Here.Explore.Maui.Models.Traffic
+  fullName: Here.Explore.Maui.Models.Traffic
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Traffic
+    name: Traffic
+    href: Here.Explore.Maui.Models.Traffic.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Traffic
+    name: Traffic
+    href: Here.Explore.Maui.Models.Traffic.html
+- uid: Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  commentId: T:Here.Explore.Maui.Models.Traffic.TrafficQueryError
+  parent: Here.Explore.Maui.Models.Traffic
+  href: Here.Explore.Maui.Models.Traffic.TrafficQueryError.html
+  name: TrafficQueryError
+  nameWithType: TrafficQueryError
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficQueryError

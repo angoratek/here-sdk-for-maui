@@ -1,0 +1,550 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult
+  commentId: T:Here.Explore.Maui.Models.Maps.MapPickResult
+  id: MapPickResult
+  parent: Here.Explore.Maui.Models.Maps
+  children:
+  - Here.Explore.Maui.Models.Maps.MapPickResult.#ctor(Here.Explore.Maui.Models.GeoCoordinates,System.Object)
+  - Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates
+  - Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult
+  langs:
+  - csharp
+  - vb
+  name: MapPickResult
+  nameWithType: MapPickResult
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: MapPickResult
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 161
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Result of picking map items at a screen coordinate.
+  example: []
+  syntax:
+    content: 'public record MapPickResult : IEquatable<MapPickResult>'
+    content.vb: Public Class MapPickResult Implements IEquatable(Of MapPickResult)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.Maps.MapPickResult}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult.#ctor(Here.Explore.Maui.Models.GeoCoordinates,System.Object)
+  commentId: M:Here.Explore.Maui.Models.Maps.MapPickResult.#ctor(Here.Explore.Maui.Models.GeoCoordinates,System.Object)
+  id: '#ctor(Here.Explore.Maui.Models.GeoCoordinates,System.Object)'
+  parent: Here.Explore.Maui.Models.Maps.MapPickResult
+  langs:
+  - csharp
+  - vb
+  name: MapPickResult(GeoCoordinates, object?)
+  nameWithType: MapPickResult.MapPickResult(GeoCoordinates, object?)
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult.MapPickResult(Here.Explore.Maui.Models.GeoCoordinates, object?)
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 161
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Result of picking map items at a screen coordinate.
+  example: []
+  syntax:
+    content: public MapPickResult(GeoCoordinates Coordinates, object? PlatformResult = null)
+    parameters:
+    - id: Coordinates
+      type: Here.Explore.Maui.Models.GeoCoordinates
+    - id: PlatformResult
+      type: System.Object
+    content.vb: Public Sub New(Coordinates As GeoCoordinates, PlatformResult As Object = Nothing)
+  overload: Here.Explore.Maui.Models.Maps.MapPickResult.#ctor*
+  nameWithType.vb: MapPickResult.New(GeoCoordinates, Object)
+  fullName.vb: Here.Explore.Maui.Models.Maps.MapPickResult.New(Here.Explore.Maui.Models.GeoCoordinates, Object)
+  name.vb: New(GeoCoordinates, Object)
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates
+  commentId: P:Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates
+  id: Coordinates
+  parent: Here.Explore.Maui.Models.Maps.MapPickResult
+  langs:
+  - csharp
+  - vb
+  name: Coordinates
+  nameWithType: MapPickResult.Coordinates
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Coordinates
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 162
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  syntax:
+    content: public GeoCoordinates Coordinates { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.GeoCoordinates
+    content.vb: Public Property Coordinates As GeoCoordinates
+  overload: Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates*
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult
+  commentId: P:Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult
+  id: PlatformResult
+  parent: Here.Explore.Maui.Models.Maps.MapPickResult
+  langs:
+  - csharp
+  - vb
+  name: PlatformResult
+  nameWithType: MapPickResult.PlatformResult
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: PlatformResult
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 163
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  syntax:
+    content: public object? PlatformResult { get; init; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property PlatformResult As Object
+  overload: Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult*
+references:
+- uid: Here.Explore.Maui.Models.Maps
+  commentId: N:Here.Explore.Maui.Models.Maps
+  href: Here.html
+  name: Here.Explore.Maui.Models.Maps
+  nameWithType: Here.Explore.Maui.Models.Maps
+  fullName: Here.Explore.Maui.Models.Maps
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Maps
+    name: Maps
+    href: Here.Explore.Maui.Models.Maps.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Maps
+    name: Maps
+    href: Here.Explore.Maui.Models.Maps.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.Maps.MapPickResult}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.Maps.MapPickResult}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<MapPickResult>
+  nameWithType: IEquatable<MapPickResult>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.Maps.MapPickResult>
+  nameWithType.vb: IEquatable(Of MapPickResult)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.Maps.MapPickResult)
+  name.vb: IEquatable(Of MapPickResult)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Maps.MapPickResult
+    name: MapPickResult
+    href: Here.Explore.Maui.Models.Maps.MapPickResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Maps.MapPickResult
+    name: MapPickResult
+    href: Here.Explore.Maui.Models.Maps.MapPickResult.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult.#ctor*
+  commentId: Overload:Here.Explore.Maui.Models.Maps.MapPickResult.#ctor
+  href: Here.Explore.Maui.Models.Maps.MapPickResult.html#Here_Explore_Maui_Models_Maps_MapPickResult__ctor_Here_Explore_Maui_Models_GeoCoordinates_System_Object_
+  name: MapPickResult
+  nameWithType: MapPickResult.MapPickResult
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult.MapPickResult
+  nameWithType.vb: MapPickResult.New
+  fullName.vb: Here.Explore.Maui.Models.Maps.MapPickResult.New
+  name.vb: New
+- uid: Here.Explore.Maui.Models.GeoCoordinates
+  commentId: T:Here.Explore.Maui.Models.GeoCoordinates
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.GeoCoordinates.html
+  name: GeoCoordinates
+  nameWithType: GeoCoordinates
+  fullName: Here.Explore.Maui.Models.GeoCoordinates
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates*
+  commentId: Overload:Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates
+  href: Here.Explore.Maui.Models.Maps.MapPickResult.html#Here_Explore_Maui_Models_Maps_MapPickResult_Coordinates
+  name: Coordinates
+  nameWithType: MapPickResult.Coordinates
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult.Coordinates
+- uid: Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult*
+  commentId: Overload:Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult
+  href: Here.Explore.Maui.Models.Maps.MapPickResult.html#Here_Explore_Maui_Models_Maps_MapPickResult_PlatformResult
+  name: PlatformResult
+  nameWithType: MapPickResult.PlatformResult
+  fullName: Here.Explore.Maui.Models.Maps.MapPickResult.PlatformResult

@@ -1,0 +1,113 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Services.IHereSdkService
+  commentId: T:Here.Explore.Maui.Services.IHereSdkService
+  id: IHereSdkService
+  parent: Here.Explore.Maui.Services
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: IHereSdkService
+  nameWithType: IHereSdkService
+  fullName: Here.Explore.Maui.Services.IHereSdkService
+  type: Interface
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/IHereSdkService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: IHereSdkService
+    path: src/HereSdk.Explore.Maui/Services/IHereSdkService.cs
+    startLine: 7
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: >-
+    Base interface for HERE SDK services. All services that wrap
+
+    native SDK engines should implement IDisposable to release
+
+    native resources.
+  example: []
+  syntax:
+    content: 'public interface IHereSdkService : IDisposable'
+    content.vb: Public Interface IHereSdkService Inherits IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+references:
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  href: Here.html
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

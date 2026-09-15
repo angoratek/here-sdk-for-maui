@@ -1,0 +1,171 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.NoticeSeverity
+  commentId: T:Here.Explore.Maui.Models.Routing.NoticeSeverity
+  id: NoticeSeverity
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.NoticeSeverity.Info
+  - Here.Explore.Maui.Models.Routing.NoticeSeverity.Unknown
+  - Here.Explore.Maui.Models.Routing.NoticeSeverity.Warning
+  langs:
+  - csharp
+  - vb
+  name: NoticeSeverity
+  nameWithType: NoticeSeverity
+  fullName: Here.Explore.Maui.Models.Routing.NoticeSeverity
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoticeSeverity
+    path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+    startLine: 91
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Severity of a route section notice.
+  example: []
+  syntax:
+    content: public enum NoticeSeverity
+    content.vb: Public Enum NoticeSeverity
+- uid: Here.Explore.Maui.Models.Routing.NoticeSeverity.Unknown
+  commentId: F:Here.Explore.Maui.Models.Routing.NoticeSeverity.Unknown
+  id: Unknown
+  parent: Here.Explore.Maui.Models.Routing.NoticeSeverity
+  langs:
+  - csharp
+  - vb
+  name: Unknown
+  nameWithType: NoticeSeverity.Unknown
+  fullName: Here.Explore.Maui.Models.Routing.NoticeSeverity.Unknown
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Unknown
+    path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+    startLine: 94
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Unknown severity.
+  example: []
+  syntax:
+    content: Unknown = 0
+    return:
+      type: Here.Explore.Maui.Models.Routing.NoticeSeverity
+- uid: Here.Explore.Maui.Models.Routing.NoticeSeverity.Info
+  commentId: F:Here.Explore.Maui.Models.Routing.NoticeSeverity.Info
+  id: Info
+  parent: Here.Explore.Maui.Models.Routing.NoticeSeverity
+  langs:
+  - csharp
+  - vb
+  name: Info
+  nameWithType: NoticeSeverity.Info
+  fullName: Here.Explore.Maui.Models.Routing.NoticeSeverity.Info
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Info
+    path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+    startLine: 96
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Informational notice.
+  example: []
+  syntax:
+    content: Info = 1
+    return:
+      type: Here.Explore.Maui.Models.Routing.NoticeSeverity
+- uid: Here.Explore.Maui.Models.Routing.NoticeSeverity.Warning
+  commentId: F:Here.Explore.Maui.Models.Routing.NoticeSeverity.Warning
+  id: Warning
+  parent: Here.Explore.Maui.Models.Routing.NoticeSeverity
+  langs:
+  - csharp
+  - vb
+  name: Warning
+  nameWithType: NoticeSeverity.Warning
+  fullName: Here.Explore.Maui.Models.Routing.NoticeSeverity.Warning
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Warning
+    path: src/HereSdk.Explore.Maui/Models/Routing/RouteDetailModels.cs
+    startLine: 98
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Warning notice.
+  example: []
+  syntax:
+    content: Warning = 2
+    return:
+      type: Here.Explore.Maui.Models.Routing.NoticeSeverity
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: Here.Explore.Maui.Models.Routing.NoticeSeverity
+  commentId: T:Here.Explore.Maui.Models.Routing.NoticeSeverity
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.NoticeSeverity.html
+  name: NoticeSeverity
+  nameWithType: NoticeSeverity
+  fullName: Here.Explore.Maui.Models.Routing.NoticeSeverity

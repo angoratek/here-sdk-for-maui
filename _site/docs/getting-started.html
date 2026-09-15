@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Getting Started with HERE SDK Explore for .NET MAUI | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Getting Started with HERE SDK Explore for .NET MAUI | HERE SDK for MAUI ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/getting-started.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="getting-started-with-here-sdk-explore-for-net-maui">Getting Started with HERE SDK Explore for .NET MAUI</h1>
+
+<h2 id="installation">Installation</h2>
+<p>Add the cross-platform MAUI package to your project:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;HereSdk.Explore.Maui&quot; Version=&quot;4.25.5.0&quot; /&gt;
+</code></pre>
+<p>This automatically pulls in the correct platform binding:</p>
+<ul>
+<li><strong>Android</strong>: <code>HereSdk.Explore.Android.Binding</code></li>
+<li><strong>iOS</strong>: <code>HereSdk.Explore.iOS.Binding</code></li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>.NET 10 SDK</li>
+<li>.NET MAUI workload (<code>dotnet workload install maui</code>)</li>
+<li>Android SDK API 34+ (for Android)</li>
+<li>macOS + Xcode 15+ (for iOS)</li>
+<li>HERE SDK credentials (Access Key ID + Secret)</li>
+</ul>
+<h2 id="platform-setup">Platform Setup</h2>
+<h3 id="android">Android</h3>
+<p>No additional setup required. The AAR is bundled in the Android binding package.</p>
+<h3 id="ios">iOS</h3>
+<p>The iOS binding includes the NativeBridge xcframework. No manual framework linking is required when using the NuGet package.</p>
+<h2 id="initialization">Initialization</h2>
+<p>In <code>MauiProgram.cs</code>:</p>
+<pre><code class="lang-csharp">using Here.Explore.Maui;
+
+builder.UseHereSdkExplore(new HereSdkOptions
+{
+    AccessKeyId = &quot;YOUR_ACCESS_KEY_ID&quot;,
+    AccessKeySecret = &quot;YOUR_ACCESS_KEY_SECRET&quot;
+});
+</code></pre>
+<h2 id="using-the-map">Using the Map</h2>
+<p>In XAML:</p>
+<pre><code class="lang-xml">&lt;ContentPage xmlns:here=&quot;clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui&quot;&gt;
+    &lt;here:HereMapView x:Name=&quot;MapView&quot; MapScheme=&quot;NormalDay&quot; /&gt;
+&lt;/ContentPage&gt;
+</code></pre>
+<p>In code-behind:</p>
+<pre><code class="lang-csharp">public partial class MyPage : ContentPage
+{
+    public MyPage()
+    {
+        InitializeComponent();
+        Loaded += async (_, _) =&gt;
+        {
+            var mapService = MapView.Map;
+            await mapService.LoadSceneAsync(MapScheme.NormalDay);
+            await mapService.SetCameraTargetAsync(new GeoCoordinates(52.5, 13.4), 12);
+        };
+    }
+}
+</code></pre>
+<h2 id="services">Services</h2>
+<p>All services are registered as singletons in DI and can be injected:</p>
+<pre><code class="lang-csharp">public class MyViewModel
+{
+    private readonly ISearchService _searchService;
+    private readonly IRoutingService _routingService;
+    private readonly ILocationService _locationService;
+    private readonly ITrafficService _trafficService;
+
+    public MyViewModel(
+        ISearchService searchService,
+        IRoutingService routingService,
+        ILocationService locationService,
+        ITrafficService trafficService)
+    {
+        _searchService = searchService;
+        _routingService = routingService;
+        _locationService = locationService;
+        _trafficService = trafficService;
+    }
+}
+</code></pre>
+<h3 id="search">Search</h3>
+<pre><code class="lang-csharp">var result = await _searchService.SuggestAsync(
+    new TextQuery(&quot;Berlin&quot;),
+    new SearchOptions { MaxItems = 10 });
+
+foreach (var suggestion in result.Suggestions ?? new List&lt;Suggestion&gt;())
+{
+    Console.WriteLine($&quot;{suggestion.Title} ({suggestion.Type})&quot;);
+}
+</code></pre>
+<h3 id="routing">Routing</h3>
+<pre><code class="lang-csharp">var waypoints = new List&lt;Waypoint&gt;
+{
+    new(new GeoCoordinates(52.5, 13.4), WaypointType.Start),
+    new(new GeoCoordinates(48.1, 11.5), WaypointType.Stop)
+};
+
+var result = await _routingService.CalculateRouteAsync(
+    waypoints,
+    new RoutingOptions());
+
+if (result.Error == RoutingError.None)
+{
+    var route = result.Routes[0];
+    Console.WriteLine($&quot;Distance: {route.LengthInMeters}m, Duration: {route.DurationInSeconds}s&quot;);
+}
+</code></pre>
+<h3 id="location">Location</h3>
+<pre><code class="lang-csharp">var location = await _locationService.GetCurrentLocationAsync();
+if (location is not null)
+{
+    Console.WriteLine($&quot;Lat: {location.Coordinates.Latitude}, Lon: {location.Coordinates.Longitude}&quot;);
+}
+</code></pre>
+<h3 id="map-items">Map Items</h3>
+<pre><code class="lang-csharp">// Marker
+var marker = new MapMarker(new GeoCoordinates(52.5, 13.4), Text: &quot;Hello&quot;);
+mapService.AddMapMarker(marker);
+
+// Polyline
+var polyline = new MapPolyline(
+    new List&lt;GeoCoordinates&gt; { new(52.5, 13.4), new(52.6, 13.5) },
+    Color: 0xFF0000FF,
+    WidthInPixels: 5);
+mapService.AddMapPolyline(polyline);
+
+// Polygon
+var polygon = new MapPolygon(
+    new List&lt;GeoCoordinates&gt; { new(52.5, 13.4), new(52.6, 13.5), new(52.55, 13.3) },
+    FillColor: 0x44FF0000);
+mapService.AddMapPolygon(polygon);
+
+// Circle (approximated as polygon)
+var circle = new MapCircle(new GeoCoordinates(52.5, 13.4), 500, FillColor: 0x3300FF00);
+mapService.AddMapCircle(circle);
+</code></pre>
+<h2 id="package-contents">Package Contents</h2>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HereSdk.Explore.Maui</code></td>
+<td>Unified C# API, controls, handlers, service abstractions</td>
+</tr>
+<tr>
+<td><code>HereSdk.Explore.Android.Binding</code></td>
+<td>Android AAR binding, Metadata.xml transforms</td>
+</tr>
+<tr>
+<td><code>HereSdk.Explore.iOS.Binding</code></td>
+<td>iOS NativeBridge binding, ApiDefinition.cs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li><strong>iOS binary size</strong>: ~831 MB (stripped for release)</li>
+<li><strong>Map circles</strong>: Approximated as polygons (HERE SDK has no native circle primitive)</li>
+<li><strong>Positioning</strong>: Both platforms use MAUI Geolocation (the Explore SDK ships no positioning engine)</li>
+<li><strong>Map pick</strong>: Returns null on both platforms (not yet fully implemented)</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/docs/getting-started.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

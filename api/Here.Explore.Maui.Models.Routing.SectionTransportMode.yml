@@ -1,0 +1,316 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  commentId: T:Here.Explore.Maui.Models.Routing.SectionTransportMode
+  id: SectionTransportMode
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Bicycle
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Bus
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Car
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Pedestrian
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Scooter
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Taxi
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Transit
+  - Here.Explore.Maui.Models.Routing.SectionTransportMode.Truck
+  langs:
+  - csharp
+  - vb
+  name: SectionTransportMode
+  nameWithType: SectionTransportMode
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SectionTransportMode
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 189
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Transport mode for a route section.
+  example: []
+  syntax:
+    content: public enum SectionTransportMode
+    content.vb: Public Enum SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Car
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Car
+  id: Car
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Car
+  nameWithType: SectionTransportMode.Car
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Car
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Car
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 192
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Car transport mode.
+  example: []
+  syntax:
+    content: Car = 0
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Truck
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Truck
+  id: Truck
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Truck
+  nameWithType: SectionTransportMode.Truck
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Truck
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Truck
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 194
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Truck transport mode (respects truck restrictions).
+  example: []
+  syntax:
+    content: Truck = 1
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Pedestrian
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Pedestrian
+  id: Pedestrian
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Pedestrian
+  nameWithType: SectionTransportMode.Pedestrian
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Pedestrian
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Pedestrian
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 196
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Pedestrian transport mode.
+  example: []
+  syntax:
+    content: Pedestrian = 2
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Bicycle
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Bicycle
+  id: Bicycle
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Bicycle
+  nameWithType: SectionTransportMode.Bicycle
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Bicycle
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Bicycle
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 198
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Bicycle transport mode.
+  example: []
+  syntax:
+    content: Bicycle = 3
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Scooter
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Scooter
+  id: Scooter
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Scooter
+  nameWithType: SectionTransportMode.Scooter
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Scooter
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Scooter
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 200
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Scooter/moped transport mode.
+  example: []
+  syntax:
+    content: Scooter = 4
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Bus
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Bus
+  id: Bus
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Bus
+  nameWithType: SectionTransportMode.Bus
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Bus
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Bus
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 202
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Bus transport mode.
+  example: []
+  syntax:
+    content: Bus = 5
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Taxi
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Taxi
+  id: Taxi
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Taxi
+  nameWithType: SectionTransportMode.Taxi
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Taxi
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Taxi
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 204
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Taxi transport mode.
+  example: []
+  syntax:
+    content: Taxi = 6
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode.Transit
+  commentId: F:Here.Explore.Maui.Models.Routing.SectionTransportMode.Transit
+  id: Transit
+  parent: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  langs:
+  - csharp
+  - vb
+  name: Transit
+  nameWithType: SectionTransportMode.Transit
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode.Transit
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Transit
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 206
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Public transit transport mode.
+  example: []
+  syntax:
+    content: Transit = 7
+    return:
+      type: Here.Explore.Maui.Models.Routing.SectionTransportMode
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: Here.Explore.Maui.Models.Routing.SectionTransportMode
+  commentId: T:Here.Explore.Maui.Models.Routing.SectionTransportMode
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.SectionTransportMode.html
+  name: SectionTransportMode
+  nameWithType: SectionTransportMode
+  fullName: Here.Explore.Maui.Models.Routing.SectionTransportMode

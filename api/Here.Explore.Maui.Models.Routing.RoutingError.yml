@@ -1,0 +1,606 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Routing.RoutingError
+  commentId: T:Here.Explore.Maui.Models.Routing.RoutingError
+  id: RoutingError
+  parent: Here.Explore.Maui.Models.Routing
+  children:
+  - Here.Explore.Maui.Models.Routing.RoutingError.GraphImportError
+  - Here.Explore.Maui.Models.Routing.RoutingError.GraphSearchError
+  - Here.Explore.Maui.Models.Routing.RoutingError.HttpError
+  - Here.Explore.Maui.Models.Routing.RoutingError.InsufficientMemory
+  - Here.Explore.Maui.Models.Routing.RoutingError.InvalidParameters
+  - Here.Explore.Maui.Models.Routing.RoutingError.NetworkError
+  - Here.Explore.Maui.Models.Routing.RoutingError.NoAcceptableRoute
+  - Here.Explore.Maui.Models.Routing.RoutingError.NoGraphData
+  - Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingMapData
+  - Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingRoute
+  - Here.Explore.Maui.Models.Routing.RoutingError.NoRouteFound
+  - Here.Explore.Maui.Models.Routing.RoutingError.None
+  - Here.Explore.Maui.Models.Routing.RoutingError.RouteComputeCancelled
+  - Here.Explore.Maui.Models.Routing.RoutingError.RoutingNotInitialized
+  - Here.Explore.Maui.Models.Routing.RoutingError.TransitNotAllowed
+  - Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotFound
+  - Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotReachable
+  - Here.Explore.Maui.Models.Routing.RoutingError.WaypointError
+  langs:
+  - csharp
+  - vb
+  name: RoutingError
+  nameWithType: RoutingError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: RoutingError
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 135
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Route calculation error codes.
+  example: []
+  syntax:
+    content: public enum RoutingError
+    content.vb: Public Enum RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.None
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.None
+  id: None
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: RoutingError.None
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.None
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: None
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 138
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: No error — route calculated successfully.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.NetworkError
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.NetworkError
+  id: NetworkError
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: NetworkError
+  nameWithType: RoutingError.NetworkError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.NetworkError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NetworkError
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 140
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Network error during route calculation.
+  example: []
+  syntax:
+    content: NetworkError = 1
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.HttpError
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.HttpError
+  id: HttpError
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: HttpError
+  nameWithType: RoutingError.HttpError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.HttpError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: HttpError
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 142
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: HTTP error from the routing service.
+  example: []
+  syntax:
+    content: HttpError = 2
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.NoRouteFound
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.NoRouteFound
+  id: NoRouteFound
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: NoRouteFound
+  nameWithType: RoutingError.NoRouteFound
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.NoRouteFound
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoRouteFound
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 144
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: No route found between the specified waypoints.
+  example: []
+  syntax:
+    content: NoRouteFound = 3
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.InvalidParameters
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.InvalidParameters
+  id: InvalidParameters
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: InvalidParameters
+  nameWithType: RoutingError.InvalidParameters
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.InvalidParameters
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: InvalidParameters
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 146
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Invalid parameters provided.
+  example: []
+  syntax:
+    content: InvalidParameters = 4
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.InsufficientMemory
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.InsufficientMemory
+  id: InsufficientMemory
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: InsufficientMemory
+  nameWithType: RoutingError.InsufficientMemory
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.InsufficientMemory
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: InsufficientMemory
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 148
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Insufficient memory to calculate the route.
+  example: []
+  syntax:
+    content: InsufficientMemory = 5
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.RoutingNotInitialized
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.RoutingNotInitialized
+  id: RoutingNotInitialized
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: RoutingNotInitialized
+  nameWithType: RoutingError.RoutingNotInitialized
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.RoutingNotInitialized
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: RoutingNotInitialized
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 150
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Routing engine is not initialized.
+  example: []
+  syntax:
+    content: RoutingNotInitialized = 6
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.GraphImportError
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.GraphImportError
+  id: GraphImportError
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: GraphImportError
+  nameWithType: RoutingError.GraphImportError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.GraphImportError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: GraphImportError
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 152
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Error importing the routing graph.
+  example: []
+  syntax:
+    content: GraphImportError = 7
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.GraphSearchError
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.GraphSearchError
+  id: GraphSearchError
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: GraphSearchError
+  nameWithType: RoutingError.GraphSearchError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.GraphSearchError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: GraphSearchError
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 154
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Error searching the routing graph.
+  example: []
+  syntax:
+    content: GraphSearchError = 8
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.NoGraphData
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.NoGraphData
+  id: NoGraphData
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: NoGraphData
+  nameWithType: RoutingError.NoGraphData
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.NoGraphData
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoGraphData
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 156
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: No graph data available.
+  example: []
+  syntax:
+    content: NoGraphData = 9
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingMapData
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingMapData
+  id: NoMatchingMapData
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: NoMatchingMapData
+  nameWithType: RoutingError.NoMatchingMapData
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingMapData
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoMatchingMapData
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 158
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: No matching map data for the route.
+  example: []
+  syntax:
+    content: NoMatchingMapData = 10
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingRoute
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingRoute
+  id: NoMatchingRoute
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: NoMatchingRoute
+  nameWithType: RoutingError.NoMatchingRoute
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.NoMatchingRoute
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoMatchingRoute
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 160
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: No matching route found.
+  example: []
+  syntax:
+    content: NoMatchingRoute = 11
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.NoAcceptableRoute
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.NoAcceptableRoute
+  id: NoAcceptableRoute
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: NoAcceptableRoute
+  nameWithType: RoutingError.NoAcceptableRoute
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.NoAcceptableRoute
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: NoAcceptableRoute
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 162
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: No acceptable route found (e.g., all routes violate restrictions).
+  example: []
+  syntax:
+    content: NoAcceptableRoute = 12
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.RouteComputeCancelled
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.RouteComputeCancelled
+  id: RouteComputeCancelled
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: RouteComputeCancelled
+  nameWithType: RoutingError.RouteComputeCancelled
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.RouteComputeCancelled
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: RouteComputeCancelled
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 164
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Route computation was cancelled.
+  example: []
+  syntax:
+    content: RouteComputeCancelled = 13
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.WaypointError
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.WaypointError
+  id: WaypointError
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: WaypointError
+  nameWithType: RoutingError.WaypointError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.WaypointError
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: WaypointError
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 166
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Invalid waypoints provided.
+  example: []
+  syntax:
+    content: WaypointError = 14
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.TransitNotAllowed
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.TransitNotAllowed
+  id: TransitNotAllowed
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: TransitNotAllowed
+  nameWithType: RoutingError.TransitNotAllowed
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.TransitNotAllowed
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TransitNotAllowed
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 168
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Transit routing is not allowed.
+  example: []
+  syntax:
+    content: TransitNotAllowed = 15
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotReachable
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotReachable
+  id: TransitRouteNotReachable
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: TransitRouteNotReachable
+  nameWithType: RoutingError.TransitRouteNotReachable
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotReachable
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TransitRouteNotReachable
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 170
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Transit route destination is not reachable.
+  example: []
+  syntax:
+    content: TransitRouteNotReachable = 16
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+- uid: Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotFound
+  commentId: F:Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotFound
+  id: TransitRouteNotFound
+  parent: Here.Explore.Maui.Models.Routing.RoutingError
+  langs:
+  - csharp
+  - vb
+  name: TransitRouteNotFound
+  nameWithType: RoutingError.TransitRouteNotFound
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError.TransitRouteNotFound
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TransitRouteNotFound
+    path: src/HereSdk.Explore.Maui/Models/Routing/RoutingModels.cs
+    startLine: 172
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Routing
+  summary: Transit route not found.
+  example: []
+  syntax:
+    content: TransitRouteNotFound = 17
+    return:
+      type: Here.Explore.Maui.Models.Routing.RoutingError
+references:
+- uid: Here.Explore.Maui.Models.Routing
+  commentId: N:Here.Explore.Maui.Models.Routing
+  href: Here.html
+  name: Here.Explore.Maui.Models.Routing
+  nameWithType: Here.Explore.Maui.Models.Routing
+  fullName: Here.Explore.Maui.Models.Routing
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Routing
+    name: Routing
+    href: Here.Explore.Maui.Models.Routing.html
+- uid: Here.Explore.Maui.Models.Routing.RoutingError
+  commentId: T:Here.Explore.Maui.Models.Routing.RoutingError
+  parent: Here.Explore.Maui.Models.Routing
+  href: Here.Explore.Maui.Models.Routing.RoutingError.html
+  name: RoutingError
+  nameWithType: RoutingError
+  fullName: Here.Explore.Maui.Models.Routing.RoutingError

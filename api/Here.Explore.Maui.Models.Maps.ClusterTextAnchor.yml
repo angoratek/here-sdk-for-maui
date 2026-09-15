@@ -1,0 +1,229 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  commentId: T:Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  id: ClusterTextAnchor
+  parent: Here.Explore.Maui.Models.Maps
+  children:
+  - Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Bottom
+  - Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Center
+  - Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Left
+  - Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Right
+  - Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Top
+  langs:
+  - csharp
+  - vb
+  name: ClusterTextAnchor
+  nameWithType: ClusterTextAnchor
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: ClusterTextAnchor
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 79
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Anchor position for cluster text.
+  example: []
+  syntax:
+    content: public enum ClusterTextAnchor
+    content.vb: Public Enum ClusterTextAnchor
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Center
+  commentId: F:Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Center
+  id: Center
+  parent: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  langs:
+  - csharp
+  - vb
+  name: Center
+  nameWithType: ClusterTextAnchor.Center
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Center
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Center
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 82
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Center-anchored cluster text.
+  example: []
+  syntax:
+    content: Center = 0
+    return:
+      type: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Left
+  commentId: F:Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Left
+  id: Left
+  parent: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  langs:
+  - csharp
+  - vb
+  name: Left
+  nameWithType: ClusterTextAnchor.Left
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Left
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Left
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 84
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Left-anchored cluster text.
+  example: []
+  syntax:
+    content: Left = 1
+    return:
+      type: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Right
+  commentId: F:Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Right
+  id: Right
+  parent: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  langs:
+  - csharp
+  - vb
+  name: Right
+  nameWithType: ClusterTextAnchor.Right
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Right
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Right
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 86
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Right-anchored cluster text.
+  example: []
+  syntax:
+    content: Right = 2
+    return:
+      type: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Top
+  commentId: F:Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Top
+  id: Top
+  parent: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  langs:
+  - csharp
+  - vb
+  name: Top
+  nameWithType: ClusterTextAnchor.Top
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Top
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Top
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 88
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Top-anchored cluster text.
+  example: []
+  syntax:
+    content: Top = 3
+    return:
+      type: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Bottom
+  commentId: F:Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Bottom
+  id: Bottom
+  parent: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  langs:
+  - csharp
+  - vb
+  name: Bottom
+  nameWithType: ClusterTextAnchor.Bottom
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.Bottom
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Bottom
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 90
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Bottom-anchored cluster text.
+  example: []
+  syntax:
+    content: Bottom = 4
+    return:
+      type: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+references:
+- uid: Here.Explore.Maui.Models.Maps
+  commentId: N:Here.Explore.Maui.Models.Maps
+  href: Here.html
+  name: Here.Explore.Maui.Models.Maps
+  nameWithType: Here.Explore.Maui.Models.Maps
+  fullName: Here.Explore.Maui.Models.Maps
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Maps
+    name: Maps
+    href: Here.Explore.Maui.Models.Maps.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Maps
+    name: Maps
+    href: Here.Explore.Maui.Models.Maps.html
+- uid: Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  commentId: T:Here.Explore.Maui.Models.Maps.ClusterTextAnchor
+  parent: Here.Explore.Maui.Models.Maps
+  href: Here.Explore.Maui.Models.Maps.ClusterTextAnchor.html
+  name: ClusterTextAnchor
+  nameWithType: ClusterTextAnchor
+  fullName: Here.Explore.Maui.Models.Maps.ClusterTextAnchor

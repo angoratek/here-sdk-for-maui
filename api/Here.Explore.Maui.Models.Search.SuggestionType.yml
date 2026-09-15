@@ -1,0 +1,171 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Search.SuggestionType
+  commentId: T:Here.Explore.Maui.Models.Search.SuggestionType
+  id: SuggestionType
+  parent: Here.Explore.Maui.Models.Search
+  children:
+  - Here.Explore.Maui.Models.Search.SuggestionType.Category
+  - Here.Explore.Maui.Models.Search.SuggestionType.Chain
+  - Here.Explore.Maui.Models.Search.SuggestionType.Place
+  langs:
+  - csharp
+  - vb
+  name: SuggestionType
+  nameWithType: SuggestionType
+  fullName: Here.Explore.Maui.Models.Search.SuggestionType
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: SuggestionType
+    path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+    startLine: 148
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Search
+  summary: Type of search suggestion.
+  example: []
+  syntax:
+    content: public enum SuggestionType
+    content.vb: Public Enum SuggestionType
+- uid: Here.Explore.Maui.Models.Search.SuggestionType.Place
+  commentId: F:Here.Explore.Maui.Models.Search.SuggestionType.Place
+  id: Place
+  parent: Here.Explore.Maui.Models.Search.SuggestionType
+  langs:
+  - csharp
+  - vb
+  name: Place
+  nameWithType: SuggestionType.Place
+  fullName: Here.Explore.Maui.Models.Search.SuggestionType.Place
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Place
+    path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+    startLine: 151
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Search
+  summary: A specific place (POI or address).
+  example: []
+  syntax:
+    content: Place = 0
+    return:
+      type: Here.Explore.Maui.Models.Search.SuggestionType
+- uid: Here.Explore.Maui.Models.Search.SuggestionType.Category
+  commentId: F:Here.Explore.Maui.Models.Search.SuggestionType.Category
+  id: Category
+  parent: Here.Explore.Maui.Models.Search.SuggestionType
+  langs:
+  - csharp
+  - vb
+  name: Category
+  nameWithType: SuggestionType.Category
+  fullName: Here.Explore.Maui.Models.Search.SuggestionType.Category
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Category
+    path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+    startLine: 153
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Search
+  summary: A category of places.
+  example: []
+  syntax:
+    content: Category = 1
+    return:
+      type: Here.Explore.Maui.Models.Search.SuggestionType
+- uid: Here.Explore.Maui.Models.Search.SuggestionType.Chain
+  commentId: F:Here.Explore.Maui.Models.Search.SuggestionType.Chain
+  id: Chain
+  parent: Here.Explore.Maui.Models.Search.SuggestionType
+  langs:
+  - csharp
+  - vb
+  name: Chain
+  nameWithType: SuggestionType.Chain
+  fullName: Here.Explore.Maui.Models.Search.SuggestionType.Chain
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Chain
+    path: src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs
+    startLine: 155
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Search
+  summary: A business chain.
+  example: []
+  syntax:
+    content: Chain = 2
+    return:
+      type: Here.Explore.Maui.Models.Search.SuggestionType
+references:
+- uid: Here.Explore.Maui.Models.Search
+  commentId: N:Here.Explore.Maui.Models.Search
+  href: Here.html
+  name: Here.Explore.Maui.Models.Search
+  nameWithType: Here.Explore.Maui.Models.Search
+  fullName: Here.Explore.Maui.Models.Search
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Search
+    name: Search
+    href: Here.Explore.Maui.Models.Search.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Search
+    name: Search
+    href: Here.Explore.Maui.Models.Search.html
+- uid: Here.Explore.Maui.Models.Search.SuggestionType
+  commentId: T:Here.Explore.Maui.Models.Search.SuggestionType
+  parent: Here.Explore.Maui.Models.Search
+  href: Here.Explore.Maui.Models.Search.SuggestionType.html
+  name: SuggestionType
+  nameWithType: SuggestionType
+  fullName: Here.Explore.Maui.Models.Search.SuggestionType

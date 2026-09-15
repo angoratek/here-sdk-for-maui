@@ -1,0 +1,511 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Rectangle2D
+  commentId: T:Here.Explore.Maui.Models.Rectangle2D
+  id: Rectangle2D
+  parent: Here.Explore.Maui.Models
+  children:
+  - Here.Explore.Maui.Models.Rectangle2D.#ctor(Here.Explore.Maui.Models.Point2D,Here.Explore.Maui.Models.Size2D)
+  - Here.Explore.Maui.Models.Rectangle2D.Origin
+  - Here.Explore.Maui.Models.Rectangle2D.Size
+  langs:
+  - csharp
+  - vb
+  name: Rectangle2D
+  nameWithType: Rectangle2D
+  fullName: Here.Explore.Maui.Models.Rectangle2D
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Rectangle2D
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+    startLine: 57
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: 2D rectangle defined by origin and size.
+  example: []
+  syntax:
+    content: 'public record Rectangle2D : IEquatable<Rectangle2D>'
+    content.vb: Public Class Rectangle2D Implements IEquatable(Of Rectangle2D)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{Here.Explore.Maui.Models.Rectangle2D}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Models.Rectangle2D.#ctor(Here.Explore.Maui.Models.Point2D,Here.Explore.Maui.Models.Size2D)
+  commentId: M:Here.Explore.Maui.Models.Rectangle2D.#ctor(Here.Explore.Maui.Models.Point2D,Here.Explore.Maui.Models.Size2D)
+  id: '#ctor(Here.Explore.Maui.Models.Point2D,Here.Explore.Maui.Models.Size2D)'
+  parent: Here.Explore.Maui.Models.Rectangle2D
+  langs:
+  - csharp
+  - vb
+  name: Rectangle2D(Point2D, Size2D)
+  nameWithType: Rectangle2D.Rectangle2D(Point2D, Size2D)
+  fullName: Here.Explore.Maui.Models.Rectangle2D.Rectangle2D(Here.Explore.Maui.Models.Point2D, Here.Explore.Maui.Models.Size2D)
+  type: Constructor
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: .ctor
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+    startLine: 57
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  summary: 2D rectangle defined by origin and size.
+  example: []
+  syntax:
+    content: public Rectangle2D(Point2D Origin, Size2D Size)
+    parameters:
+    - id: Origin
+      type: Here.Explore.Maui.Models.Point2D
+    - id: Size
+      type: Here.Explore.Maui.Models.Size2D
+    content.vb: Public Sub New(Origin As Point2D, Size As Size2D)
+  overload: Here.Explore.Maui.Models.Rectangle2D.#ctor*
+  nameWithType.vb: Rectangle2D.New(Point2D, Size2D)
+  fullName.vb: Here.Explore.Maui.Models.Rectangle2D.New(Here.Explore.Maui.Models.Point2D, Here.Explore.Maui.Models.Size2D)
+  name.vb: New(Point2D, Size2D)
+- uid: Here.Explore.Maui.Models.Rectangle2D.Origin
+  commentId: P:Here.Explore.Maui.Models.Rectangle2D.Origin
+  id: Origin
+  parent: Here.Explore.Maui.Models.Rectangle2D
+  langs:
+  - csharp
+  - vb
+  name: Origin
+  nameWithType: Rectangle2D.Origin
+  fullName: Here.Explore.Maui.Models.Rectangle2D.Origin
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Origin
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+    startLine: 57
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  syntax:
+    content: public Point2D Origin { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Point2D
+    content.vb: Public Property Origin As Point2D
+  overload: Here.Explore.Maui.Models.Rectangle2D.Origin*
+- uid: Here.Explore.Maui.Models.Rectangle2D.Size
+  commentId: P:Here.Explore.Maui.Models.Rectangle2D.Size
+  id: Size
+  parent: Here.Explore.Maui.Models.Rectangle2D
+  langs:
+  - csharp
+  - vb
+  name: Size
+  nameWithType: Rectangle2D.Size
+  fullName: Here.Explore.Maui.Models.Rectangle2D.Size
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Size
+    path: src/HereSdk.Explore.Maui/Models/Core/GeoCoordinates.cs
+    startLine: 57
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models
+  syntax:
+    content: public Size2D Size { get; init; }
+    parameters: []
+    return:
+      type: Here.Explore.Maui.Models.Size2D
+    content.vb: Public Property Size As Size2D
+  overload: Here.Explore.Maui.Models.Rectangle2D.Size*
+references:
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{Here.Explore.Maui.Models.Rectangle2D}
+  commentId: T:System.IEquatable{Here.Explore.Maui.Models.Rectangle2D}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<Rectangle2D>
+  nameWithType: IEquatable<Rectangle2D>
+  fullName: System.IEquatable<Here.Explore.Maui.Models.Rectangle2D>
+  nameWithType.vb: IEquatable(Of Rectangle2D)
+  fullName.vb: System.IEquatable(Of Here.Explore.Maui.Models.Rectangle2D)
+  name.vb: IEquatable(Of Rectangle2D)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Rectangle2D
+    name: Rectangle2D
+    href: Here.Explore.Maui.Models.Rectangle2D.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Rectangle2D
+    name: Rectangle2D
+    href: Here.Explore.Maui.Models.Rectangle2D.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Here.Explore.Maui.Models.Rectangle2D.#ctor*
+  commentId: Overload:Here.Explore.Maui.Models.Rectangle2D.#ctor
+  href: Here.Explore.Maui.Models.Rectangle2D.html#Here_Explore_Maui_Models_Rectangle2D__ctor_Here_Explore_Maui_Models_Point2D_Here_Explore_Maui_Models_Size2D_
+  name: Rectangle2D
+  nameWithType: Rectangle2D.Rectangle2D
+  fullName: Here.Explore.Maui.Models.Rectangle2D.Rectangle2D
+  nameWithType.vb: Rectangle2D.New
+  fullName.vb: Here.Explore.Maui.Models.Rectangle2D.New
+  name.vb: New
+- uid: Here.Explore.Maui.Models.Point2D
+  commentId: T:Here.Explore.Maui.Models.Point2D
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.Point2D.html
+  name: Point2D
+  nameWithType: Point2D
+  fullName: Here.Explore.Maui.Models.Point2D
+- uid: Here.Explore.Maui.Models.Size2D
+  commentId: T:Here.Explore.Maui.Models.Size2D
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.Size2D.html
+  name: Size2D
+  nameWithType: Size2D
+  fullName: Here.Explore.Maui.Models.Size2D
+- uid: Here.Explore.Maui.Models.Rectangle2D.Origin*
+  commentId: Overload:Here.Explore.Maui.Models.Rectangle2D.Origin
+  href: Here.Explore.Maui.Models.Rectangle2D.html#Here_Explore_Maui_Models_Rectangle2D_Origin
+  name: Origin
+  nameWithType: Rectangle2D.Origin
+  fullName: Here.Explore.Maui.Models.Rectangle2D.Origin
+- uid: Here.Explore.Maui.Models.Rectangle2D.Size*
+  commentId: Overload:Here.Explore.Maui.Models.Rectangle2D.Size
+  href: Here.Explore.Maui.Models.Rectangle2D.html#Here_Explore_Maui_Models_Rectangle2D_Size
+  name: Size
+  nameWithType: Rectangle2D.Size
+  fullName: Here.Explore.Maui.Models.Rectangle2D.Size

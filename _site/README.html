@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>HERE SDK Explore for .NET MAUI | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="HERE SDK Explore for .NET MAUI | HERE SDK for MAUI ">
+      
+      
+      <link rel="icon" href="favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="">
+      
+      <meta name="docfx:rel" content="">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/blob/main/README.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="index.html">
+            <img id="logo" class="svg" src="logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="here-sdk-explore-for-net-maui">HERE SDK Explore for .NET MAUI</h1>
+
+<p><a href="https://github.com/angoratek/here-sdk-for-maui/actions/workflows/build.yml"><img src="https://github.com/angoratek/here-sdk-for-maui/actions/workflows/build.yml/badge.svg" alt="Build &amp; Test"></a>
+<a href="https://www.nuget.org/packages/HereSdk.Explore.Maui"><img src="https://img.shields.io/badge/nuget-v4.25.5.0-blue" alt="NuGet"></a>
+<a href="https://angoratek.github.io/here-sdk-for-maui/"><img src="https://img.shields.io/badge/docs-online-blue" alt="Documentation"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT"></a></p>
+<p>Cross-platform .NET MAUI bindings for the <a href="https://www.here.com/">HERE SDK</a> Explore Edition v4.25.5.0, supporting Android (API 24+) and iOS (15.2+).</p>
+<p>📖 <strong><a href="https://angoratek.github.io/here-sdk-for-maui/">Full documentation</a></strong> — guides, architecture, and the complete API reference (DocFX).</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Unified C# API</strong> — One idiomatic interface for both Android and iOS</li>
+<li><strong>Map display</strong> — MapView control with camera, gestures, schemes</li>
+<li><strong>Search</strong> — Text search, category search, auto-suggest, place details with dual-input origin/destination UX</li>
+<li><strong>Routing</strong> — Car, truck, pedestrian, bicycle, scooter, EV routing with maneuvers and visual route display</li>
+<li><strong>Traffic</strong> — Real-time traffic flow and incident queries</li>
+<li><strong>Location</strong> — Device location via <code>ILocationService</code> (cross-platform, MAUI Geolocation-based)</li>
+<li><strong>Map items</strong> — Markers, polylines, polygons, arrows, circles (polygon-approximated), 3D markers</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><strong>.NET 10 SDK</strong> — <a href="https://dotnet.microsoft.com/download/dotnet/10.0">Download</a></li>
+<li><strong>.NET MAUI workloads</strong> — <code>dotnet workload install maui</code></li>
+<li><strong>macOS + Xcode 15+</strong> — Required for iOS binding (Native Library Interop)</li>
+<li><strong>Android SDK</strong> — API 34+ recommended</li>
+<li><strong>HERE SDK credentials</strong> — Access Key ID and Secret from <a href="https://developer.here.com/">HERE platform</a></li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="1-install-the-nuget-package">1. Install the NuGet package</h3>
+<pre><code class="lang-xml">&lt;ItemGroup&gt;
+  &lt;PackageReference Include=&quot;HereSdk.Explore.Maui&quot; Version=&quot;4.25.5.0&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<h3 id="2-initialize-in-mauiprogramcs">2. Initialize in <code>MauiProgram.cs</code></h3>
+<pre><code class="lang-csharp">using Here.Explore.Maui;
+
+builder.UseHereSdkExplore(new HereSdkOptions
+{
+    AccessKeyId = &quot;YOUR_ACCESS_KEY_ID&quot;,
+    AccessKeySecret = &quot;YOUR_ACCESS_KEY_SECRET&quot;
+});
+</code></pre>
+<h3 id="3-add-the-map-to-your-xaml">3. Add the map to your XAML</h3>
+<pre><code class="lang-xml">xmlns:here=&quot;clr-namespace:Here.Explore.Maui.Controls;assembly=HereSdk.Explore.Maui&quot;
+
+&lt;here:HereMapView
+    x:Name=&quot;Map&quot;
+    MapScheme=&quot;NormalDay&quot; /&gt;
+</code></pre>
+<h3 id="4-use-services">4. Use services</h3>
+<pre><code class="lang-csharp">// Search
+var results = await searchService.SearchAsync(
+    new TextQuery(&quot;coffee nearby&quot;),
+    new SearchOptions());
+
+// Routing
+var route = await routingService.CalculateRouteAsync(
+    new[] { new Waypoint(start), new Waypoint(end) },
+    new RoutingOptions(TransportMode: SectionTransportMode.Car));
+
+// Location
+var location = await locationService.GetCurrentLocationAsync();
+</code></pre>
+<h2 id="reference-app">Reference App</h2>
+<p>The included reference app (<code>HereSdk.Explore.Maui.RefApp</code>) shows the library end-to-end: one shared map with overlay panels switched by a bottom tab bar, so routes, markers, and traffic drawn on one panel stay visible on all others.</p>
+<ul>
+<li><strong>Explore</strong> — Text and category search with autocomplete suggestions, reverse-geocode place card on map tap</li>
+<li><strong>Directions</strong> — Dual-input origin/destination routing with transport mode picker (car, truck, pedestrian, etc.), maneuver list, and isoline mode</li>
+<li><strong>Traffic</strong> — Real-time traffic flow overlay with jam-factor color legend, incident list with severity indicators</li>
+<li><strong>Tools</strong> — Drawing tools (Marker, Polyline, Polygon, Circle) added via tap gestures on the map, demo gallery presets, map style switching (5 schemes), dark mode toggle, Reset Map</li>
+</ul>
+<h2 id="architecture">Architecture</h2>
+<pre><code class="lang-mermaid">flowchart TD
+    MAUI[&quot;HereSdk.Explore.Maui&lt;br/&gt;Unified idiomatic C# API&lt;br/&gt;(Models, Services, Controls, Handlers)&quot;]
+    AND[&quot;Android Binding&lt;br/&gt;(AAR → C#)&quot;]
+    IOS[&quot;iOS Binding&lt;br/&gt;(NativeBridge → Sharpie → C#)&quot;]
+    AAR[&quot;HERE Android SDK (AAR)&quot;]
+    NB[&quot;NativeBridge Swift wrapper framework&quot;]
+    SWIFT[&quot;HERE iOS SDK (Swift-only)&quot;]
+
+    MAUI --&gt; AND
+    MAUI --&gt; IOS
+    AND --&gt; AAR
+    IOS --&gt; NB
+    NB --&gt; SWIFT
+</code></pre>
+<h3 id="nuget-packages">NuGet Packages</h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HereSdk.Explore.Maui</code></td>
+<td>Cross-platform MAUI library (depends on platform bindings)</td>
+</tr>
+<tr>
+<td><code>HereSdk.Explore.Android.Binding</code></td>
+<td>Android AAR binding</td>
+</tr>
+<tr>
+<td><code>HereSdk.Explore.iOS.Binding</code></td>
+<td>iOS NativeBridge binding</td>
+</tr>
+</tbody>
+</table>
+<p>Most consumers should reference only <code>HereSdk.Explore.Maui</code>.</p>
+<h3 id="why-nativebridge-for-ios">Why NativeBridge for iOS?</h3>
+<p>The iOS HERE SDK is <strong>Swift-only</strong>. Its ObjC bridge header exposes only 4 types — insufficient for binding. We create a Swift wrapper framework (<code>HereSdk.Explore.iOS.NativeBridge</code>) that re-exposes all APIs via <code>@objc</code> annotations, then bind that with Objective-Sharpie.</p>
+<p>This is the standard pattern recommended by the MAUI Community Toolkit for Swift-only SDKs.</p>
+<h2 id="building-from-source">Building from Source</h2>
+<h3 id="android">Android</h3>
+<pre><code class="lang-bash"># Build Android binding
+dotnet build src/HereSdk.Explore.Android.Binding -c Release
+</code></pre>
+<h3 id="ios">iOS</h3>
+<pre><code class="lang-bash"># Build NativeBridge xcframework (requires Xcode + XcodeGen)
+cd src/HereSdk.Explore.iOS.NativeBridge
+xcodegen generate
+cd ../..
+./scripts/build-ios-native.sh
+
+# Run Objective-Sharpie + fix bindings (optional — ApiDefinition.cs is already maintained)
+./scripts/bind-ios.sh
+
+# Build iOS binding
+dotnet build src/HereSdk.Explore.iOS.Binding -c Release
+</code></pre>
+<h3 id="maui-library">MAUI Library</h3>
+<pre><code class="lang-bash"># Build for both platforms
+dotnet build src/HereSdk.Explore.Maui -f net10.0-android -c Release
+dotnet build src/HereSdk.Explore.Maui -f net10.0-ios -c Release
+
+# Or use the build script
+./scripts/build.sh
+</code></pre>
+<h3 id="reference-app-1">Reference App</h3>
+<pre><code class="lang-bash"># Android
+dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-android -c Debug
+
+# iOS (requires macOS + Xcode)
+dotnet build src/HereSdk.Explore.Maui.RefApp -f net10.0-ios -c Debug
+</code></pre>
+<h3 id="tests">Tests</h3>
+<pre><code class="lang-bash"># Unit tests (no device needed)
+dotnet test tests/HereSdk.Explore.Maui.Tests -c Release
+
+# RefApp in-process UI tests (ViewModel commands, control behavior, flows)
+dotnet test tests/HereSdk.Explore.Maui.RefApp.UITests -c Release
+
+# Appium Android smoke tests (requires emulator; runs in ui-tests-android.yml)
+dotnet test tests/HereSdk.Explore.Maui.UITests -c Release
+
+# Device tests (requires emulator/simulator)
+dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-android -c Release
+dotnet test tests/HereSdk.Explore.Maui.DeviceTests -f net10.0-ios -c Release
+</code></pre>
+<p><code>scripts/test.sh</code> runs all four test suites end-to-end.</p>
+<h3 id="packaging">Packaging</h3>
+<pre><code class="lang-bash"># Pack all NuGet packages
+./scripts/pack.sh
+
+# Or with a custom version
+./scripts/pack.sh 4.25.5.0-beta1
+</code></pre>
+<p>Packages are output to <code>artifacts/</code>.</p>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code>here-sdk-for-maui/
+├── src/
+│   ├── HereSdk.Explore.Android.Binding/       # Android AAR binding
+│   ├── HereSdk.Explore.iOS.NativeBridge/       # Swift wrapper (Xcode project)
+│   ├── HereSdk.Explore.iOS.Binding/            # iOS C# binding
+│   ├── HereSdk.Explore.Maui/                  # Cross-platform MAUI library
+│   └── HereSdk.Explore.Maui.RefApp/           # Demo/reference app
+├── tests/
+│   ├── HereSdk.Explore.Maui.Tests/            # xUnit unit tests (no device)
+│   ├── HereSdk.Explore.Maui.RefApp.UITests/   # xUnit in-process VM/control/flow tests
+│   ├── HereSdk.Explore.Maui.UITests/          # NUnit Appium Android smoke tests
+│   └── HereSdk.Explore.Maui.DeviceTests/      # Platform device tests
+├── scripts/                                    # Build, test, pack, docs scripts
+├── docs/                                       # DocFX site (rendered to /site by DocFX)
+├── Version.props                               # Centralized version numbers
+└── tmp/                                        # SDK archives (gitignored; use HERE_SDK_CACHE)
+</code></pre>
+<h2 id="roadmap">Roadmap</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Scope</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Foundation: scaffolding, bindings, build infrastructure</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>1</td>
+<td>MapView + SDK Init: map display, camera, gestures, markers</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Search + Routing: full search &amp; routing on both platforms</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Traffic + Advanced: traffic, map items, advanced features</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Polish + NuGet: coverage, packaging, CI/CD, ref app UX</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Documentation: XML docs, DocFX pipeline, how-to guides</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Final Release: pre-release gate, artifacts, GA publish</td>
+<td>In Progress</td>
+</tr>
+</tbody>
+</table>
+<p>For per-phase task breakdowns and the live operational backlog see
+<a href="PLAN.md">PLAN.md</a>.</p>
+<h2 id="key-design-decisions">Key Design Decisions</h2>
+<ul>
+<li><strong>Unified API over platform exposure</strong> — Consumers use one C# interface; platform details are hidden</li>
+<li><strong>Native Library Interop for iOS</strong> — Swift wrapper framework bridges the Swift-only gap</li>
+<li><strong>MAUI Handler pattern</strong> — For <code>HereMapView</code>, not legacy custom renderers</li>
+<li><strong>Record types for models</strong> — Immutable value types (GeoCoordinates, Route, Waypoint, etc.)</li>
+<li><strong>Interface-driven services</strong> — <code>IMapService</code>, <code>IRoutingService</code>, etc. for testability</li>
+<li><strong>TDD</strong> — Write tests first, then implement</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li><strong>No Windows/macOS Catalyst support</strong> — HERE SDK is Android + iOS only</li>
+<li><strong>No CarPlay/Android Auto</strong> in unified API — platform-specific only</li>
+<li><strong>iOS <code>RefreshRouteOptions</code></strong> is deprecated and will NOT be bound</li>
+<li><strong>iOS binary size</strong> — xcframework is ~831 MB (stripped for release)</li>
+<li><strong>macOS required</strong> for building iOS bindings (Xcode dependency)</li>
+<li><strong>iOS feature gaps</strong>: map pick returns null (NativeBridge search-by-picked-place not yet wrapped)</li>
+<li><strong>Location service</strong> uses <code>Microsoft.Maui.Devices.Sensors.Geolocation</code> as primary source; HERE native positioning not yet exposed in iOS NativeBridge</li>
+<li><strong>Map circles</strong> are approximated as polygons (HERE SDK has no native circle primitive)</li>
+</ul>
+<h2 id="license">License</h2>
+<p>MIT</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/README.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

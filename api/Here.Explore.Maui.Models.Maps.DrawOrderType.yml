@@ -1,0 +1,171 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Models.Maps.DrawOrderType
+  commentId: T:Here.Explore.Maui.Models.Maps.DrawOrderType
+  id: DrawOrderType
+  parent: Here.Explore.Maui.Models.Maps
+  children:
+  - Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygons
+  - Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygonsAndAdas
+  - Here.Explore.Maui.Models.Maps.DrawOrderType.BelowPolygons
+  langs:
+  - csharp
+  - vb
+  name: DrawOrderType
+  nameWithType: DrawOrderType
+  fullName: Here.Explore.Maui.Models.Maps.DrawOrderType
+  type: Enum
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: DrawOrderType
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 244
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Draw order type for map items.
+  example: []
+  syntax:
+    content: public enum DrawOrderType
+    content.vb: Public Enum DrawOrderType
+- uid: Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygons
+  commentId: F:Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygons
+  id: AbovePolygons
+  parent: Here.Explore.Maui.Models.Maps.DrawOrderType
+  langs:
+  - csharp
+  - vb
+  name: AbovePolygons
+  nameWithType: DrawOrderType.AbovePolygons
+  fullName: Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygons
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: AbovePolygons
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 247
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Draw above polygon layers.
+  example: []
+  syntax:
+    content: AbovePolygons = 0
+    return:
+      type: Here.Explore.Maui.Models.Maps.DrawOrderType
+- uid: Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygonsAndAdas
+  commentId: F:Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygonsAndAdas
+  id: AbovePolygonsAndAdas
+  parent: Here.Explore.Maui.Models.Maps.DrawOrderType
+  langs:
+  - csharp
+  - vb
+  name: AbovePolygonsAndAdas
+  nameWithType: DrawOrderType.AbovePolygonsAndAdas
+  fullName: Here.Explore.Maui.Models.Maps.DrawOrderType.AbovePolygonsAndAdas
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: AbovePolygonsAndAdas
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 249
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Draw above polygons and ADAS layers.
+  example: []
+  syntax:
+    content: AbovePolygonsAndAdas = 1
+    return:
+      type: Here.Explore.Maui.Models.Maps.DrawOrderType
+- uid: Here.Explore.Maui.Models.Maps.DrawOrderType.BelowPolygons
+  commentId: F:Here.Explore.Maui.Models.Maps.DrawOrderType.BelowPolygons
+  id: BelowPolygons
+  parent: Here.Explore.Maui.Models.Maps.DrawOrderType
+  langs:
+  - csharp
+  - vb
+  name: BelowPolygons
+  nameWithType: DrawOrderType.BelowPolygons
+  fullName: Here.Explore.Maui.Models.Maps.DrawOrderType.BelowPolygons
+  type: Field
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: BelowPolygons
+    path: src/HereSdk.Explore.Maui/Models/Maps/MapModels.cs
+    startLine: 251
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Models.Maps
+  summary: Draw below polygon layers.
+  example: []
+  syntax:
+    content: BelowPolygons = 2
+    return:
+      type: Here.Explore.Maui.Models.Maps.DrawOrderType
+references:
+- uid: Here.Explore.Maui.Models.Maps
+  commentId: N:Here.Explore.Maui.Models.Maps
+  href: Here.html
+  name: Here.Explore.Maui.Models.Maps
+  nameWithType: Here.Explore.Maui.Models.Maps
+  fullName: Here.Explore.Maui.Models.Maps
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Maps
+    name: Maps
+    href: Here.Explore.Maui.Models.Maps.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Maps
+    name: Maps
+    href: Here.Explore.Maui.Models.Maps.html
+- uid: Here.Explore.Maui.Models.Maps.DrawOrderType
+  commentId: T:Here.Explore.Maui.Models.Maps.DrawOrderType
+  parent: Here.Explore.Maui.Models.Maps
+  href: Here.Explore.Maui.Models.Maps.DrawOrderType.html
+  name: DrawOrderType
+  nameWithType: DrawOrderType
+  fullName: Here.Explore.Maui.Models.Maps.DrawOrderType

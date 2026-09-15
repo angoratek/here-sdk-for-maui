@@ -1,0 +1,69 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Controls
+  commentId: N:Here.Explore.Maui.Controls
+  id: Here.Explore.Maui.Controls
+  children:
+  - Here.Explore.Maui.Controls.HereMapView
+  - Here.Explore.Maui.Controls.IHereMapView
+  langs:
+  - csharp
+  - vb
+  name: Here.Explore.Maui.Controls
+  nameWithType: Here.Explore.Maui.Controls
+  fullName: Here.Explore.Maui.Controls
+  type: Namespace
+  assemblies:
+  - HereSdk.Explore.Maui
+references:
+- uid: Here.Explore.Maui.Controls.HereMapView
+  commentId: T:Here.Explore.Maui.Controls.HereMapView
+  href: Here.Explore.Maui.Controls.HereMapView.html
+  name: HereMapView
+  nameWithType: HereMapView
+  fullName: Here.Explore.Maui.Controls.HereMapView
+- uid: Here.Explore.Maui.Controls.IHereMapView
+  commentId: T:Here.Explore.Maui.Controls.IHereMapView
+  parent: Here.Explore.Maui.Controls
+  href: Here.Explore.Maui.Controls.IHereMapView.html
+  name: IHereMapView
+  nameWithType: IHereMapView
+  fullName: Here.Explore.Maui.Controls.IHereMapView
+- uid: Here.Explore.Maui.Controls
+  commentId: N:Here.Explore.Maui.Controls
+  href: Here.html
+  name: Here.Explore.Maui.Controls
+  nameWithType: Here.Explore.Maui.Controls
+  fullName: Here.Explore.Maui.Controls
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Controls
+    name: Controls
+    href: Here.Explore.Maui.Controls.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Controls
+    name: Controls
+    href: Here.Explore.Maui.Controls.html

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Place | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Place | HERE SDK for MAUI ">
+      
+      <meta name="description" content="A place (POI) returned by search.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/new/main/apiSpec/new?filename=Here_Explore_Maui_Models_Search_Place.md&amp;value=---%0Auid%3A%20Here.Explore.Maui.Models.Search.Place%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Here.Explore.Maui.Models.Search.Place">
+
+
+
+  <h1 id="Here_Explore_Maui_Models_Search_Place" data-uid="Here.Explore.Maui.Models.Search.Place" class="text-break">
+Class Place  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Here.html">Here</a>.<a class="xref" href="Here.Explore.html">Explore</a>.<a class="xref" href="Here.Explore.Maui.html">Maui</a>.<a class="xref" href="Here.Explore.Maui.Models.html">Models</a>.<a class="xref" href="Here.Explore.Maui.Models.Search.html">Search</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>HereSdk.Explore.Maui.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A place (POI) returned by search.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public record Place : IEquatable&lt;Place&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Place</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Search.Place.html">Place</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place__ctor_" data-uid="Here.Explore.Maui.Models.Search.Place.#ctor*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place__ctor_System_String_System_String_Here_Explore_Maui_Models_GeoCoordinates_Here_Explore_Maui_Models_Search_Address_System_Nullable_System_Double__System_String_Here_Explore_Maui_Models_Search_PlaceCategory_System_Collections_Generic_IReadOnlyList_Here_Explore_Maui_Models_Search_PlaceCategory__Here_Explore_Maui_Models_Search_Contact_Here_Explore_Maui_Models_Search_OpeningHours_" data-uid="Here.Explore.Maui.Models.Search.Place.#ctor(System.String,System.String,Here.Explore.Maui.Models.GeoCoordinates,Here.Explore.Maui.Models.Search.Address,System.Nullable{System.Double},System.String,Here.Explore.Maui.Models.Search.PlaceCategory,System.Collections.Generic.IReadOnlyList{Here.Explore.Maui.Models.Search.PlaceCategory},Here.Explore.Maui.Models.Search.Contact,Here.Explore.Maui.Models.Search.OpeningHours)">
+  Place(string, string, GeoCoordinates, Address?, double?, string?, PlaceCategory?, IReadOnlyList&lt;PlaceCategory&gt;?, Contact?, OpeningHours?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A place (POI) returned by search.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Place(string Id, string Title, GeoCoordinates Coordinates, Address? Address = null, double? DistanceInMeters = null, string? Category = null, PlaceCategory? PrimaryCategory = null, IReadOnlyList&lt;PlaceCategory&gt;? Categories = null, Contact? Contact = null, OpeningHours? OpeningHours = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Coordinates</code> <a class="xref" href="Here.Explore.Maui.Models.GeoCoordinates.html">GeoCoordinates</a></dt>
+    <dd></dd>
+    <dt><code>Address</code> <a class="xref" href="Here.Explore.Maui.Models.Search.Address.html">Address</a></dt>
+    <dd></dd>
+    <dt><code>DistanceInMeters</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>?</dt>
+    <dd></dd>
+    <dt><code>Category</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>PrimaryCategory</code> <a class="xref" href="Here.Explore.Maui.Models.Search.PlaceCategory.html">PlaceCategory</a></dt>
+    <dd></dd>
+    <dt><code>Categories</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Search.PlaceCategory.html">PlaceCategory</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>Contact</code> <a class="xref" href="Here.Explore.Maui.Models.Search.Contact.html">Contact</a></dt>
+    <dd></dd>
+    <dt><code>OpeningHours</code> <a class="xref" href="Here.Explore.Maui.Models.Search.OpeningHours.html">OpeningHours</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Address_" data-uid="Here.Explore.Maui.Models.Search.Place.Address*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Address" data-uid="Here.Explore.Maui.Models.Search.Place.Address">
+  Address
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Address? Address { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Here.Explore.Maui.Models.Search.Address.html">Address</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Categories_" data-uid="Here.Explore.Maui.Models.Search.Place.Categories*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Categories" data-uid="Here.Explore.Maui.Models.Search.Place.Categories">
+  Categories
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;PlaceCategory&gt;? Categories { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Search.PlaceCategory.html">PlaceCategory</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Category_" data-uid="Here.Explore.Maui.Models.Search.Place.Category*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Category" data-uid="Here.Explore.Maui.Models.Search.Place.Category">
+  Category
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Category { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Contact_" data-uid="Here.Explore.Maui.Models.Search.Place.Contact*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Contact" data-uid="Here.Explore.Maui.Models.Search.Place.Contact">
+  Contact
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Contact? Contact { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Here.Explore.Maui.Models.Search.Contact.html">Contact</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Coordinates_" data-uid="Here.Explore.Maui.Models.Search.Place.Coordinates*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Coordinates" data-uid="Here.Explore.Maui.Models.Search.Place.Coordinates">
+  Coordinates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GeoCoordinates Coordinates { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Here.Explore.Maui.Models.GeoCoordinates.html">GeoCoordinates</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_DistanceInMeters_" data-uid="Here.Explore.Maui.Models.Search.Place.DistanceInMeters*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_DistanceInMeters" data-uid="Here.Explore.Maui.Models.Search.Place.DistanceInMeters">
+  DistanceInMeters
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double? DistanceInMeters { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Id_" data-uid="Here.Explore.Maui.Models.Search.Place.Id*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Id" data-uid="Here.Explore.Maui.Models.Search.Place.Id">
+  Id
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_OpeningHours_" data-uid="Here.Explore.Maui.Models.Search.Place.OpeningHours*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_OpeningHours" data-uid="Here.Explore.Maui.Models.Search.Place.OpeningHours">
+  OpeningHours
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpeningHours? OpeningHours { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Here.Explore.Maui.Models.Search.OpeningHours.html">OpeningHours</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_PrimaryCategory_" data-uid="Here.Explore.Maui.Models.Search.Place.PrimaryCategory*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_PrimaryCategory" data-uid="Here.Explore.Maui.Models.Search.Place.PrimaryCategory">
+  PrimaryCategory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlaceCategory? PrimaryCategory { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Here.Explore.Maui.Models.Search.PlaceCategory.html">PlaceCategory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Models_Search_Place_Title_" data-uid="Here.Explore.Maui.Models.Search.Place.Title*"></a>
+
+  <h3 id="Here_Explore_Maui_Models_Search_Place_Title" data-uid="Here.Explore.Maui.Models.Search.Place.Title">
+  Title
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Title { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Models/Search/SearchModels.cs/#L45" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

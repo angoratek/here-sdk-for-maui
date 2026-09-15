@@ -1,0 +1,1051 @@
+### YamlMime:ManagedReference
+items:
+- uid: Here.Explore.Maui.Services.TrafficService
+  commentId: T:Here.Explore.Maui.Services.TrafficService
+  id: TrafficService
+  parent: Here.Explore.Maui.Services
+  children:
+  - Here.Explore.Maui.Services.TrafficService.Dispose
+  - Here.Explore.Maui.Services.TrafficService.Dispose(System.Boolean)
+  - Here.Explore.Maui.Services.TrafficService.IsInitialized
+  - Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  - Here.Explore.Maui.Services.TrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  - Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  langs:
+  - csharp
+  - vb
+  name: TrafficService
+  nameWithType: TrafficService
+  fullName: Here.Explore.Maui.Services.TrafficService
+  type: Class
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: TrafficService
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+    startLine: 10
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: >-
+    Android-specific TrafficService implementation.
+
+    Binding callback interfaces are renamed: TrafficFlowQueryHandler, TrafficIncidentsQueryHandler,
+
+    TrafficIncidentLookupHandler (Metadata.xml renames Callback → Handler).
+  example: []
+  syntax:
+    content: 'public class TrafficService : ITrafficService, IHereSdkService, IDisposable'
+    content.vb: Public Class TrafficService Implements ITrafficService, IHereSdkService, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - Here.Explore.Maui.Services.ITrafficService
+  - Here.Explore.Maui.Services.IHereSdkService
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Here.Explore.Maui.Services.TrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  commentId: M:Here.Explore.Maui.Services.TrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  id: QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  parent: Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: QueryFlowAsync(GeoCircle, TrafficFlowQueryOptions)
+  nameWithType: TrafficService.QueryFlowAsync(GeoCircle, TrafficFlowQueryOptions)
+  fullName: Here.Explore.Maui.Services.TrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle, Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.Android.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: QueryFlowAsync
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.Android.cs
+    startLine: 30
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Queries real-time traffic flow data for a geographic area.
+  example: []
+  syntax:
+    content: public Task<TrafficFlowResult> QueryFlowAsync(GeoCircle area, TrafficFlowQueryOptions options)
+    parameters:
+    - id: area
+      type: Here.Explore.Maui.Models.GeoCircle
+      description: The geographic circle defining the query area.
+    - id: options
+      type: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions
+      description: Flow query options.
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficFlowResult}
+      description: The flow result containing speed and jam factor data, or an error.
+    content.vb: Public Function QueryFlowAsync(area As GeoCircle, options As TrafficFlowQueryOptions) As Task(Of TrafficFlowResult)
+  overload: Here.Explore.Maui.Services.TrafficService.QueryFlowAsync*
+  implements:
+  - Here.Explore.Maui.Services.ITrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+- uid: Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  commentId: M:Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  id: QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  parent: Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: QueryIncidentsAsync(GeoCircle, TrafficIncidentsQueryOptions)
+  nameWithType: TrafficService.QueryIncidentsAsync(GeoCircle, TrafficIncidentsQueryOptions)
+  fullName: Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle, Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.Android.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: QueryIncidentsAsync
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.Android.cs
+    startLine: 44
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Queries traffic incidents for a geographic area.
+  example: []
+  syntax:
+    content: public Task<TrafficIncidentsResult> QueryIncidentsAsync(GeoCircle area, TrafficIncidentsQueryOptions options)
+    parameters:
+    - id: area
+      type: Here.Explore.Maui.Models.GeoCircle
+      description: The geographic circle defining the query area.
+    - id: options
+      type: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions
+      description: Incidents query options.
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult}
+      description: The incidents result containing active incidents, or an error.
+    content.vb: Public Function QueryIncidentsAsync(area As GeoCircle, options As TrafficIncidentsQueryOptions) As Task(Of TrafficIncidentsResult)
+  overload: Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync*
+  implements:
+  - Here.Explore.Maui.Services.ITrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+- uid: Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  commentId: M:Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  id: LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  parent: Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: LookupIncidentAsync(string, TrafficIncidentLookupOptions)
+  nameWithType: TrafficService.LookupIncidentAsync(string, TrafficIncidentLookupOptions)
+  fullName: Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync(string, Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.Android.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: LookupIncidentAsync
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.Android.cs
+    startLine: 58
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Looks up a specific traffic incident by its ID.
+  example: []
+  syntax:
+    content: public Task<TrafficIncident?> LookupIncidentAsync(string incidentId, TrafficIncidentLookupOptions options)
+    parameters:
+    - id: incidentId
+      type: System.String
+      description: The incident identifier from a previous query.
+    - id: options
+      type: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions
+      description: Lookup options.
+    return:
+      type: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficIncident}
+      description: The incident, or null if not found.
+    content.vb: Public Function LookupIncidentAsync(incidentId As String, options As TrafficIncidentLookupOptions) As Task(Of TrafficIncident)
+  overload: Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync*
+  implements:
+  - Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  nameWithType.vb: TrafficService.LookupIncidentAsync(String, TrafficIncidentLookupOptions)
+  fullName.vb: Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync(String, Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  name.vb: LookupIncidentAsync(String, TrafficIncidentLookupOptions)
+- uid: Here.Explore.Maui.Services.TrafficService.IsInitialized
+  commentId: P:Here.Explore.Maui.Services.TrafficService.IsInitialized
+  id: IsInitialized
+  parent: Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: IsInitialized
+  nameWithType: TrafficService.IsInitialized
+  fullName: Here.Explore.Maui.Services.TrafficService.IsInitialized
+  type: Property
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: IsInitialized
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+    startLine: 26
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: >-
+    Gets whether the service's native traffic engine has been created.
+
+    False until <xref href="Here.Explore.Maui.Services.TrafficService.Initialize" data-throw-if-not-resolved="false"></xref> runs. Used by integration tests
+
+    to confirm the DI factory wired initialization correctly.
+  example: []
+  syntax:
+    content: public bool IsInitialized { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsInitialized As Boolean
+  overload: Here.Explore.Maui.Services.TrafficService.IsInitialized*
+- uid: Here.Explore.Maui.Services.TrafficService.Dispose(System.Boolean)
+  commentId: M:Here.Explore.Maui.Services.TrafficService.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: Dispose(bool)
+  nameWithType: TrafficService.Dispose(bool)
+  fullName: Here.Explore.Maui.Services.TrafficService.Dispose(bool)
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Dispose
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+    startLine: 44
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  example: []
+  syntax:
+    content: protected virtual void Dispose(bool disposing)
+    parameters:
+    - id: disposing
+      type: System.Boolean
+    content.vb: Protected Overridable Sub Dispose(disposing As Boolean)
+  overload: Here.Explore.Maui.Services.TrafficService.Dispose*
+  nameWithType.vb: TrafficService.Dispose(Boolean)
+  fullName.vb: Here.Explore.Maui.Services.TrafficService.Dispose(Boolean)
+  name.vb: Dispose(Boolean)
+- uid: Here.Explore.Maui.Services.TrafficService.Dispose
+  commentId: M:Here.Explore.Maui.Services.TrafficService.Dispose
+  id: Dispose
+  parent: Here.Explore.Maui.Services.TrafficService
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: TrafficService.Dispose()
+  fullName: Here.Explore.Maui.Services.TrafficService.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+      branch: main
+      repo: https://github.com/angoratek/here-sdk-for-maui
+    id: Dispose
+    path: src/HereSdk.Explore.Maui/Services/TrafficService.cs
+    startLine: 62
+  assemblies:
+  - HereSdk.Explore.Maui
+  namespace: Here.Explore.Maui.Services
+  summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose()
+  overload: Here.Explore.Maui.Services.TrafficService.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+references:
+- uid: Here.Explore.Maui.Services
+  commentId: N:Here.Explore.Maui.Services
+  href: Here.html
+  name: Here.Explore.Maui.Services
+  nameWithType: Here.Explore.Maui.Services
+  fullName: Here.Explore.Maui.Services
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Services
+    name: Services
+    href: Here.Explore.Maui.Services.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Here.Explore.Maui.Services.ITrafficService
+  commentId: T:Here.Explore.Maui.Services.ITrafficService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.ITrafficService.html
+  name: ITrafficService
+  nameWithType: ITrafficService
+  fullName: Here.Explore.Maui.Services.ITrafficService
+- uid: Here.Explore.Maui.Services.IHereSdkService
+  commentId: T:Here.Explore.Maui.Services.IHereSdkService
+  parent: Here.Explore.Maui.Services
+  href: Here.Explore.Maui.Services.IHereSdkService.html
+  name: IHereSdkService
+  nameWithType: IHereSdkService
+  fullName: Here.Explore.Maui.Services.IHereSdkService
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Here.Explore.Maui.Services.TrafficService.QueryFlowAsync*
+  commentId: Overload:Here.Explore.Maui.Services.TrafficService.QueryFlowAsync
+  href: Here.Explore.Maui.Services.TrafficService.html#Here_Explore_Maui_Services_TrafficService_QueryFlowAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficFlowQueryOptions_
+  name: QueryFlowAsync
+  nameWithType: TrafficService.QueryFlowAsync
+  fullName: Here.Explore.Maui.Services.TrafficService.QueryFlowAsync
+- uid: Here.Explore.Maui.Services.ITrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  commentId: M:Here.Explore.Maui.Services.ITrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  parent: Here.Explore.Maui.Services.ITrafficService
+  href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_QueryFlowAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficFlowQueryOptions_
+  name: QueryFlowAsync(GeoCircle, TrafficFlowQueryOptions)
+  nameWithType: ITrafficService.QueryFlowAsync(GeoCircle, TrafficFlowQueryOptions)
+  fullName: Here.Explore.Maui.Services.ITrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle, Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+  spec.csharp:
+  - uid: Here.Explore.Maui.Services.ITrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+    name: QueryFlowAsync
+    href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_QueryFlowAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficFlowQueryOptions_
+  - name: (
+  - uid: Here.Explore.Maui.Models.GeoCircle
+    name: GeoCircle
+    href: Here.Explore.Maui.Models.GeoCircle.html
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions
+    name: TrafficFlowQueryOptions
+    href: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Services.ITrafficService.QueryFlowAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions)
+    name: QueryFlowAsync
+    href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_QueryFlowAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficFlowQueryOptions_
+  - name: (
+  - uid: Here.Explore.Maui.Models.GeoCircle
+    name: GeoCircle
+    href: Here.Explore.Maui.Models.GeoCircle.html
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions
+    name: TrafficFlowQueryOptions
+    href: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions.html
+  - name: )
+- uid: Here.Explore.Maui.Models.GeoCircle
+  commentId: T:Here.Explore.Maui.Models.GeoCircle
+  parent: Here.Explore.Maui.Models
+  href: Here.Explore.Maui.Models.GeoCircle.html
+  name: GeoCircle
+  nameWithType: GeoCircle
+  fullName: Here.Explore.Maui.Models.GeoCircle
+- uid: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions
+  commentId: T:Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions
+  parent: Here.Explore.Maui.Models.Traffic
+  href: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions.html
+  name: TrafficFlowQueryOptions
+  nameWithType: TrafficFlowQueryOptions
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficFlowResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficFlowResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TrafficFlowResult>
+  nameWithType: Task<TrafficFlowResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Traffic.TrafficFlowResult>
+  nameWithType.vb: Task(Of TrafficFlowResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Traffic.TrafficFlowResult)
+  name.vb: Task(Of TrafficFlowResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficFlowResult
+    name: TrafficFlowResult
+    href: Here.Explore.Maui.Models.Traffic.TrafficFlowResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficFlowResult
+    name: TrafficFlowResult
+    href: Here.Explore.Maui.Models.Traffic.TrafficFlowResult.html
+  - name: )
+- uid: Here.Explore.Maui.Models
+  commentId: N:Here.Explore.Maui.Models
+  href: Here.html
+  name: Here.Explore.Maui.Models
+  nameWithType: Here.Explore.Maui.Models
+  fullName: Here.Explore.Maui.Models
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+- uid: Here.Explore.Maui.Models.Traffic
+  commentId: N:Here.Explore.Maui.Models.Traffic
+  href: Here.html
+  name: Here.Explore.Maui.Models.Traffic
+  nameWithType: Here.Explore.Maui.Models.Traffic
+  fullName: Here.Explore.Maui.Models.Traffic
+  spec.csharp:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Traffic
+    name: Traffic
+    href: Here.Explore.Maui.Models.Traffic.html
+  spec.vb:
+  - uid: Here
+    name: Here
+    href: Here.html
+  - name: .
+  - uid: Here.Explore
+    name: Explore
+    href: Here.Explore.html
+  - name: .
+  - uid: Here.Explore.Maui
+    name: Maui
+    href: Here.Explore.Maui.html
+  - name: .
+  - uid: Here.Explore.Maui.Models
+    name: Models
+    href: Here.Explore.Maui.Models.html
+  - name: .
+  - uid: Here.Explore.Maui.Models.Traffic
+    name: Traffic
+    href: Here.Explore.Maui.Models.Traffic.html
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync*
+  commentId: Overload:Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync
+  href: Here.Explore.Maui.Services.TrafficService.html#Here_Explore_Maui_Services_TrafficService_QueryIncidentsAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficIncidentsQueryOptions_
+  name: QueryIncidentsAsync
+  nameWithType: TrafficService.QueryIncidentsAsync
+  fullName: Here.Explore.Maui.Services.TrafficService.QueryIncidentsAsync
+- uid: Here.Explore.Maui.Services.ITrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  commentId: M:Here.Explore.Maui.Services.ITrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  parent: Here.Explore.Maui.Services.ITrafficService
+  href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_QueryIncidentsAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficIncidentsQueryOptions_
+  name: QueryIncidentsAsync(GeoCircle, TrafficIncidentsQueryOptions)
+  nameWithType: ITrafficService.QueryIncidentsAsync(GeoCircle, TrafficIncidentsQueryOptions)
+  fullName: Here.Explore.Maui.Services.ITrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle, Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+  spec.csharp:
+  - uid: Here.Explore.Maui.Services.ITrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+    name: QueryIncidentsAsync
+    href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_QueryIncidentsAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficIncidentsQueryOptions_
+  - name: (
+  - uid: Here.Explore.Maui.Models.GeoCircle
+    name: GeoCircle
+    href: Here.Explore.Maui.Models.GeoCircle.html
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions
+    name: TrafficIncidentsQueryOptions
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Services.ITrafficService.QueryIncidentsAsync(Here.Explore.Maui.Models.GeoCircle,Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions)
+    name: QueryIncidentsAsync
+    href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_QueryIncidentsAsync_Here_Explore_Maui_Models_GeoCircle_Here_Explore_Maui_Models_Traffic_TrafficIncidentsQueryOptions_
+  - name: (
+  - uid: Here.Explore.Maui.Models.GeoCircle
+    name: GeoCircle
+    href: Here.Explore.Maui.Models.GeoCircle.html
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions
+    name: TrafficIncidentsQueryOptions
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions.html
+  - name: )
+- uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions
+  commentId: T:Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions
+  parent: Here.Explore.Maui.Models.Traffic
+  href: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions.html
+  name: TrafficIncidentsQueryOptions
+  nameWithType: TrafficIncidentsQueryOptions
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TrafficIncidentsResult>
+  nameWithType: Task<TrafficIncidentsResult>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult>
+  nameWithType.vb: Task(Of TrafficIncidentsResult)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult)
+  name.vb: Task(Of TrafficIncidentsResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult
+    name: TrafficIncidentsResult
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult
+    name: TrafficIncidentsResult
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult.html
+  - name: )
+- uid: Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync*
+  commentId: Overload:Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync
+  href: Here.Explore.Maui.Services.TrafficService.html#Here_Explore_Maui_Services_TrafficService_LookupIncidentAsync_System_String_Here_Explore_Maui_Models_Traffic_TrafficIncidentLookupOptions_
+  name: LookupIncidentAsync
+  nameWithType: TrafficService.LookupIncidentAsync
+  fullName: Here.Explore.Maui.Services.TrafficService.LookupIncidentAsync
+- uid: Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  commentId: M:Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  parent: Here.Explore.Maui.Services.ITrafficService
+  isExternal: true
+  href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_LookupIncidentAsync_System_String_Here_Explore_Maui_Models_Traffic_TrafficIncidentLookupOptions_
+  name: LookupIncidentAsync(string, TrafficIncidentLookupOptions)
+  nameWithType: ITrafficService.LookupIncidentAsync(string, TrafficIncidentLookupOptions)
+  fullName: Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(string, Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  nameWithType.vb: ITrafficService.LookupIncidentAsync(String, TrafficIncidentLookupOptions)
+  fullName.vb: Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(String, Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+  name.vb: LookupIncidentAsync(String, TrafficIncidentLookupOptions)
+  spec.csharp:
+  - uid: Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+    name: LookupIncidentAsync
+    href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_LookupIncidentAsync_System_String_Here_Explore_Maui_Models_Traffic_TrafficIncidentLookupOptions_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions
+    name: TrafficIncidentLookupOptions
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions.html
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Services.ITrafficService.LookupIncidentAsync(System.String,Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions)
+    name: LookupIncidentAsync
+    href: Here.Explore.Maui.Services.ITrafficService.html#Here_Explore_Maui_Services_ITrafficService_LookupIncidentAsync_System_String_Here_Explore_Maui_Models_Traffic_TrafficIncidentLookupOptions_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions
+    name: TrafficIncidentLookupOptions
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions.html
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions
+  commentId: T:Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions
+  parent: Here.Explore.Maui.Models.Traffic
+  href: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions.html
+  name: TrafficIncidentLookupOptions
+  nameWithType: TrafficIncidentLookupOptions
+  fullName: Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions
+- uid: System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficIncident}
+  commentId: T:System.Threading.Tasks.Task{Here.Explore.Maui.Models.Traffic.TrafficIncident}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TrafficIncident>
+  nameWithType: Task<TrafficIncident>
+  fullName: System.Threading.Tasks.Task<Here.Explore.Maui.Models.Traffic.TrafficIncident>
+  nameWithType.vb: Task(Of TrafficIncident)
+  fullName.vb: System.Threading.Tasks.Task(Of Here.Explore.Maui.Models.Traffic.TrafficIncident)
+  name.vb: Task(Of TrafficIncident)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncident
+    name: TrafficIncident
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncident.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Here.Explore.Maui.Models.Traffic.TrafficIncident
+    name: TrafficIncident
+    href: Here.Explore.Maui.Models.Traffic.TrafficIncident.html
+  - name: )
+- uid: Here.Explore.Maui.Services.TrafficService.Initialize
+  commentId: M:Here.Explore.Maui.Services.TrafficService.Initialize
+  name: Initialize()
+  nameWithType: TrafficService.Initialize()
+  fullName: Here.Explore.Maui.Services.TrafficService.Initialize()
+  spec.csharp:
+  - uid: Here.Explore.Maui.Services.TrafficService.Initialize
+    name: Initialize
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Here.Explore.Maui.Services.TrafficService.Initialize
+    name: Initialize
+  - name: (
+  - name: )
+- uid: Here.Explore.Maui.Services.TrafficService.IsInitialized*
+  commentId: Overload:Here.Explore.Maui.Services.TrafficService.IsInitialized
+  href: Here.Explore.Maui.Services.TrafficService.html#Here_Explore_Maui_Services_TrafficService_IsInitialized
+  name: IsInitialized
+  nameWithType: TrafficService.IsInitialized
+  fullName: Here.Explore.Maui.Services.TrafficService.IsInitialized
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Here.Explore.Maui.Services.TrafficService.Dispose*
+  commentId: Overload:Here.Explore.Maui.Services.TrafficService.Dispose
+  href: Here.Explore.Maui.Services.TrafficService.html#Here_Explore_Maui_Services_TrafficService_Dispose_System_Boolean_
+  name: Dispose
+  nameWithType: TrafficService.Dispose
+  fullName: Here.Explore.Maui.Services.TrafficService.Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )

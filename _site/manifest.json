@@ -1,0 +1,2046 @@
+{
+  "source_base_path": "/Users/runner/work/here-sdk-for-maui/here-sdk-for-maui",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Controls.HereMapView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Controls.HereMapView.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Controls.HereMapView",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Controls.HereMapView.yml\" sourcestartlinenumber=\"1\">Cross-platform HERE map view control.\nMap events are exposed via <xref href=\"Here.Explore.Maui.Controls.HereMapView.Map\" data-throw-if-not-resolved=\"false\"></xref> (IMapService).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Controls.IHereMapView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Controls.IHereMapView.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Controls.IHereMapView",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Controls.IHereMapView.yml\" sourcestartlinenumber=\"1\">Interface for the cross-platform map view.\nMap events are exposed via <xref href=\"Here.Explore.Maui.Services.IMapService\" data-throw-if-not-resolved=\"false\"></xref> (accessed through <xref href=\"Here.Explore.Maui.Controls.IHereMapView.Map\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Controls.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Controls.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Controls",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Handlers.HereMapViewHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Handlers.HereMapViewHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Handlers.HereMapViewHandler",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Handlers.HereMapViewHandler.yml\" sourcestartlinenumber=\"1\">Shared handler logic for HereMapView.\nPlatform view type is declared in platform-specific partial classes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Handlers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Handlers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Handlers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Helpers.CircleGeometryHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Helpers.CircleGeometryHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Helpers.CircleGeometryHelper",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Helpers.CircleGeometryHelper.yml\" sourcestartlinenumber=\"1\">Helper for generating circle geometry as a polygon approximation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Helpers.RouteGeometryHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Helpers.RouteGeometryHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Helpers.RouteGeometryHelper",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Helpers.RouteGeometryHelper.yml\" sourcestartlinenumber=\"1\">Helper class for extracting route geometry and creating map polylines.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Helpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Helpers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.HereSdk.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.HereSdk.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.HereSdk",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.HereSdk.yml\" sourcestartlinenumber=\"1\">Entry point for HERE SDK Explore Edition initialization.\nCall <xref href=\"Here.Explore.Maui.HereSdk.Initialize(Here.Explore.Maui.HereSdkOptions)\" data-throw-if-not-resolved=\"false\"></xref> once at app startup before using any other API.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.HereSdkCachePolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.HereSdkCachePolicy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.HereSdkCachePolicy",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.HereSdkCachePolicy.yml\" sourcestartlinenumber=\"1\">Cache policy for the HERE SDK.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.HereSdkExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.HereSdkExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.HereSdkExtensions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.HereSdkExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering HERE SDK services with MAUI DI.\nServices implement IDisposable for native resource cleanup.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.HereSdkOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.HereSdkOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.HereSdkOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.HereSdkOptions.yml\" sourcestartlinenumber=\"1\">Options for initializing the HERE SDK.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.EngineBaseUrl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.EngineBaseUrl.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.EngineBaseUrl",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.EngineBaseUrl.yml\" sourcestartlinenumber=\"1\">Engine base URL options.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoBox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoBox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoBox",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoBox.yml\" sourcestartlinenumber=\"1\">Geographic bounding box defined by southwest and northeast corners.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoCircle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoCircle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoCircle",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoCircle.yml\" sourcestartlinenumber=\"1\">Geographic circle defined by center and radius.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoCoordinates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoCoordinates.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoCoordinates",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoCoordinates.yml\" sourcestartlinenumber=\"1\">Geographic coordinates (latitude/longitude).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoCoordinatesUpdate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoCoordinatesUpdate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoCoordinatesUpdate",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoCoordinatesUpdate.yml\" sourcestartlinenumber=\"1\">Update for geographic coordinates (partial update).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoCorridor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoCorridor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoCorridor",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoCorridor.yml\" sourcestartlinenumber=\"1\">Geographic corridor defined by a polyline and radius.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoOrientation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoOrientation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoOrientation",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoOrientation.yml\" sourcestartlinenumber=\"1\">Geographic orientation (bearing and tilt).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoOrientationUpdate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoOrientationUpdate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoOrientationUpdate",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoOrientationUpdate.yml\" sourcestartlinenumber=\"1\">Geographic orientation update (partial update).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoPolygon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoPolygon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoPolygon",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoPolygon.yml\" sourcestartlinenumber=\"1\">Geographic polygon defined by vertices.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.GeoPolyline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.GeoPolyline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.GeoPolyline",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.GeoPolyline.yml\" sourcestartlinenumber=\"1\">Geographic polyline defined by vertices.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.InstantiationErrorCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.InstantiationErrorCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.InstantiationErrorCode",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.InstantiationErrorCode.yml\" sourcestartlinenumber=\"1\">Error codes for SDK instantiation failures.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Location.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Location.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Location",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Location.yml\" sourcestartlinenumber=\"1\">Represents a geographic location with coordinates and optional metadata.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.LocationSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.LocationSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.LocationSource",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.LocationSource.yml\" sourcestartlinenumber=\"1\">Source of a location fix.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.LogLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.LogLevel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.LogLevel",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.LogLevel.yml\" sourcestartlinenumber=\"1\">SDK log level.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.CameraAnimation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.CameraAnimation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.CameraAnimation",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.CameraAnimation.yml\" sourcestartlinenumber=\"1\">Camera animation parameters.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.CameraStateChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.CameraStateChangedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.CameraStateChangedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.CameraStateChangedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for camera state changes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.ClusterStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.ClusterStyle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.ClusterStyle",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.ClusterStyle.yml\" sourcestartlinenumber=\"1\">Styling for cluster counters.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.ClusterTextAnchor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.ClusterTextAnchor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.ClusterTextAnchor",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.ClusterTextAnchor.yml\" sourcestartlinenumber=\"1\">Anchor position for cluster text.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.DrawOrderType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.DrawOrderType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.DrawOrderType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.DrawOrderType.yml\" sourcestartlinenumber=\"1\">Draw order type for map items.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.LineCap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.LineCap.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.LineCap",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.LineCap.yml\" sourcestartlinenumber=\"1\">Line cap style for polyline endpoints.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.LocationIndicator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.LocationIndicator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.LocationIndicator",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.LocationIndicator.yml\" sourcestartlinenumber=\"1\">Location indicator (user location puck) configuration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.LocationIndicatorStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.LocationIndicatorStyle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.LocationIndicatorStyle",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.LocationIndicatorStyle.yml\" sourcestartlinenumber=\"1\">Visual style for location indicator.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapArrow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapArrow.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapArrow",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapArrow.yml\" sourcestartlinenumber=\"1\">An arrow drawn on the map (direction indicator).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapCircle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapCircle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapCircle",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapCircle.yml\" sourcestartlinenumber=\"1\">A circle drawn on the map. Implemented internally as a polygon approximation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapContentCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapContentCategory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapContentCategory",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapContentCategory.yml\" sourcestartlinenumber=\"1\">Map content category for visibility filtering.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapDoubleTappedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapDoubleTappedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapDoubleTappedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapDoubleTappedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for map double-tapped events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapLongPressedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapLongPressedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapLongPressedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapLongPressedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for map long-pressed events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapMarker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapMarker.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapMarker",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapMarker.yml\" sourcestartlinenumber=\"1\">A map marker at geographic coordinates.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapMarker3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapMarker3D.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapMarker3D",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapMarker3D.yml\" sourcestartlinenumber=\"1\">A 3D map marker (billboard or model-based).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapMarkerCluster.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapMarkerCluster.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapMarkerCluster",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapMarkerCluster.yml\" sourcestartlinenumber=\"1\">Marker clustering configuration. Groups nearby markers into clusters.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPannedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapPannedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapPannedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPannedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for map panned (dragged) events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPickResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapPickResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapPickResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPickResult.yml\" sourcestartlinenumber=\"1\">Result of picking map items at a screen coordinate.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPinchRotatedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapPinchRotatedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapPinchRotatedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPinchRotatedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for map pinch/rotate gesture events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPinchedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapPinchedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapPinchedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPinchedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for map pinched events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPolygon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapPolygon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapPolygon",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPolygon.yml\" sourcestartlinenumber=\"1\">A polygon drawn on the map.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPolyline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapPolyline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapPolyline",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapPolyline.yml\" sourcestartlinenumber=\"1\">A polyline drawn on the map.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapScheme.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapScheme.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapScheme",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapScheme.yml\" sourcestartlinenumber=\"1\">Map scheme (visual style).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapTappedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.MapTappedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps.MapTappedEventArgs",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Maps.MapTappedEventArgs.yml\" sourcestartlinenumber=\"1\">Event args for map tapped events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Maps.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Maps.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Maps",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Point2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Point2D.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Point2D",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Point2D.yml\" sourcestartlinenumber=\"1\">2D point with X and Y coordinates.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Rectangle2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Rectangle2D.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Rectangle2D",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Rectangle2D.yml\" sourcestartlinenumber=\"1\">2D rectangle defined by origin and size.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.AvoidType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.AvoidType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.AvoidType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.AvoidType.yml\" sourcestartlinenumber=\"1\">Road or feature types to avoid during route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.AvoidanceOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.AvoidanceOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.AvoidanceOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.AvoidanceOptions.yml\" sourcestartlinenumber=\"1\">Route avoidance options (roads, areas, or features to avoid).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.CarSpecifications.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.CarSpecifications.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.CarSpecifications",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.CarSpecifications.yml\" sourcestartlinenumber=\"1\">Car vehicle specifications for route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Isoline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Isoline.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Isoline",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Isoline.yml\" sourcestartlinenumber=\"1\">An isoline (reachability polygon) from a center point.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.IsolineOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.IsolineOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.IsolineOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.IsolineOptions.yml\" sourcestartlinenumber=\"1\">Options for isoline calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.IsolineResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.IsolineResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.IsolineResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.IsolineResult.yml\" sourcestartlinenumber=\"1\">Result of an isoline calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Maneuver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Maneuver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Maneuver",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Maneuver.yml\" sourcestartlinenumber=\"1\">A maneuver instruction along a route.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.ManeuverAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.ManeuverAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.ManeuverAction",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.ManeuverAction.yml\" sourcestartlinenumber=\"1\">Maneuver action types.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.NoticeSeverity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.NoticeSeverity.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.NoticeSeverity",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.NoticeSeverity.yml\" sourcestartlinenumber=\"1\">Severity of a route section notice.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.OptimizationMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.OptimizationMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.OptimizationMode",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.OptimizationMode.yml\" sourcestartlinenumber=\"1\">Optimization mode for route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Route.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Route.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Route",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Route.yml\" sourcestartlinenumber=\"1\">A calculated route.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.RouteHandle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.RouteHandle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.RouteHandle",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.RouteHandle.yml\" sourcestartlinenumber=\"1\">Handle to a calculated route (can be used to refresh or get traffic).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutePlace.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.RoutePlace.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.RoutePlace",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutePlace.yml\" sourcestartlinenumber=\"1\">A named place along a route (departure/arrival station, parking, etc.).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutePlaceType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.RoutePlaceType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.RoutePlaceType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutePlaceType.yml\" sourcestartlinenumber=\"1\">Type of place along a route.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutingError.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.RoutingError.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.RoutingError",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutingError.yml\" sourcestartlinenumber=\"1\">Route calculation error codes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutingOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.RoutingOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.RoutingOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutingOptions.yml\" sourcestartlinenumber=\"1\">Options for route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutingResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.RoutingResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.RoutingResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.RoutingResult.yml\" sourcestartlinenumber=\"1\">Result of a route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Section.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Section.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Section",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Section.yml\" sourcestartlinenumber=\"1\">A section of a route between two waypoints.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.SectionNotice.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.SectionNotice.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.SectionNotice",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.SectionNotice.yml\" sourcestartlinenumber=\"1\">A notice/warning for a route section.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.SectionNoticeCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.SectionNoticeCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.SectionNoticeCode",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.SectionNoticeCode.yml\" sourcestartlinenumber=\"1\">Section notice codes indicating road features or restrictions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.SectionTransportMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.SectionTransportMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.SectionTransportMode",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.SectionTransportMode.yml\" sourcestartlinenumber=\"1\">Transport mode for a route section.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Signpost.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Signpost.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Signpost",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Signpost.yml\" sourcestartlinenumber=\"1\">Road signpost information at a maneuver point.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Span.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Span.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Span",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Span.yml\" sourcestartlinenumber=\"1\">A span within a route section (smallest unit between two geometry points).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Toll.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Toll.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Toll",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Toll.yml\" sourcestartlinenumber=\"1\">Toll information for a route or section.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficIncidentOnRoute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TrafficIncidentOnRoute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TrafficIncidentOnRoute",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficIncidentOnRoute.yml\" sourcestartlinenumber=\"1\">A traffic incident on a specific route.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnRoute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TrafficOnRoute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TrafficOnRoute",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnRoute.yml\" sourcestartlinenumber=\"1\">Traffic information along a route, as calculated by\n<code>GetTrafficOnRouteAsync</code>. Information for the already-traveled\nportion of the route is omitted.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TrafficOnRouteResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnRouteResult.yml\" sourcestartlinenumber=\"1\">Result of a traffic-along-route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnSection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TrafficOnSection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TrafficOnSection",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnSection.yml\" sourcestartlinenumber=\"1\">A route section with real-time traffic data: geometry, traffic spans,\nand incidents. Mirrors the SDK's <code>TrafficOnSection</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnSpan.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TrafficOnSpan.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TrafficOnSpan",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TrafficOnSpan.yml\" sourcestartlinenumber=\"1\">A traffic span along a route section: traffic conditions for a\nportion of the section geometry. Mirrors the SDK's <code>TrafficOnSpan</code>.\n<code class=\"paramref\">GeometryOffset</code> is the index into\n<xref href=\"Here.Explore.Maui.Models.Routing.TrafficOnSection.Geometry\" data-throw-if-not-resolved=\"false\"></xref> where this span starts.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TransportSpecification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TransportSpecification.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TransportSpecification",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TransportSpecification.yml\" sourcestartlinenumber=\"1\">Transport mode and vehicle specification for route calculation.\nUse factory methods (<xref href=\"Here.Explore.Maui.Models.Routing.TransportSpecification.ForCar(Here.Explore.Maui.Models.Routing.CarSpecifications)\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Here.Explore.Maui.Models.Routing.TransportSpecification.ForTruck(Here.Explore.Maui.Models.Routing.TruckSpecifications)\" data-throw-if-not-resolved=\"false\"></xref>, etc.) to construct.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TruckSpecifications.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TruckSpecifications.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TruckSpecifications",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TruckSpecifications.yml\" sourcestartlinenumber=\"1\">Truck vehicle specifications for route calculation.\nDefaults follow typical medium truck dimensions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TruckType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TruckType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TruckType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TruckType.yml\" sourcestartlinenumber=\"1\">Type of truck (affects routing restrictions).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.TruckVehicleSpecifications.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.TruckVehicleSpecifications.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.TruckVehicleSpecifications",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.TruckVehicleSpecifications.yml\" sourcestartlinenumber=\"1\">Truck vehicle specification applied when\n<xref href=\"Here.Explore.Maui.Models.Routing.RoutingOptions.TransportMode\" data-throw-if-not-resolved=\"false\"></xref> is\n<xref href=\"Here.Explore.Maui.Models.Routing.SectionTransportMode.Truck\" data-throw-if-not-resolved=\"false\"></xref>. Fields left <code>null</code> fall\nback to the HERE SDK defaults. Mirrors the SDK's\n<code>VehicleSpecification.TruckBuilder</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.Waypoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.Waypoint.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.Waypoint",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.Waypoint.yml\" sourcestartlinenumber=\"1\">A waypoint used in route calculation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.WaypointType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.WaypointType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing.WaypointType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Routing.WaypointType.yml\" sourcestartlinenumber=\"1\">Type of waypoint in a route.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Routing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Routing.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Routing",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.Address.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.Address.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.Address",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.Address.yml\" sourcestartlinenumber=\"1\">Address information.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.AddressQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.AddressQuery.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.AddressQuery",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.AddressQuery.yml\" sourcestartlinenumber=\"1\">An address-based search (forward geocoding) query, e.g.\n&quot;Invalidenstraße 116, Berlin&quot;. Excludes POI names — use\n<xref href=\"Here.Explore.Maui.Models.Search.TextQuery\" data-throw-if-not-resolved=\"false\"></xref> when a POI name is included. When\n<xref href=\"Here.Explore.Maui.Models.Search.AddressQuery.AreaCenter\" data-throw-if-not-resolved=\"false\"></xref> is null the query is unbiased.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.CategoryQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.CategoryQuery.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.CategoryQuery",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.CategoryQuery.yml\" sourcestartlinenumber=\"1\">A category-based search query. Note: when <xref href=\"Here.Explore.Maui.Models.Search.CategoryQuery.AreaCenter\" data-throw-if-not-resolved=\"false\"></xref> is null\nthe underlying SDK still requires an area center on both platforms, so\nresults are biased toward (0, 0) — pass a center for location-relevant results.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.Contact.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.Contact.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.Contact",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.Contact.yml\" sourcestartlinenumber=\"1\">Contact information for a place.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.OpeningHours.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.OpeningHours.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.OpeningHours",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.OpeningHours.yml\" sourcestartlinenumber=\"1\">Opening hours for a place.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.Place.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.Place.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.Place",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.Place.yml\" sourcestartlinenumber=\"1\">A place (POI) returned by search.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.PlaceCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.PlaceCategory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.PlaceCategory",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.PlaceCategory.yml\" sourcestartlinenumber=\"1\">Place category information.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchError.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.SearchError.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.SearchError",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchError.yml\" sourcestartlinenumber=\"1\">Search error codes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchLanguage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.SearchLanguage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.SearchLanguage",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchLanguage.yml\" sourcestartlinenumber=\"1\">Language for search results.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.SearchOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.SearchOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchOptions.yml\" sourcestartlinenumber=\"1\">Options for search queries.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.SearchResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.SearchResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.SearchResult.yml\" sourcestartlinenumber=\"1\">Result of a search query.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.SuggestResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.SuggestResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.SuggestResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.SuggestResult.yml\" sourcestartlinenumber=\"1\">Result of an auto-suggest query.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.Suggestion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.Suggestion.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.Suggestion",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.Suggestion.yml\" sourcestartlinenumber=\"1\">A search suggestion (autocomplete).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.SuggestionType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.SuggestionType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.SuggestionType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.SuggestionType.yml\" sourcestartlinenumber=\"1\">Type of search suggestion.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.TextQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.TextQuery.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.TextQuery",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.TextQuery.yml\" sourcestartlinenumber=\"1\">A text-based search query. Note: when <xref href=\"Here.Explore.Maui.Models.Search.TextQuery.AreaCenter\" data-throw-if-not-resolved=\"false\"></xref> is null the\nunderlying SDK still requires an area center on both platforms, so results\nare biased toward (0, 0) — pass a center for location-relevant results.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.TimeRange.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.TimeRange.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search.TimeRange",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Search.TimeRange.yml\" sourcestartlinenumber=\"1\">A time range for opening hours.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Search.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Search.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Search",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Size2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Size2D.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Size2D",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Size2D.yml\" sourcestartlinenumber=\"1\">2D size with width and height.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficFlow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficFlow.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficFlow",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficFlow.yml\" sourcestartlinenumber=\"1\">Traffic flow information for a road segment.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficFlowQueryOptions.yml\" sourcestartlinenumber=\"1\">Options for traffic flow queries.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficFlowResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficFlowResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficFlowResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficFlowResult.yml\" sourcestartlinenumber=\"1\">Result of a traffic flow query.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncident.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficIncident.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficIncident",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncident.yml\" sourcestartlinenumber=\"1\">A traffic incident.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentImpact.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficIncidentImpact.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficIncidentImpact",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentImpact.yml\" sourcestartlinenumber=\"1\">Impact severity of a traffic incident.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentLookupOptions.yml\" sourcestartlinenumber=\"1\">Options for traffic incident lookup.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficIncidentType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficIncidentType",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentType.yml\" sourcestartlinenumber=\"1\">Type of traffic incident.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentsQueryOptions.yml\" sourcestartlinenumber=\"1\">Options for traffic incidents queries.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficIncidentsResult.yml\" sourcestartlinenumber=\"1\">Result of a traffic incidents query.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficQueryError.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.TrafficQueryError.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic.TrafficQueryError",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.Traffic.TrafficQueryError.yml\" sourcestartlinenumber=\"1\">Traffic query error codes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.Traffic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.Traffic.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.Traffic",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.UnitSystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.UnitSystem.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models.UnitSystem",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Models.UnitSystem.yml\" sourcestartlinenumber=\"1\">Unit system for measurements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Models.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Models",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.SdkInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.SdkInfo.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.SdkInfo",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.SdkInfo.yml\" sourcestartlinenumber=\"1\">Provides SDK version and build information.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.IHereSdkService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.IHereSdkService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.IHereSdkService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.IHereSdkService.yml\" sourcestartlinenumber=\"1\">Base interface for HERE SDK services. All services that wrap\nnative SDK engines should implement IDisposable to release\nnative resources.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.ILocationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.ILocationService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.ILocationService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.ILocationService.yml\" sourcestartlinenumber=\"1\">Service for retrieving the device location.\nUses Microsoft.Maui.Devices.Sensors.Geolocation as the primary source\n(HERE SDK positioning is not yet exposed in the iOS NativeBridge).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.IMapService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.IMapService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.IMapService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.IMapService.yml\" sourcestartlinenumber=\"1\">Service for interacting with the map (camera, scene, markers, picking).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.IRoutingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.IRoutingService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.IRoutingService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.IRoutingService.yml\" sourcestartlinenumber=\"1\">Service for route calculation and management.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.ISearchService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.ISearchService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.ISearchService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.ISearchService.yml\" sourcestartlinenumber=\"1\">Service for place search and discovery.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.ITrafficService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.ITrafficService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.ITrafficService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.ITrafficService.yml\" sourcestartlinenumber=\"1\">Service for real-time traffic information.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.LocationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.LocationService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.LocationService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.LocationService.yml\" sourcestartlinenumber=\"1\">Android-specific LocationService implementation using Microsoft.Maui.Devices.Sensors.Geolocation.\nAlso supports HERE SDK LocationIndicator for on-map visualization.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.MapService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.MapService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"1\">Android-specific MapService implementation using HERE SDK Android bindings.\nKey API differences from assumed signatures:</p>\n<ul sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"3\">\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"3\">Map item add/remove methods are on MapScene (not MapView)</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"4\">Method names use lowercase 'd': AddMapMarker3d, RemoveMapMarker3d</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"5\">Camera: LookAt() directly (not Update()), GetState() for state</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"6\">GeoCoordinatesUpdate takes Java.Lang.Double (not double)</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"7\">Core.Color uses (float green, float alpha, float red, float blue)</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"8\">MapPolyline.SolidRepresentation is MapPolylineSolidRepresentation</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"9\">MapScheme is a Java enum with static properties</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"10\">SDKNativeEngine: MakeSharedInstance(context, options), SharedInstance property</li>\n<li sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.MapService.yml\" sourcestartlinenumber=\"11\">SDKOptions takes AuthenticationMode in constructor</li>\n</ul>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.RoutingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.RoutingService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.RoutingService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.RoutingService.yml\" sourcestartlinenumber=\"1\">Android-specific RoutingService implementation using HERE SDK Android bindings.\nUses RoutingEngine.CalculateRoute() with RoutingOptions (unified, not deprecated per-transport overloads).\nUses IsolineRoutingEngine.CalculateIsoline() with Waypoint center point.\nJava enum comparisons use if/else if since Java.Lang.Enum can't be used in C# switch.\nDuration type is Com.Here.Time.HereDuration with .Seconds property.\nManeuverAction uses PascalCase: LeftTurn, RightTurn, SharpLeftTurn, LeftUTurn, etc.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.SearchService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.SearchService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.SearchService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.SearchService.yml\" sourcestartlinenumber=\"1\">Android-specific SearchService implementation using HERE SDK Android bindings.\nUses SearchEngine.SearchByText() (SearchCompletedHandler) for text search,\nSearchByCategory() for category search, and SuggestByText() (SuggestCompletedHandler) for auto-suggest.\nJava enum comparisons use if/else if since Java.Lang.Enum can't be used in C# switch.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.TrafficService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.TrafficService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services.TrafficService",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/Here.Explore.Maui.Services.TrafficService.yml\" sourcestartlinenumber=\"1\">Android-specific TrafficService implementation.\nBinding callback interfaces are renamed: TrafficFlowQueryHandler, TrafficIncidentsQueryHandler,\nTrafficIncidentLookupHandler (Metadata.xml renames Callback → Handler).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.Services.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui.Services",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/Here.Explore.Maui.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Here.Explore.Maui.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Here.Explore.Maui",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/HereSdk.Explore.Maui.Resource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/HereSdk.Explore.Maui.Resource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "HereSdk.Explore.Maui.Resource",
+      "Summary": "<p sourcefile=\"artifacts/docs/api/HereSdk.Explore.Maui.Resource.yml\" sourcestartlinenumber=\"1\">Android Resource Designer class.\nExposes the Android Resource designer assembly into the project Namespace.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "artifacts/docs/api/HereSdk.Explore.Maui.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/HereSdk.Explore.Maui.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "HereSdk.Explore.Maui",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "artifacts/docs/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/architecture.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/architecture.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/how-to-draw.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/how-to-draw.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/how-to-route.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/how-to-route.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/how-to-search.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/how-to-search.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/how-to-traffic.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/how-to-traffic.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/initialization.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/initialization.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/map-objects.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/map-objects.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platform-differences.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platform-differences.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/services.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/services.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

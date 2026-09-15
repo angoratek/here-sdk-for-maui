@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IMapService | HERE SDK for MAUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IMapService | HERE SDK for MAUI ">
+      
+      <meta name="description" content="Service for interacting with the map (camera, scene, markers, picking).">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/angoratek/here-sdk-for-maui/new/main/apiSpec/new?filename=Here_Explore_Maui_Services_IMapService.md&amp;value=---%0Auid%3A%20Here.Explore.Maui.Services.IMapService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Here.Explore.Maui.Services.IMapService">
+
+
+
+  <h1 id="Here_Explore_Maui_Services_IMapService" data-uid="Here.Explore.Maui.Services.IMapService" class="text-break">
+Interface IMapService  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Here.html">Here</a>.<a class="xref" href="Here.Explore.html">Explore</a>.<a class="xref" href="Here.Explore.Maui.html">Maui</a>.<a class="xref" href="Here.Explore.Maui.Services.html">Services</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>HereSdk.Explore.Maui.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Service for interacting with the map (camera, scene, markers, picking).</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IMapService : IHereSdkService, IDisposable</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">IDisposable.Dispose()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_Bearing_" data-uid="Here.Explore.Maui.Services.IMapService.Bearing*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_Bearing" data-uid="Here.Explore.Maui.Services.IMapService.Bearing">
+  Bearing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the current camera bearing in degrees (0–360, clockwise from north).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">double Bearing { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_CurrentScheme_" data-uid="Here.Explore.Maui.Services.IMapService.CurrentScheme*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_CurrentScheme" data-uid="Here.Explore.Maui.Services.IMapService.CurrentScheme">
+  CurrentScheme
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the currently loaded map scheme.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MapScheme CurrentScheme { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Here.Explore.Maui.Models.Maps.MapScheme.html">MapScheme</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_Tilt_" data-uid="Here.Explore.Maui.Services.IMapService.Tilt*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_Tilt" data-uid="Here.Explore.Maui.Services.IMapService.Tilt">
+  Tilt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the current camera tilt in degrees (0–90, where 0 is top-down).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">double Tilt { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_ZoomLevel_" data-uid="Here.Explore.Maui.Services.IMapService.ZoomLevel*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_ZoomLevel" data-uid="Here.Explore.Maui.Services.IMapService.ZoomLevel">
+  ZoomLevel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the current camera zoom level.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">double ZoomLevel { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddLocationIndicator_" data-uid="Here.Explore.Maui.Services.IMapService.AddLocationIndicator*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddLocationIndicator_Here_Explore_Maui_Models_Maps_LocationIndicator_" data-uid="Here.Explore.Maui.Services.IMapService.AddLocationIndicator(Here.Explore.Maui.Models.Maps.LocationIndicator)">
+  AddLocationIndicator(LocationIndicator)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a location indicator (user location puck) to the map (Android only).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddLocationIndicator(LocationIndicator indicator)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>indicator</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.LocationIndicator.html">LocationIndicator</a></dt>
+    <dd><p>The location indicator configuration.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapArrow_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapArrow*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapArrow_Here_Explore_Maui_Models_Maps_MapArrow_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapArrow(Here.Explore.Maui.Models.Maps.MapArrow)">
+  AddMapArrow(MapArrow)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a directional arrow overlay on the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapArrow(MapArrow arrow)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>arrow</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapArrow.html">MapArrow</a></dt>
+    <dd><p>The arrow to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapCircle_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapCircle*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapCircle_Here_Explore_Maui_Models_Maps_MapCircle_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapCircle(Here.Explore.Maui.Models.Maps.MapCircle)">
+  AddMapCircle(MapCircle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a circle overlay on the map (approximated as a polygon).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapCircle(MapCircle circle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>circle</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapCircle.html">MapCircle</a></dt>
+    <dd><p>The circle to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapMarker_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapMarker*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapMarker_Here_Explore_Maui_Models_Maps_MapMarker_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapMarker(Here.Explore.Maui.Models.Maps.MapMarker)">
+  AddMapMarker(MapMarker)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a map marker at the specified coordinates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapMarker(MapMarker marker)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>marker</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarker.html">MapMarker</a></dt>
+    <dd><p>The map marker to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapMarker3D_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapMarker3D*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapMarker3D_Here_Explore_Maui_Models_Maps_MapMarker3D_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapMarker3D(Here.Explore.Maui.Models.Maps.MapMarker3D)">
+  AddMapMarker3D(MapMarker3D)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a 3D map marker (billboard or model-based).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapMarker3D(MapMarker3D marker)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>marker</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarker3D.html">MapMarker3D</a></dt>
+    <dd><p>The 3D marker to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapMarkerCluster_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapMarkerCluster*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapMarkerCluster_Here_Explore_Maui_Models_Maps_MapMarkerCluster_System_Collections_Generic_IEnumerable_Here_Explore_Maui_Models_Maps_MapMarker__" data-uid="Here.Explore.Maui.Services.IMapService.AddMapMarkerCluster(Here.Explore.Maui.Models.Maps.MapMarkerCluster,System.Collections.Generic.IEnumerable{Here.Explore.Maui.Models.Maps.MapMarker})">
+  AddMapMarkerCluster(MapMarkerCluster, IEnumerable&lt;MapMarker&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds marker clustering to group nearby markers (Android only).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapMarkerCluster(MapMarkerCluster cluster, IEnumerable&lt;MapMarker&gt; markers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cluster</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarkerCluster.html">MapMarkerCluster</a></dt>
+    <dd><p>The clustering configuration.</p>
+</dd>
+    <dt><code>markers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarker.html">MapMarker</a>&gt;</dt>
+    <dd><p>The markers to cluster.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapPolygon_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapPolygon*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapPolygon_Here_Explore_Maui_Models_Maps_MapPolygon_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapPolygon(Here.Explore.Maui.Models.Maps.MapPolygon)">
+  AddMapPolygon(MapPolygon)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a polygon overlay on the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapPolygon(MapPolygon polygon)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>polygon</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapPolygon.html">MapPolygon</a></dt>
+    <dd><p>The polygon to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AddMapPolyline_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapPolyline*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AddMapPolyline_Here_Explore_Maui_Models_Maps_MapPolyline_" data-uid="Here.Explore.Maui.Services.IMapService.AddMapPolyline(Here.Explore.Maui.Models.Maps.MapPolyline)">
+  AddMapPolyline(MapPolyline)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a polyline overlay on the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddMapPolyline(MapPolyline polyline)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>polyline</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapPolyline.html">MapPolyline</a></dt>
+    <dd><p>The polyline to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_AnimateCameraAsync_" data-uid="Here.Explore.Maui.Services.IMapService.AnimateCameraAsync*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_AnimateCameraAsync_Here_Explore_Maui_Models_Maps_CameraAnimation_" data-uid="Here.Explore.Maui.Services.IMapService.AnimateCameraAsync(Here.Explore.Maui.Models.Maps.CameraAnimation)">
+  AnimateCameraAsync(CameraAnimation)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Animates the camera to the specified target with optional zoom, bearing, and tilt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task AnimateCameraAsync(CameraAnimation animation)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>animation</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.CameraAnimation.html">CameraAnimation</a></dt>
+    <dd><p>Camera animation parameters including target, duration, and optional overrides.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_ClearAllMapItems_" data-uid="Here.Explore.Maui.Services.IMapService.ClearAllMapItems*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_ClearAllMapItems" data-uid="Here.Explore.Maui.Services.IMapService.ClearAllMapItems">
+  ClearAllMapItems()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all map items (markers, polylines, polygons, arrows).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ClearAllMapItems()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_GetCameraTargetAsync_" data-uid="Here.Explore.Maui.Services.IMapService.GetCameraTargetAsync*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_GetCameraTargetAsync" data-uid="Here.Explore.Maui.Services.IMapService.GetCameraTargetAsync">
+  GetCameraTargetAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the current camera target coordinates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;GeoCoordinates&gt; GetCameraTargetAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.GeoCoordinates.html">GeoCoordinates</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_LoadSceneAsync_" data-uid="Here.Explore.Maui.Services.IMapService.LoadSceneAsync*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_LoadSceneAsync_Here_Explore_Maui_Models_Maps_MapScheme_" data-uid="Here.Explore.Maui.Services.IMapService.LoadSceneAsync(Here.Explore.Maui.Models.Maps.MapScheme)">
+  LoadSceneAsync(MapScheme)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loads a map scene with the specified visual scheme.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task LoadSceneAsync(MapScheme scheme)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>scheme</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapScheme.html">MapScheme</a></dt>
+    <dd><p>The map scheme to load (e.g., NormalDay, NormalNight).</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_PickAsync_" data-uid="Here.Explore.Maui.Services.IMapService.PickAsync*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_PickAsync_Here_Explore_Maui_Models_Point2D_" data-uid="Here.Explore.Maui.Services.IMapService.PickAsync(Here.Explore.Maui.Models.Point2D)">
+  PickAsync(Point2D)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Picks map items at the specified screen coordinate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;MapPickResult?&gt; PickAsync(Point2D screenPoint)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>screenPoint</code> <a class="xref" href="Here.Explore.Maui.Models.Point2D.html">Point2D</a></dt>
+    <dd><p>The screen coordinate to pick at.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.MapPickResult.html">MapPickResult</a>&gt;</dt>
+    <dd><p>The pick result, or null if nothing was found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveLocationIndicator_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveLocationIndicator*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveLocationIndicator" data-uid="Here.Explore.Maui.Services.IMapService.RemoveLocationIndicator">
+  RemoveLocationIndicator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the location indicator from the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveLocationIndicator()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapArrow_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapArrow*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapArrow_Here_Explore_Maui_Models_Maps_MapArrow_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapArrow(Here.Explore.Maui.Models.Maps.MapArrow)">
+  RemoveMapArrow(MapArrow)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously added arrow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapArrow(MapArrow arrow)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>arrow</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapArrow.html">MapArrow</a></dt>
+    <dd><p>The arrow to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapCircle_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapCircle*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapCircle_Here_Explore_Maui_Models_Maps_MapCircle_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapCircle(Here.Explore.Maui.Models.Maps.MapCircle)">
+  RemoveMapCircle(MapCircle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously added circle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapCircle(MapCircle circle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>circle</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapCircle.html">MapCircle</a></dt>
+    <dd><p>The circle to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapMarker_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapMarker*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapMarker_Here_Explore_Maui_Models_Maps_MapMarker_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapMarker(Here.Explore.Maui.Models.Maps.MapMarker)">
+  RemoveMapMarker(MapMarker)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously added map marker.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapMarker(MapMarker marker)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>marker</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarker.html">MapMarker</a></dt>
+    <dd><p>The map marker to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapMarker3D_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapMarker3D*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapMarker3D_Here_Explore_Maui_Models_Maps_MapMarker3D_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapMarker3D(Here.Explore.Maui.Models.Maps.MapMarker3D)">
+  RemoveMapMarker3D(MapMarker3D)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously added 3D marker.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapMarker3D(MapMarker3D marker)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>marker</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarker3D.html">MapMarker3D</a></dt>
+    <dd><p>The 3D marker to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapMarkerCluster_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapMarkerCluster*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapMarkerCluster_Here_Explore_Maui_Models_Maps_MapMarkerCluster_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapMarkerCluster(Here.Explore.Maui.Models.Maps.MapMarkerCluster)">
+  RemoveMapMarkerCluster(MapMarkerCluster)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes marker clustering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapMarkerCluster(MapMarkerCluster cluster)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cluster</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapMarkerCluster.html">MapMarkerCluster</a></dt>
+    <dd><p>The clustering configuration to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapPolygon_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapPolygon*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapPolygon_Here_Explore_Maui_Models_Maps_MapPolygon_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapPolygon(Here.Explore.Maui.Models.Maps.MapPolygon)">
+  RemoveMapPolygon(MapPolygon)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously added polygon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapPolygon(MapPolygon polygon)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>polygon</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapPolygon.html">MapPolygon</a></dt>
+    <dd><p>The polygon to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_RemoveMapPolyline_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapPolyline*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_RemoveMapPolyline_Here_Explore_Maui_Models_Maps_MapPolyline_" data-uid="Here.Explore.Maui.Services.IMapService.RemoveMapPolyline(Here.Explore.Maui.Models.Maps.MapPolyline)">
+  RemoveMapPolyline(MapPolyline)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously added polyline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveMapPolyline(MapPolyline polyline)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>polyline</code> <a class="xref" href="Here.Explore.Maui.Models.Maps.MapPolyline.html">MapPolyline</a></dt>
+    <dd><p>The polyline to remove.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_SetCameraTargetAsync_" data-uid="Here.Explore.Maui.Services.IMapService.SetCameraTargetAsync*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_SetCameraTargetAsync_Here_Explore_Maui_Models_GeoCoordinates_System_Nullable_System_Double__" data-uid="Here.Explore.Maui.Services.IMapService.SetCameraTargetAsync(Here.Explore.Maui.Models.GeoCoordinates,System.Nullable{System.Double})">
+  SetCameraTargetAsync(GeoCoordinates, double?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the camera target to the specified coordinates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task SetCameraTargetAsync(GeoCoordinates target, double? zoomLevel = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>target</code> <a class="xref" href="Here.Explore.Maui.Models.GeoCoordinates.html">GeoCoordinates</a></dt>
+    <dd><p>The geographic coordinates to center the camera on.</p>
+</dd>
+    <dt><code>zoomLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>?</dt>
+    <dd><p>Optional zoom level (0–22+). Null keeps current zoom.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Here_Explore_Maui_Services_IMapService_UpdateLocationIndicator_" data-uid="Here.Explore.Maui.Services.IMapService.UpdateLocationIndicator*"></a>
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_UpdateLocationIndicator_Here_Explore_Maui_Models_GeoCoordinates_System_Nullable_System_Double__" data-uid="Here.Explore.Maui.Services.IMapService.UpdateLocationIndicator(Here.Explore.Maui.Models.GeoCoordinates,System.Nullable{System.Double})">
+  UpdateLocationIndicator(GeoCoordinates, double?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates the location indicator position and bearing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void UpdateLocationIndicator(GeoCoordinates location, double? bearing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>location</code> <a class="xref" href="Here.Explore.Maui.Models.GeoCoordinates.html">GeoCoordinates</a></dt>
+    <dd><p>The new location.</p>
+</dd>
+    <dt><code>bearing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>?</dt>
+    <dd><p>The new bearing in degrees.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_CameraStateChanged" data-uid="Here.Explore.Maui.Services.IMapService.CameraStateChanged">
+  CameraStateChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the camera position changes (move, zoom, rotate, or tilt).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;CameraStateChangedEventArgs&gt;? CameraStateChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.CameraStateChangedEventArgs.html">CameraStateChangedEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_MapDoubleTapped" data-uid="Here.Explore.Maui.Services.IMapService.MapDoubleTapped">
+  MapDoubleTapped
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the user double-taps on the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;MapTappedEventArgs&gt;? MapDoubleTapped</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.MapTappedEventArgs.html">MapTappedEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_MapIdle" data-uid="Here.Explore.Maui.Services.IMapService.MapIdle">
+  MapIdle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the map becomes idle (all rendering and loading complete).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler? MapIdle</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_MapLongPressed" data-uid="Here.Explore.Maui.Services.IMapService.MapLongPressed">
+  MapLongPressed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L102"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the user long-presses on the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;MapLongPressedEventArgs&gt;? MapLongPressed</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.MapLongPressedEventArgs.html">MapLongPressedEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_MapPinched" data-uid="Here.Explore.Maui.Services.IMapService.MapPinched">
+  MapPinched
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the user pinches the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;MapPinchedEventArgs&gt;? MapPinched</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.MapPinchedEventArgs.html">MapPinchedEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="Here_Explore_Maui_Services_IMapService_MapTapped" data-uid="Here.Explore.Maui.Services.IMapService.MapTapped">
+  MapTapped
+  <a class="header-action link-secondary" title="View source" href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the user taps on the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;MapTappedEventArgs&gt;? MapTapped</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Here.Explore.Maui.Models.Maps.MapTappedEventArgs.html">MapTappedEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/angoratek/here-sdk-for-maui/blob/main/src/HereSdk.Explore.Maui/Services/IMapService.cs/#L9" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          HERE SDK Explore Edition v4.25.5.0 for .NET MAUI — Cross-platform maps, routing, search, and traffic
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
